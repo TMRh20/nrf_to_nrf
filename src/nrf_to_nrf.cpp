@@ -141,6 +141,8 @@ bool nrf_to_nrf::begin(){
   NRF_RADIO->PACKETPTR = (uint32_t)radioData;
   NRF_RADIO->MODE      = (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos);
   NRF_RADIO->TXPOWER   = (0x8 << RADIO_TXPOWER_TXPOWER_Pos);
+  NRF_RADIO->SHORTS = 0;
+  
   NRF_RADIO->TASKS_RXEN = 1;                    /* Enable RADIO in RX mode*/
   while (!(NRF_RADIO->EVENTS_READY)) {}
   NRF_RADIO->TASKS_START = 1;
@@ -172,9 +174,10 @@ bool nrf_to_nrf::available(){
     uint8_t packetData = radioData[2];
     //If the packet has the same ID number and data, it is most likely a duplicate
     if(packetCtr == lastPacketCounter && packetData == lastData){
-        Serial.println("drop packet");
+        //Serial.println("drop packet");
         NRF_RADIO->TASKS_RXEN = 1;
         NRF_RADIO->TASKS_START = 1;
+        while (!(NRF_RADIO->EVENTS_READY)) {}
         return 0;
     }
     lastPacketCounter = packetCtr;
@@ -186,32 +189,44 @@ bool nrf_to_nrf::available(){
 
 void nrf_to_nrf::read(void* buf, uint8_t len){
   memcpy(buf,&radioData[2],len);
-  //Serial.println(
   NRF_RADIO->TASKS_RXEN = 1;
   NRF_RADIO->TASKS_START = 1;
-
+  while (!(NRF_RADIO->EVENTS_READY)) {}
 }
 
 bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast){
+  radioData[0] = len;
+  radioData[1] = 1;
   memcpy(&radioData[2],buf,len);
-  NRF_RADIO->TASKS_TXEN=1;
-  while (!(NRF_RADIO->EVENTS_READY)) {}
-  Serial.print("State: ");
-  Serial.println(NRF_RADIO->STATE);
-  while(NRF_RADIO->STATE != 10){}
-  
+  NRF_RADIO->EVENTS_PAYLOAD = 0;
   NRF_RADIO->TASKS_START = 1;
-  while (NRF_RADIO->EVENTS_END != 1U) {Serial.println(NRF_RADIO->STATE); delay(10); }
+  while(NRF_RADIO->EVENTS_PAYLOAD == 0){}
+  NRF_RADIO->EVENTS_PAYLOAD = 0;
   return 1;
 }
 
 void nrf_to_nrf::startListening(){
+  NRF_RADIO->EVENTS_DISABLED = 0;
+  NRF_RADIO->TASKS_DISABLE = 1;
+  while (NRF_RADIO->EVENTS_DISABLED == 0);
+  NRF_RADIO->EVENTS_DISABLED = 0;
+  NRF_RADIO-> EVENTS_RXREADY = 0;
   NRF_RADIO->TASKS_RXEN = 1;
+  while (NRF_RADIO->EVENTS_RXREADY == 0);
+  NRF_RADIO-> EVENTS_RXREADY = 0;
+  NRF_RADIO->EVENTS_CRCOK = 0;
   NRF_RADIO->TASKS_START = 1;
 }
 
 void nrf_to_nrf::stopListening(){
-  
+  NRF_RADIO->EVENTS_DISABLED = 0;
+  NRF_RADIO->TASKS_DISABLE = 1;
+  while (NRF_RADIO->EVENTS_DISABLED == 0);
+  NRF_RADIO->EVENTS_DISABLED = 0;
+  NRF_RADIO-> EVENTS_TXREADY = 0;
+  NRF_RADIO->TASKS_TXEN = 1;
+  while (NRF_RADIO->EVENTS_TXREADY == 0);
+  NRF_RADIO-> EVENTS_TXREADY = 0;
 }
 
 

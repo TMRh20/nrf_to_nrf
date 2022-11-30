@@ -22,7 +22,7 @@ bool begin();
 uint8_t sample_ed(void);
 bool available();
 void read(void* buf, uint8_t len);
-bool write(void* buf, uint8_t len, bool multicast);
+bool write(void* buf, uint8_t len, bool multicast = false);
 bool writeFast(const void* buf, uint8_t len, const bool multicast =0);
 void startListening();
 void stopListening();
