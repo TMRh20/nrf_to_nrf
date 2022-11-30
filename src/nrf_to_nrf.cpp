@@ -129,7 +129,7 @@ bool nrf_to_nrf::begin(){
   NRF_RADIO->BASE1 = 0x43434343;
   NRF_RADIO->PREFIX0 = 0x23C343E7;                    /* Prefixes bytes for logical addresses 0           */
   NRF_RADIO->PREFIX1 = 0x13E363A3;
-  NRF_RADIO->RXADDRESSES = 0x01;
+  NRF_RADIO->RXADDRESSES = 0x03;
   NRF_RADIO->TXADDRESS = 0x00; 
   /* Receive address select    */
   
@@ -196,7 +196,7 @@ void nrf_to_nrf::read(void* buf, uint8_t len){
 
 bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast){
   radioData[0] = len;
-  radioData[1] = 1;
+  radioData[1] = radioData[1] << 1;
   memcpy(&radioData[2],buf,len);
   NRF_RADIO->EVENTS_PAYLOAD = 0;
   NRF_RADIO->TASKS_START = 1;
@@ -224,6 +224,7 @@ void nrf_to_nrf::stopListening(){
   while (NRF_RADIO->EVENTS_DISABLED == 0);
   NRF_RADIO->EVENTS_DISABLED = 0;
   NRF_RADIO-> EVENTS_TXREADY = 0;
+  NRF_RADIO->TXADDRESS = 0x00;
   NRF_RADIO->TASKS_TXEN = 1;
   while (NRF_RADIO->EVENTS_TXREADY == 0);
   NRF_RADIO-> EVENTS_TXREADY = 0;
@@ -231,7 +232,7 @@ void nrf_to_nrf::stopListening(){
 
 
 uint8_t nrf_to_nrf::getDynamicPayloadSize(){
-  uint8_t size = radioData[0];
+  uint8_t size = min(32,radioData[0]);
   return size;
 }
 
@@ -251,10 +252,47 @@ void nrf_to_nrf::setChannel(uint8_t channel)
 
 void nrf_to_nrf::setAutoAck(bool enable){}
 void nrf_to_nrf::setAutoAck(uint8_t pipe, bool enable){}
-void nrf_to_nrf::enableDynamicPayloads(){}
+void nrf_to_nrf::enableDynamicPayloads(){
+    NRF_RADIO->PCNF0 = (0 << RADIO_PCNF0_S0LEN_Pos) |
+                       (6 << RADIO_PCNF0_LFLEN_Pos) |
+                       (3 << RADIO_PCNF0_S1LEN_Pos) ;
+
+    NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled    << RADIO_PCNF1_WHITEEN_Pos) |
+                       (RADIO_PCNF1_ENDIAN_Big          << RADIO_PCNF1_ENDIAN_Pos)  |
+                       (4                               << RADIO_PCNF1_BALEN_Pos)   |
+                       (0                               << RADIO_PCNF1_STATLEN_Pos) |
+                       (32                              << RADIO_PCNF1_MAXLEN_Pos);
+}
+void nrf_to_nrf::disableDynamicPayloads(){
+    NRF_RADIO->PCNF0 = (1 << RADIO_PCNF0_S0LEN_Pos) |
+                       (0 << RADIO_PCNF0_LFLEN_Pos) |
+                       (1 << RADIO_PCNF0_S1LEN_Pos) ;
+                       
+    NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled    << RADIO_PCNF1_WHITEEN_Pos) |
+                       (RADIO_PCNF1_ENDIAN_Big          << RADIO_PCNF1_ENDIAN_Pos)  |
+                       (4                               << RADIO_PCNF1_BALEN_Pos)   |
+                       (32                              << RADIO_PCNF1_STATLEN_Pos) |
+                       (32                              << RADIO_PCNF1_MAXLEN_Pos);
+}
+
+
+
+
 void nrf_to_nrf::setRetries(uint8_t retryVar, uint8_t attempts){}
-void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address){}
-void nrf_to_nrf::openWritingPipe(uint64_t address){}
+void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address){
+        
+}
+void nrf_to_nrf::openWritingPipe(uint64_t address){
+    uint32_t prefix = address & 0xFF;
+    uint32_t base = address >> 8;
+    base = bytewise_bitswap(base);
+    prefix = bytewise_bitswap(prefix);
+    NRF_RADIO->BASE0 = base;
+    NRF_RADIO->PREFIX0 &= 0xFFFFFF00;
+    NRF_RADIO->PREFIX0 |= prefix;    
+    NRF_RADIO->TXADDRESS = 0x00;    
+}
+
 bool nrf_to_nrf::txStandBy(){return 1;}
 bool nrf_to_nrf::txStandBy(uint32_t timeout, bool startTx){ return 1;}
 bool nrf_to_nrf::writeFast(const void* buf, uint8_t len, const bool multicast){

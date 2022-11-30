@@ -32,6 +32,7 @@ void setChannel(uint8_t channel);
 void setAutoAck(bool enable);
 void setAutoAck(uint8_t pipe, bool enable);
 void enableDynamicPayloads();
+void disableDynamicPayloads();
 void setRetries(uint8_t retryVar, uint8_t attempts);
 void openReadingPipe(uint8_t child, uint64_t address);
 void openWritingPipe(uint64_t address);
