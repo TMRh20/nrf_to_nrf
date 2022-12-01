@@ -5,40 +5,71 @@ nrf_to_nrf radio;
 static uint32_t                   packet;              /**< Packet to transmit. */
 
 
-
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  while (!Serial) {delay(10);}
+  while (!Serial) {delay(100);}
   radio.begin();
-  delay(5000);
+  delay(8000);
   radio.setChannel(7);
   radio.enableDynamicPayloads();
   radio.startListening();
+
   Serial.println("Radio NRF24L01 to NRF52840 begin");
+  Serial.println(NRF_RADIO->CRCCNF);
 }
 
 uint32_t timer = 0;
 bool rx = false;
+uint8_t pLength = 4;
+uint8_t pCounter = 1;
+uint8_t state = 0;
+uint8_t lastState = 0;
+bool txMode = 0;
+uint32_t txTimer = 0;
+
 
 void loop() {
 
-  if(radio.available()){
-    
-    // Attempting to send Auto-Ack
-    //delayMicroseconds(200);
-    //memset(&radio.radioData[2],0,32);
-    //NRF_RADIO->TASKS_RXEN=0;
-    //NRF_RADIO->TASKS_TXEN=1;
-    //while(NRF_RADIO->STATE == 11){}
+  state = NRF_RADIO->STATE;
+  if(state != lastState){
+    Serial.print("LState: ");
+    Serial.println(state);
+    lastState = state;
+  }
 
-    uint8_t length = radio.getDynamicPayloadSize();
-    Serial.println("Packet Length:");
+  if(millis() - txTimer > 1000){
+    txTimer = millis();
+    radio.stopListening();
+    float test = 43.34;
+    NRF_RADIO->TXADDRESS = 0x01;
+    NRF_RADIO->PACKETPTR = (uint32_t)radio.radioData;
+
+    radio.write(&test,sizeof(test));
+    radio.startListening();
+    Serial.println("tx");
+
+  }
+
+  if(radio.available()){
+    uint8_t length = min(32,radio.getDynamicPayloadSize());
+    Serial.println("P Len:");
     Serial.println(length);
-    float data = 0.0;
+    float data[8];
     radio.read(&data,length);
-    Serial.print("Received: ");
-    Serial.println(data);
+    Serial.print("Rx: ");
+    Serial.println(data[0]);
+    Serial.print("Pipe: ");
+    Serial.println(NRF_RADIO->RXMATCH);
+    Serial.println(radio.radioData[0]);
+    Serial.println(radio.radioData[1]);
+    radio.stopListening();
+    delayMicroseconds(25);
+    float buffer = 0;
+    NRF_RADIO->TXADDRESS = NRF_RADIO->RXMATCH;
+    radio.write(&buffer,0);
+    radio.startListening();
   }
 
 }
+

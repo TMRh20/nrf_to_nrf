@@ -144,7 +144,7 @@ bool nrf_to_nrf::begin(){
   NRF_RADIO->TXPOWER   = (0x8 << RADIO_TXPOWER_TXPOWER_Pos);
   NRF_RADIO->SHORTS = 0;
   
-  NRF_RADIO->TASKS_RXEN = 1;                    /* Enable RADIO in RX mode*/
+  NRF_RADIO->TASKS_TXEN = 1;                    /* Enable RADIO in RX mode*/
   while (!(NRF_RADIO->EVENTS_READY)) {}
   NRF_RADIO->TASKS_START = 1;
   return 1;
@@ -175,10 +175,11 @@ bool nrf_to_nrf::available(){
     uint8_t packetData = radioData[2];
     //If the packet has the same ID number and data, it is most likely a duplicate
     if(packetCtr == lastPacketCounter && packetData == lastData){
-        //Serial.println("drop packet");
-        NRF_RADIO->TASKS_RXEN = 1;
-        NRF_RADIO->TASKS_START = 1;
-        while (!(NRF_RADIO->EVENTS_READY)) {}
+        stopListening();
+        delayMicroseconds(25);
+        NRF_RADIO->TXADDRESS = NRF_RADIO->RXMATCH;
+        write(0, 0, 0); //Send an ACK
+        startListening();     
         return 0;
     }
     lastPacketCounter = packetCtr;
@@ -190,14 +191,12 @@ bool nrf_to_nrf::available(){
 
 void nrf_to_nrf::read(void* buf, uint8_t len){
   memcpy(buf,&radioData[2],len);
-  NRF_RADIO->TASKS_RXEN = 1;
   NRF_RADIO->TASKS_START = 1;
-  while (!(NRF_RADIO->EVENTS_READY)) {}
 }
 
 bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast){
-  radioData[0] = len;
-  radioData[1] = (radioData[1] + 1) % 8;
+  radioData[0] = 0; //len;
+  radioData[1] = ((radioData[1] + 1) % 4) << 1;
   memset(&radioData[2],0,32);
   memcpy(&radioData[2],buf,len);
   
@@ -228,7 +227,6 @@ void nrf_to_nrf::stopListening(){
   NRF_RADIO->EVENTS_DISABLED = 0;
 
   NRF_RADIO-> EVENTS_TXREADY = 0;
-  NRF_RADIO->TXADDRESS = 0x00;
   NRF_RADIO->TASKS_TXEN = 1;
   while (NRF_RADIO->EVENTS_TXREADY == 0);
   NRF_RADIO-> EVENTS_TXREADY = 0;
