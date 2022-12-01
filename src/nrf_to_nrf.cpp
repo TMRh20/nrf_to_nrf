@@ -293,8 +293,6 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address){
       base = bytewise_bitswap(base);
       prefix = bytewise_bitswap(prefix);
     if(!child){ //pipe0      
-      txBase = base; //Store the pipe0 base and prefix to set whenever we switch into TX mode
-      txPrefix = prefix;
       NRF_RADIO->BASE0 = base;
       NRF_RADIO->PREFIX0 &= 0xFFFFFF00;
       NRF_RADIO->PREFIX0 |= prefix;
