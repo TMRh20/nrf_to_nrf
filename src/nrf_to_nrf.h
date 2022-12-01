@@ -40,6 +40,9 @@ bool failureDetected;
 bool txStandBy();
 bool txStandBy(uint32_t timeout, bool startTx = 0);
 
+private:
+
+
 };
 
 #endif //__nrf52840_nrf24l01_H__

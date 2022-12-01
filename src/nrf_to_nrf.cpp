@@ -129,7 +129,7 @@ bool nrf_to_nrf::begin(){
   NRF_RADIO->BASE1 = 0x43434343;
   NRF_RADIO->PREFIX0 = 0x23C343E7;                    /* Prefixes bytes for logical addresses 0           */
   NRF_RADIO->PREFIX1 = 0x13E363A3;
-  NRF_RADIO->RXADDRESSES = 0x03;
+  NRF_RADIO->RXADDRESSES = 0x01;
   NRF_RADIO->TXADDRESS = 0x00; 
   /* Receive address select    */
   
@@ -140,6 +140,7 @@ bool nrf_to_nrf::begin(){
 
   NRF_RADIO->PACKETPTR = (uint32_t)radioData;
   NRF_RADIO->MODE      = (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos);
+  NRF_RADIO->MODECNF0  = 0x200;
   NRF_RADIO->TXPOWER   = (0x8 << RADIO_TXPOWER_TXPOWER_Pos);
   NRF_RADIO->SHORTS = 0;
   
@@ -196,12 +197,14 @@ void nrf_to_nrf::read(void* buf, uint8_t len){
 
 bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast){
   radioData[0] = len;
-  radioData[1] = radioData[1] << 1;
+  radioData[1] = (radioData[1] + 1) % 8;
+  memset(&radioData[2],0,32);
   memcpy(&radioData[2],buf,len);
-  NRF_RADIO->EVENTS_PAYLOAD = 0;
+  
+  NRF_RADIO->EVENTS_END = 0;
   NRF_RADIO->TASKS_START = 1;
-  while(NRF_RADIO->EVENTS_PAYLOAD == 0){}
-  NRF_RADIO->EVENTS_PAYLOAD = 0;
+  while(NRF_RADIO->EVENTS_END == 0){}
+  NRF_RADIO->EVENTS_END = 0;
   return 1;
 }
 
@@ -223,11 +226,15 @@ void nrf_to_nrf::stopListening(){
   NRF_RADIO->TASKS_DISABLE = 1;
   while (NRF_RADIO->EVENTS_DISABLED == 0);
   NRF_RADIO->EVENTS_DISABLED = 0;
+
   NRF_RADIO-> EVENTS_TXREADY = 0;
   NRF_RADIO->TXADDRESS = 0x00;
   NRF_RADIO->TASKS_TXEN = 1;
   while (NRF_RADIO->EVENTS_TXREADY == 0);
   NRF_RADIO-> EVENTS_TXREADY = 0;
+
+  
+  
 }
 
 
@@ -280,11 +287,33 @@ void nrf_to_nrf::disableDynamicPayloads(){
 
 void nrf_to_nrf::setRetries(uint8_t retryVar, uint8_t attempts){}
 void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address){
-        
+    
+      uint32_t base = address >> 8;
+      uint32_t prefix = address & 0xFF;
+      base = bytewise_bitswap(base);
+      prefix = bytewise_bitswap(prefix);
+    if(!child){ //pipe0      
+      txBase = base; //Store the pipe0 base and prefix to set whenever we switch into TX mode
+      txPrefix = prefix;
+      NRF_RADIO->BASE0 = base;
+      NRF_RADIO->PREFIX0 &= 0xFFFFFF00;
+      NRF_RADIO->PREFIX0 |= prefix;
+    }else
+    if(child < 4){//prefixes AP1-3 are in prefix0 
+      NRF_RADIO->BASE1 = base;
+      NRF_RADIO->PREFIX0 &= ~(0xFF << (8 * child));
+      NRF_RADIO->PREFIX0 |= prefix << (8 * child);   
+    }else{
+      NRF_RADIO->BASE1 = base;
+      NRF_RADIO->PREFIX1 &= ~(0xFF << (8 * (child - 4)));
+      NRF_RADIO->PREFIX1 |= prefix << (8 * (child - 4));  
+    }
+    NRF_RADIO->RXADDRESSES |= 1 << child;
+    
 }
 void nrf_to_nrf::openWritingPipe(uint64_t address){
-    uint32_t prefix = address & 0xFF;
     uint32_t base = address >> 8;
+    uint32_t prefix = address & 0xFF;
     base = bytewise_bitswap(base);
     prefix = bytewise_bitswap(prefix);
     NRF_RADIO->BASE0 = base;
