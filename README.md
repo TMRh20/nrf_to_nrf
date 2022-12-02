@@ -3,6 +3,4 @@
  
  To get the example working with NRF24l01+ the gettingstarted example must be modified as follows:
 
-1. Call radio.setChannel(7);
-2. Call radio.enableDynamicPayloads();
-3. Comment out the lines for openReadingPipe and openWritingPipe (it uses the default addresses)
+1. Call radio.enableDynamicPayloads();

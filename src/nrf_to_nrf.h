@@ -36,12 +36,20 @@ void disableDynamicPayloads();
 void setRetries(uint8_t retryVar, uint8_t attempts);
 void openReadingPipe(uint8_t child, uint64_t address);
 void openWritingPipe(uint64_t address);
+void openReadingPipe(uint8_t child, const uint8_t* address);
+void openWritingPipe(const uint8_t* address);
+
 bool failureDetected;
 bool txStandBy();
 bool txStandBy(uint32_t timeout, bool startTx = 0);
 
 private:
-
+bool acksEnabled(uint8_t pipe);
+bool acksPerPipe[8];
+bool retries = 5;
+bool retryDuration = 5;
+uint8_t rxBuffer[33];
+uint8_t rxFifoAvailable;
 
 };
 
