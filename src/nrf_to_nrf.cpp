@@ -90,6 +90,10 @@ nrf_to_nrf::nrf_to_nrf(){
     for(uint8_t i=0; i<8; i++){
       acksPerPipe[i] = true;
     }
+    staticPayloadSize = 32;
+    DPL = false;
+    retries = 5;
+    retryDuration = 5;
 };
 
 uint8_t bytes = 0;
@@ -117,9 +121,15 @@ bool nrf_to_nrf::begin(){
   NRF_RADIO->POWER = 1;
   NRF_POWER->DCDCEN=1;
   
-  NRF_RADIO->PCNF0 = 0x30006;
-
-  NRF_RADIO->PCNF1 = 0x1040020;
+  NRF_RADIO->PCNF0 = (1 << RADIO_PCNF0_S0LEN_Pos) |
+                     (0 << RADIO_PCNF0_LFLEN_Pos) |
+                     (1 << RADIO_PCNF0_S1LEN_Pos) ;
+                       
+  NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled    << RADIO_PCNF1_WHITEEN_Pos) |
+                     (RADIO_PCNF1_ENDIAN_Big          << RADIO_PCNF1_ENDIAN_Pos)  |
+                     (4                               << RADIO_PCNF1_BALEN_Pos)   |
+                     (staticPayloadSize               << RADIO_PCNF1_STATLEN_Pos) |
+                     (staticPayloadSize               << RADIO_PCNF1_MAXLEN_Pos);
   
   NRF_RADIO->BASE0 = 0xE7E7E7E7;                /* Base address 0                                   */
   NRF_RADIO->BASE1 = 0x43434343;
@@ -168,10 +178,17 @@ bool nrf_to_nrf::available(){
 
   if(NRF_RADIO->EVENTS_CRCOK){
     NRF_RADIO->EVENTS_CRCOK = 0;
+    
     memcpy(&rxBuffer[1],&radioData[2],32);
     rxBuffer[0] = radioData[0];
     rxFifoAvailable = true;
-    uint8_t packetCtr = radioData[1];    
+    uint8_t packetCtr = 0;
+    if(DPL){
+      packetCtr = radioData[1];
+    }else{
+      packetCtr = radioData[0];    
+    }
+    ackPID = packetCtr;
     uint8_t packetData = radioData[2];
     // If ack is enabled on this receiving pipe
     if( acksEnabled(NRF_RADIO->RXMATCH) ){
@@ -179,6 +196,8 @@ bool nrf_to_nrf::available(){
       delayMicroseconds(25);
       uint32_t txAddress = NRF_RADIO->TXADDRESS;
       NRF_RADIO->TXADDRESS = NRF_RADIO->RXMATCH;
+      //uint8_t myBuf[32];
+      //memcpy(myBuf, &radioData[2], 32);
       write(0, 0, 0); //Send an ACK
       NRF_RADIO->TXADDRESS = txAddress;
       startListening();   
@@ -201,22 +220,37 @@ void nrf_to_nrf::read(void* buf, uint8_t len){
 }
 
 bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast){
-  radioData[0] = len;
-  radioData[1] = ((radioData[1] + 1) % 4) << 1;
-  //radioData[1] |= 1;
+  
+  if(DPL){
+    radioData[0] = len;
+    radioData[1] = ((radioData[1] + 1) % 4) << 1;
+  }else{
+    radioData[1] = 4;// ackPID++;//((radioData[0] + 1) % 4) << 1;
+    radioData[0] = ackPID++;
+  }
+
+
+for(int i=0; i<retries; i++){
   memset(&radioData[2],0,32);
   memcpy(&radioData[2],buf,len);
+  //radioData[0] = ackPID++;
+    NRF_RADIO->EVENTS_END = 0;
+    NRF_RADIO->TASKS_START = 1;
+    while(NRF_RADIO->EVENTS_END == 0){}
+    NRF_RADIO->EVENTS_END = 0;
   
-  NRF_RADIO->EVENTS_END = 0;
-  NRF_RADIO->TASKS_START = 1;
-  while(NRF_RADIO->EVENTS_END == 0){}
-  NRF_RADIO->EVENTS_END = 0;
-  //startListening();
-  
-  
-  
-  
-  return 1;
+    startListening();  
+    uint32_t ack_timeout = micros();
+    while(! NRF_RADIO->EVENTS_CRCOK){ if(micros() - ack_timeout > 1500){break;}  }
+    if(NRF_RADIO->EVENTS_CRCOK){
+      NRF_RADIO->EVENTS_CRCOK = 0;
+      stopListening(false);
+      return 1;
+    }
+   delayMicroseconds(250); 
+   stopListening(false);
+}
+  return 0;
 }
 
 void nrf_to_nrf::startListening(){
@@ -232,12 +266,14 @@ void nrf_to_nrf::startListening(){
   NRF_RADIO->TASKS_START = 1;
 }
 
-void nrf_to_nrf::stopListening(){
+void nrf_to_nrf::stopListening(bool setWritingPipe){
   NRF_RADIO->EVENTS_DISABLED = 0;
   NRF_RADIO->TASKS_DISABLE = 1;
   while (NRF_RADIO->EVENTS_DISABLED == 0);
   NRF_RADIO->EVENTS_DISABLED = 0;
-  NRF_RADIO->TXADDRESS = 0x00;
+  if(setWritingPipe){
+    NRF_RADIO->TXADDRESS = 0x00;
+  }
   NRF_RADIO-> EVENTS_TXREADY = 0;
   NRF_RADIO->TASKS_TXEN = 1;
   while (NRF_RADIO->EVENTS_TXREADY == 0);
@@ -263,6 +299,7 @@ void nrf_to_nrf::setChannel(uint8_t channel)
 void nrf_to_nrf::setAutoAck(bool enable){}
 void nrf_to_nrf::setAutoAck(uint8_t pipe, bool enable){}
 void nrf_to_nrf::enableDynamicPayloads(){
+    DPL = true;
     NRF_RADIO->PCNF0 = (0 << RADIO_PCNF0_S0LEN_Pos) |
                        (6 << RADIO_PCNF0_LFLEN_Pos) |
                        (3 << RADIO_PCNF0_S1LEN_Pos) ;
@@ -274,6 +311,7 @@ void nrf_to_nrf::enableDynamicPayloads(){
                        (32                              << RADIO_PCNF1_MAXLEN_Pos);
 }
 void nrf_to_nrf::disableDynamicPayloads(){
+    DPL = false;
     NRF_RADIO->PCNF0 = (1 << RADIO_PCNF0_S0LEN_Pos) |
                        (0 << RADIO_PCNF0_LFLEN_Pos) |
                        (1 << RADIO_PCNF0_S1LEN_Pos) ;
@@ -281,12 +319,24 @@ void nrf_to_nrf::disableDynamicPayloads(){
     NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled    << RADIO_PCNF1_WHITEEN_Pos) |
                        (RADIO_PCNF1_ENDIAN_Big          << RADIO_PCNF1_ENDIAN_Pos)  |
                        (4                               << RADIO_PCNF1_BALEN_Pos)   |
-                       (32                              << RADIO_PCNF1_STATLEN_Pos) |
-                       (32                              << RADIO_PCNF1_MAXLEN_Pos);
+                       (staticPayloadSize               << RADIO_PCNF1_STATLEN_Pos) |
+                       (staticPayloadSize               << RADIO_PCNF1_MAXLEN_Pos);
 }
 
 
-
+void nrf_to_nrf::setPayloadSize(uint8_t size){
+    staticPayloadSize = size;
+    DPL = false;
+    NRF_RADIO->PCNF0 = (1 << RADIO_PCNF0_S0LEN_Pos) |
+                       (0 << RADIO_PCNF0_LFLEN_Pos) |
+                       (1 << RADIO_PCNF0_S1LEN_Pos) ;
+                       
+    NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled    << RADIO_PCNF1_WHITEEN_Pos) |
+                       (RADIO_PCNF1_ENDIAN_Big          << RADIO_PCNF1_ENDIAN_Pos)  |
+                       (4                               << RADIO_PCNF1_BALEN_Pos)   |
+                       (staticPayloadSize               << RADIO_PCNF1_STATLEN_Pos) |
+                       (staticPayloadSize               << RADIO_PCNF1_MAXLEN_Pos);
+}
 
 void nrf_to_nrf::setRetries(uint8_t retryVar, uint8_t attempts){}
 void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address){

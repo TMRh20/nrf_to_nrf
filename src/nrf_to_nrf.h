@@ -25,7 +25,7 @@ void read(void* buf, uint8_t len);
 bool write(void* buf, uint8_t len, bool multicast = false);
 bool writeFast(const void* buf, uint8_t len, const bool multicast =0);
 void startListening();
-void stopListening();
+void stopListening(bool setWritingPipe = true);
 uint8_t getDynamicPayloadSize();
 bool isValid();
 void setChannel(uint8_t channel);
@@ -33,6 +33,8 @@ void setAutoAck(bool enable);
 void setAutoAck(uint8_t pipe, bool enable);
 void enableDynamicPayloads();
 void disableDynamicPayloads();
+void setPayloadSize(uint8_t size);
+
 void setRetries(uint8_t retryVar, uint8_t attempts);
 void openReadingPipe(uint8_t child, uint64_t address);
 void openWritingPipe(uint64_t address);
@@ -46,11 +48,13 @@ bool txStandBy(uint32_t timeout, bool startTx = 0);
 private:
 bool acksEnabled(uint8_t pipe);
 bool acksPerPipe[8];
-bool retries = 5;
-bool retryDuration = 5;
+uint8_t retries;
+uint8_t retryDuration;
 uint8_t rxBuffer[33];
 uint8_t rxFifoAvailable;
-
+bool DPL;
+uint8_t staticPayloadSize;
+uint8_t ackPID;
 };
 
 #endif //__nrf52840_nrf24l01_H__
