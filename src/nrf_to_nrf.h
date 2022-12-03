@@ -105,8 +105,8 @@ bool write(void* buf, uint8_t len, bool multicast = false);
 bool writeFast(const void* buf, uint8_t len, const bool multicast =0);
 bool writeAckPayload(uint8_t pipe, const void* buf, uint8_t len);
 void enableAckPayload();
-void startListening();
-void stopListening(bool setWritingPipe = true);
+void startListening(bool resetAddresses = true);
+void stopListening(bool setWritingPipe = true, bool resetAddresses = true);
 uint8_t getDynamicPayloadSize();
 bool isValid();
 bool isChipConnected();
@@ -150,6 +150,7 @@ uint32_t rxBase;
 uint32_t rxPrefix;
 uint32_t txBase;
 uint32_t txPrefix;
+bool radioConfigured;
 };
 
 #endif //__nrf52840_nrf24l01_H__

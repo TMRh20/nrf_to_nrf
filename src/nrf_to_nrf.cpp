@@ -62,13 +62,13 @@ static uint32_t addr_conv(uint8_t const* p_addr)
 }
 
 static uint32_t addrConv32( uint32_t addr ){
-    
+
     uint8_t buffer[4];
     buffer[0] = addr & 0xFF;
     buffer[1] = (addr >> 8) & 0xFF;
     buffer[2] = (addr >> 16) & 0xFF;
     buffer[3] = (addr >> 24) & 0xFF;
-    
+
     return addr_conv(buffer);
 }
 
@@ -108,13 +108,15 @@ nrf_to_nrf::nrf_to_nrf(){
     ackPayloadsEnabled = false;
     ackPipe = 0;
     inRxMode = false;
+    radioConfigured = false;
 };
 
 uint8_t bytes = 0;
 
-
 bool nrf_to_nrf::begin(){
 
+  if(radioConfigured){ return 1; }
+      
   NRF_CLOCK->EVENTS_HFCLKSTARTED = 0;
     NRF_CLOCK->TASKS_HFCLKSTART    = 1;
 
@@ -134,7 +136,7 @@ bool nrf_to_nrf::begin(){
     }
 
   NRF_RADIO->POWER = 1;
-  //NRF_POWER->DCDCEN=1;
+  NRF_POWER->DCDCEN=1;
   
   NRF_RADIO->PCNF0 = (1 << RADIO_PCNF0_S0LEN_Pos) |
                      (0 << RADIO_PCNF0_LFLEN_Pos) |
@@ -150,11 +152,6 @@ bool nrf_to_nrf::begin(){
   NRF_RADIO->BASE1 = 0x43434343;
   NRF_RADIO->PREFIX0 = 0x23C343E7;                    /* Prefixes bytes for logical addresses 0           */
   NRF_RADIO->PREFIX1 = 0x13E363A3;
-  txBase = NRF_RADIO->BASE0;
-  txPrefix = NRF_RADIO->PREFIX0;
-  rxBase = NRF_RADIO->BASE0;
-  rxPrefix = NRF_RADIO->PREFIX0;
-  
   NRF_RADIO->RXADDRESSES = 0x01;
   NRF_RADIO->TXADDRESS = 0x00; 
   /* Receive address select    */
@@ -167,18 +164,17 @@ bool nrf_to_nrf::begin(){
   NRF_RADIO->PACKETPTR = (uint32_t)radioData;
   NRF_RADIO->MODE      = (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos);
   NRF_RADIO->MODECNF0  = 0x200;
-  NRF_RADIO->MODECNF0 |= 0x01;
-  NRF_RADIO->TXPOWER   = 0x8;
-  NRF_RADIO->SHORTS = 0;//1 << 19;
+  NRF_RADIO->TXPOWER   = (0x8 << RADIO_TXPOWER_TXPOWER_Pos);
+  NRF_RADIO->SHORTS = 0;
   NRF_RADIO->FREQUENCY = 0x4C;
   
   NRF_RADIO->TASKS_TXEN = 1;                    /* Enable RADIO in RX mode*/
   while (!(NRF_RADIO->EVENTS_READY)) {}
-//  NRF_RADIO->TASKS_START = 1;
+  NRF_RADIO->TASKS_START = 1;
+  radioConfigured = true;
   return 1;
 
 }
-
 
 #define ED_RSSISCALE 4 // From electrical specifications
 uint8_t nrf_to_nrf::sample_ed(void)
@@ -204,11 +200,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num){
 
   if(NRF_RADIO->EVENTS_CRCOK){
     NRF_RADIO->EVENTS_CRCOK = 0;
-    
-    *pipe_num = (uint8_t)NRF_RADIO->RXMATCH-1;
-//if(overWrite){
-
-overWrite = true;   
+    *pipe_num = (uint8_t)NRF_RADIO->RXMATCH;
     memcpy(&rxBuffer[1],&radioData[2],32);
     rxBuffer[0] = radioData[0];
     rxFifoAvailable = true;
@@ -222,11 +214,10 @@ overWrite = true;
     uint8_t packetData = radioData[2];
     // If ack is enabled on this receiving pipe
     if( acksEnabled(NRF_RADIO->RXMATCH) ){
-      stopListening();
-      delayMicroseconds(75);
+      stopListening(false,false);
       uint32_t txAddress = NRF_RADIO->TXADDRESS;
       NRF_RADIO->TXADDRESS = NRF_RADIO->RXMATCH;
-  
+
       if(ackPayloadsEnabled){
 
         if(NRF_RADIO->RXMATCH == ackPipe){
@@ -236,11 +227,12 @@ overWrite = true;
         write(0, 0, 1); //Send an ACK
       }
       NRF_RADIO->TXADDRESS = txAddress;
-      startListening();   
+      startListening(false);   
     }
     
     //If the packet has the same ID number and data, it is most likely a duplicate
     if(packetCtr == lastPacketCounter && packetData == lastData){
+        NRF_RADIO->TASKS_START = 1;
         return 0;
     }
     lastPacketCounter = packetCtr;
@@ -252,7 +244,7 @@ overWrite = true;
 
 void nrf_to_nrf::read(void* buf, uint8_t len){
   memcpy(buf,&rxBuffer[1],len);
-overWrite = false;
+
   if(inRxMode){
     NRF_RADIO->TASKS_START = 1;
   }
@@ -262,13 +254,13 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast){
   
   if(DPL){
     radioData[0] = len;
-    radioData[1] = ((ackPID+=2) % 7) << 1;
+    radioData[1] = ((ackPID+=1) % 7) << 1;
   }else{
     radioData[1] = 4;// ackPID++;//((radioData[0] + 1) % 4) << 1;
     radioData[0] = ackPID++;
   }
 
-int test = 0;
+
 for(int i=0; i<retries; i++){
   memset(&radioData[2],0,32);
   memcpy(&radioData[2],buf,len);
@@ -279,35 +271,28 @@ for(int i=0; i<retries; i++){
     while(NRF_RADIO->EVENTS_END == 0){}
     NRF_RADIO->EVENTS_END = 0;
   if(!multicast && acksPerPipe[NRF_RADIO->TXADDRESS] == true){
-    startListening();
     uint32_t rxAddress = NRF_RADIO->RXADDRESSES;
     NRF_RADIO->RXADDRESSES = 1 << NRF_RADIO->TXADDRESS;
+    startListening(false);
     uint32_t ack_timeout = micros();
-    while(! NRF_RADIO->EVENTS_CRCOK){ if(micros() - ack_timeout > 1273){break;}  }
+    while(! NRF_RADIO->EVENTS_CRCOK){ if(micros() - ack_timeout > 100){break;}  }
     if(NRF_RADIO->EVENTS_CRCOK){
-      NRF_RADIO->EVENTS_CRCOK = 0;
-      stopListening(false);
       if(ackPayloadsEnabled && radioData[1] > 0){
          memcpy(&rxBuffer[1],&radioData[2],32);
          rxBuffer[0] = radioData[0];
-      }     
+      }
+      NRF_RADIO->EVENTS_CRCOK = 0;
+      stopListening(false,false);
       NRF_RADIO->RXADDRESSES = rxAddress;
-      //Serial.println(i);
       return 1;
     }
-    
-   uint32_t delay = retryDuration * 240; 
-   delayMicroseconds(delay); 
-   stopListening(false);
+   delayMicroseconds(250); 
+   stopListening(false,false);
    NRF_RADIO->RXADDRESSES = rxAddress;
-   test = i;
-  
   }else{
-      //Serial.println("noAck");
    return 1;   
   }
 }
-
   return 0;
 }
 
@@ -321,17 +306,22 @@ void nrf_to_nrf::enableAckPayload(){
   ackPayloadsEnabled = true;
 }
 
-void nrf_to_nrf::startListening(){
+void nrf_to_nrf::startListening( bool resetAddresses){
+
   NRF_RADIO->EVENTS_DISABLED = 0;
   NRF_RADIO->TASKS_DISABLE = 1;
   while (NRF_RADIO->EVENTS_DISABLED == 0);
   NRF_RADIO->EVENTS_DISABLED = 0;
-      
-  NRF_RADIO->BASE0 = rxBase;
-  NRF_RADIO->PREFIX0 =rxPrefix;
-      
+  if(resetAddresses == true){
+   //   Serial.println("rst ad");
+    NRF_RADIO->BASE0 = rxBase;
+    NRF_RADIO->PREFIX0 =rxPrefix;
+    //Serial.println(addrConv32(NRF_RADIO->BASE0),HEX);
+    //Serial.println(addrConv32(NRF_RADIO->PREFIX0),HEX);
+    
+  }
   NRF_RADIO-> EVENTS_RXREADY = 0;
-  NRF_RADIO->EVENTS_CRCOK = 0;
+  //NRF_RADIO->EVENTS_CRCOK = 0;
   NRF_RADIO->TASKS_RXEN = 1;
   while (NRF_RADIO->EVENTS_RXREADY == 0);
   NRF_RADIO-> EVENTS_RXREADY = 0;
@@ -339,13 +329,16 @@ void nrf_to_nrf::startListening(){
   inRxMode = true;
 }
 
-void nrf_to_nrf::stopListening(bool setWritingPipe){
+void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses){
+
   NRF_RADIO->EVENTS_DISABLED = 0;
   NRF_RADIO->TASKS_DISABLE = 1;
   while (NRF_RADIO->EVENTS_DISABLED == 0);
   NRF_RADIO->EVENTS_DISABLED = 0;
-  NRF_RADIO->BASE0 = txBase;
-  NRF_RADIO->PREFIX0 = txPrefix;  
+  if(resetAddresses){
+    NRF_RADIO->BASE0 = txBase;
+    NRF_RADIO->PREFIX0 = txPrefix;  
+  }
   if(setWritingPipe){
     NRF_RADIO->TXADDRESS = 0x00;
   }
@@ -422,7 +415,9 @@ void nrf_to_nrf::setPayloadSize(uint8_t size){
                        (staticPayloadSize               << RADIO_PCNF1_MAXLEN_Pos);
 }
 
-void nrf_to_nrf::setRetries(uint8_t retryVar, uint8_t attempts){}
+void nrf_to_nrf::setRetries(uint8_t retryVar, uint8_t attempts){
+    
+}
 void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address){
    
       //child += 1;
@@ -439,58 +434,27 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address){
       prefixArray[0] = address & 0xFF;
       prefix = addr_conv(prefixArray);
       prefix = prefix >> 24;
-
-   // Serial.print(child);
-   // Serial.print(":");
+      
     if(!child){
       NRF_RADIO->BASE0 = base;
       NRF_RADIO->PREFIX0 &= ~(0xFF);
       NRF_RADIO->PREFIX0 |= prefix;
-      rxBase = NRF_RADIO->BASE0;
-      rxPrefix = NRF_RADIO->PREFIX0;
     }else
-    if(child < 4){//prefixes AP1-3 are in prefix0
-      if( child < 3 ){
-        NRF_RADIO->BASE1 = base;
-      }
+    if(child < 4){//prefixes AP1-3 are in prefix0 
+      NRF_RADIO->BASE1 = base;
       NRF_RADIO->PREFIX0 &= ~(0xFF << (8 * child));
-      NRF_RADIO->PREFIX0 |= prefix << (8 * child);
-      prefix = addrConv32(prefix);
-      prefix = prefix >> 24;
-      //Serial.print(addrConv32(NRF_RADIO->BASE1),HEX);
-      //Serial.print(":");
-      //Serial.println(prefix,HEX);
+      NRF_RADIO->PREFIX0 |= prefix << (8 * child);   
     }else{
       NRF_RADIO->BASE1 = base;
       NRF_RADIO->PREFIX1 &= ~(0xFF << (8 * (child - 4)));
       NRF_RADIO->PREFIX1 |= prefix << (8 * (child - 4));  
     }
     NRF_RADIO->RXADDRESSES |= 1 << child;
-    /*
-    Serial.print("P0: ");
-    Serial.print(addrConv32(NRF_RADIO->BASE0),HEX);
-    Serial.print(":");
-    Serial.println((addrConv32(NRF_RADIO->PREFIX0) >> 24 ),HEX);
-    
-    for(int i=1; i<4; i++){
-        Serial.print("P");
-        Serial.print(i);
-        Serial.print(" ");
-        Serial.print(addrConv32(NRF_RADIO->BASE1),HEX);
-        Serial.print(":");
-        Serial.println((addrConv32(NRF_RADIO->PREFIX0) >> (i * 8))&0xFF  ,HEX);
-    }
-    for(int i=4; i<6; i++){
-        Serial.print("P");
-        Serial.print(i);
-        Serial.print(" ");
-        Serial.print(addrConv32(NRF_RADIO->BASE1),HEX);
-        Serial.print(":");
-        Serial.println((addrConv32(NRF_RADIO->PREFIX1) >> ((i-4) * 8)) & 0xFF,HEX);
-    }
-    */
-    
-    
+    rxBase = NRF_RADIO->BASE0;
+    rxPrefix = NRF_RADIO->PREFIX0;
+    //Serial.println(addrConv32(NRF_RADIO->BASE1),HEX);
+    //Serial.println(addrConv32(NRF_RADIO->PREFIX0),HEX);
+    //Serial.println(NRF_RADIO->RXADDRESSES);
 }
 void nrf_to_nrf::openWritingPipe(uint64_t address){
       uint32_t base = address >> 8;
@@ -510,14 +474,16 @@ void nrf_to_nrf::openWritingPipe(uint64_t address){
     NRF_RADIO->BASE0 = base;
     NRF_RADIO->PREFIX0 &= 0xFFFFFF00;
     NRF_RADIO->PREFIX0 |= prefix;    
-    NRF_RADIO->TXADDRESS = 0x00;
+    NRF_RADIO->TXADDRESS = 0x00;    
     txBase = NRF_RADIO->BASE0;
     txPrefix = NRF_RADIO->PREFIX0;
+    //    Serial.println(addrConv32(NRF_RADIO->BASE0),HEX);
+    //Serial.println(addrConv32(NRF_RADIO->PREFIX0),HEX);
 }
 
 void nrf_to_nrf::openReadingPipe(uint8_t child, const uint8_t* address){
     
-    child +=1;
+    //child +=1;
     
     uint32_t base = addr_conv(&address[1]);
     uint32_t prefix = 0;
@@ -525,6 +491,7 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, const uint8_t* address){
     prefixArray[0] = address[0];
     prefix = addr_conv(prefixArray);
     prefix = prefix >> 24;
+    
    
     // Using pipes 1-7 for reading pipes, leaving pipe0 for a tx pipe
     if(!child){
@@ -544,7 +511,9 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, const uint8_t* address){
     NRF_RADIO->RXADDRESSES |= 1 << child;
     rxBase = NRF_RADIO->BASE0;
     rxPrefix = NRF_RADIO->PREFIX0;
-    
+    //    Serial.println(addrConv32(NRF_RADIO->BASE0),HEX);
+    //Serial.println(addrConv32(NRF_RADIO->PREFIX0),HEX);
+    //Serial.println(NRF_RADIO->RXADDRESSES);
 }
 
 void nrf_to_nrf::openWritingPipe(const uint8_t* address){
@@ -562,12 +531,12 @@ void nrf_to_nrf::openWritingPipe(const uint8_t* address){
     NRF_RADIO->TXADDRESS = 0x00;
     txBase = NRF_RADIO->BASE0;
     txPrefix = NRF_RADIO->PREFIX0;
+    
 }
 
 bool nrf_to_nrf::txStandBy(){return lastTxResult;}
 bool nrf_to_nrf::txStandBy(uint32_t timeout, bool startTx){ return lastTxResult;}
 bool nrf_to_nrf::writeFast(const void* buf, uint8_t len, const bool multicast){
-    
     lastTxResult = write((void*)buf,len,multicast);
     return lastTxResult;
 }
@@ -585,12 +554,6 @@ bool nrf_to_nrf::isChipConnected(){
 }
 
 bool nrf_to_nrf::setDataRate(uint8_t speed){
-    
-    if(speed == 0 ){
-        NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos);
-    }else{
-        NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_2Mbit << RADIO_MODE_MODE_Pos);
-    }
     return 1;
 }
 
@@ -630,4 +593,3 @@ void nrf_to_nrf::setCRCLength(nrf_crclength_e length){
       NRF_RADIO->CRCPOLY = 0x00UL;     // CRC poly: x^16+x^12^x^5+1
     }
 }
-
