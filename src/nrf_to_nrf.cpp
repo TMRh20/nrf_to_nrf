@@ -94,6 +94,9 @@ nrf_to_nrf::nrf_to_nrf(){
     DPL = false;
     retries = 5;
     retryDuration = 5;
+    ackPayloadsEnabled = false;
+    ackPipe = 0;
+    inRxMode = false;
 };
 
 uint8_t bytes = 0;
@@ -175,10 +178,15 @@ uint8_t lastPacketCounter = 0;
 uint8_t lastData = 0;
 
 bool nrf_to_nrf::available(){
+    return available(NULL);
+}
+
+bool nrf_to_nrf::available(uint8_t* pipe_num){
 
   if(NRF_RADIO->EVENTS_CRCOK){
     NRF_RADIO->EVENTS_CRCOK = 0;
-    
+    *pipe_num = (uint8_t)NRF_RADIO->RXMATCH-1;
+   
     memcpy(&rxBuffer[1],&radioData[2],32);
     rxBuffer[0] = radioData[0];
     rxFifoAvailable = true;
@@ -196,9 +204,15 @@ bool nrf_to_nrf::available(){
       delayMicroseconds(25);
       uint32_t txAddress = NRF_RADIO->TXADDRESS;
       NRF_RADIO->TXADDRESS = NRF_RADIO->RXMATCH;
-      //uint8_t myBuf[32];
-      //memcpy(myBuf, &radioData[2], 32);
-      write(0, 0, 0); //Send an ACK
+  
+      if(ackPayloadsEnabled){
+
+        if(NRF_RADIO->RXMATCH == ackPipe){
+           write(&ackBuffer[1],ackBuffer[0],1);
+        }
+      }else{
+        write(0, 0, 1); //Send an ACK
+      }
       NRF_RADIO->TXADDRESS = txAddress;
       startListening();   
     }
@@ -216,7 +230,10 @@ bool nrf_to_nrf::available(){
 
 void nrf_to_nrf::read(void* buf, uint8_t len){
   memcpy(buf,&rxBuffer[1],len);
-  NRF_RADIO->TASKS_START = 1;
+
+  if(inRxMode){
+    NRF_RADIO->TASKS_START = 1;
+  }
 }
 
 bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast){
@@ -233,24 +250,46 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast){
 for(int i=0; i<retries; i++){
   memset(&radioData[2],0,32);
   memcpy(&radioData[2],buf,len);
+  
   //radioData[0] = ackPID++;
     NRF_RADIO->EVENTS_END = 0;
     NRF_RADIO->TASKS_START = 1;
     while(NRF_RADIO->EVENTS_END == 0){}
     NRF_RADIO->EVENTS_END = 0;
-  
-    startListening();  
+  if(!multicast && acksPerPipe[NRF_RADIO->TXADDRESS] == true){
+    uint32_t rxAddress = NRF_RADIO->RXADDRESSES;
+    NRF_RADIO->RXADDRESSES = 1 << NRF_RADIO->TXADDRESS;
+    startListening();
     uint32_t ack_timeout = micros();
-    while(! NRF_RADIO->EVENTS_CRCOK){ if(micros() - ack_timeout > 1500){break;}  }
+    while(! NRF_RADIO->EVENTS_CRCOK){ if(micros() - ack_timeout > 100){break;}  }
     if(NRF_RADIO->EVENTS_CRCOK){
+      if(ackPayloadsEnabled && radioData[1] > 0){
+         memcpy(&rxBuffer[1],&radioData[2],32);
+         rxBuffer[0] = radioData[0];
+      }
       NRF_RADIO->EVENTS_CRCOK = 0;
       stopListening(false);
+      NRF_RADIO->RXADDRESSES = rxAddress;
       return 1;
     }
    delayMicroseconds(250); 
    stopListening(false);
+   NRF_RADIO->RXADDRESSES = rxAddress;
+  }else{
+   return 1;   
+  }
 }
   return 0;
+}
+
+bool nrf_to_nrf::writeAckPayload(uint8_t pipe, const void* buf, uint8_t len){
+    memcpy(&ackBuffer[1],buf,len);
+    ackBuffer[0] = len;
+    ackPipe = pipe+1;
+}
+
+void nrf_to_nrf::enableAckPayload(){
+  ackPayloadsEnabled = true;
 }
 
 void nrf_to_nrf::startListening(){
@@ -264,6 +303,7 @@ void nrf_to_nrf::startListening(){
   while (NRF_RADIO->EVENTS_RXREADY == 0);
   NRF_RADIO-> EVENTS_RXREADY = 0;
   NRF_RADIO->TASKS_START = 1;
+  inRxMode = true;
 }
 
 void nrf_to_nrf::stopListening(bool setWritingPipe){
@@ -278,8 +318,7 @@ void nrf_to_nrf::stopListening(bool setWritingPipe){
   NRF_RADIO->TASKS_TXEN = 1;
   while (NRF_RADIO->EVENTS_TXREADY == 0);
   NRF_RADIO-> EVENTS_TXREADY = 0;
-  
-  
+  inRxMode = false;  
 }
 
 
@@ -296,8 +335,18 @@ void nrf_to_nrf::setChannel(uint8_t channel)
   NRF_RADIO->FREQUENCY = channel;
 }
 
-void nrf_to_nrf::setAutoAck(bool enable){}
-void nrf_to_nrf::setAutoAck(uint8_t pipe, bool enable){}
+void nrf_to_nrf::setAutoAck(bool enable){
+    
+    for(int i=0; i<8; i++){
+      acksPerPipe[i] = enable;
+    }
+    
+}
+void nrf_to_nrf::setAutoAck(uint8_t pipe, bool enable){
+    
+    acksPerPipe[pipe] = enable;    
+}
+
 void nrf_to_nrf::enableDynamicPayloads(){
     DPL = true;
     NRF_RADIO->PCNF0 = (0 << RADIO_PCNF0_S0LEN_Pos) |
@@ -431,10 +480,11 @@ void nrf_to_nrf::openWritingPipe(const uint8_t* address){
     NRF_RADIO->TXADDRESS = 0x00;
 }
 
-bool nrf_to_nrf::txStandBy(){return 1;}
-bool nrf_to_nrf::txStandBy(uint32_t timeout, bool startTx){ return 1;}
+bool nrf_to_nrf::txStandBy(){return lastTxResult;}
+bool nrf_to_nrf::txStandBy(uint32_t timeout, bool startTx){ return lastTxResult;}
 bool nrf_to_nrf::writeFast(const void* buf, uint8_t len, const bool multicast){
-    return write(&buf,len,multicast);
+    lastTxResult = write((void*)buf,len,multicast);
+    return lastTxResult;
 }
 
 bool nrf_to_nrf::acksEnabled(uint8_t pipe){
@@ -443,4 +493,12 @@ bool nrf_to_nrf::acksEnabled(uint8_t pipe){
         return 1;
     }
     return 0;
+}
+
+bool nrf_to_nrf::isChipConnected(){
+    return NRF_RADIO->POWER;    
+}
+
+bool nrf_to_nrf::setDataRate(uint8_t speed){
+    return 1;
 }
