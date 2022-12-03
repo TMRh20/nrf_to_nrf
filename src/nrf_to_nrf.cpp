@@ -167,6 +167,7 @@ bool nrf_to_nrf::begin(){
   NRF_RADIO->PACKETPTR = (uint32_t)radioData;
   NRF_RADIO->MODE      = (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos);
   NRF_RADIO->MODECNF0  = 0x200;
+  NRF_RADIO->MODECNF0  |= 1;
   NRF_RADIO->TXPOWER   = (0x8 << RADIO_TXPOWER_TXPOWER_Pos);
   NRF_RADIO->SHORTS = 0;
   NRF_RADIO->FREQUENCY = 0x4C;
@@ -201,6 +202,12 @@ bool nrf_to_nrf::available(){
 
 bool nrf_to_nrf::available(uint8_t* pipe_num){
 
+  if(!inRxMode){
+    if(ackPayloadAvailable){
+        *pipe_num = ackAvailablePipeNo;
+        return true;
+    }
+  }
   if(NRF_RADIO->EVENTS_CRCOK){
     NRF_RADIO->EVENTS_CRCOK = 0;
     *pipe_num = (uint8_t)NRF_RADIO->RXMATCH;
@@ -213,6 +220,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num){
     }else{
       packetCtr = radioData[0];    
     }
+
     ackPID = packetCtr;
     uint8_t packetData = radioData[2];
     // If ack is enabled on this receiving pipe
@@ -220,17 +228,19 @@ bool nrf_to_nrf::available(uint8_t* pipe_num){
       stopListening(false,false);
       uint32_t txAddress = NRF_RADIO->TXADDRESS;
       NRF_RADIO->TXADDRESS = NRF_RADIO->RXMATCH;
-
       if(ackPayloadsEnabled){
-
-        if(NRF_RADIO->RXMATCH == ackPipe){
-           write(&ackBuffer[1],ackBuffer[0],1);
+        delayMicroseconds(55);
+        if(*pipe_num == ackPipe){          
+          write(&ackBuffer[1],ackBuffer[0],1);  
+        }else{
+          write(0,0,1);
         }
       }else{
         write(0, 0, 1); //Send an ACK
       }
       NRF_RADIO->TXADDRESS = txAddress;
-      startListening(false);   
+      startListening(false);
+
     }
     
     //If the packet has the same ID number and data, it is most likely a duplicate
@@ -243,6 +253,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num){
     return 1; 
   }
   if(NRF_RADIO->EVENTS_CRCERROR){
+      NRF_RADIO->EVENTS_CRCERROR = 0;
       NRF_RADIO->TASKS_START = 1;
   } 
   
@@ -251,7 +262,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num){
 
 void nrf_to_nrf::read(void* buf, uint8_t len){
   memcpy(buf,&rxBuffer[1],len);
-
+  ackPayloadAvailable = false;
   if(inRxMode){
     NRF_RADIO->TASKS_START = 1;
   }
@@ -263,8 +274,8 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast){
     radioData[0] = len;
     radioData[1] = ((ackPID+=1) % 7) << 1;
   }else{
-    radioData[1] = 4;// ackPID++;//((radioData[0] + 1) % 4) << 1;
-    radioData[0] = ackPID++;
+    radioData[1] = 0;// ackPID++;//((radioData[0] + 1) % 4) << 1;
+    radioData[0] = ackPID;//((ackPID+=1) % 7) << 1;;
   }
 
 
@@ -282,18 +293,21 @@ for(int i=0; i<retries; i++){
     NRF_RADIO->RXADDRESSES = 1 << NRF_RADIO->TXADDRESS;
     startListening(false);
     uint32_t ack_timeout = micros();
-    while(! NRF_RADIO->EVENTS_CRCOK){ if(micros() - ack_timeout > 100){break;}  }
+    while(! NRF_RADIO->EVENTS_CRCOK){ if(micros() - ack_timeout > 400){break;}  }
     if(NRF_RADIO->EVENTS_CRCOK){
-      if(ackPayloadsEnabled && radioData[1] > 0){
+      if(ackPayloadsEnabled && radioData[0] > 0){
          memcpy(&rxBuffer[1],&radioData[2],32);
          rxBuffer[0] = radioData[0];
+         ackPayloadAvailable = true;
+         ackAvailablePipeNo = NRF_RADIO->RXMATCH;
       }
       NRF_RADIO->EVENTS_CRCOK = 0;
       stopListening(false,false);
       NRF_RADIO->RXADDRESSES = rxAddress;
       return 1;
     }
-   delayMicroseconds(250); 
+   uint32_t duration = 258 * retryDuration;
+   delayMicroseconds(duration); 
    stopListening(false,false);
    NRF_RADIO->RXADDRESSES = rxAddress;
   }else{
@@ -306,7 +320,7 @@ for(int i=0; i<retries; i++){
 bool nrf_to_nrf::writeAckPayload(uint8_t pipe, const void* buf, uint8_t len){
     memcpy(&ackBuffer[1],buf,len);
     ackBuffer[0] = len;
-    ackPipe = pipe+1;
+    ackPipe = pipe;
 }
 
 void nrf_to_nrf::enableAckPayload(){
@@ -328,7 +342,7 @@ void nrf_to_nrf::startListening( bool resetAddresses){
     
   }
   NRF_RADIO-> EVENTS_RXREADY = 0;
-  //NRF_RADIO->EVENTS_CRCOK = 0;
+  NRF_RADIO->EVENTS_CRCOK = 0;
   NRF_RADIO->TASKS_RXEN = 1;
   while (NRF_RADIO->EVENTS_RXREADY == 0);
   NRF_RADIO-> EVENTS_RXREADY = 0;

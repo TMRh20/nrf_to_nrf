@@ -151,6 +151,9 @@ uint32_t rxPrefix;
 uint32_t txBase;
 uint32_t txPrefix;
 bool radioConfigured;
+bool ackPayloadAvailable;
+uint8_t ackAvailablePipeNo;
+
 };
 
 #endif //__nrf52840_nrf24l01_H__
