@@ -136,7 +136,7 @@ bool nrf_to_nrf::begin(){
     }
 
   NRF_RADIO->POWER = 1;
-  NRF_POWER->DCDCEN=1;
+  //NRF_POWER->DCDCEN=1;
   
   NRF_RADIO->PCNF0 = (1 << RADIO_PCNF0_S0LEN_Pos) |
                      (0 << RADIO_PCNF0_LFLEN_Pos) |
@@ -155,7 +155,10 @@ bool nrf_to_nrf::begin(){
   NRF_RADIO->RXADDRESSES = 0x01;
   NRF_RADIO->TXADDRESS = 0x00; 
   /* Receive address select    */
-  
+  txBase = NRF_RADIO->BASE0;
+  txPrefix = NRF_RADIO->PREFIX0;
+  rxBase = NRF_RADIO->BASE0;
+  rxPrefix = NRF_RADIO->PREFIX0;
   // Configure CRC for 16-bit
   NRF_RADIO->CRCCNF = RADIO_CRCCNF_LEN_Two;     /* CRC configuration: 16bit                         */
   NRF_RADIO->CRCINIT = 0xFFFFUL;      // Initial value
