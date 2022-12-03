@@ -9,6 +9,83 @@
 #include <Arduino.h>
 
 
+typedef enum
+{
+    /**
+     * (0) represents:
+     * nRF24L01 | Si24R1 with<br>lnaEnabled = 1 | Si24R1 with<br>lnaEnabled = 0
+     * :-------:|:-----------------------------:|:----------------------------:
+     *  -18 dBm | -6 dBm | -12 dBm
+     */
+    NRF_PA_MIN = 0,
+    /**
+     * (1) represents:
+     * nRF24L01 | Si24R1 with<br>lnaEnabled = 1 | Si24R1 with<br>lnaEnabled = 0
+     * :-------:|:-----------------------------:|:----------------------------:
+     *  -12 dBm | 0 dBm | -4 dBm
+     */
+    NRF_PA_LOW,
+    /**
+     * (2) represents:
+     * nRF24L01 | Si24R1 with<br>lnaEnabled = 1 | Si24R1 with<br>lnaEnabled = 0
+     * :-------:|:-----------------------------:|:----------------------------:
+     *  -6 dBm | 3 dBm | 1 dBm
+     */
+    NRF_PA_HIGH,
+    /**
+     * (3) represents:
+     * nRF24L01 | Si24R1 with<br>lnaEnabled = 1 | Si24R1 with<br>lnaEnabled = 0
+     * :-------:|:-----------------------------:|:----------------------------:
+     *  0 dBm | 7 dBm | 4 dBm
+     */
+    NRF_PA_MAX,
+    /**
+     * (4) This should not be used and remains for backward compatibility.
+     */
+    NRF_PA_ERROR
+} nrf_pa_dbm_e;
+
+/**
+ * @}
+ * @defgroup Datarate datarate
+ * How fast data moves through the air. Units are in bits per second (bps).
+ * @see
+ * - RF24::setDataRate()
+ * - RF24::getDataRate()
+ * @{
+ */
+typedef enum
+{
+    /** (0) represents 1 Mbps */
+    NRF_1MBPS = 0,
+    /** (1) represents 2 Mbps */
+    NRF_2MBPS,
+    /** (2) represents 250 kbps */
+    NRF_250KBPS
+} nrf_datarate_e;
+
+/**
+ * @}
+ * @defgroup CRCLength CRC length
+ * The length of a CRC checksum that is used (if any). Cyclical Redundancy
+ * Checking (CRC) is commonly used to ensure data integrity.
+ * @see
+ * - RF24::setCRCLength()
+ * - RF24::getCRCLength()
+ * - RF24::disableCRC()
+ * @{
+ */
+typedef enum
+{
+    /** (0) represents no CRC checksum is used */
+    NRF_CRC_DISABLED = 0,
+    /** (1) represents CRC 8 bit checksum is used */
+    NRF_CRC_8,
+    /** (2) represents CRC 16 bit checksum is used */
+    NRF_CRC_16
+} nrf_crclength_e;
+
+
 
 class nrf_to_nrf
 {
@@ -35,12 +112,14 @@ bool isValid();
 bool isChipConnected();
 void setChannel(uint8_t channel);
 bool setDataRate(uint8_t speed);
+void setPALevel(uint8_t level, bool lnaEnable = true);
 void setAutoAck(bool enable);
 void setAutoAck(uint8_t pipe, bool enable);
 void enableDynamicPayloads();
 void disableDynamicPayloads();
 void setPayloadSize(uint8_t size);
-
+void setCRCLength(nrf_crclength_e length);
+void disableCRC();
 void setRetries(uint8_t retryVar, uint8_t attempts);
 void openReadingPipe(uint8_t child, uint64_t address);
 void openWritingPipe(uint64_t address);
@@ -65,9 +144,12 @@ bool inRxMode;
 uint8_t staticPayloadSize;
 uint8_t ackPID;
 uint8_t ackPipe;
-bool lastTxResult = false;
-
-
+bool lastTxResult;
+bool overWrite;
+uint32_t rxBase;
+uint32_t rxPrefix;
+uint32_t txBase;
+uint32_t txPrefix;
 };
 
 #endif //__nrf52840_nrf24l01_H__
