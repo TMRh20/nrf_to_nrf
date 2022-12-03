@@ -223,7 +223,7 @@ overWrite = true;
     // If ack is enabled on this receiving pipe
     if( acksEnabled(NRF_RADIO->RXMATCH) ){
       stopListening();
-      delayMicroseconds(25);
+      delayMicroseconds(75);
       uint32_t txAddress = NRF_RADIO->TXADDRESS;
       NRF_RADIO->TXADDRESS = NRF_RADIO->RXMATCH;
   
