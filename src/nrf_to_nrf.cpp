@@ -242,6 +242,10 @@ bool nrf_to_nrf::available(uint8_t* pipe_num){
     lastData = packetData;
     return 1; 
   }
+  if(NRF_RADIO->EVENTS_CRCERROR){
+      NRF_RADIO->TASKS_START = 1;
+  } 
+  
   return 0;
 }
 
@@ -426,16 +430,10 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address){
       //child += 1;
       uint32_t base = address >> 8;
       uint32_t prefix = address & 0xFF;
-      uint8_t baseArray[5];
-      baseArray[0] = address >> 8;
-      baseArray[1] = address >> 16;
-      baseArray[2] = address >> 24;
-      baseArray[3] = address >> 32;
-      base = addr_conv(baseArray);
+
+      base = addrConv32(base);
       
-      uint8_t prefixArray[5];
-      prefixArray[0] = address & 0xFF;
-      prefix = addr_conv(prefixArray);
+      prefix = addrConv32(address);
       prefix = prefix >> 24;
       
     if(!child){
@@ -462,16 +460,9 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address){
 void nrf_to_nrf::openWritingPipe(uint64_t address){
       uint32_t base = address >> 8;
       uint32_t prefix = address & 0xFF;
-      uint8_t baseArray[5];
-      baseArray[0] = address >> 8;
-      baseArray[1] = address >> 16;
-      baseArray[2] = address >> 24;
-      baseArray[3] = address >> 32;
-      base = addr_conv(baseArray);
+      base = addrConv32(base);
       
-      uint8_t prefixArray[5];
-      prefixArray[0] = address & 0xFF;
-      prefix = addr_conv(prefixArray);
+      prefix = addrConv32(address);
       prefix = prefix >> 24;
       
     NRF_RADIO->BASE0 = base;
