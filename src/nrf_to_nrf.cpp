@@ -24,7 +24,7 @@ static uint32_t addr_conv(uint8_t const *p_addr) {
 
 /**********************************************************************************************************/
 
-static uint32_t addrConv32(uint32_t addr) {
+uint32_t nrf_to_nrf::addrConv32(uint32_t addr) {
 
   uint8_t buffer[4];
   buffer[0] = addr & 0xFF;
@@ -50,6 +50,7 @@ nrf_to_nrf::nrf_to_nrf() {
   ackPipe = 0;
   inRxMode = false;
   radioConfigured = false;
+  ARC = 0;
 };
 
 /**********************************************************************************************************/
@@ -226,6 +227,7 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
   }
 
   for (int i = 0; i < retries; i++) {
+    ARC = i;
     memset(&radioData[2], 0, 32);
     memcpy(&radioData[2], buf, len);
 
@@ -270,6 +272,13 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
 
 /**********************************************************************************************************/
 
+bool nrf_to_nrf::startWrite(void *buf, uint8_t len, bool multicast) {
+
+  NRF_RADIO->TASKS_START = 1;
+
+}
+/**********************************************************************************************************/
+
 bool nrf_to_nrf::writeAckPayload(uint8_t pipe, const void *buf, uint8_t len) {
   memcpy(&ackBuffer[1], buf, len);
   ackBuffer[0] = len;
@@ -279,6 +288,10 @@ bool nrf_to_nrf::writeAckPayload(uint8_t pipe, const void *buf, uint8_t len) {
 /**********************************************************************************************************/
 
 void nrf_to_nrf::enableAckPayload() { ackPayloadsEnabled = true; }
+
+/**********************************************************************************************************/
+
+void nrf_to_nrf::disableAckPayload() { ackPayloadsEnabled = false; }
 
 /**********************************************************************************************************/
 
@@ -308,8 +321,7 @@ void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses) {
 
   NRF_RADIO->EVENTS_DISABLED = 0;
   NRF_RADIO->TASKS_DISABLE = 1;
-  while (NRF_RADIO->EVENTS_DISABLED == 0)
-    ;
+  while (NRF_RADIO->EVENTS_DISABLED == 0);
   NRF_RADIO->EVENTS_DISABLED = 0;
   if (resetAddresses) {
     NRF_RADIO->BASE0 = txBase;
@@ -320,8 +332,7 @@ void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses) {
   }
   NRF_RADIO->EVENTS_TXREADY = 0;
   NRF_RADIO->TASKS_TXEN = 1;
-  while (NRF_RADIO->EVENTS_TXREADY == 0)
-    ;
+  while (NRF_RADIO->EVENTS_TXREADY == 0);
   NRF_RADIO->EVENTS_TXREADY = 0;
   inRxMode = false;
 }
@@ -335,11 +346,24 @@ uint8_t nrf_to_nrf::getDynamicPayloadSize() {
 
 /**********************************************************************************************************/
 
-bool nrf_to_nrf::isValid() { return 1; }
+bool nrf_to_nrf::isValid() {
+  
+  uint32_t freq = NRF_RADIO->FREQUENCY;
+  NRF_RADIO->FREQUENCY = 0x4C;
+  if(NRF_RADIO->FREQUENCY == 0x4C){
+      NRF_RADIO->FREQUENCY = freq;
+      return 1;
+  }
+  return 0;
+}
 
 /**********************************************************************************************************/
 
 void nrf_to_nrf::setChannel(uint8_t channel) { NRF_RADIO->FREQUENCY = channel; }
+
+/**********************************************************************************************************/
+
+uint8_t nrf_to_nrf::getChannel() { return (uint8_t)NRF_RADIO->FREQUENCY; }
 
 /**********************************************************************************************************/
 
@@ -371,6 +395,9 @@ void nrf_to_nrf::enableDynamicPayloads() {
                      (0 << RADIO_PCNF1_STATLEN_Pos) |
                      (32 << RADIO_PCNF1_MAXLEN_Pos);
 }
+
+/**********************************************************************************************************/
+
 void nrf_to_nrf::disableDynamicPayloads() {
   DPL = false;
   NRF_RADIO->PCNF0 = (1 << RADIO_PCNF0_S0LEN_Pos) |
@@ -384,6 +411,8 @@ void nrf_to_nrf::disableDynamicPayloads() {
                      (staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos);
 }
 
+/**********************************************************************************************************/
+
 void nrf_to_nrf::setPayloadSize(uint8_t size) {
   staticPayloadSize = size;
   DPL = false;
@@ -396,6 +425,12 @@ void nrf_to_nrf::setPayloadSize(uint8_t size) {
                      (4 << RADIO_PCNF1_BALEN_Pos) |
                      (staticPayloadSize << RADIO_PCNF1_STATLEN_Pos) |
                      (staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos);
+}
+
+/**********************************************************************************************************/
+
+uint8_t nrf_to_nrf::getPayloadSize(){
+  return staticPayloadSize;
 }
 
 /**********************************************************************************************************/
@@ -541,7 +576,7 @@ bool nrf_to_nrf::acksEnabled(uint8_t pipe) {
 
 /**********************************************************************************************************/
 
-bool nrf_to_nrf::isChipConnected() { return NRF_RADIO->POWER; }
+bool nrf_to_nrf::isChipConnected() { return isValid(); }
 
 /**********************************************************************************************************/
 
@@ -571,6 +606,32 @@ void nrf_to_nrf::setPALevel(uint8_t level, bool lnaEnable) {
   } else if (level == 3) {
     paLevel = 0x8;
   }
+  NRF_RADIO->TXPOWER = paLevel;
+}
+
+/**********************************************************************************************************/
+
+uint8_t nrf_to_nrf::getPALevel() {
+
+  uint8_t paLevel = NRF_RADIO->TXPOWER;
+
+  if (paLevel == 0xF4){
+    return 0;
+  } else if (paLevel == 0x2) {
+    return 1;
+  } else if (paLevel == 0x6) {
+    return 2;
+  } else if (paLevel == 0x8) {
+    return 3;
+  } else {
+    return 4;
+  }
+}
+
+/**********************************************************************************************************/
+
+uint8_t nrf_to_nrf::getARC(){
+  return ARC;
 }
 
 /**********************************************************************************************************/
@@ -594,6 +655,18 @@ void nrf_to_nrf::setCRCLength(nrf_crclength_e length) {
 
 /**********************************************************************************************************/
 
+nrf_crclength_e nrf_to_nrf::getCRCLength() {
+  if (NRF_RADIO->CRCCNF == 0) {
+    return NRF_CRC_DISABLED;
+  } else if (NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_One) {
+    return NRF_CRC_8;
+  } else {
+    return NRF_CRC_16;
+  }
+}
+
+/**********************************************************************************************************/
+
 bool nrf_to_nrf::testCarrier(){
     
   NRF_RADIO->EVENTS_RSSIEND = 0;
@@ -601,6 +674,87 @@ bool nrf_to_nrf::testCarrier(){
   while (!NRF_RADIO->EVENTS_RSSIEND) {}
   if (NRF_RADIO->RSSISAMPLE < 65) { return 1; }
   return 0;
+    
+}
+
+/**********************************************************************************************************/
+
+void nrf_to_nrf::powerUp(){
+  NRF_RADIO->POWER = 1;
+  NRF_RADIO->EVENTS_TXREADY = 0;
+  NRF_RADIO->TASKS_TXEN = 1;
+  while (NRF_RADIO->EVENTS_TXREADY == 0);
+  NRF_RADIO->EVENTS_TXREADY = 0;    
+}
+
+/**********************************************************************************************************/
+
+void nrf_to_nrf::powerDown(){
+  NRF_RADIO->EVENTS_DISABLED = 0;
+  NRF_RADIO->TASKS_DISABLE = 1;
+  while (NRF_RADIO->EVENTS_DISABLED == 0);
+  NRF_RADIO->EVENTS_DISABLED = 0;
+  NRF_RADIO->POWER = 0;
+}
+
+/**********************************************************************************************************/
+
+void nrf_to_nrf::printDetails(){
+    
+    Serial.println("================ Radio Configuration ================");
+    Serial.print("STATUS\t\t= ");
+    Serial.println(NRF_RADIO->STATE);
+    Serial.print("RX_ADDR_P0-1\t= 0x");
+    Serial.print(addrConv32(NRF_RADIO->BASE0),HEX);
+    uint32_t prefixes = addrConv32(NRF_RADIO->PREFIX0);
+    uint8_t prefix = prefixes & 0xFF;
+    Serial.print(prefix,HEX);
+    Serial.print(" 0x");
+    Serial.print(addrConv32(NRF_RADIO->BASE1),HEX);
+    prefix = (prefixes >> 8) & 0xFF;
+    Serial.println(prefix,HEX);
+    uint8_t enAA = 0;
+    for (int i=0; i<6; i++){
+      enAA |= acksPerPipe[i] << i;
+    }
+    Serial.print("EN_AA\t\t= 0x");
+    Serial.println(enAA,HEX);
+    Serial.print("EN_RXADDR\t= 0x");
+    Serial.println(NRF_RADIO->RXADDRESSES,HEX);
+    Serial.print("RF_CH\t\t= 0x");
+    Serial.println(NRF_RADIO->FREQUENCY,HEX);
+    Serial.println("DYNPD/FEATURE\t= 0x");
+    Serial.print("Data Rate\t= ");
+    Serial.println(NRF_RADIO->MODE ? "2 MBPS" : "1MBPS");
+    Serial.println("Model\t\t= NRF52");
+    Serial.print("CRC Length\t= ");
+    uint8_t crcLen = getCRCLength();
+    if (crcLen == NRF_CRC_16){
+      Serial.println("16 bits");
+    }else
+    if (crcLen == NRF_CRC_8){
+      Serial.println("8 bits");
+    }else{
+      Serial.println("Disabled");
+    }
+    Serial.print("PA Power\t= ");
+    uint8_t paLevel = getPALevel();
+    if (paLevel == NRF_PA_MAX){
+      Serial.println("PA_MAX");
+    }else
+    if (paLevel == NRF_PA_HIGH){
+      Serial.println("PA_HIGH");
+    }else
+    if (paLevel == NRF_PA_LOW){
+      Serial.println("PA_LOW");
+    }else
+    if (paLevel == NRF_PA_MIN){
+      Serial.println("PA_MIN");
+    }else{
+      Serial.println("?");
+    }
+    Serial.print("ARC\t\t= ");
+    Serial.println(ARC);
     
 }
 
