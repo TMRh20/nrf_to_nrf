@@ -240,7 +240,7 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
       NRF_RADIO->RXADDRESSES = 1 << NRF_RADIO->TXADDRESS;
       startListening(false);
       uint32_t ack_timeout = micros();
-      while (!NRF_RADIO->EVENTS_CRCOK) {
+      while (!NRF_RADIO->EVENTS_CRCOK) { 
         if (micros() - ack_timeout > 400) {
           break;
         }
@@ -590,6 +590,18 @@ void nrf_to_nrf::setCRCLength(nrf_crclength_e length) {
     NRF_RADIO->CRCINIT = 0x00L;  // Initial value
     NRF_RADIO->CRCPOLY = 0x00UL; // CRC poly: x^16+x^12^x^5+1
   }
+}
+
+/**********************************************************************************************************/
+
+bool nrf_to_nrf::testCarrier(){
+    
+  NRF_RADIO->EVENTS_RSSIEND = 0;
+  NRF_RADIO->TASKS_RSSISTART = 1;
+  while (!NRF_RADIO->EVENTS_RSSIEND) {}
+  if (NRF_RADIO->RSSISAMPLE < 65) { return 1; }
+  return 0;
+    
 }
 
 /**********************************************************************************************************/

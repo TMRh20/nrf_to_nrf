@@ -121,6 +121,8 @@ public:
   bool failureDetected;
   bool txStandBy();
   bool txStandBy(uint32_t timeout, bool startTx = 0);
+  bool testCarrier();
+  bool testRPD();
 
 private:
   bool acksEnabled(uint8_t pipe);
