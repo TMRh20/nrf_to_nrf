@@ -228,8 +228,8 @@ bool nrf_to_nrf::available(uint8_t* pipe_num){
       stopListening(false,false);
       uint32_t txAddress = NRF_RADIO->TXADDRESS;
       NRF_RADIO->TXADDRESS = NRF_RADIO->RXMATCH;
+      delayMicroseconds(55);
       if(ackPayloadsEnabled){
-        delayMicroseconds(55);
         if(*pipe_num == ackPipe){          
           write(&ackBuffer[1],ackBuffer[0],1);  
         }else{
@@ -255,6 +255,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num){
   if(NRF_RADIO->EVENTS_CRCERROR){
       NRF_RADIO->EVENTS_CRCERROR = 0;
       NRF_RADIO->TASKS_START = 1;
+      Serial.println("CRC ERR");
   } 
   
   return 0;
