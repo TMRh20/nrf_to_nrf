@@ -145,6 +145,8 @@ private:
   bool radioConfigured;
   bool ackPayloadAvailable;
   uint8_t ackAvailablePipeNo;
+  uint8_t lastPacketCounter = 0;
+  uint8_t lastData = 0;
 };
 
 #endif //__nrf52840_nrf24l01_H__

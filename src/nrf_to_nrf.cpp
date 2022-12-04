@@ -2,53 +2,8 @@
 
 #include "nrf_to_nrf.h"
 
-/* These are set to zero as ShockBurst packets don't have corresponding fields.
- */
-#define PACKET_S1_FIELD_SIZE (3UL) /**< Packet S1 field size in bits. */
-#define PACKET_S0_FIELD_SIZE (0UL) /**< Packet S0 field size in bits. */
-#define PACKET_LENGTH_FIELD_SIZE                                               \
-  (6UL) /**< Packet length field size in bits.                                 \
-         */
+/**********************************************************************************************************/
 
-#define PACKET_BASE_ADDRESS_LENGTH                                             \
-  (4UL) //!< Packet base address length field size in bytes
-#define PACKET_STATIC_LENGTH (32UL) //!< Packet static length in bytes
-#define PACKET_PAYLOAD_MAXSIZE                                                 \
-  (PACKET_STATIC_LENGTH) //!< Packet payload maximum size in bytes
-
-/**
- * @brief Function for swapping/mirroring bits in a byte.
- *
- *@verbatim
- * output_bit_7 = input_bit_0
- * output_bit_6 = input_bit_1
- *           :
- * output_bit_0 = input_bit_7
- *@endverbatim
- *
- * @param[in] inp is the input byte to be swapped.
- *
- * @return
- * Returns the swapped/mirrored input byte.
- */
-static uint32_t swap_bits(uint32_t inp);
-
-/**
- * @brief Function for swapping bits in a 32 bit word for each byte
- * individually.
- *
- * The bits are swapped as follows:
- * @verbatim
- * output[31:24] = input[24:31]
- * output[23:16] = input[16:23]
- * output[15:8]  = input[8:15]
- * output[7:0]   = input[0:7]
- * @endverbatim
- * @param[in] input is the input word to be swapped.
- *
- * @return
- * Returns the swapped input byte.
- */
 // Function to do bytewise bit-swap on an unsigned 32-bit value
 static uint32_t bytewise_bit_swap(uint8_t const *p_inp) {
   uint32_t inp =
@@ -59,11 +14,15 @@ static uint32_t bytewise_bit_swap(uint8_t const *p_inp) {
   return inp;
 }
 
+/**********************************************************************************************************/
+
 // Convert a base address from nRF24L format to nRF5 format
 static uint32_t addr_conv(uint8_t const *p_addr) {
   return __REV(
       bytewise_bit_swap(p_addr)); // lint -esym(628, __rev) -esym(526, __rev) */
 }
+
+/**********************************************************************************************************/
 
 static uint32_t addrConv32(uint32_t addr) {
 
@@ -76,26 +35,7 @@ static uint32_t addrConv32(uint32_t addr) {
   return addr_conv(buffer);
 }
 
-void clock_initialization() {
-  /* Start 16 MHz crystal oscillator */
-  NRF_CLOCK->EVENTS_HFCLKSTARTED = 0;
-  NRF_CLOCK->TASKS_HFCLKSTART = 1;
-
-  /* Wait for the external oscillator to start up */
-  while (NRF_CLOCK->EVENTS_HFCLKSTARTED == 0) {
-    // Do nothing.
-  }
-
-  /* Start low frequency crystal oscillator for app_timer(used by bsp)*/
-  /* NRF_CLOCK->LFCLKSRC            = (CLOCK_LFCLKSRC_SRC_Xtal <<
-   CLOCK_LFCLKSRC_SRC_Pos); NRF_CLOCK->EVENTS_LFCLKSTARTED = 0;
-   NRF_CLOCK->TASKS_LFCLKSTART    = 1;
-
-   while (NRF_CLOCK->EVENTS_LFCLKSTARTED == 0)
-   {
-       // Do nothing.
-   }*/
-}
+/**********************************************************************************************************/
 
 nrf_to_nrf::nrf_to_nrf() {
   // Enable auto ack on all pipes by default
@@ -112,7 +52,7 @@ nrf_to_nrf::nrf_to_nrf() {
   radioConfigured = false;
 };
 
-uint8_t bytes = 0;
+/**********************************************************************************************************/
 
 bool nrf_to_nrf::begin() {
 
@@ -170,7 +110,7 @@ bool nrf_to_nrf::begin() {
   NRF_RADIO->MODECNF0 = 0x200;
   NRF_RADIO->MODECNF0 |= 1;
   NRF_RADIO->TXPOWER = (0x8 << RADIO_TXPOWER_TXPOWER_Pos);
-  NRF_RADIO->SHORTS = 0;
+  NRF_RADIO->SHORTS = 1 << 19;
   NRF_RADIO->FREQUENCY = 0x4C;
 
   // NRF_RADIO->TASKS_TXEN = 1;                    /* Enable RADIO in RX mode*/
@@ -179,6 +119,8 @@ bool nrf_to_nrf::begin() {
   radioConfigured = true;
   return 1;
 }
+
+/**********************************************************************************************************/
 
 #define ED_RSSISCALE 4 // From electrical specifications
 uint8_t nrf_to_nrf::sample_ed(void) {
@@ -194,10 +136,11 @@ uint8_t nrf_to_nrf::sample_ed(void) {
                        : val * ED_RSSISCALE); // Convert to IEEE 802.15.4 scale
 }
 
-uint8_t lastPacketCounter = 0;
-uint8_t lastData = 0;
+/**********************************************************************************************************/
 
 bool nrf_to_nrf::available() { return available(NULL); }
+
+/**********************************************************************************************************/
 
 bool nrf_to_nrf::available(uint8_t *pipe_num) {
 
@@ -260,6 +203,8 @@ bool nrf_to_nrf::available(uint8_t *pipe_num) {
   return 0;
 }
 
+/**********************************************************************************************************/
+
 void nrf_to_nrf::read(void *buf, uint8_t len) {
   memcpy(buf, &rxBuffer[1], len);
   ackPayloadAvailable = false;
@@ -267,6 +212,8 @@ void nrf_to_nrf::read(void *buf, uint8_t len) {
     NRF_RADIO->TASKS_START = 1;
   }
 }
+
+/**********************************************************************************************************/
 
 bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
 
@@ -321,13 +268,19 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
   return 0;
 }
 
+/**********************************************************************************************************/
+
 bool nrf_to_nrf::writeAckPayload(uint8_t pipe, const void *buf, uint8_t len) {
   memcpy(&ackBuffer[1], buf, len);
   ackBuffer[0] = len;
   ackPipe = pipe;
 }
 
+/**********************************************************************************************************/
+
 void nrf_to_nrf::enableAckPayload() { ackPayloadsEnabled = true; }
+
+/**********************************************************************************************************/
 
 void nrf_to_nrf::startListening(bool resetAddresses) {
 
@@ -346,12 +299,10 @@ void nrf_to_nrf::startListening(bool resetAddresses) {
   NRF_RADIO->EVENTS_RXREADY = 0;
   NRF_RADIO->EVENTS_CRCOK = 0;
   NRF_RADIO->TASKS_RXEN = 1;
-  while (NRF_RADIO->EVENTS_RXREADY == 0)
-    ;
-  NRF_RADIO->EVENTS_RXREADY = 0;
-  NRF_RADIO->TASKS_START = 1;
   inRxMode = true;
 }
+
+/**********************************************************************************************************/
 
 void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses) {
 
@@ -375,13 +326,22 @@ void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses) {
   inRxMode = false;
 }
 
+/**********************************************************************************************************/
+
 uint8_t nrf_to_nrf::getDynamicPayloadSize() {
   uint8_t size = min(32, rxBuffer[0]);
   return size;
 }
 
+/**********************************************************************************************************/
+
 bool nrf_to_nrf::isValid() { return 1; }
+
+/**********************************************************************************************************/
+
 void nrf_to_nrf::setChannel(uint8_t channel) { NRF_RADIO->FREQUENCY = channel; }
+
+/**********************************************************************************************************/
 
 void nrf_to_nrf::setAutoAck(bool enable) {
 
@@ -389,10 +349,15 @@ void nrf_to_nrf::setAutoAck(bool enable) {
     acksPerPipe[i] = enable;
   }
 }
+
+/**********************************************************************************************************/
+
 void nrf_to_nrf::setAutoAck(uint8_t pipe, bool enable) {
 
   acksPerPipe[pipe] = enable;
 }
+
+/**********************************************************************************************************/
 
 void nrf_to_nrf::enableDynamicPayloads() {
   DPL = true;
@@ -433,7 +398,17 @@ void nrf_to_nrf::setPayloadSize(uint8_t size) {
                      (staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos);
 }
 
-void nrf_to_nrf::setRetries(uint8_t retryVar, uint8_t attempts) {}
+/**********************************************************************************************************/
+
+void nrf_to_nrf::setRetries(uint8_t retryVar, uint8_t attempts) {
+  
+  retries = attempts;
+  retryDuration = retryVar;
+  
+}
+
+/**********************************************************************************************************/
+
 void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address) {
 
   // child += 1;
@@ -483,6 +458,8 @@ void nrf_to_nrf::openWritingPipe(uint64_t address) {
   // Serial.println(addrConv32(NRF_RADIO->PREFIX0),HEX);
 }
 
+/**********************************************************************************************************/
+
 void nrf_to_nrf::openReadingPipe(uint8_t child, const uint8_t *address) {
 
   // child +=1;
@@ -516,6 +493,8 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, const uint8_t *address) {
   // Serial.println(NRF_RADIO->RXADDRESSES);
 }
 
+/**********************************************************************************************************/
+
 void nrf_to_nrf::openWritingPipe(const uint8_t *address) {
 
   uint32_t base = 0;
@@ -533,14 +512,24 @@ void nrf_to_nrf::openWritingPipe(const uint8_t *address) {
   txPrefix = NRF_RADIO->PREFIX0;
 }
 
+/**********************************************************************************************************/
+
 bool nrf_to_nrf::txStandBy() { return lastTxResult; }
+
+/**********************************************************************************************************/
+
 bool nrf_to_nrf::txStandBy(uint32_t timeout, bool startTx) {
   return lastTxResult;
 }
+
+/**********************************************************************************************************/
+
 bool nrf_to_nrf::writeFast(const void *buf, uint8_t len, const bool multicast) {
   lastTxResult = write((void *)buf, len, multicast);
   return lastTxResult;
 }
+
+/**********************************************************************************************************/
 
 bool nrf_to_nrf::acksEnabled(uint8_t pipe) {
 
@@ -550,9 +539,24 @@ bool nrf_to_nrf::acksEnabled(uint8_t pipe) {
   return 0;
 }
 
+/**********************************************************************************************************/
+
 bool nrf_to_nrf::isChipConnected() { return NRF_RADIO->POWER; }
 
-bool nrf_to_nrf::setDataRate(uint8_t speed) { return 1; }
+/**********************************************************************************************************/
+
+bool nrf_to_nrf::setDataRate(uint8_t speed) { 
+
+  if (!speed) {
+    NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos);
+  } else {
+    NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_2Mbit << RADIO_MODE_MODE_Pos);
+  }
+  return 1;
+
+}
+
+/**********************************************************************************************************/
 
 void nrf_to_nrf::setPALevel(uint8_t level, bool lnaEnable) {
 
@@ -568,6 +572,8 @@ void nrf_to_nrf::setPALevel(uint8_t level, bool lnaEnable) {
     paLevel = 0x8;
   }
 }
+
+/**********************************************************************************************************/
 
 void nrf_to_nrf::setCRCLength(nrf_crclength_e length) {
 
@@ -585,3 +591,5 @@ void nrf_to_nrf::setCRCLength(nrf_crclength_e length) {
     NRF_RADIO->CRCPOLY = 0x00UL; // CRC poly: x^16+x^12^x^5+1
   }
 }
+
+/**********************************************************************************************************/
