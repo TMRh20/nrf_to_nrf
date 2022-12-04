@@ -9,7 +9,7 @@
 #include <Arduino.h>
 
 #define DEFAULT_MAX_PAYLOAD_SIZE 32
-#define ACTUAL_MAX_PAYLOAD_SIZE 127;
+#define ACTUAL_MAX_PAYLOAD_SIZE 127
 
 typedef enum {
   /**
