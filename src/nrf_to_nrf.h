@@ -8,6 +8,9 @@
 #define __nrf52840_nrf24l01_H__
 #include <Arduino.h>
 
+#define DEFAULT_MAX_PAYLOAD_SIZE 32
+#define ACTUAL_MAX_PAYLOAD_SIZE 127;
+
 typedef enum {
   /**
    * (0) represents:
@@ -86,7 +89,7 @@ class nrf_to_nrf {
 public:
   nrf_to_nrf();
 
-  uint8_t radioData[32 + 2];
+  uint8_t radioData[ACTUAL_MAX_PAYLOAD_SIZE + 2];
 
   bool begin();
   uint8_t sample_ed(void);
@@ -112,7 +115,7 @@ public:
   uint8_t getPALevel();
   void setAutoAck(bool enable);
   void setAutoAck(uint8_t pipe, bool enable);
-  void enableDynamicPayloads();
+  void enableDynamicPayloads(uint8_t payloadSize = DEFAULT_MAX_PAYLOAD_SIZE);
   void disableDynamicPayloads();
   void setPayloadSize(uint8_t size);
   uint8_t getPayloadSize();
@@ -141,8 +144,8 @@ private:
   bool acksPerPipe[8];
   uint8_t retries;
   uint8_t retryDuration;
-  uint8_t rxBuffer[33];
-  uint8_t ackBuffer[33];
+  uint8_t rxBuffer[ACTUAL_MAX_PAYLOAD_SIZE + 1];
+  uint8_t ackBuffer[ACTUAL_MAX_PAYLOAD_SIZE + 1];
   uint8_t rxFifoAvailable;
   bool DPL;
   bool ackPayloadsEnabled;

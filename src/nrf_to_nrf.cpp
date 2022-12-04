@@ -154,7 +154,7 @@ bool nrf_to_nrf::available(uint8_t *pipe_num) {
   if (NRF_RADIO->EVENTS_CRCOK) {
     NRF_RADIO->EVENTS_CRCOK = 0;
     *pipe_num = (uint8_t)NRF_RADIO->RXMATCH;
-    memcpy(&rxBuffer[1], &radioData[2], 32);
+    memcpy(&rxBuffer[1], &radioData[2], staticPayloadSize);
     rxBuffer[0] = radioData[0];
     rxFifoAvailable = true;
     uint8_t packetCtr = 0;
@@ -228,7 +228,7 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
 
   for (int i = 0; i < retries; i++) {
     ARC = i;
-    memset(&radioData[2], 0, 32);
+    memset(&radioData[2], 0, staticPayloadSize);
     memcpy(&radioData[2], buf, len);
 
     // radioData[0] = ackPID++;
@@ -249,7 +249,7 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
       }
       if (NRF_RADIO->EVENTS_CRCOK) {
         if (ackPayloadsEnabled && radioData[0] > 0) {
-          memcpy(&rxBuffer[1], &radioData[2], 32);
+          memcpy(&rxBuffer[1], &radioData[2], staticPayloadSize);
           rxBuffer[0] = radioData[0];
           ackPayloadAvailable = true;
           ackAvailablePipeNo = NRF_RADIO->RXMATCH;
@@ -340,7 +340,7 @@ void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses) {
 /**********************************************************************************************************/
 
 uint8_t nrf_to_nrf::getDynamicPayloadSize() {
-  uint8_t size = min(32, rxBuffer[0]);
+  uint8_t size = min(staticPayloadSize, rxBuffer[0]);
   return size;
 }
 
@@ -383,8 +383,9 @@ void nrf_to_nrf::setAutoAck(uint8_t pipe, bool enable) {
 
 /**********************************************************************************************************/
 
-void nrf_to_nrf::enableDynamicPayloads() {
+void nrf_to_nrf::enableDynamicPayloads(uint8_t payloadSize) {
   DPL = true;
+  staticPayloadSize = payloadSize;
   NRF_RADIO->PCNF0 = (0 << RADIO_PCNF0_S0LEN_Pos) |
                      (6 << RADIO_PCNF0_LFLEN_Pos) |
                      (3 << RADIO_PCNF0_S1LEN_Pos);
@@ -393,7 +394,7 @@ void nrf_to_nrf::enableDynamicPayloads() {
                      (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) |
                      (4 << RADIO_PCNF1_BALEN_Pos) |
                      (0 << RADIO_PCNF1_STATLEN_Pos) |
-                     (32 << RADIO_PCNF1_MAXLEN_Pos);
+                     (payloadSize << RADIO_PCNF1_MAXLEN_Pos);
 }
 
 /**********************************************************************************************************/
