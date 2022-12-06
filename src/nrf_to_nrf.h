@@ -8,6 +8,7 @@
 #define __nrf52840_nrf24l01_H__
 #include <Arduino.h>
 
+#define NRF52_RADIO_LIBRARY
 #define DEFAULT_MAX_PAYLOAD_SIZE 32
 #define ACTUAL_MAX_PAYLOAD_SIZE 127
 
@@ -127,6 +128,7 @@ public:
   void openWritingPipe(uint64_t address);
   void openReadingPipe(uint8_t child, const uint8_t *address);
   void openWritingPipe(const uint8_t *address);
+  void setAddressWidth(uint8_t a_width);
   void printDetails();
   
   void powerUp();
@@ -166,6 +168,7 @@ private:
   uint8_t lastData = 0;
   bool dynamicAckEnabled = 1;
   uint8_t ARC;
+  uint8_t addressWidth;
 };
 
 #endif //__nrf52840_nrf24l01_H__
