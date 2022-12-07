@@ -722,6 +722,7 @@ void nrf_to_nrf::setAddressWidth(uint8_t a_width){
 
 }
 
+/**********************************************************************************************************/
 
 void nrf_to_nrf::printDetails(){
     
@@ -732,7 +733,7 @@ void nrf_to_nrf::printDetails(){
     //Serial.println(addrConv32(NRF_RADIO->PREFIX0);
     Serial.print("RX_ADDR_P0-1\t= 0x");
     uint32_t base = addrConv32(NRF_RADIO->BASE0);
-    for(int i=addressWidth-1; i >-1; i--){
+    for(int i=addressWidth-2; i >-1; i--){
       Serial.print( (base >> (i * 8)) & 0xFF,HEX);
     }
     uint32_t prefixes = addrConv32(NRF_RADIO->PREFIX0);
@@ -740,7 +741,7 @@ void nrf_to_nrf::printDetails(){
     Serial.print(prefix,HEX);
     Serial.print(" 0x");
     base = addrConv32(NRF_RADIO->BASE1);
-    for(int i=addressWidth-1; i >-1; i--){
+    for(int i=addressWidth-2; i >-1; i--){
       Serial.print( (base >> (i * 8)) & 0xFF,HEX);
     }
     prefix = (prefixes >> 16) & 0xFF;
