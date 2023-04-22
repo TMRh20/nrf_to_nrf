@@ -279,14 +279,16 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
 bool nrf_to_nrf::startWrite(void *buf, uint8_t len, bool multicast) {
 
   NRF_RADIO->TASKS_START = 1;
-
+  return true;
 }
+
 /**********************************************************************************************************/
 
 bool nrf_to_nrf::writeAckPayload(uint8_t pipe, const void *buf, uint8_t len) {
   memcpy(&ackBuffer[1], buf, len);
   ackBuffer[0] = len;
   ackPipe = pipe;
+  return true;
 }
 
 /**********************************************************************************************************/
