@@ -164,9 +164,9 @@ private:
   bool radioConfigured;
   bool ackPayloadAvailable;
   uint8_t ackAvailablePipeNo;
-  uint8_t lastPacketCounter = 0;
-  uint8_t lastData = 0;
-  bool dynamicAckEnabled = 1;
+  uint8_t lastPacketCounter;
+  uint8_t lastData;
+  bool dynamicAckEnabled;
   uint8_t ARC;
   uint8_t addressWidth;
 };

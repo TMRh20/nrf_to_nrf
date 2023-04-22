@@ -197,7 +197,6 @@ bool nrf_to_nrf::available(uint8_t *pipe_num) {
   if (NRF_RADIO->EVENTS_CRCERROR) {
     NRF_RADIO->EVENTS_CRCERROR = 0;
     NRF_RADIO->TASKS_START = 1;
-    // Serial.println("CRC ERR");
   }
 
   return 0;
@@ -229,7 +228,10 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
     ARC = i;
     memset(&radioData[2], 0, staticPayloadSize);
     memcpy(&radioData[2], buf, len);
-
+    NRF_RADIO->EVENTS_TXREADY = 0;
+    NRF_RADIO->TASKS_TXEN = 1;
+    while (NRF_RADIO->EVENTS_TXREADY == 0);
+    NRF_RADIO->EVENTS_TXREADY = 0;
     // radioData[0] = ackPID++;
     NRF_RADIO->EVENTS_END = 0;
     NRF_RADIO->TASKS_START = 1;
@@ -241,7 +243,7 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
       NRF_RADIO->RXADDRESSES = 1 << NRF_RADIO->TXADDRESS;
       startListening(false);
       uint32_t ack_timeout = micros();
-      while (!NRF_RADIO->EVENTS_CRCOK) { 
+      while (!NRF_RADIO->EVENTS_CRCOK && !NRF_RADIO->EVENTS_CRCERROR) { 
         if (micros() - ack_timeout > 400) {
           break;
         }
@@ -257,6 +259,9 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
         stopListening(false, false);
         NRF_RADIO->RXADDRESSES = rxAddress;
         return 1;
+      }else 
+      if (NRF_RADIO->EVENTS_CRCERROR){
+        NRF_RADIO->EVENTS_CRCERROR = 0;
       }
       uint32_t duration = 258 * retryDuration;
       delayMicroseconds(duration);
@@ -329,10 +334,10 @@ void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses) {
   if (setWritingPipe) {
     NRF_RADIO->TXADDRESS = 0x00;
   }
-  NRF_RADIO->EVENTS_TXREADY = 0;
-  NRF_RADIO->TASKS_TXEN = 1;
-  while (NRF_RADIO->EVENTS_TXREADY == 0);
-  NRF_RADIO->EVENTS_TXREADY = 0;
+  //NRF_RADIO->EVENTS_TXREADY = 0;
+  //NRF_RADIO->TASKS_TXEN = 1;
+  //while (NRF_RADIO->EVENTS_TXREADY == 0);
+  //NRF_RADIO->EVENTS_TXREADY = 0;
   inRxMode = false;
 }
 
