@@ -223,6 +223,7 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
     radioData[1] = 0;      // ackPID++;//((radioData[0] + 1) % 4) << 1;
     radioData[0] = ackPID++; //((ackPID+=1) % 7) << 1;;
   }
+  uint8_t CRCLen = 0;
 
   for (int i = 0; i < retries; i++) {
     ARC = i;
@@ -241,6 +242,10 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
     if (!multicast && acksPerPipe[NRF_RADIO->TXADDRESS] == true) {
       uint32_t rxAddress = NRF_RADIO->RXADDRESSES;
       NRF_RADIO->RXADDRESSES = 1 << NRF_RADIO->TXADDRESS;
+      if(!DPL){
+        CRCLen = getCRCLength();
+        setCRCLength(NRF_CRC_DISABLED);
+      }
       startListening(false);
       uint32_t ack_timeout = micros();
       while (!NRF_RADIO->EVENTS_CRCOK && !NRF_RADIO->EVENTS_CRCERROR) { 
@@ -257,6 +262,9 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
         }
         NRF_RADIO->EVENTS_CRCOK = 0;
         stopListening(false, false);
+        if(!DPL){
+          setCRCLength(nrf_crclength_e(CRCLen));
+        }
         NRF_RADIO->RXADDRESSES = rxAddress;
         return 1;
       }else 
@@ -266,6 +274,9 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
       uint32_t duration = 258 * retryDuration;
       delayMicroseconds(duration);
       stopListening(false, false);
+      if(!DPL){
+        setCRCLength(nrf_crclength_e(CRCLen));
+      }
       NRF_RADIO->RXADDRESSES = rxAddress;
     } else {
       return 1;
