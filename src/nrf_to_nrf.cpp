@@ -668,13 +668,13 @@ void nrf_to_nrf::setCRCLength(nrf_crclength_e length) {
     NRF_RADIO->CRCINIT = 0xFFFFUL;            // Initial value
     NRF_RADIO->CRCPOLY = 0x11021UL;           // CRC poly: x^16+x^12^x^5+1
   } else if (length == NRF_CRC_8) {
-    NRF_RADIO->CRCCNF = RADIO_CRCCNF_LEN_One; /* CRC configuration: 16bit */
-    NRF_RADIO->CRCINIT = 0xFFUL;              // Initial value
-    NRF_RADIO->CRCPOLY = 0x107UL;             // CRC poly: x^16+x^12^x^5+1
+    NRF_RADIO->CRCCNF = RADIO_CRCCNF_LEN_One; /* CRC configuration: 8bit */
+    NRF_RADIO->CRCINIT = 0xFFUL;
+    NRF_RADIO->CRCPOLY = 0x107UL;
   } else {
-    NRF_RADIO->CRCCNF = 0;       /* CRC configuration: 16bit       */
-    NRF_RADIO->CRCINIT = 0x00L;  // Initial value
-    NRF_RADIO->CRCPOLY = 0x00UL; // CRC poly: x^16+x^12^x^5+1
+    NRF_RADIO->CRCCNF = 0;       /* CRC configuration: Disabled       */
+    NRF_RADIO->CRCINIT = 0x00L;
+    NRF_RADIO->CRCPOLY = 0x00UL;
   }
 }
 
