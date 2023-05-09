@@ -178,7 +178,15 @@ bool nrf_to_nrf::available(uint8_t *pipe_num) {
           write(0, 0, 1);
         }
       } else {
+         uint8_t payloadSize = 0;
+        if(!DPL){
+          payloadSize = getPayloadSize();
+          setPayloadSize(0);
+        }
         write(0, 0, 1); // Send an ACK
+        if(!DPL){
+          setPayloadSize(payloadSize);
+        }
       }
       NRF_RADIO->TXADDRESS = txAddress;
       startListening(false);
@@ -223,7 +231,7 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
     radioData[1] = 0;      // ackPID++;//((radioData[0] + 1) % 4) << 1;
     radioData[0] = ackPID++; //((ackPID+=1) % 7) << 1;;
   }
-  uint8_t CRCLen = 0;
+   uint8_t payloadSize = 0;
 
   for (int i = 0; i < retries; i++) {
     ARC = i;
@@ -243,8 +251,8 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
       uint32_t rxAddress = NRF_RADIO->RXADDRESSES;
       NRF_RADIO->RXADDRESSES = 1 << NRF_RADIO->TXADDRESS;
       if(!DPL){
-        CRCLen = getCRCLength();
-        setCRCLength(NRF_CRC_DISABLED);
+        payloadSize = getPayloadSize();
+        setPayloadSize(0);
       }
       startListening(false);
       uint32_t ack_timeout = micros();
@@ -263,7 +271,7 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
         NRF_RADIO->EVENTS_CRCOK = 0;
         stopListening(false, false);
         if(!DPL){
-          setCRCLength(nrf_crclength_e(CRCLen));
+          setPayloadSize(payloadSize);
         }
         NRF_RADIO->RXADDRESSES = rxAddress;
         return 1;
@@ -275,7 +283,7 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
       delayMicroseconds(duration);
       stopListening(false, false);
       if(!DPL){
-        setCRCLength(nrf_crclength_e(CRCLen));
+        setPayloadSize(payloadSize);
       }
       NRF_RADIO->RXADDRESSES = rxAddress;
     } else {
@@ -672,7 +680,7 @@ void nrf_to_nrf::setCRCLength(nrf_crclength_e length) {
     NRF_RADIO->CRCINIT = 0xFFUL;
     NRF_RADIO->CRCPOLY = 0x107UL;
   } else {
-    NRF_RADIO->CRCCNF = 0;       /* CRC configuration: Disabled       */
+    NRF_RADIO->CRCCNF = 0;       /* CRC configuration: Disabled */
     NRF_RADIO->CRCINIT = 0x00L;
     NRF_RADIO->CRCPOLY = 0x00UL;
   }
