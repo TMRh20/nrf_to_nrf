@@ -263,14 +263,14 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
       uint32_t realAckTimeout = ackTimeout;
       if(!DPL){
         if(NRF_RADIO->MODE == (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos)){
-          realAckTimeout -= 275;
+          realAckTimeout -= ACK_TIMEOUT_1MBPS_OFFSET;
         }else{
-          realAckTimeout -= 135;
+          realAckTimeout -= ACK_TIMEOUT_2MBPS_OFFSET;
         }
       }
       uint32_t ack_timeout = micros();
       while (!NRF_RADIO->EVENTS_CRCOK && !NRF_RADIO->EVENTS_CRCERROR) { 
-        if (micros() - ack_timeout > ackTimeout) {
+        if (micros() - ack_timeout > realAckTimeout) {
           break;
         }
       }
