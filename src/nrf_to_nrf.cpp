@@ -53,6 +53,7 @@ nrf_to_nrf::nrf_to_nrf() {
   radioConfigured = false;
   ARC = 0;
   addressWidth = 5;
+  ackTimeout = ACK_TIMEOUT_1MBPS;
 };
 
 /**********************************************************************************************************/
@@ -224,11 +225,9 @@ void nrf_to_nrf::read(void *buf, uint8_t len) {
 /**********************************************************************************************************/
 
 bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
-
-  if (DPL) {
-    radioData[0] = len;
-    radioData[1] = ((ackPID += 1) % 7) << 1;
-  } else {
+  
+  uint8_t PID = ((ackPID += 1) % 7) << 1;
+  if (!DPL) {
     radioData[1] = 0;      // ackPID++;//((radioData[0] + 1) % 4) << 1;
     radioData[0] = ackPID++; //((ackPID+=1) % 7) << 1;;
   }
@@ -236,6 +235,10 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
 
   for (int i = 0; i < retries; i++) {
     ARC = i;
+    if(DPL){
+      radioData[0] = len;
+      radioData[1] = PID;
+    }
     memset(&radioData[2], 0, staticPayloadSize);
     memcpy(&radioData[2], buf, len);
     NRF_RADIO->EVENTS_TXREADY = 0;
@@ -256,9 +259,18 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
         setPayloadSize(0);
       }
       startListening(false);
+      
+      uint32_t realAckTimeout = ackTimeout;
+      if(!DPL){
+        if(NRF_RADIO->MODE == (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos)){
+          realAckTimeout -= 275;
+        }else{
+          realAckTimeout -= 135;
+        }
+      }
       uint32_t ack_timeout = micros();
       while (!NRF_RADIO->EVENTS_CRCOK && !NRF_RADIO->EVENTS_CRCERROR) { 
-        if (micros() - ack_timeout > 400) {
+        if (micros() - ack_timeout > ackTimeout) {
           break;
         }
       }
@@ -618,8 +630,10 @@ bool nrf_to_nrf::setDataRate(uint8_t speed) {
 
   if (!speed) {
     NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos);
+    ackTimeout = ACK_TIMEOUT_1MBPS;
   } else {
     NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_2Mbit << RADIO_MODE_MODE_Pos);
+    ackTimeout = ACK_TIMEOUT_2MBPS;
   }
   return 1;
 

@@ -11,6 +11,10 @@
 #define NRF52_RADIO_LIBRARY
 #define DEFAULT_MAX_PAYLOAD_SIZE 32
 #define ACTUAL_MAX_PAYLOAD_SIZE 127
+#define ACK_TIMEOUT_1MBPS 500//225 with static payloads
+#define ACK_TIMEOUT_2MBPS 300//165 with static payloads
+#define ACK_TIMEOUT_1MBPS_OFFSET 275
+#define ACK_TIMEOUT_2MBPS_OFFSET 135
 
 typedef enum {
   /**
@@ -169,6 +173,7 @@ private:
   bool dynamicAckEnabled;
   uint8_t ARC;
   uint8_t addressWidth;
+  uint16_t ackTimeout;
 };
 
 #endif //__nrf52840_nrf24l01_H__
