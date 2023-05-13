@@ -245,11 +245,14 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
     }
     memset(&radioData[2], 0, staticPayloadSize);
     memcpy(&radioData[2], buf, len);
-    NRF_RADIO->EVENTS_TXREADY = 0;
-    NRF_RADIO->TASKS_TXEN = 1;
-    while (NRF_RADIO->EVENTS_TXREADY == 0);
-    NRF_RADIO->EVENTS_TXREADY = 0;
-    // radioData[0] = ackPID++;
+    
+    if(NRF_RADIO->STATE < 9){
+      NRF_RADIO->EVENTS_TXREADY = 0;
+      NRF_RADIO->TASKS_TXEN = 1;
+      while (NRF_RADIO->EVENTS_TXREADY == 0);
+      NRF_RADIO->EVENTS_TXREADY = 0;
+    }
+
     NRF_RADIO->EVENTS_END = 0;
     NRF_RADIO->TASKS_START = 1;
     while (NRF_RADIO->EVENTS_END == 0) {
@@ -525,6 +528,9 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address) {
   // Serial.println(addrConv32(NRF_RADIO->PREFIX0),HEX);
   // Serial.println(NRF_RADIO->RXADDRESSES);
 }
+
+/**********************************************************************************************************/
+
 void nrf_to_nrf::openWritingPipe(uint64_t address) {
   uint32_t base = address >> 8;
   uint32_t prefix = address & 0xFF;
