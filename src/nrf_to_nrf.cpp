@@ -155,7 +155,11 @@ bool nrf_to_nrf::available(uint8_t *pipe_num) {
   if (NRF_RADIO->EVENTS_CRCOK) {
     NRF_RADIO->EVENTS_CRCOK = 0;
     *pipe_num = (uint8_t)NRF_RADIO->RXMATCH;
-    memcpy(&rxBuffer[1], &radioData[2], staticPayloadSize);
+    if(!DPL && acksEnabled(*pipe_num) == false){
+      memcpy(&rxBuffer[1],&radioData[0], staticPayloadSize);
+    }else{
+      memcpy(&rxBuffer[1], &radioData[2], staticPayloadSize);
+    }
     rxBuffer[0] = radioData[0];
     rxFifoAvailable = true;
     uint8_t packetCtr = 0;
@@ -243,8 +247,13 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
       radioData[1] = 0; 
       radioData[0] = PID;
     }
-    memset(&radioData[2], 0, staticPayloadSize);
-    memcpy(&radioData[2], buf, len);
+    if(!DPL && acksEnabled(0) == false){
+      memset(&radioData[0], 0, staticPayloadSize);
+      memcpy(&radioData[0],buf,len);
+    }else{
+      memset(&radioData[2], 0, staticPayloadSize);
+      memcpy(&radioData[2], buf, len);
+    }
     
     if(NRF_RADIO->STATE < 9){
       NRF_RADIO->EVENTS_TXREADY = 0;
@@ -417,6 +426,9 @@ void nrf_to_nrf::setAutoAck(bool enable) {
   for (int i = 0; i < 8; i++) {
     acksPerPipe[i] = enable;
   }
+  if(!DPL){
+    disableDynamicPayloads(); //Called to re-configure the PCNF0 register
+  }
 }
 
 /**********************************************************************************************************/
@@ -424,6 +436,9 @@ void nrf_to_nrf::setAutoAck(bool enable) {
 void nrf_to_nrf::setAutoAck(uint8_t pipe, bool enable) {
 
   acksPerPipe[pipe] = enable;
+  if(!DPL){
+    disableDynamicPayloads(); //Called to re-configure the PCNF0 register
+  }
 }
 
 /**********************************************************************************************************/
@@ -453,9 +468,14 @@ void nrf_to_nrf::enableDynamicPayloads(uint8_t payloadSize) {
 
 void nrf_to_nrf::disableDynamicPayloads() {
   DPL = false;
-  NRF_RADIO->PCNF0 = (1 << RADIO_PCNF0_S0LEN_Pos) |
+  
+  uint8_t lenConfig = 0;
+  if(acksEnabled(0)){
+    lenConfig = 1;   
+  }  
+  NRF_RADIO->PCNF0 = (lenConfig << RADIO_PCNF0_S0LEN_Pos) |
                      (0 << RADIO_PCNF0_LFLEN_Pos) |
-                     (1 << RADIO_PCNF0_S1LEN_Pos);
+                     (lenConfig << RADIO_PCNF0_S1LEN_Pos);
 
   NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) |
                      (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) |
@@ -469,9 +489,14 @@ void nrf_to_nrf::disableDynamicPayloads() {
 void nrf_to_nrf::setPayloadSize(uint8_t size) {
   staticPayloadSize = size;
   DPL = false;
-  NRF_RADIO->PCNF0 = (1 << RADIO_PCNF0_S0LEN_Pos) |
+  
+  uint8_t lenConfig = 0;
+  if(acksEnabled(0)){
+    lenConfig = 1;   
+  }
+  NRF_RADIO->PCNF0 = (lenConfig << RADIO_PCNF0_S0LEN_Pos) |
                      (0 << RADIO_PCNF0_LFLEN_Pos) |
-                     (1 << RADIO_PCNF0_S1LEN_Pos);
+                     (lenConfig << RADIO_PCNF0_S1LEN_Pos);
 
   NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) |
                      (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) |
