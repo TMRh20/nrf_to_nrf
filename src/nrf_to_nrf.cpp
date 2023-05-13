@@ -226,10 +226,11 @@ void nrf_to_nrf::read(void *buf, uint8_t len) {
 
 bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
   
-  uint8_t PID = ((ackPID += 1) % 7) << 1;
-  if (!DPL) {
-    radioData[1] = 0;      // ackPID++;//((radioData[0] + 1) % 4) << 1;
-    radioData[0] = ackPID++; //((ackPID+=1) % 7) << 1;;
+  uint8_t PID = ackPID;
+  if(DPL){
+    PID = ((ackPID += 1) % 7) << 1;
+  }else{
+    PID = ackPID++;
   }
    uint8_t payloadSize = 0;
 
@@ -238,6 +239,9 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
     if(DPL){
       radioData[0] = len;
       radioData[1] = PID;
+    }else{
+      radioData[1] = 0; 
+      radioData[0] = PID;
     }
     memset(&radioData[2], 0, staticPayloadSize);
     memcpy(&radioData[2], buf, len);
