@@ -16,6 +16,18 @@
 #define ACK_TIMEOUT_1MBPS_OFFSET 300
 #define ACK_TIMEOUT_2MBPS_OFFSET 135
 
+//AES CCM ENCRYPTION
+#define CCM_ENCRYPTION_ENABLED  
+#if defined CCM_ENCRYPTION_ENABLED
+  #define MAX_PACKET_SIZE 32//Max Payload Size
+  #define CCM_KEY_SIZE 16
+  #define CCM_IV_SIZE 8
+  #define CCM_COUNTER_SIZE 5
+  #define CCM_MIC_SIZE 4
+  #define CCM_START_SIZE 3
+  #define CCM_MODE_LENGTH_EXTENDED 16
+#endif
+
 typedef enum {
   /**
    * (0) represents:
@@ -353,6 +365,14 @@ public:
    * Used internally to convert addresses
    */
   uint32_t addrConv32(uint32_t addr);
+#if defined CCM_ENCRYPTION_ENABLED
+
+  uint8_t encrypt(void *bufferIn, uint8_t size);
+  uint8_t decrypt(void *bufferIn, uint8_t size);
+  uint8_t outBuffer[MAX_PACKET_SIZE + CCM_MIC_SIZE + CCM_START_SIZE];
+  void setKeyIV(uint8_t key[CCM_KEY_SIZE], uint8_t IV[CCM_IV_SIZE]);
+  bool enableEncryption;
+#endif
 
 private:
   bool acksEnabled(uint8_t pipe);
@@ -383,6 +403,17 @@ private:
   uint8_t ARC;
   uint8_t addressWidth;
   uint16_t ackTimeout;
+#if defined CCM_ENCRYPTION_ENABLED
+  uint8_t inBuffer[MAX_PACKET_SIZE + CCM_MIC_SIZE + CCM_START_SIZE];
+  uint8_t scratchPTR[MAX_PACKET_SIZE + CCM_MODE_LENGTH_EXTENDED];
+  typedef struct  {
+  uint8_t key[CCM_KEY_SIZE];
+  uint64_t counter;
+  uint8_t direction;
+  uint8_t iv[CCM_IV_SIZE];
+  } ccmData_t;
+  ccmData_t ccmData;
+#endif
 };
 
 /*! \mainpage nrf_to_nrf - NRF52 radio driver

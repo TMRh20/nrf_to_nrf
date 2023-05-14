@@ -54,6 +54,20 @@ nrf_to_nrf::nrf_to_nrf() {
   ARC = 0;
   addressWidth = 5;
   ackTimeout = ACK_TIMEOUT_1MBPS;
+
+#if defined CCM_ENCRYPTION_ENABLED  
+  NRF_CCM->INPTR = (uint32_t)inBuffer;
+  NRF_CCM->OUTPTR = (uint32_t)outBuffer;
+  NRF_CCM->CNFPTR = (uint32_t)&ccmData;
+  NRF_CCM->SCRATCHPTR = (uint32_t)scratchPTR;
+  
+  NRF_CCM->MODE = 1 << 24;
+  NRF_CCM->MAXPACKETSIZE = MAX_PACKET_SIZE;
+  NRF_CCM->SHORTS = 1;
+  NRF_CCM->ENABLE = 2;
+  enableEncryption = false;
+#endif
+
 };
 
 /**********************************************************************************************************/
@@ -155,12 +169,26 @@ bool nrf_to_nrf::available(uint8_t *pipe_num) {
   if (NRF_RADIO->EVENTS_CRCOK) {
     NRF_RADIO->EVENTS_CRCOK = 0;
     *pipe_num = (uint8_t)NRF_RADIO->RXMATCH;
+    uint8_t lengthByte = 0;
     if(!DPL && acksEnabled(*pipe_num) == false){
       memcpy(&rxBuffer[1],&radioData[0], staticPayloadSize);
     }else{
       memcpy(&rxBuffer[1], &radioData[2], staticPayloadSize);
-    }
+      lengthByte = 2;
+    }    
     rxBuffer[0] = radioData[0];
+
+#if defined CCM_ENCRYPTION_ENABLED
+    if(enableEncryption){
+      if(!decrypt(&rxBuffer[1],staticPayloadSize)){
+          return 0;
+      }
+      memset(&rxBuffer[1],0,sizeof(rxBuffer)-1);
+      memcpy(&rxBuffer[1], &outBuffer[CCM_START_SIZE],staticPayloadSize - CCM_MIC_SIZE);
+      rxBuffer[0] -= CCM_MIC_SIZE;
+    }
+#endif
+
     rxFifoAvailable = true;
     uint8_t packetCtr = 0;
     if (DPL) {
@@ -238,6 +266,15 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
   }
    uint8_t payloadSize = 0;
 
+#if defined CCM_ENCRYPTION_ENABLED
+  if(enableEncryption){
+    if(!encrypt(buf,len)){
+      return 0;
+    }
+    len += 4;
+  }
+#endif
+
   for (int i = 0; i < retries; i++) {
     ARC = i;
     if(DPL){
@@ -247,13 +284,18 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
       radioData[1] = 0; 
       radioData[0] = PID;
     }
-    if(!DPL && acksEnabled(0) == false){
-      memset(&radioData[0], 0, staticPayloadSize);
-      memcpy(&radioData[0],buf,len);
-    }else{
-      memset(&radioData[2], 0, staticPayloadSize);
-      memcpy(&radioData[2], buf, len);
-    }
+
+    uint8_t dataStart = (!DPL && acksEnabled(0) == false) ? 0 : 2;
+    memset(&radioData[dataStart],0,staticPayloadSize);
+    #if defined CCM_ENCRYPTION_ENABLED
+      if(enableEncryption){
+        memcpy(&radioData[dataStart],&outBuffer[CCM_START_SIZE],len);
+      }else{
+    #endif    
+        memcpy(&radioData[dataStart],buf,len);
+    #if defined CCM_ENCRYPTION_ENABLED
+      }
+    #endif
     
     if(NRF_RADIO->STATE < 9){
       NRF_RADIO->EVENTS_TXREADY = 0;
@@ -293,6 +335,15 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
       if (NRF_RADIO->EVENTS_CRCOK) {
         if (ackPayloadsEnabled && radioData[0] > 0) {
           memcpy(&rxBuffer[1], &radioData[2], staticPayloadSize);
+          #if defined CCM_ENCRYPTION_ENABLED
+            if(enableEncryption){
+              if(!decrypt(&rxBuffer[1], radioData[0])){
+                return 0;
+              }
+              radioData[0] -= 4;
+              memcpy(&rxBuffer[1],&outBuffer[CCM_START_SIZE],radioData[0]);
+            }
+          #endif
           rxBuffer[0] = radioData[0];
           ackPayloadAvailable = true;
           ackAvailablePipeNo = NRF_RADIO->RXMATCH;
@@ -889,3 +940,67 @@ void nrf_to_nrf::printDetails(){
 }
 
 /**********************************************************************************************************/
+
+#if defined CCM_ENCRYPTION_ENABLED
+
+uint8_t nrf_to_nrf::encrypt(void *bufferIn, uint8_t size) {
+ 
+  NRF_CCM->MODE = 1 << 24;
+
+  inBuffer[0] = 0;
+  inBuffer[1] = size;
+  inBuffer[2] = 0;
+
+  memcpy(&inBuffer[CCM_START_SIZE], bufferIn, size);
+  memset(outBuffer,0,sizeof(outBuffer));
+  
+  NRF_CCM->OUTPTR = (uint32_t)outBuffer;
+  NRF_CCM->EVENTS_ENDKSGEN = 0;
+  NRF_CCM->EVENTS_ENDCRYPT = 0;
+  NRF_CCM->TASKS_KSGEN = 1;
+  while (!NRF_CCM->EVENTS_ENDCRYPT) {};
+  
+  if (NRF_CCM->EVENTS_ERROR) {
+    return 0;
+  }
+  return outBuffer[1];
+}
+
+/**********************************************************************************************************/
+
+uint8_t nrf_to_nrf::decrypt(void *bufferIn, uint8_t size){
+    
+    
+  NRF_CCM->MODE = 1 << 24 | 1;
+  memcpy(&inBuffer[3], bufferIn, size);
+ 
+  inBuffer[0] = 0;
+  inBuffer[1] = size;
+  inBuffer[2] = 0;
+    
+  memset(outBuffer,0,sizeof(outBuffer));
+  
+  NRF_CCM->EVENTS_ENDKSGEN = 0;
+  NRF_CCM->EVENTS_ENDCRYPT = 0;
+  NRF_CCM->TASKS_KSGEN = 1;
+  while (!NRF_CCM->EVENTS_ENDCRYPT) {};
+  
+  if (NRF_CCM->EVENTS_ERROR) {
+    return 0;
+  }  
+  return outBuffer[1];
+      
+}
+
+/**********************************************************************************************************/
+
+void nrf_to_nrf::setKeyIV(uint8_t key[CCM_KEY_SIZE], uint8_t iv[CCM_IV_SIZE]){
+  
+  memcpy(ccmData.key, key, CCM_KEY_SIZE);
+  memcpy(ccmData.iv, iv, CCM_IV_SIZE);   
+    
+}
+
+/**********************************************************************************************************/
+
+#endif //defined CCM_ENCRYPTION_ENABLED
