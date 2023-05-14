@@ -61,7 +61,7 @@ nrf_to_nrf::nrf_to_nrf() {
   NRF_CCM->CNFPTR = (uint32_t)&ccmData;
   NRF_CCM->SCRATCHPTR = (uint32_t)scratchPTR;
   
-  NRF_CCM->MODE = 1 << 24;
+  NRF_CCM->MODE = 1 << 24 | 1 << 16;
   NRF_CCM->MAXPACKETSIZE = MAX_PACKET_SIZE;
   NRF_CCM->SHORTS = 1;
   NRF_CCM->ENABLE = 2;
@@ -268,10 +268,14 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
 
 #if defined CCM_ENCRYPTION_ENABLED
   if(enableEncryption){
-    if(!encrypt(buf,len)){
-      return 0;
+    if(len){
+      if(!encrypt(buf,len)){
+        return 0;
+      }
     }
-    len += 4;
+    if(len){
+     len += 4;
+    }
   }
 #endif
 
@@ -336,11 +340,13 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast) {
         if (ackPayloadsEnabled && radioData[0] > 0) {
           memcpy(&rxBuffer[1], &radioData[2], staticPayloadSize);
           #if defined CCM_ENCRYPTION_ENABLED
-            if(enableEncryption){
+            if(enableEncryption && radioData[0] > 0){
               if(!decrypt(&rxBuffer[1], radioData[0])){
                 return 0;
               }
-              radioData[0] -= 4;
+              if(radioData[0] > 4){
+                radioData[0] -= 4;
+              }
               memcpy(&rxBuffer[1],&outBuffer[CCM_START_SIZE],radioData[0]);
             }
           #endif
@@ -945,7 +951,7 @@ void nrf_to_nrf::printDetails(){
 
 uint8_t nrf_to_nrf::encrypt(void *bufferIn, uint8_t size) {
  
-  NRF_CCM->MODE = 1 << 24;
+  NRF_CCM->MODE = 1 << 24 | 1 << 16;;
 
   inBuffer[0] = 0;
   inBuffer[1] = size;
@@ -971,7 +977,7 @@ uint8_t nrf_to_nrf::encrypt(void *bufferIn, uint8_t size) {
 uint8_t nrf_to_nrf::decrypt(void *bufferIn, uint8_t size){
     
     
-  NRF_CCM->MODE = 1 << 24 | 1;
+  NRF_CCM->MODE = 1 << 24 | 1  | 1 << 16;;
   memcpy(&inBuffer[3], bufferIn, size);
  
   inBuffer[0] = 0;
