@@ -266,7 +266,7 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast, bool doEncryption
    uint8_t payloadSize = 0;
 
 #if defined CCM_ENCRYPTION_ENABLED
-  if(enableEncryption & doEncryption){
+  if(enableEncryption && doEncryption){
     if(len){
       if(!encrypt(buf,len)){
         return 0;
@@ -291,7 +291,7 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast, bool doEncryption
     uint8_t dataStart = (!DPL && acksEnabled(0) == false) ? 0 : 2;
     memset(&radioData[dataStart],0,staticPayloadSize);
     #if defined CCM_ENCRYPTION_ENABLED
-      if(enableEncryption & doEncryption){
+      if(enableEncryption && doEncryption){
         memcpy(&radioData[dataStart],&outBuffer[CCM_START_SIZE],len);
       }else{
     #endif    
