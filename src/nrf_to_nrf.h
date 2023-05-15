@@ -137,6 +137,42 @@ public:
    */
   bool begin();
   uint8_t sample_ed(void);
+  bool available();
+  bool available(uint8_t *pipe_num);
+  void read(void *buf, uint8_t len);
+  bool write(void *buf, uint8_t len, bool multicast = false, bool doEncryption = true);
+  bool writeFast(const void *buf, uint8_t len, const bool multicast = 0);
+  bool startWrite(void *buf, uint8_t len, bool multicast);
+  bool writeAckPayload(uint8_t pipe, const void *buf, uint8_t len);
+  void enableAckPayload();
+  void disableAckPayload();
+  void enableDynamicAck();
+  void startListening(bool resetAddresses = true);
+  void stopListening(bool setWritingPipe = true, bool resetAddresses = true);
+  uint8_t getDynamicPayloadSize();
+  bool isValid();
+  bool isChipConnected();
+  void setChannel(uint8_t channel);
+  uint8_t getChannel();
+  bool setDataRate(uint8_t speed);
+  void setPALevel(uint8_t level, bool lnaEnable = true);
+  uint8_t getPALevel();
+  void setAutoAck(bool enable);
+  void setAutoAck(uint8_t pipe, bool enable);
+  void enableDynamicPayloads(uint8_t payloadSize = DEFAULT_MAX_PAYLOAD_SIZE);
+  void disableDynamicPayloads();
+  void setPayloadSize(uint8_t size);
+  uint8_t getPayloadSize();
+  void setCRCLength(nrf_crclength_e length);
+  nrf_crclength_e getCRCLength();
+  void disableCRC();
+  void setRetries(uint8_t retryVar, uint8_t attempts);
+  void openReadingPipe(uint8_t child, uint64_t address);
+  void openWritingPipe(uint64_t address);
+  void openReadingPipe(uint8_t child, const uint8_t *address);
+  void openWritingPipe(const uint8_t *address);
+  void setAddressWidth(uint8_t a_width);
+  void printDetails();
   
   /**
    * Same as NRF24 radio.available();
