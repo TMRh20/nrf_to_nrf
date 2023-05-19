@@ -195,10 +195,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1b2f567dda77209301cbaea4c5a75862"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c249d4566bb6b6219b22b69c46daa9d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a8c249d4566bb6b6219b22b69c46daa9d">txStandBy</a> (uint32_t timeout, bool startTx=0)</td></tr>
 <tr class="separator:a8c249d4566bb6b6219b22b69c46daa9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef67812f5e62734fb8215161174b3fe0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#aef67812f5e62734fb8215161174b3fe0">testCarrier</a> ()</td></tr>
-<tr class="separator:aef67812f5e62734fb8215161174b3fe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58d3be7502b81f507caa4cef436a4c1a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a58d3be7502b81f507caa4cef436a4c1a">testRPD</a> ()</td></tr>
-<tr class="separator:a58d3be7502b81f507caa4cef436a4c1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b0d3c0393baaec2963e325dca708935"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a1b0d3c0393baaec2963e325dca708935">testCarrier</a> (uint8_t RSSI=65)</td></tr>
+<tr class="separator:a1b0d3c0393baaec2963e325dca708935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4de30b154367928dae7b778b21748d53"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a4de30b154367928dae7b778b21748d53">testRPD</a> (uint8_t RSSI=65)</td></tr>
+<tr class="separator:a4de30b154367928dae7b778b21748d53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88266b8fca35d23d053be7b89c287388"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a88266b8fca35d23d053be7b89c287388">getARC</a> ()</td></tr>
 <tr class="separator:a88266b8fca35d23d053be7b89c287388"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41d8dd2384f0c139623d15ac17f08bf7"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a41d8dd2384f0c139623d15ac17f08bf7">addrConv32</a> (uint32_t addr)</td></tr>
@@ -1298,8 +1298,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aef67812f5e62734fb8215161174b3fe0" name="aef67812f5e62734fb8215161174b3fe0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef67812f5e62734fb8215161174b3fe0">&#9670;&#160;</a></span>testCarrier()</h2>
+<a id="a1b0d3c0393baaec2963e325dca708935" name="a1b0d3c0393baaec2963e325dca708935"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b0d3c0393baaec2963e325dca708935">&#9670;&#160;</a></span>testCarrier()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1307,12 +1307,18 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">bool nrf_to_nrf::testCarrier </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>RSSI</em> = <code>65</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Similar to NRF24, but can be modified to look for signals better than specified RSSI value </p>
+<p>Similar to NRF24, but can be modified to look for signals better than specified RSSI value </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">RSSI</td><td>The function will return 1 if a value better than -65dBm by default </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a6">examples/RF24/scanner/scanner.ino</a>.</dd>
 </dl>
 
@@ -1320,8 +1326,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a58d3be7502b81f507caa4cef436a4c1a" name="a58d3be7502b81f507caa4cef436a4c1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58d3be7502b81f507caa4cef436a4c1a">&#9670;&#160;</a></span>testRPD()</h2>
+<a id="a4de30b154367928dae7b778b21748d53" name="a4de30b154367928dae7b778b21748d53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4de30b154367928dae7b778b21748d53">&#9670;&#160;</a></span>testRPD()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1329,12 +1335,18 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">bool nrf_to_nrf::testRPD </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>RSSI</em> = <code>65</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Similar to NRF24, but can be modified to look for signals better than specified RSSI value </p>
+<p>Similar to NRF24, but can be modified to look for signals better than specified RSSI value </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">RSSI</td><td>The function will return 1 if a value better than -65dBm by default </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1421,7 +1433,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri May 19 2023 06:22:40 for nrf_to_nrf - NRF52 radio driver by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+Generated on Fri May 19 2023 06:50:05 for nrf_to_nrf - NRF52 radio driver by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
 </small></address>
 </body>
 </html>
