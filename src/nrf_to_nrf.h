@@ -334,11 +334,13 @@ public:
 
   /**
    * Similar to NRF24, but can be modified to look for signals better than specified RSSI value
+   * @param RSSI The function will return 1 if a value better than -65dBm by default
    */
   bool testCarrier(uint8_t RSSI = 65);
   
   /**
    * Similar to NRF24, but can be modified to look for signals better than specified RSSI value
+   * @param RSSI The function will return 1 if a value better than -65dBm by default
    */
   bool testRPD(uint8_t RSSI = 65);
   
