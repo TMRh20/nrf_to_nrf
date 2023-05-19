@@ -335,12 +335,12 @@ public:
   /**
    * Similar to NRF24, but can be modified to look for signals better than specified RSSI value
    */
-  bool testCarrier();
+  bool testCarrier(uint8_t RSSI = 65);
   
   /**
    * Similar to NRF24, but can be modified to look for signals better than specified RSSI value
    */
-  bool testRPD();
+  bool testRPD(uint8_t RSSI = 65);
   
   /**
    * Same as NRF24

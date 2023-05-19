@@ -750,12 +750,12 @@ nrf_crclength_e nrf_to_nrf::getCRCLength() {
 
 /**********************************************************************************************************/
 
-bool nrf_to_nrf::testCarrier(){
+bool nrf_to_nrf::testCarrier(uint8_t RSSI){
     
   NRF_RADIO->EVENTS_RSSIEND = 0;
   NRF_RADIO->TASKS_RSSISTART = 1;
   while (!NRF_RADIO->EVENTS_RSSIEND) {}
-  if (NRF_RADIO->RSSISAMPLE < 65) { return 1; }
+  if (NRF_RADIO->RSSISAMPLE < RSSI) { return 1; }
   return 0;
     
 }
