@@ -60,6 +60,7 @@ nrf_to_nrf::nrf_to_nrf() {
   NRF_CCM->OUTPTR = (uint32_t)outBuffer;
   NRF_CCM->CNFPTR = (uint32_t)&ccmData;
   NRF_CCM->SCRATCHPTR = (uint32_t)scratchPTR;
+  ccmData.counter = 12345;
   
   NRF_CCM->MODE = 1 << 24 | 1 << 16;
   NRF_CCM->MAXPACKETSIZE = MAX_PACKET_SIZE;
@@ -67,6 +68,8 @@ nrf_to_nrf::nrf_to_nrf() {
   NRF_CCM->ENABLE = 2;
   enableEncryption = false;
 #endif
+  
+  NRF_RNG->CONFIG = 1;
 
 };
 
@@ -171,9 +174,19 @@ bool nrf_to_nrf::available(uint8_t *pipe_num) {
     *pipe_num = (uint8_t)NRF_RADIO->RXMATCH;
     uint8_t lengthByte = 0;
     if(!DPL && acksEnabled(*pipe_num) == false){
-      memcpy(&rxBuffer[1],&radioData[0], staticPayloadSize);
+      if(enableEncryption){
+          memcpy(&rxBuffer[1],&radioData[CCM_IV_SIZE], staticPayloadSize);
+          memcpy(ccmData.iv,&radioData[0],CCM_IV_SIZE);
+      }else{
+        memcpy(&rxBuffer[1],&radioData[0], staticPayloadSize);
+      }
     }else{
-      memcpy(&rxBuffer[1], &radioData[2], staticPayloadSize);
+      if(enableEncryption){
+        memcpy(&rxBuffer[1], &radioData[10], radioData[0]-2);
+        memcpy(ccmData.iv,&radioData[2],CCM_IV_SIZE);
+      }else{
+        memcpy(&rxBuffer[1], &radioData[2], staticPayloadSize);
+      }
       lengthByte = 2;
     }    
     rxBuffer[0] = radioData[0];
@@ -222,13 +235,16 @@ bool nrf_to_nrf::available(uint8_t *pipe_num) {
       return 0;
     }
 #if defined CCM_ENCRYPTION_ENABLED
-    if(enableEncryption){
-      if(!decrypt(&rxBuffer[1],staticPayloadSize)){
+    if(enableEncryption){    
+      if(!decrypt(&rxBuffer[1],rxBuffer[0] - 8)){
+          Serial.println("FAIL");
           return 0;
       }
       memset(&rxBuffer[1],0,sizeof(rxBuffer)-1);
-      memcpy(&rxBuffer[1], &outBuffer[CCM_START_SIZE],staticPayloadSize - CCM_MIC_SIZE);
-      rxBuffer[0] -= CCM_MIC_SIZE;
+      memcpy(&rxBuffer[1], &outBuffer[CCM_START_SIZE],rxBuffer[0] - (CCM_MIC_SIZE));
+      rxBuffer[0] -= (CCM_MIC_SIZE + 8);
+      
+      
     }
 #endif 
     lastPacketCounter = packetCtr;
@@ -268,12 +284,18 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast, bool doEncryption
 #if defined CCM_ENCRYPTION_ENABLED
   if(enableEncryption && doEncryption){
     if(len){
+      NRF_RNG->TASKS_START = 1;
+      
+      for(int i=0; i<CCM_IV_SIZE; i++){          
+        while(!NRF_RNG->EVENTS_VALRDY){__WFE();}
+        ccmData.iv[i] = radioData[i+2] = NRF_RNG->VALUE;
+      }
+      NRF_RNG->TASKS_STOP = 1;
+      
       if(!encrypt(buf,len)){
         return 0;
       }
-    }
-    if(len){
-     len += 4;
+     len += 12;
     }
   }
 #endif
@@ -287,12 +309,17 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast, bool doEncryption
       radioData[1] = 0; 
       radioData[0] = PID;
     }
-
-    uint8_t dataStart = (!DPL && acksEnabled(0) == false) ? 0 : 2;
+    
+    uint8_t dataStart = 0;
+    if(enableEncryption){
+      dataStart = (!DPL && acksEnabled(0) == false) ? 8 : 10;
+    }else{
+      dataStart = (!DPL && acksEnabled(0) == false) ? 0 : 2;
+    }
     memset(&radioData[dataStart],0,staticPayloadSize);
     #if defined CCM_ENCRYPTION_ENABLED
       if(enableEncryption && doEncryption){
-        memcpy(&radioData[dataStart],&outBuffer[CCM_START_SIZE],len);
+        memcpy(&radioData[dataStart],&outBuffer[CCM_START_SIZE],len);      
       }else{
     #endif    
         memcpy(&radioData[dataStart],buf,len);
@@ -340,11 +367,12 @@ bool nrf_to_nrf::write(void *buf, uint8_t len, bool multicast, bool doEncryption
           memcpy(&rxBuffer[1], &radioData[2], staticPayloadSize);
           #if defined CCM_ENCRYPTION_ENABLED
             if(enableEncryption && radioData[0] > 0){
+
               if(!decrypt(&rxBuffer[1], radioData[0])){
                 return 0;
               }
-              if(radioData[0] > 4){
-                radioData[0] -= 4;
+              if(radioData[0] >= 12){
+                radioData[0] -= 12;
               }
               memcpy(&rxBuffer[1],&outBuffer[CCM_START_SIZE],radioData[0]);
             }
