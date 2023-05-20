@@ -139,7 +139,7 @@ uint8_t nrf_to_nrf::sample_ed(void) {
 
 /**********************************************************************************************************/
 
-bool nrf_to_nrf::available() { return available(NULL); }
+bool nrf_to_nrf::available() { uint8_t pipe_num=0; return available(&pipe_num); }
 
 /**********************************************************************************************************/
 
