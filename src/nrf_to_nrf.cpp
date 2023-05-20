@@ -170,7 +170,7 @@ bool nrf_to_nrf::available(uint8_t *pipe_num) {
     }
 
     ackPID = packetCtr;
-    uint8_t packetData = radioData[2];
+    uint16_t packetData = NRF_RADIO->RXCRC;
     // If ack is enabled on this receiving pipe
     if (acksEnabled(NRF_RADIO->RXMATCH)) {
       stopListening(false, false);

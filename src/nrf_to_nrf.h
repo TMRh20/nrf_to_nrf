@@ -378,7 +378,7 @@ private:
   bool ackPayloadAvailable;
   uint8_t ackAvailablePipeNo;
   uint8_t lastPacketCounter;
-  uint8_t lastData;
+  uint16_t lastData;
   bool dynamicAckEnabled;
   uint8_t ARC;
   uint8_t addressWidth;
