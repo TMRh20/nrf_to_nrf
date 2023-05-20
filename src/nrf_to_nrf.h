@@ -17,9 +17,9 @@
 #define ACK_TIMEOUT_2MBPS_OFFSET 135
 
 //AES CCM ENCRYPTION
-//#if defined NRF_CCM
+#if defined NRF_CCM
   #define CCM_ENCRYPTION_ENABLED  
-//#endif 
+#endif 
 #if defined CCM_ENCRYPTION_ENABLED
   #define MAX_PACKET_SIZE ACTUAL_MAX_PAYLOAD_SIZE//Max Payload Size
   #define CCM_KEY_SIZE 16
