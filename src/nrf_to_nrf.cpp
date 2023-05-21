@@ -188,7 +188,7 @@ bool nrf_to_nrf::available(uint8_t *pipe_num) {
       #if defined CCM_ENCRYPTION_ENABLED
       if(enableEncryption){
         if(DPL){
-          memcpy(&rxBuffer[1], &radioData[10], radioData[0]-2);
+          memcpy(&rxBuffer[1], &radioData[10], max(0,radioData[0]-2));
         }else{
           memcpy(&rxBuffer[1], &radioData[10], staticPayloadSize-2);  
         }
@@ -1003,7 +1003,8 @@ void nrf_to_nrf::printDetails(){
 
 uint8_t nrf_to_nrf::encrypt(void *bufferIn, uint8_t size) {
  
-  NRF_CCM->MODE = 1 << 24 | 1 << 16;;
+  if(!size){return 0;}
+  if(size > MAX_PACKET_SIZE){ return 0; }
 
   inBuffer[0] = 0;
   inBuffer[1] = size;
@@ -1027,8 +1028,11 @@ uint8_t nrf_to_nrf::encrypt(void *bufferIn, uint8_t size) {
 /**********************************************************************************************************/
 
 uint8_t nrf_to_nrf::decrypt(void *bufferIn, uint8_t size){
-    
-  NRF_CCM->MODE = 1 << 24 | 1  | 1 << 16;;
+   
+
+  if(!size){return 0;}
+  if(size > MAX_PACKET_SIZE){ return 0; }
+  
   memcpy(&inBuffer[3], bufferIn, size);
 
   inBuffer[0] = 0;
@@ -1041,11 +1045,11 @@ uint8_t nrf_to_nrf::decrypt(void *bufferIn, uint8_t size){
   NRF_CCM->EVENTS_ENDCRYPT = 0;
   NRF_CCM->TASKS_KSGEN = 1;
 
-  while (!NRF_CCM->EVENTS_ENDCRYPT) {__WFE();};
+  while (!NRF_CCM->EVENTS_ENDCRYPT) {};
 
   if (NRF_CCM->EVENTS_ERROR) {
     return 0;
-  }  
+  }
   return outBuffer[1];
 }
 
