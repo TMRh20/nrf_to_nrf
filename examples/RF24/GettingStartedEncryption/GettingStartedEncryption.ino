@@ -15,7 +15,6 @@
 #include "nrf_to_nrf.h"
 
 uint8_t myKey[16] = {1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6};
-uint8_t myIV[8] = {8,7,6,5,4,3,2,1};
 
 // instantiate an object for the nRF24L01 transceiver
 nrf_to_nrf radio;  // using pin 7 for the CE pin, and pin 8 for the CSN pin
@@ -92,7 +91,8 @@ void setup() {
   // printf_begin();             // needed only once for printing details
   // radio.printDetails();       // (smaller) function that prints raw register values
   // radio.printPrettyDetails(); // (larger) function that prints human readable data
-  radio.setKeyIV(myKey,myIV);    // Set our key and IV
+  radio.setKey(myKey);           // Set our key
+  radio.setCounter(54321);       // Set our counter
   radio.enableEncryption = true; // Enable encryption
 
 }  // setup

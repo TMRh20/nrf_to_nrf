@@ -372,7 +372,8 @@ public:
   uint8_t encrypt(void *bufferIn, uint8_t size);
   uint8_t decrypt(void *bufferIn, uint8_t size);
   uint8_t outBuffer[MAX_PACKET_SIZE + CCM_MIC_SIZE + CCM_START_SIZE];
-  void setKeyIV(uint8_t key[CCM_KEY_SIZE], uint8_t IV[CCM_IV_SIZE]);
+  void setKey(uint8_t key[CCM_KEY_SIZE]);
+  void setCounter(uint64_t counter);
   bool enableEncryption;
 #endif
 

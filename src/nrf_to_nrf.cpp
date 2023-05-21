@@ -172,6 +172,9 @@ bool nrf_to_nrf::available(uint8_t *pipe_num) {
   }
   if (NRF_RADIO->EVENTS_CRCOK) {
     NRF_RADIO->EVENTS_CRCOK = 0;
+    if(DPL && radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE){
+      return 0;      
+    }    
     *pipe_num = (uint8_t)NRF_RADIO->RXMATCH;
     if(!DPL && acksEnabled(*pipe_num) == false){
       #if defined CCM_ENCRYPTION_ENABLED
@@ -1030,7 +1033,7 @@ uint8_t nrf_to_nrf::encrypt(void *bufferIn, uint8_t size) {
 uint8_t nrf_to_nrf::decrypt(void *bufferIn, uint8_t size){
    
 
-  if(!size){return 0;}
+  if(!size){ return 0;}
   if(size > MAX_PACKET_SIZE){ return 0; }
   
   memcpy(&inBuffer[3], bufferIn, size);
@@ -1055,13 +1058,19 @@ uint8_t nrf_to_nrf::decrypt(void *bufferIn, uint8_t size){
 
 /**********************************************************************************************************/
 
-void nrf_to_nrf::setKeyIV(uint8_t key[CCM_KEY_SIZE], uint8_t iv[CCM_IV_SIZE]){
+void nrf_to_nrf::setKey(uint8_t key[CCM_KEY_SIZE]){
   
   memcpy(ccmData.key, key, CCM_KEY_SIZE);
-  memcpy(ccmData.iv, iv, CCM_IV_SIZE);   
     
 }
 
+/**********************************************************************************************************/
+
+void nrf_to_nrf::setCounter(uint64_t counter){
+  
+  ccmData.counter = counter;
+    
+}
 /**********************************************************************************************************/
 
 #endif //defined CCM_ENCRYPTION_ENABLED
