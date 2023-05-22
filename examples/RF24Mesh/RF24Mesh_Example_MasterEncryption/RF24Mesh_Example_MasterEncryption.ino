@@ -39,6 +39,7 @@ void setup() {
   radio.setKey(myKey);           // Set our key and IV
   radio.enableEncryption = true; // Enable encryption
   radio.enableDynamicPayloads(123); //This is important to call so the encryption overhead will not be included in the 32-byte limit
+                                    //To overcome the 32-byte limit, edit RF24Network.h and set MAX_FRAME_SIZE to 111
 
   // Set the nodeID to 0 for the master node
   mesh.setNodeID(0);

@@ -72,7 +72,7 @@ void setup() {
 
   // save on transmission time by setting the radio to only transmit the
   // number of bytes we need to transmit a float
-  radio.setPayloadSize(sizeof(payload)+12);  // float datatype occupies 4 bytes + 4 bytes for encryption overhead
+  radio.setPayloadSize(sizeof(payload)+12);  // float datatype occupies 4 bytes + 12 bytes for encryption overhead
   //radio.enableDynamicPayloads();
   // set the TX address of the RX node into the TX pipe
   radio.openWritingPipe(address[radioNumber]);  // always uses pipe 0
