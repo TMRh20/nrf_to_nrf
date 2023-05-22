@@ -556,24 +556,27 @@ void nrf_to_nrf::setAutoAck(uint8_t pipe, bool enable) {
 /**********************************************************************************************************/
 
 void nrf_to_nrf::enableDynamicPayloads(uint8_t payloadSize) {
-  DPL = true;
-  staticPayloadSize = payloadSize;
+  
+  if(!DPL){
+    DPL = true;
+    staticPayloadSize = payloadSize;
  
-  if(payloadSize <= 32){
-    NRF_RADIO->PCNF0 = (0 << RADIO_PCNF0_S0LEN_Pos) |
+    if(payloadSize <= 32){
+      NRF_RADIO->PCNF0 = (0 << RADIO_PCNF0_S0LEN_Pos) |
                        (6 << RADIO_PCNF0_LFLEN_Pos) |
                        (3 << RADIO_PCNF0_S1LEN_Pos);
-  }else{                   
-    // Using 8 bits for length
-    NRF_RADIO->PCNF0 = (0 << RADIO_PCNF0_S0LEN_Pos) |
-                       (8 << RADIO_PCNF0_LFLEN_Pos) |
-                       (3 << RADIO_PCNF0_S1LEN_Pos) ;
+    }else{                 
+      // Using 8 bits for length
+      NRF_RADIO->PCNF0 = (0 << RADIO_PCNF0_S0LEN_Pos) |
+                         (8 << RADIO_PCNF0_LFLEN_Pos) |
+                         (3 << RADIO_PCNF0_S1LEN_Pos) ;
+    }
+    NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) |
+                       (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) |
+                       (addressWidth-1 << RADIO_PCNF1_BALEN_Pos) |
+                       (0 << RADIO_PCNF1_STATLEN_Pos) |
+                       (payloadSize << RADIO_PCNF1_MAXLEN_Pos);
   }
-  NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) |
-                     (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) |
-                     (addressWidth-1 << RADIO_PCNF1_BALEN_Pos) |
-                     (0 << RADIO_PCNF1_STATLEN_Pos) |
-                     (payloadSize << RADIO_PCNF1_MAXLEN_Pos);
 }
 
 /**********************************************************************************************************/
