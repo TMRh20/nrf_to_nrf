@@ -253,7 +253,8 @@ public:
   void setAutoAck(uint8_t pipe, bool enable);
   
   /**
-   * @param payloadSize Set the maximum payload size. Up to 127 with CRC disabled or 125 with 16-bit CRC
+   * @note If using with RF24Network or RF24Mesh, users can edit RF24Network.h and set MAX_FRAME_SIZE to a maximum of 111 if encryption is enabled, 123 without encryption. 
+   * @param payloadSize Set the maximum payload size. Up to 125 with CRC disabled or 123 with 16-bit CRC
    */
   void enableDynamicPayloads(uint8_t payloadSize = DEFAULT_MAX_PAYLOAD_SIZE);
 
