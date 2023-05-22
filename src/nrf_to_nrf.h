@@ -23,8 +23,9 @@
 #if defined CCM_ENCRYPTION_ENABLED
   #define MAX_PACKET_SIZE ACTUAL_MAX_PAYLOAD_SIZE//Max Payload Size
   #define CCM_KEY_SIZE 16
-  #define CCM_IV_SIZE 8
-  #define CCM_COUNTER_SIZE 5
+  #define CCM_IV_SIZE 5
+  #define CCM_IV_SIZE_ACTUAL 8
+  #define CCM_COUNTER_SIZE 3
   #define CCM_MIC_SIZE 4
   #define CCM_START_SIZE 3
   #define CCM_MODE_LENGTH_EXTENDED 16
@@ -413,9 +414,10 @@ private:
   uint8_t key[CCM_KEY_SIZE];
   uint64_t counter;
   uint8_t direction;
-  uint8_t iv[CCM_IV_SIZE];
+  uint8_t iv[CCM_IV_SIZE_ACTUAL];
   } ccmData_t;
   ccmData_t ccmData;
+  uint32_t packetCounter;
 #endif
 };
 
