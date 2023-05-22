@@ -18,7 +18,7 @@
 
 // AES CCM ENCRYPTION
 #if defined NRF_CCM
-    #define CCM_ENCRYPTION_ENABLED
+    //#define CCM_ENCRYPTION_ENABLED
 #endif
 #if defined CCM_ENCRYPTION_ENABLED
     #define MAX_PACKET_SIZE          ACTUAL_MAX_PAYLOAD_SIZE // Max Payload Size
