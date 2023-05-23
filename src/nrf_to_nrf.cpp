@@ -431,6 +431,12 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
                 else {
                     realAckTimeout -= ACK_TIMEOUT_2MBPS_OFFSET;
                 }
+            }else{
+                if(ackPayloadsEnabled && staticPayloadSize <= DEFAULT_MAX_PAYLOAD_SIZE ){
+                    realAckTimeout += 200;
+                }else{
+                    realAckTimeout += ACK_PAYLOAD_TIMEOUT_OFFSET;
+                }
             }
             uint32_t ack_timeout = micros();
             while (!NRF_RADIO->EVENTS_CRCOK && !NRF_RADIO->EVENTS_CRCERROR) {
