@@ -18,7 +18,7 @@
 
 // AES CCM ENCRYPTION
 #if defined NRF_CCM
-    //#define CCM_ENCRYPTION_ENABLED
+    #define CCM_ENCRYPTION_ENABLED
 #endif
 #if defined CCM_ENCRYPTION_ENABLED
     #define MAX_PACKET_SIZE          ACTUAL_MAX_PAYLOAD_SIZE // Max Payload Size
@@ -165,7 +165,7 @@ public:
     /**
      * Not currently fully functional, calls the regular write();
      */
-    bool writeFast(const void* buf, uint8_t len, const bool multicast = 0);
+    bool writeFast(void* buf, uint8_t len, bool multicast = 0);
 
     /**
      * Not currently functional, use the regular write();
@@ -175,7 +175,7 @@ public:
     /**
      * Same as NRF24
      */
-    bool writeAckPayload(uint8_t pipe, const void* buf, uint8_t len);
+    bool writeAckPayload(uint8_t pipe, void* buf, uint8_t len);
 
     /**
      * Same as NRF24
