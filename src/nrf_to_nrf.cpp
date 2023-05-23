@@ -535,7 +535,7 @@ bool nrf_to_nrf::writeAckPayload(uint8_t pipe, void* buf, uint8_t len)
             }
 
             len += CCM_IV_SIZE + CCM_COUNTER_SIZE + CCM_MIC_SIZE;
-            memcpy(&ackBuffer[1 + CCM_IV_SIZE + CCM_COUNTER_SIZE], &outBuffer[CCM_START_SIZE],len); 
+            memcpy(&ackBuffer[1 + CCM_IV_SIZE + CCM_COUNTER_SIZE], &outBuffer[CCM_START_SIZE],len - CCM_IV_SIZE - CCM_COUNTER_SIZE); 
             packetCounter++;
             if (packetCounter > 200000) {
                 packetCounter = 0;
