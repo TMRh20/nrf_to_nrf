@@ -282,7 +282,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
 
             if (DPL) {
                 memcpy(&rxBuffer[1], &outBuffer[CCM_START_SIZE], rxBuffer[0] - (CCM_MIC_SIZE));
-                rxBuffer[0] -= (CCM_MIC_SIZE + CCM_IV_SIZE - CCM_COUNTER_SIZE);
+                rxBuffer[0] -= (CCM_MIC_SIZE + CCM_IV_SIZE + CCM_COUNTER_SIZE);
             }
             else {
                 memcpy(&rxBuffer[1], &outBuffer[CCM_START_SIZE], staticPayloadSize - (CCM_MIC_SIZE));
