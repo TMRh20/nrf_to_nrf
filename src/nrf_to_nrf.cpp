@@ -344,7 +344,6 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
             }
             tmpCounter = packetCounter;
             ccmData.counter = tmpCounter;
-            memcpy(&radioData[2 + CCM_IV_SIZE], &ccmData.counter, CCM_COUNTER_SIZE);
             
             if (!encrypt(buf, len)) {
                 return 0;
