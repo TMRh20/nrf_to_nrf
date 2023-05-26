@@ -7,7 +7,7 @@
         "type": "git",
         "url": "https://github.com/TMRh20/nrf_to_nrf"
     },
-    "version": "1.2.1",
+    "version": "1.2.2",
     "export": {
         "exclude": [
             ".github/*"
@@ -17,8 +17,8 @@
     "platforms": "nordicnrf52",
     "dependencies": 
     {
-        "https://github.com/nRF24/RF24Network/tree/nrf52Support.git": "*",
-        "https://github.com/nRF24/RF24Mesh/tree/NRF25Support.git": "*"
+        "nRF24/RF24Network/tree/nrf52Support.git": "*",
+        "nRF24/RF24Mesh/tree/NRF25Support.git": "*"
     }
     
 }
