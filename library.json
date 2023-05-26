@@ -7,14 +7,18 @@
         "type": "git",
         "url": "https://github.com/TMRh20/nrf_to_nrf"
     },
-    "version": "1.1.1",
+    "version": "1.2.1",
     "export": {
         "exclude": [
             ".github/*"
         ]
     },
     "frameworks": "arduino",
-    "platforms": [
-        "nordicnrf52"
-    ]
+    "platforms": "nordicnrf52",
+    "dependencies": 
+    {
+        "https://github.com/nRF24/RF24Network/tree/nrf52Support.git": "*",
+        "https://github.com/nRF24/RF24Mesh/tree/NRF25Support.git": "*"
+    }
+    
 }
