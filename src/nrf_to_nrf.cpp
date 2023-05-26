@@ -389,9 +389,8 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
 
 #if defined CCM_ENCRYPTION_ENABLED
         if (enableEncryption && doEncryption) {
-
-            memcpy(&radioData[2+CCM_IV_SIZE], &tmpCounter, CCM_COUNTER_SIZE);
-            memcpy(&radioData[2],&tmpIV[0],CCM_IV_SIZE);
+            memcpy(&radioData[dataStart - CCM_COUNTER_SIZE], &tmpCounter, CCM_COUNTER_SIZE);
+            memcpy(&radioData[dataStart - CCM_IV_SIZE - CCM_COUNTER_SIZE],&tmpIV[0],CCM_IV_SIZE);
             memcpy(&radioData[dataStart], &tmpBuffer[0], len - (CCM_IV_SIZE + CCM_COUNTER_SIZE)); 
         }
         else {
