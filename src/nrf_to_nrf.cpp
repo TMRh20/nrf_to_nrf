@@ -446,7 +446,7 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
                 if (ackPayloadsEnabled && radioData[0] > 0) {
 #if defined CCM_ENCRYPTION_ENABLED
                   if(enableEncryption && doEncryption){
-                    memcpy(&rxBuffer[1], &radioData[2 + CCM_COUNTER_SIZE + CCM_IV_SIZE] , radioData[0] - CCM_COUNTER_SIZE - CCM_IV_SIZE);
+                    memcpy(&rxBuffer[1], &radioData[2 + CCM_COUNTER_SIZE + CCM_IV_SIZE] , max(0, radioData[0] - CCM_COUNTER_SIZE - CCM_IV_SIZE));
                   }else{
                     memcpy(&rxBuffer[1], &radioData[2] , radioData[0]); 
                   }
