@@ -484,6 +484,10 @@ private:
  */
 
 /**
+ * @example examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino
+ */
+
+/**
  * @example examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino
  */
 
@@ -494,13 +498,29 @@ private:
 /**
  * @example examples/RF24Network/helloworld_rx/helloworld_rx.ino
  */
+ 
+/**
+ * @example examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino
+ */
 
 /**
  * @example examples/RF24Network/helloworld_tx/helloworld_tx.ino
  */
+ 
+/**
+ * @example examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino
+ */
 
 /**
  * @example examples/RF24Mesh/RF24Mesh_Example/RF24Mesh_Example.ino
+ */
+ 
+/**
+ * @example examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino
+ */
+ 
+/**
+ * @example examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino
  */
 
 /**
