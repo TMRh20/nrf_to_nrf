@@ -18,10 +18,10 @@
 #define ACK_PAYLOAD_TIMEOUT_OFFSET 750
 
 // AES CCM ENCRYPTION
-#if defined NRF_CCM
+#if defined NRF_CCM || defined(DOXYGEN)
     #define CCM_ENCRYPTION_ENABLED
 #endif
-#if defined CCM_ENCRYPTION_ENABLED
+#if defined CCM_ENCRYPTION_ENABLED || defined(DOXYGEN)
     #define MAX_PACKET_SIZE          ACTUAL_MAX_PAYLOAD_SIZE // Max Payload Size
     #define CCM_KEY_SIZE             16
     #define CCM_IV_SIZE              5
@@ -257,6 +257,7 @@ public:
     void setAutoAck(uint8_t pipe, bool enable);
 
     /**
+     * Once this function has been called, users need to call disableDynamicPayloads if they want to call it again, else it has no effect.
      * @note If using with RF24Network or RF24Mesh, users can edit RF24Network.h and set MAX_FRAME_SIZE to a maximum of 111 if encryption is enabled, 123 without encryption.
      * @param payloadSize Set the maximum payload size. Up to 125 with CRC disabled or 123 with 16-bit CRC
      */
@@ -373,13 +374,53 @@ public:
      * Used internally to convert addresses
      */
     uint32_t addrConv32(uint32_t addr);
-#if defined CCM_ENCRYPTION_ENABLED
+#if defined CCM_ENCRYPTION_ENABLED || defined(DOXYGEN)
 
+    /**
+     * Function to encrypt data
+     */
     uint8_t encrypt(void* bufferIn, uint8_t size);
+    
+    /**
+     * Function to decrypt data
+     */
     uint8_t decrypt(void* bufferIn, uint8_t size);
+    
+    /**
+     * The data buffer where encrypted data is placed. See the datasheet p115 for the CCM data structure
+     */
     uint8_t outBuffer[MAX_PACKET_SIZE + CCM_MIC_SIZE + CCM_START_SIZE];
+
+    /**
+     * Set our 16-byte (128-bit) encryption key
+     */
     void setKey(uint8_t key[CCM_KEY_SIZE]);
+
+    /**
+     * Set the (default 3-byte) packet counter used for encryption
+     */
     void setCounter(uint64_t counter);
+    
+    /**
+     * Set IV for encryption.
+     * This is only used for manual encryption, a random IV is generated using the on-board RNG for encryption
+     * during normal operation.
+     */
+    void setIV(uint8_t IV[CCM_IV_SIZE]);
+    
+    /**
+     * Enable use of the on-board AES CCM mode encryption
+     * Cipher block chaining - message authentication code (CCM) mode is an authenticated encryption
+     * algorithm designed to provide both authentication and confidentiality during data transfer. CCM combines
+     * counter mode encryption and CBC-MAC authentication
+     *
+     * Users need to take extra steps to prevent specific attacks, such as replay attacks, which can be prevented by
+     * transmitting a timestamp or counter value, and only accepting packets with a current timestamp/counter value,
+     * rejecting old data.
+     * 
+     * Encryption uses a 5-byte IV and 3-byte counter, the sizes of which can be configured in nrf_to_nrf.h
+     * Maximum: 8-byte IV, 4-byte counter
+     */
     bool enableEncryption;
 #endif
 
@@ -434,6 +475,8 @@ private:
  * See https://nrf24.github.io/RF24/ for the main nrf24 docs
  *
  * These docs are considered supplimental to the NRF24 documentation, mainly documenting the differences between NRF52 and NRF24 drivers
+ *
+ * 
  */
 
 /**

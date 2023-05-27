@@ -1212,4 +1212,12 @@ void nrf_to_nrf::setCounter(uint64_t counter)
 }
 /**********************************************************************************************************/
 
+void nrf_to_nrf::setIV(uint8_t IV[CCM_IV_SIZE]){
+    
+    for(int i=0; i<CCM_IV_SIZE; i++){
+        ccmData.iv[i] = IV[i];
+    }
+}
+
+
 #endif // defined CCM_ENCRYPTION_ENABLED
