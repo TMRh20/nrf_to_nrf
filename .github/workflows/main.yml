@@ -32,9 +32,7 @@ jobs:
         working-directory: "." # default is .
     
     - name: Deploy
-      uses: DenverCoder1/doxygen-github-pages-action@v1.3.0
+      uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: gh-pages
-        folder: "."
-        config_file: Doxyfile
+        publish_dir: "."
