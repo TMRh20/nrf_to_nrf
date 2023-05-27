@@ -33,9 +33,9 @@ jobs:
     
     - name: Deploy
       steps:
-      - uses: DenverCoder1/doxygen-github-pages-action@v1.3.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
-          folder: "."
-          config_file: Doxyfile
+      uses: DenverCoder1/doxygen-github-pages-action@v1.3.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: gh-pages
+        folder: "."
+        config_file: Doxyfile
