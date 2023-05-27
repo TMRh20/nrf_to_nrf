@@ -5,6 +5,7 @@ name: Doxygen Action
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
+  workflow_dispatch:
   push:
     branches: [ master ]
 
@@ -20,7 +21,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
         
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1.1.0
@@ -36,4 +37,4 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         # Default Doxyfile build documentation to html directory. 
         # Change the directory if changes in Doxyfile
-        publish_dir: ./html
+        publish_dir: ./
