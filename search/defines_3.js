@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nrf52_5fradio_5flibrary_0',['NRF52_RADIO_LIBRARY',['../nrf__to__nrf_8h.html#a71f80fae430f482698c0bc98a838d885',1,'nrf_to_nrf.h']]]
+  ['ed_5frssiscale_0',['ED_RSSISCALE',['../nrf__to__nrf_8cpp.html#a4012d5bb8cf75a00c9e945b4645be88a',1,'nrf_to_nrf.cpp']]]
 ];

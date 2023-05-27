@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>nrf_to_nrf - NRF52 radio driver: src/nrf_to_nrf.h File Reference</title>
+<title>nrf_to_nrf - NRF52 Radio Driver: src/nrf_to_nrf.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -28,9 +28,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">nrf_to_nrf - NRF52 radio driver
+   <div id="projectname">nrf_to_nrf - NRF52 Radio Driver<span id="projectnumber">&#160;v1.2.2</span>
    </div>
-   <div id="projectbrief">TMRh20 2023 - OSI layer 2 radio driver using RF24 API</div>
+   <div id="projectbrief">TMRh20 2023 - OSI Layer 2 radio driver using RF24 API</div>
   </td>
  </tr>
  </tbody>
@@ -130,6 +130,26 @@ Macros</h2></td></tr>
 <tr class="separator:a030c0e5971b11e84c1557267286efce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafcf7551fc9a5d008c32094e9f6cafae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nrf__to__nrf_8h.html#aafcf7551fc9a5d008c32094e9f6cafae">ACK_TIMEOUT_2MBPS_OFFSET</a>&#160;&#160;&#160;135</td></tr>
 <tr class="separator:aafcf7551fc9a5d008c32094e9f6cafae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dd505c7bafeca0827ed648669e6340f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nrf__to__nrf_8h.html#a2dd505c7bafeca0827ed648669e6340f">ACK_PAYLOAD_TIMEOUT_OFFSET</a>&#160;&#160;&#160;750</td></tr>
+<tr class="separator:a2dd505c7bafeca0827ed648669e6340f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11bd5cb2afdcf95dac74cab238fe1d45"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nrf__to__nrf_8h.html#a11bd5cb2afdcf95dac74cab238fe1d45">CCM_ENCRYPTION_ENABLED</a></td></tr>
+<tr class="separator:a11bd5cb2afdcf95dac74cab238fe1d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a879456c3b8e2853f7044d764e9c180d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a>&#160;&#160;&#160;<a class="el" href="nrf__to__nrf_8h.html#a86f99279499412c45d603a56b52f15e1">ACTUAL_MAX_PAYLOAD_SIZE</a></td></tr>
+<tr class="separator:a879456c3b8e2853f7044d764e9c180d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ac4e8f13ee123e866aa5a5bf9b2f53b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nrf__to__nrf_8h.html#a9ac4e8f13ee123e866aa5a5bf9b2f53b">CCM_KEY_SIZE</a>&#160;&#160;&#160;16</td></tr>
+<tr class="separator:a9ac4e8f13ee123e866aa5a5bf9b2f53b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf3d9827d3b02ae63b08d846b809e1dc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nrf__to__nrf_8h.html#adf3d9827d3b02ae63b08d846b809e1dc">CCM_IV_SIZE</a>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:adf3d9827d3b02ae63b08d846b809e1dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66443f5201dd24b40f68666181334f2c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nrf__to__nrf_8h.html#a66443f5201dd24b40f68666181334f2c">CCM_IV_SIZE_ACTUAL</a>&#160;&#160;&#160;8</td></tr>
+<tr class="separator:a66443f5201dd24b40f68666181334f2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36c27edd0340a9bcd8d269c5d95c4aa3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nrf__to__nrf_8h.html#a36c27edd0340a9bcd8d269c5d95c4aa3">CCM_COUNTER_SIZE</a>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a36c27edd0340a9bcd8d269c5d95c4aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91b1d8c61b6a2094fba30d01ff1972d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nrf__to__nrf_8h.html#a91b1d8c61b6a2094fba30d01ff1972d3">CCM_MIC_SIZE</a>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:a91b1d8c61b6a2094fba30d01ff1972d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a8d571811396067c6b8d78bc6afc37f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nrf__to__nrf_8h.html#a7a8d571811396067c6b8d78bc6afc37f">CCM_START_SIZE</a>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a7a8d571811396067c6b8d78bc6afc37f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a117bc8340fa00a5e905774a5469ee041"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nrf__to__nrf_8h.html#a117bc8340fa00a5e905774a5469ee041">CCM_MODE_LENGTH_EXTENDED</a>&#160;&#160;&#160;16</td></tr>
+<tr class="separator:a117bc8340fa00a5e905774a5469ee041"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -271,6 +291,166 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
+<a id="a2dd505c7bafeca0827ed648669e6340f" name="a2dd505c7bafeca0827ed648669e6340f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dd505c7bafeca0827ed648669e6340f">&#9670;&#160;</a></span>ACK_PAYLOAD_TIMEOUT_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ACK_PAYLOAD_TIMEOUT_OFFSET&#160;&#160;&#160;750</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00018">18</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+
+</div>
+</div>
+<a id="a11bd5cb2afdcf95dac74cab238fe1d45" name="a11bd5cb2afdcf95dac74cab238fe1d45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11bd5cb2afdcf95dac74cab238fe1d45">&#9670;&#160;</a></span>CCM_ENCRYPTION_ENABLED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CCM_ENCRYPTION_ENABLED</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00022">22</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+
+</div>
+</div>
+<a id="a879456c3b8e2853f7044d764e9c180d4" name="a879456c3b8e2853f7044d764e9c180d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a879456c3b8e2853f7044d764e9c180d4">&#9670;&#160;</a></span>MAX_PACKET_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_PACKET_SIZE&#160;&#160;&#160;<a class="el" href="nrf__to__nrf_8h.html#a86f99279499412c45d603a56b52f15e1">ACTUAL_MAX_PAYLOAD_SIZE</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00025">25</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+
+</div>
+</div>
+<a id="a9ac4e8f13ee123e866aa5a5bf9b2f53b" name="a9ac4e8f13ee123e866aa5a5bf9b2f53b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ac4e8f13ee123e866aa5a5bf9b2f53b">&#9670;&#160;</a></span>CCM_KEY_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CCM_KEY_SIZE&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00026">26</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+
+</div>
+</div>
+<a id="adf3d9827d3b02ae63b08d846b809e1dc" name="adf3d9827d3b02ae63b08d846b809e1dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf3d9827d3b02ae63b08d846b809e1dc">&#9670;&#160;</a></span>CCM_IV_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CCM_IV_SIZE&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00027">27</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+
+</div>
+</div>
+<a id="a66443f5201dd24b40f68666181334f2c" name="a66443f5201dd24b40f68666181334f2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66443f5201dd24b40f68666181334f2c">&#9670;&#160;</a></span>CCM_IV_SIZE_ACTUAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CCM_IV_SIZE_ACTUAL&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00028">28</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+
+</div>
+</div>
+<a id="a36c27edd0340a9bcd8d269c5d95c4aa3" name="a36c27edd0340a9bcd8d269c5d95c4aa3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36c27edd0340a9bcd8d269c5d95c4aa3">&#9670;&#160;</a></span>CCM_COUNTER_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CCM_COUNTER_SIZE&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00029">29</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+
+</div>
+</div>
+<a id="a91b1d8c61b6a2094fba30d01ff1972d3" name="a91b1d8c61b6a2094fba30d01ff1972d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91b1d8c61b6a2094fba30d01ff1972d3">&#9670;&#160;</a></span>CCM_MIC_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CCM_MIC_SIZE&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00030">30</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+
+</div>
+</div>
+<a id="a7a8d571811396067c6b8d78bc6afc37f" name="a7a8d571811396067c6b8d78bc6afc37f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a8d571811396067c6b8d78bc6afc37f">&#9670;&#160;</a></span>CCM_START_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CCM_START_SIZE&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00031">31</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+
+</div>
+</div>
+<a id="a117bc8340fa00a5e905774a5469ee041" name="a117bc8340fa00a5e905774a5469ee041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a117bc8340fa00a5e905774a5469ee041">&#9670;&#160;</a></span>CCM_MODE_LENGTH_EXTENDED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CCM_MODE_LENGTH_EXTENDED&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00032">32</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a30d719167ee0e6839d6653faa420d8a6" name="a30d719167ee0e6839d6653faa420d8a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a30d719167ee0e6839d6653faa420d8a6">&#9670;&#160;</a></span>nrf_pa_dbm_e</h2>
@@ -324,7 +504,7 @@ lnaEnabled = 0    </th></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00019">19</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00035">35</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -353,7 +533,7 @@ lnaEnabled = 0    </th></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00063">63</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00080">80</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -383,14 +563,14 @@ lnaEnabled = 0    </th></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00083">83</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00101">101</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri May 19 2023 06:50:05 for nrf_to_nrf - NRF52 radio driver by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+Generated on Sat May 27 2023 06:11:06 for nrf_to_nrf - NRF52 Radio Driver by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
 </small></address>
 </body>
 </html>

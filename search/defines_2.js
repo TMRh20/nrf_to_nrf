@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ed_5frssiscale_0',['ED_RSSISCALE',['../nrf__to__nrf_8cpp.html#a4012d5bb8cf75a00c9e945b4645be88a',1,'nrf_to_nrf.cpp']]]
+  ['default_5fmax_5fpayload_5fsize_0',['DEFAULT_MAX_PAYLOAD_SIZE',['../nrf__to__nrf_8h.html#a2d5ab7e31eb34a640249f88518eea523',1,'nrf_to_nrf.h']]]
 ];
