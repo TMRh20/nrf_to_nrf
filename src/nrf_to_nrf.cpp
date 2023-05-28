@@ -1129,23 +1129,15 @@ bool nrf_to_nrf::testRPD(uint8_t RSSI)
 
 void nrf_to_nrf::powerUp()
 {
-    NRF_RADIO->POWER = 1;
-    NRF_RADIO->EVENTS_TXREADY = 0;
-    NRF_RADIO->TASKS_TXEN = 1;
-    while (NRF_RADIO->EVENTS_TXREADY == 0) {
-    }
-    NRF_RADIO->EVENTS_TXREADY = 0;
+    radioConfigured = false;
+    begin();
 }
 
 /**********************************************************************************************************/
 
 void nrf_to_nrf::powerDown()
 {
-    NRF_RADIO->EVENTS_DISABLED = 0;
-    NRF_RADIO->TASKS_DISABLE = 1;
-    while (NRF_RADIO->EVENTS_DISABLED == 0) {
-    }
-    NRF_RADIO->EVENTS_DISABLED = 0;
+    DPL = false;
     NRF_RADIO->POWER = 0;
 }
 

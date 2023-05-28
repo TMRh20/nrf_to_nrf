@@ -352,12 +352,12 @@ public:
     void printDetails();
 
     /**
-     * Same as NRF24
+     * When powering up from powerdown ALL radio settings will need to be re-applied
      */
     void powerUp();
 
     /**
-     * Same as NRF24
+     * When called ALL radio settings will be reverted to default
      */
     void powerDown();
 
