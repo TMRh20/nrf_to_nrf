@@ -218,7 +218,7 @@ public:
      *
      * This function will not wait for the radio to finish transmitting or for an ACK
      *
-     * Call txStandBy() to put take the radio out of TX state or call startListening() to go directly into RX mode
+     * Call txStandBy() to take the radio out of TX state or call startListening() to go into RX mode
      *
      */
     bool startWrite(void* buf, uint8_t len, bool multicast, bool doEncryption = true);
