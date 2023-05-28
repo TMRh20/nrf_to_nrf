@@ -13,6 +13,6 @@ var searchData=
   ['setpayloadsize_10',['setPayloadSize',['../classnrf__to__nrf.html#af72198132531f955c5c2da9bef899aaa',1,'nrf_to_nrf']]],
   ['setretries_11',['setRetries',['../classnrf__to__nrf.html#ab1cc57d3ba6684489c33c8dff671947c',1,'nrf_to_nrf']]],
   ['startlistening_12',['startListening',['../classnrf__to__nrf.html#a01f4833ad19dbe8498329eb1076da808',1,'nrf_to_nrf']]],
-  ['startwrite_13',['startWrite',['../classnrf__to__nrf.html#a06aba4c12fa4a35ef8b3f3a8bdf02d51',1,'nrf_to_nrf']]],
+  ['startwrite_13',['startWrite',['../classnrf__to__nrf.html#a9dfe4f382f4b33d8db2fd0733df4dec3',1,'nrf_to_nrf']]],
   ['stoplistening_14',['stopListening',['../classnrf__to__nrf.html#ae9fa4209ae57be1ed77ac9d23eeeedfc',1,'nrf_to_nrf']]]
 ];

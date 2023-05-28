@@ -479,6 +479,7 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
                     setPayloadSize(payloadSize);
                 }
                 NRF_RADIO->RXADDRESSES = rxAddress;
+                lastTxResult = true;
                 return 1;
             }
             else if (NRF_RADIO->EVENTS_CRCERROR) {
@@ -493,18 +494,112 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
             NRF_RADIO->RXADDRESSES = rxAddress;
         }
         else {
+            lastTxResult = true;
             return 1;
         }
     }
+    lastTxResult = false;
     return 0;
 }
 
 /**********************************************************************************************************/
 
-bool nrf_to_nrf::startWrite(void* buf, uint8_t len, bool multicast)
+bool nrf_to_nrf::startWrite(void* buf, uint8_t len, bool multicast, bool doEncryption)
 {
 
-    NRF_RADIO->TASKS_START = 1;
+
+    uint8_t PID = ackPID;
+    if (DPL) {
+        PID = ((ackPID += 1) % 7) << 1;
+    }
+    else {
+        PID = ackPID++;
+    }
+    uint8_t payloadSize = 0;
+
+#if defined CCM_ENCRYPTION_ENABLED
+    uint8_t tmpIV[CCM_IV_SIZE];
+    uint32_t tmpCounter = 0;
+    uint8_t tmpBuffer[MAX_PACKET_SIZE + CCM_MIC_SIZE + CCM_START_SIZE];
+    
+    if (enableEncryption && doEncryption) {
+        if (len) {
+
+            for (int i = 0; i < CCM_IV_SIZE; i++) {
+                while (!NRF_RNG->EVENTS_VALRDY) {}
+                NRF_RNG->EVENTS_VALRDY = 0;
+                tmpIV[i] = NRF_RNG->VALUE;
+                ccmData.iv[i] = tmpIV[i];
+            }
+            tmpCounter = packetCounter;
+            ccmData.counter = tmpCounter;
+            
+            if (!encrypt(buf, len)) {
+                return 0;
+            }
+
+            memcpy(tmpBuffer, &outBuffer[CCM_START_SIZE], len + CCM_MIC_SIZE);
+            len += CCM_IV_SIZE + CCM_COUNTER_SIZE + CCM_MIC_SIZE;
+            packetCounter++;
+            if (packetCounter > 200000) {
+                packetCounter = 0;
+            }
+        }
+    }
+#endif
+
+ //   for (int i = 0; i < retries; i++) {
+        ARC = 0;
+        if (DPL) {
+            radioData[0] = len;
+            radioData[1] = PID;
+        }
+        else {
+            radioData[1] = 0;
+            radioData[0] = PID;
+        }
+
+        uint8_t dataStart = 0;
+
+#if defined CCM_ENCRYPTION_ENABLED
+
+
+
+        if (enableEncryption && doEncryption) {
+            dataStart = (!DPL && acksEnabled(0) == false) ? CCM_IV_SIZE + CCM_COUNTER_SIZE : CCM_IV_SIZE + CCM_COUNTER_SIZE + 2;
+        }
+        else {
+#endif
+            dataStart = (!DPL && acksEnabled(0) == false) ? 0 : 2;
+#if defined CCM_ENCRYPTION_ENABLED
+        }
+#endif
+
+#if defined CCM_ENCRYPTION_ENABLED
+        if (enableEncryption && doEncryption) {
+            memcpy(&radioData[dataStart - CCM_COUNTER_SIZE], &tmpCounter, CCM_COUNTER_SIZE);
+            memcpy(&radioData[dataStart - CCM_IV_SIZE - CCM_COUNTER_SIZE],&tmpIV[0],CCM_IV_SIZE);
+            memcpy(&radioData[dataStart], &tmpBuffer[0], len - (CCM_IV_SIZE + CCM_COUNTER_SIZE)); 
+        }
+        else {
+#endif
+            memcpy(&radioData[dataStart], buf, len);
+#if defined CCM_ENCRYPTION_ENABLED
+        }
+#endif
+
+        if (NRF_RADIO->STATE < 9) {
+            NRF_RADIO->EVENTS_TXREADY = 0;
+            NRF_RADIO->TASKS_TXEN = 1;
+            while (NRF_RADIO->EVENTS_TXREADY == 0) {
+            }
+            NRF_RADIO->EVENTS_TXREADY = 0;
+        }
+
+        NRF_RADIO->EVENTS_END = 0;
+        NRF_RADIO->TASKS_START = 1;
+        lastTxResult = true;
+        
     return true;
 }
 
@@ -844,12 +939,38 @@ void nrf_to_nrf::openWritingPipe(const uint8_t* address)
 
 /**********************************************************************************************************/
 
-bool nrf_to_nrf::txStandBy() { return lastTxResult; }
+bool nrf_to_nrf::txStandBy() {
+
+    if(NRF_RADIO->STATE == 11){
+      while (NRF_RADIO->EVENTS_END == 0) {}
+      NRF_RADIO->EVENTS_END = 0;
+    }
+    
+    NRF_RADIO->EVENTS_DISABLED = 0;
+    NRF_RADIO->TASKS_DISABLE = 1;
+    while (NRF_RADIO->EVENTS_DISABLED == 0) {
+    }
+    NRF_RADIO->EVENTS_DISABLED = 0;
+
+    return lastTxResult; 
+}
 
 /**********************************************************************************************************/
 
 bool nrf_to_nrf::txStandBy(uint32_t timeout, bool startTx)
 {
+    
+    if(NRF_RADIO->STATE == 11){
+      while (NRF_RADIO->EVENTS_END == 0) {}
+      NRF_RADIO->EVENTS_END = 0;
+    }
+    
+    NRF_RADIO->EVENTS_DISABLED = 0;
+    NRF_RADIO->TASKS_DISABLE = 1;
+    while (NRF_RADIO->EVENTS_DISABLED == 0) {
+    }
+    NRF_RADIO->EVENTS_DISABLED = 0;
+
     return lastTxResult;
 }
 

@@ -169,9 +169,14 @@ public:
     bool writeFast(void* buf, uint8_t len, bool multicast = 0);
 
     /**
-     * Not currently functional, use the regular write();
+     * Writes a payload to the radio without waiting for completion.
+     *
+     * This function will not wait for the radio to finish transmitting or for an ACK
+     *
+     * Call txStandBy() to put take the radio out of TX state or call startListening() to go directly into RX mode
+     *
      */
-    bool startWrite(void* buf, uint8_t len, bool multicast);
+    bool startWrite(void* buf, uint8_t len, bool multicast, bool doEncryption = true);
 
     /**
      * Same as NRF24
@@ -344,12 +349,16 @@ public:
     bool failureDetected;
 
     /**
-     * Not functional
+     * Takes the radio out of TX state.
+     *
+     * Can be called after any type of write to put the radio into a disabled state
      */
     bool txStandBy();
 
     /**
-     * Not functional
+     * Takes the radio out of TX state
+     *
+     * Can be called after any type of write to put the radio into a disabled state
      */
     bool txStandBy(uint32_t timeout, bool startTx = 0);
 
@@ -410,6 +419,7 @@ public:
     
     /**
      * Enable use of the on-board AES CCM mode encryption
+     *
      * Cipher block chaining - message authentication code (CCM) mode is an authenticated encryption
      * algorithm designed to provide both authentication and confidentiality during data transfer. CCM combines
      * counter mode encryption and CBC-MAC authentication
@@ -419,7 +429,7 @@ public:
      * rejecting old data.
      * 
      * Encryption uses a 5-byte IV and 3-byte counter, the sizes of which can be configured in nrf_to_nrf.h
-     * Maximum: 8-byte IV, 4-byte counter
+     * Maximum: 8-byte IV, 4-byte counter, plus the MAC/MIC is 4-bytes
      */
     bool enableEncryption;
 #endif
