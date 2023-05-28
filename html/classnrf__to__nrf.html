@@ -96,8 +96,6 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classnrf__to__nrf-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">nrf_to_nrf Class Reference</div></div>
 </div><!--header-->
@@ -110,12 +108,13 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Primary public interface</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>These are the main methods you need to operate the chip </p>
+</div></td></tr>
 <tr class="memitem:a6e3601bd9cbe9b176c489af224ea9e5b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a6e3601bd9cbe9b176c489af224ea9e5b">nrf_to_nrf</a> ()</td></tr>
 <tr class="separator:a6e3601bd9cbe9b176c489af224ea9e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7732e9d1424d384c575377c8385c725d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a7732e9d1424d384c575377c8385c725d">begin</a> ()</td></tr>
 <tr class="separator:a7732e9d1424d384c575377c8385c725d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19d4359f61b67a4d89dfe643a989792a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a19d4359f61b67a4d89dfe643a989792a">sample_ed</a> (void)</td></tr>
-<tr class="separator:a19d4359f61b67a4d89dfe643a989792a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08df99a63e6dc2cbe4a8f014b7300ae4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a08df99a63e6dc2cbe4a8f014b7300ae4">available</a> ()</td></tr>
 <tr class="separator:a08df99a63e6dc2cbe4a8f014b7300ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3521c78a008cfec0d6c87dcd7b7f8774"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a3521c78a008cfec0d6c87dcd7b7f8774">available</a> (uint8_t *pipe_num)</td></tr>
@@ -124,6 +123,24 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae9457410ab65e1cf3109e45cc3155010"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b72553f78465e14ba15c13a392fa7e3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a4b72553f78465e14ba15c13a392fa7e3">write</a> (void *buf, uint8_t len, bool multicast=false, bool doEncryption=true)</td></tr>
 <tr class="separator:a4b72553f78465e14ba15c13a392fa7e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01f4833ad19dbe8498329eb1076da808"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a01f4833ad19dbe8498329eb1076da808">startListening</a> (bool resetAddresses=true)</td></tr>
+<tr class="separator:a01f4833ad19dbe8498329eb1076da808"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9fa4209ae57be1ed77ac9d23eeeedfc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#ae9fa4209ae57be1ed77ac9d23eeeedfc">stopListening</a> (bool setWritingPipe=true, bool resetAddresses=true)</td></tr>
+<tr class="separator:ae9fa4209ae57be1ed77ac9d23eeeedfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a070731ead0431745af9ea6fb06aedbac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a070731ead0431745af9ea6fb06aedbac">openReadingPipe</a> (uint8_t child, const uint8_t *address)</td></tr>
+<tr class="separator:a070731ead0431745af9ea6fb06aedbac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab41aba27b662740ac908d7a30d7009c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#ab41aba27b662740ac908d7a30d7009c2">openWritingPipe</a> (const uint8_t *address)</td></tr>
+<tr class="separator:ab41aba27b662740ac908d7a30d7009c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f0c7933c8a5e593ee223e2b804ea69d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a4f0c7933c8a5e593ee223e2b804ea69d">isChipConnected</a> ()</td></tr>
+<tr class="separator:a4f0c7933c8a5e593ee223e2b804ea69d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Advanced Operation</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p>Methods you can use to drive the chip in more advanced ways </p>
+</td></tr>
+<tr class="memitem:a3183dc6c9f8a06ca01ef9d015420791d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a3183dc6c9f8a06ca01ef9d015420791d">radioData</a> [<a class="el" href="nrf__to__nrf_8h.html#a86f99279499412c45d603a56b52f15e1">ACTUAL_MAX_PAYLOAD_SIZE</a>+2]</td></tr>
+<tr class="separator:a3183dc6c9f8a06ca01ef9d015420791d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1af6725bd2d65b8e52884f4421e7915"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#ac1af6725bd2d65b8e52884f4421e7915">failureDetected</a></td></tr>
+<tr class="separator:ac1af6725bd2d65b8e52884f4421e7915"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac23bd0686bcfafada06a668ba32bcbd7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#ac23bd0686bcfafada06a668ba32bcbd7">writeFast</a> (void *buf, uint8_t len, bool multicast=0)</td></tr>
 <tr class="separator:ac23bd0686bcfafada06a668ba32bcbd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9dfe4f382f4b33d8db2fd0733df4dec3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a9dfe4f382f4b33d8db2fd0733df4dec3">startWrite</a> (void *buf, uint8_t len, bool multicast, bool doEncryption=true)</td></tr>
@@ -136,16 +153,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a82ece976ff6ed46b07eb9c3920d9603a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a698353fdaccbf8ddb6ef509148708913"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a698353fdaccbf8ddb6ef509148708913">enableDynamicAck</a> ()</td></tr>
 <tr class="separator:a698353fdaccbf8ddb6ef509148708913"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01f4833ad19dbe8498329eb1076da808"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a01f4833ad19dbe8498329eb1076da808">startListening</a> (bool resetAddresses=true)</td></tr>
-<tr class="separator:a01f4833ad19dbe8498329eb1076da808"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9fa4209ae57be1ed77ac9d23eeeedfc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#ae9fa4209ae57be1ed77ac9d23eeeedfc">stopListening</a> (bool setWritingPipe=true, bool resetAddresses=true)</td></tr>
-<tr class="separator:ae9fa4209ae57be1ed77ac9d23eeeedfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a543bbc33034094b5be199efdb77c2a7a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a543bbc33034094b5be199efdb77c2a7a">getDynamicPayloadSize</a> ()</td></tr>
 <tr class="separator:a543bbc33034094b5be199efdb77c2a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65f5edbd8771ad381c0dd6532c38f16b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a65f5edbd8771ad381c0dd6532c38f16b">isValid</a> ()</td></tr>
 <tr class="separator:a65f5edbd8771ad381c0dd6532c38f16b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f0c7933c8a5e593ee223e2b804ea69d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a4f0c7933c8a5e593ee223e2b804ea69d">isChipConnected</a> ()</td></tr>
-<tr class="separator:a4f0c7933c8a5e593ee223e2b804ea69d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cd8dd57e9eacd92190226b786ac303b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a3cd8dd57e9eacd92190226b786ac303b">setChannel</a> (uint8_t channel)</td></tr>
 <tr class="separator:a3cd8dd57e9eacd92190226b786ac303b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ca9c7ee9db0160ff3e4dc78bc6431ab"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a9ca9c7ee9db0160ff3e4dc78bc6431ab">getChannel</a> ()</td></tr>
@@ -180,10 +191,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aeb3274fcaaf8484b47a44e8e7faf63b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab82369a2aa747de5e76740f293f4e919"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#ab82369a2aa747de5e76740f293f4e919">openWritingPipe</a> (uint64_t address)</td></tr>
 <tr class="separator:ab82369a2aa747de5e76740f293f4e919"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a070731ead0431745af9ea6fb06aedbac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a070731ead0431745af9ea6fb06aedbac">openReadingPipe</a> (uint8_t child, const uint8_t *address)</td></tr>
-<tr class="separator:a070731ead0431745af9ea6fb06aedbac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab41aba27b662740ac908d7a30d7009c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#ab41aba27b662740ac908d7a30d7009c2">openWritingPipe</a> (const uint8_t *address)</td></tr>
-<tr class="separator:ab41aba27b662740ac908d7a30d7009c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f28d2a70f8160e4bf439982f0af6066"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a4f28d2a70f8160e4bf439982f0af6066">setAddressWidth</a> (uint8_t a_width)</td></tr>
 <tr class="separator:a4f28d2a70f8160e4bf439982f0af6066"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98b35f97458822fdc9ae4986c56c7b5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a98b35f97458822fdc9ae4986c56c7b5c">printDetails</a> ()</td></tr>
@@ -202,6 +209,16 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4de30b154367928dae7b778b21748d53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88266b8fca35d23d053be7b89c287388"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a88266b8fca35d23d053be7b89c287388">getARC</a> ()</td></tr>
 <tr class="separator:a88266b8fca35d23d053be7b89c287388"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19d4359f61b67a4d89dfe643a989792a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a19d4359f61b67a4d89dfe643a989792a">sample_ed</a> (void)</td></tr>
+<tr class="separator:a19d4359f61b67a4d89dfe643a989792a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Encryption</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p>Methods you can use to enable encryption &amp; authentication </p>
+</td></tr>
+<tr class="memitem:aaea87e1ed1f9370a8bfb28827e2d380f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a> [<a class="el" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a>+<a class="el" href="nrf__to__nrf_8h.html#a91b1d8c61b6a2094fba30d01ff1972d3">CCM_MIC_SIZE</a>+<a class="el" href="nrf__to__nrf_8h.html#a7a8d571811396067c6b8d78bc6afc37f">CCM_START_SIZE</a>]</td></tr>
+<tr class="separator:aaea87e1ed1f9370a8bfb28827e2d380f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dcfe5f98793e4b1dc441404f1e7134a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a7dcfe5f98793e4b1dc441404f1e7134a">enableEncryption</a></td></tr>
+<tr class="separator:a7dcfe5f98793e4b1dc441404f1e7134a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41d8dd2384f0c139623d15ac17f08bf7"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a41d8dd2384f0c139623d15ac17f08bf7">addrConv32</a> (uint32_t addr)</td></tr>
 <tr class="separator:a41d8dd2384f0c139623d15ac17f08bf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a902d5eca08aad045c966eda3d2534eaa"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a902d5eca08aad045c966eda3d2534eaa">encrypt</a> (void *bufferIn, uint8_t size)</td></tr>
@@ -214,17 +231,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4ecb7e276b024e2eca0b04328fb50263"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeede062c4a125f1bca719f4c2a96e76a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#aeede062c4a125f1bca719f4c2a96e76a">setIV</a> (uint8_t IV[<a class="el" href="nrf__to__nrf_8h.html#adf3d9827d3b02ae63b08d846b809e1dc">CCM_IV_SIZE</a>])</td></tr>
 <tr class="separator:aeede062c4a125f1bca719f4c2a96e76a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a3183dc6c9f8a06ca01ef9d015420791d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a3183dc6c9f8a06ca01ef9d015420791d">radioData</a> [<a class="el" href="nrf__to__nrf_8h.html#a86f99279499412c45d603a56b52f15e1">ACTUAL_MAX_PAYLOAD_SIZE</a>+2]</td></tr>
-<tr class="separator:a3183dc6c9f8a06ca01ef9d015420791d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1af6725bd2d65b8e52884f4421e7915"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#ac1af6725bd2d65b8e52884f4421e7915">failureDetected</a></td></tr>
-<tr class="separator:ac1af6725bd2d65b8e52884f4421e7915"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaea87e1ed1f9370a8bfb28827e2d380f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a> [<a class="el" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a>+<a class="el" href="nrf__to__nrf_8h.html#a91b1d8c61b6a2094fba30d01ff1972d3">CCM_MIC_SIZE</a>+<a class="el" href="nrf__to__nrf_8h.html#a7a8d571811396067c6b8d78bc6afc37f">CCM_START_SIZE</a>]</td></tr>
-<tr class="separator:aaea87e1ed1f9370a8bfb28827e2d380f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7dcfe5f98793e4b1dc441404f1e7134a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnrf__to__nrf.html#a7dcfe5f98793e4b1dc441404f1e7134a">enableEncryption</a></td></tr>
-<tr class="separator:a7dcfe5f98793e4b1dc441404f1e7134a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Driver class for nRF52840 2.4GHz Wireless Transceiver. </p>
@@ -275,26 +281,6 @@ Public Attributes</h2></td></tr>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00079">79</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a19d4359f61b67a4d89dfe643a989792a" name="a19d4359f61b67a4d89dfe643a989792a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19d4359f61b67a4d89dfe643a989792a">&#9670;&#160;</a></span>sample_ed()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t nrf_to_nrf::sample_ed </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00140">140</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -416,6 +402,151 @@ Public Attributes</h2></td></tr>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00319">319</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a01f4833ad19dbe8498329eb1076da808" name="a01f4833ad19dbe8498329eb1076da808"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01f4833ad19dbe8498329eb1076da808">&#9670;&#160;</a></span>startListening()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nrf_to_nrf::startListening </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>resetAddresses</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Same as NRF24 </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resetAddresses</td><td>Used internally to reset addresses </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a10">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a8">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a8">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a3">examples/RF24/scanner/scanner.ino</a>.</dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00658">658</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae9fa4209ae57be1ed77ac9d23eeeedfc" name="ae9fa4209ae57be1ed77ac9d23eeeedfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9fa4209ae57be1ed77ac9d23eeeedfc">&#9670;&#160;</a></span>stopListening()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nrf_to_nrf::stopListening </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>setWritingPipe</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>resetAddresses</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Same as NRF24 </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">setWritingPipe</td><td>Same as RF24 </td></tr>
+    <tr><td class="paramname">resetAddresses</td><td>Used internally to reset addresses </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a8">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a7">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a7">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a4">examples/RF24/scanner/scanner.ino</a>.</dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00681">681</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a070731ead0431745af9ea6fb06aedbac" name="a070731ead0431745af9ea6fb06aedbac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a070731ead0431745af9ea6fb06aedbac">&#9670;&#160;</a></span>openReadingPipe() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nrf_to_nrf::openReadingPipe </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>child</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>address</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Same as NRF24 </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a7">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a6">examples/RF24/GettingStarted/GettingStarted.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a6">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>.</dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00884">884</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab41aba27b662740ac908d7a30d7009c2" name="ab41aba27b662740ac908d7a30d7009c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab41aba27b662740ac908d7a30d7009c2">&#9670;&#160;</a></span>openWritingPipe() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nrf_to_nrf::openWritingPipe </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>address</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Same as NRF24 </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a6">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a5">examples/RF24/GettingStarted/GettingStarted.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a5">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>.</dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00922">922</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4f0c7933c8a5e593ee223e2b804ea69d" name="a4f0c7933c8a5e593ee223e2b804ea69d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f0c7933c8a5e593ee223e2b804ea69d">&#9670;&#160;</a></span>isChipConnected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool nrf_to_nrf::isChipConnected </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Same as NRF24 </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_2RF24Mesh_Example_8ino-example.html#a1">examples/RF24Mesh/RF24Mesh_Example/RF24Mesh_Example.ino</a>, and <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a5">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>.</dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00998">998</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -600,73 +731,6 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a01f4833ad19dbe8498329eb1076da808" name="a01f4833ad19dbe8498329eb1076da808"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01f4833ad19dbe8498329eb1076da808">&#9670;&#160;</a></span>startListening()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void nrf_to_nrf::startListening </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>resetAddresses</em> = <code>true</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Same as NRF24 </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">resetAddresses</td><td>Used internally to reset addresses </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a10">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a8">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a8">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a3">examples/RF24/scanner/scanner.ino</a>.</dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00658">658</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae9fa4209ae57be1ed77ac9d23eeeedfc" name="ae9fa4209ae57be1ed77ac9d23eeeedfc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9fa4209ae57be1ed77ac9d23eeeedfc">&#9670;&#160;</a></span>stopListening()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void nrf_to_nrf::stopListening </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>setWritingPipe</em> = <code>true</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>resetAddresses</em> = <code>true</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Same as NRF24 </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">setWritingPipe</td><td>Same as RF24 </td></tr>
-    <tr><td class="paramname">resetAddresses</td><td>Used internally to reset addresses </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a8">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a7">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a7">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a4">examples/RF24/scanner/scanner.ino</a>.</dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00681">681</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
-
-</div>
-</div>
 <a id="a543bbc33034094b5be199efdb77c2a7a" name="a543bbc33034094b5be199efdb77c2a7a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a543bbc33034094b5be199efdb77c2a7a">&#9670;&#160;</a></span>getDynamicPayloadSize()</h2>
 
@@ -706,28 +770,6 @@ Public Attributes</h2></td></tr>
 <p>Same as NRF24 </p>
 
 <p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00713">713</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a4f0c7933c8a5e593ee223e2b804ea69d" name="a4f0c7933c8a5e593ee223e2b804ea69d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f0c7933c8a5e593ee223e2b804ea69d">&#9670;&#160;</a></span>isChipConnected()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool nrf_to_nrf::isChipConnected </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Same as NRF24 </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_2RF24Mesh_Example_8ino-example.html#a1">examples/RF24Mesh/RF24Mesh_Example/RF24Mesh_Example.ino</a>, and <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a5">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>.</dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00998">998</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1087,7 +1129,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <a id="aeb3274fcaaf8484b47a44e8e7faf63b3" name="aeb3274fcaaf8484b47a44e8e7faf63b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb3274fcaaf8484b47a44e8e7faf63b3">&#9670;&#160;</a></span>openReadingPipe() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb3274fcaaf8484b47a44e8e7faf63b3">&#9670;&#160;</a></span>openReadingPipe() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1112,15 +1154,13 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Same as NRF24 </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a7">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a6">examples/RF24/GettingStarted/GettingStarted.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a6">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>.</dd>
-</dl>
 
 <p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00826">826</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
 <a id="ab82369a2aa747de5e76740f293f4e919" name="ab82369a2aa747de5e76740f293f4e919"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab82369a2aa747de5e76740f293f4e919">&#9670;&#160;</a></span>openWritingPipe() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab82369a2aa747de5e76740f293f4e919">&#9670;&#160;</a></span>openWritingPipe() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1135,62 +1175,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Same as NRF24 </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a6">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a5">examples/RF24/GettingStarted/GettingStarted.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a5">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>.</dd>
-</dl>
 
 <p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00863">863</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a070731ead0431745af9ea6fb06aedbac" name="a070731ead0431745af9ea6fb06aedbac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a070731ead0431745af9ea6fb06aedbac">&#9670;&#160;</a></span>openReadingPipe() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void nrf_to_nrf::openReadingPipe </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>child</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint8_t *&#160;</td>
-          <td class="paramname"><em>address</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Same as NRF24 </p>
-
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00884">884</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab41aba27b662740ac908d7a30d7009c2" name="ab41aba27b662740ac908d7a30d7009c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab41aba27b662740ac908d7a30d7009c2">&#9670;&#160;</a></span>openWritingPipe() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void nrf_to_nrf::openWritingPipe </td>
-          <td>(</td>
-          <td class="paramtype">const uint8_t *&#160;</td>
-          <td class="paramname"><em>address</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Same as NRF24 </p>
-
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00922">922</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1402,6 +1388,26 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a19d4359f61b67a4d89dfe643a989792a" name="a19d4359f61b67a4d89dfe643a989792a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19d4359f61b67a4d89dfe643a989792a">&#9670;&#160;</a></span>sample_ed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t nrf_to_nrf::sample_ed </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00140">140</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a41d8dd2384f0c139623d15ac17f08bf7" name="a41d8dd2384f0c139623d15ac17f08bf7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a41d8dd2384f0c139623d15ac17f08bf7">&#9670;&#160;</a></span>addrConv32()</h2>
 
@@ -1566,7 +1572,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Data buffer for radio data The radio can handle packets up to 127 bytes if CRC is disabled 125 bytes if using 16-bit CRC </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00135">135</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00209">209</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1583,7 +1589,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Not implemented due to SOC </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00349">349</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00367">367</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1600,7 +1606,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>The data buffer where encrypted data is placed. See the datasheet p115 for the CCM data structure </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00401">401</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00429">429</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1622,7 +1628,7 @@ Public Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a11">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a3">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_MasterEncryption_2RF24Mesh_Example_MasterEncryption_8ino-example.html#a3">examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a3">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a3">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00434">434</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00462">462</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1633,7 +1639,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun May 28 2023 09:48:39 for nrf_to_nrf - NRF52 Radio Driver by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7
+Generated on Sun May 28 2023 09:59:37 for nrf_to_nrf - NRF52 Radio Driver by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7
 </small></address>
 </body>
 </html>

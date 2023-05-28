@@ -117,6 +117,14 @@ class nrf_to_nrf
 {
 
 public:
+
+    /**
+     * @name Primary public interface
+     *
+     *  These are the main methods you need to operate the chip
+     */
+    /**@{*/
+    
     /**
      * Constructor for nrf_to_nrf
      *
@@ -126,13 +134,6 @@ public:
      */
     nrf_to_nrf();
 
-    /**
-     * Data buffer for radio data
-     * The radio can handle packets up to 127 bytes if CRC is disabled
-     * 125 bytes if using 16-bit CRC
-     *
-     */
-    uint8_t radioData[ACTUAL_MAX_PAYLOAD_SIZE + 2];
 
     /**
      * Call this before operating the radio
@@ -141,7 +142,6 @@ public:
      * @endcode
      */
     bool begin();
-    uint8_t sample_ed(void);
 
     /**
      * Same as NRF24 radio.available();
@@ -162,7 +162,52 @@ public:
      * Same as NRF24 radio.write();
      */
     bool write(void* buf, uint8_t len, bool multicast = false, bool doEncryption = true);
+    
+    /**
+     * Same as NRF24
+     * @param resetAddresses Used internally to reset addresses
+     */
+    void startListening(bool resetAddresses = true);
 
+    /**
+     * Same as NRF24
+     * @param setWritingPipe Same as RF24
+     * @param resetAddresses Used internally to reset addresses
+     */
+    void stopListening(bool setWritingPipe = true, bool resetAddresses = true);
+
+    /**
+     * Same as NRF24
+     */
+    void openReadingPipe(uint8_t child, const uint8_t* address);
+
+    /**
+     * Same as NRF24
+     */
+    void openWritingPipe(const uint8_t* address);
+
+    /**
+     * Same as NRF24
+     */
+    bool isChipConnected();
+    
+    
+    /**@}*/
+    /**
+     * @name Advanced Operation
+     *
+     * Methods you can use to drive the chip in more advanced ways
+     */
+    /**@{*/
+    
+    /**
+     * Data buffer for radio data
+     * The radio can handle packets up to 127 bytes if CRC is disabled
+     * 125 bytes if using 16-bit CRC
+     *
+     */
+    uint8_t radioData[ACTUAL_MAX_PAYLOAD_SIZE + 2];
+    
     /**
      * Not currently fully functional, calls the regular write();
      */
@@ -198,18 +243,6 @@ public:
      */
     void enableDynamicAck();
 
-    /**
-     * Same as NRF24
-     * @param resetAddresses Used internally to reset addresses
-     */
-    void startListening(bool resetAddresses = true);
-
-    /**
-     * Same as NRF24
-     * @param setWritingPipe Same as RF24
-     * @param resetAddresses Used internally to reset addresses
-     */
-    void stopListening(bool setWritingPipe = true, bool resetAddresses = true);
 
     /**
      * Same as NRF24
@@ -220,11 +253,6 @@ public:
      * Same as NRF24
      */
     bool isValid();
-
-    /**
-     * Same as NRF24
-     */
-    bool isChipConnected();
 
     /**
      * Same as NRF24
@@ -316,16 +344,6 @@ public:
     /**
      * Same as NRF24
      */
-    void openReadingPipe(uint8_t child, const uint8_t* address);
-
-    /**
-     * Same as NRF24
-     */
-    void openWritingPipe(const uint8_t* address);
-
-    /**
-     * Same as NRF24
-     */
     void setAddressWidth(uint8_t a_width);
 
     /**
@@ -378,7 +396,17 @@ public:
      * Same as NRF24
      */
     uint8_t getARC();
+    
+    uint8_t sample_ed(void);
 
+    /**@}*/
+    /**
+     * @name Encryption
+     *
+     * Methods you can use to enable encryption & authentication
+     */
+    /**@{*/
+    
     /**
      * Used internally to convert addresses
      */
@@ -432,6 +460,7 @@ public:
      * Maximum: 8-byte IV, 4-byte counter, plus the MAC/MIC is 4-bytes
      */
     bool enableEncryption;
+    /**@}*/
 #endif
 
 private:
