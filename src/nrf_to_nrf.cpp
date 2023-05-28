@@ -259,6 +259,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
         // If the packet has the same ID number and data, it is most likely a
         // duplicate
         if (packetCtr == lastPacketCounter && packetData == lastData) {
+            NRF_RADIO->TASKS_START = 1;
             return 0;
         }
 #if defined CCM_ENCRYPTION_ENABLED
@@ -296,6 +297,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
     }
     if (NRF_RADIO->EVENTS_CRCERROR) {
         NRF_RADIO->EVENTS_CRCERROR = 0;
+        NRF_RADIO->TASKS_START = 1;
     }
 
     return 0;
@@ -308,6 +310,7 @@ void nrf_to_nrf::read(void* buf, uint8_t len)
     memcpy(buf, &rxBuffer[1], len);
     ackPayloadAvailable = false;
     if (inRxMode) {
+        NRF_RADIO->TASKS_START = 1;
     }
 }
 
@@ -938,8 +941,10 @@ void nrf_to_nrf::openWritingPipe(const uint8_t* address)
 
 bool nrf_to_nrf::txStandBy() {
 
-    while (NRF_RADIO->EVENTS_END == 0) {}
-    NRF_RADIO->EVENTS_END = 0;
+    if(NRF_RADIO->STATE == 11){
+      while (NRF_RADIO->EVENTS_END == 0) {}
+      NRF_RADIO->EVENTS_END = 0;
+    }
     
     NRF_RADIO->EVENTS_DISABLED = 0;
     NRF_RADIO->TASKS_DISABLE = 1;
@@ -954,8 +959,11 @@ bool nrf_to_nrf::txStandBy() {
 
 bool nrf_to_nrf::txStandBy(uint32_t timeout, bool startTx)
 {
-    while (NRF_RADIO->EVENTS_END == 0) {}
-    NRF_RADIO->EVENTS_END = 0;
+    
+    if(NRF_RADIO->STATE == 11){
+      while (NRF_RADIO->EVENTS_END == 0) {}
+      NRF_RADIO->EVENTS_END = 0;
+    }
     
     NRF_RADIO->EVENTS_DISABLED = 0;
     NRF_RADIO->TASKS_DISABLE = 1;
