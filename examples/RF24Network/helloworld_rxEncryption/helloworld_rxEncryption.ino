@@ -24,7 +24,7 @@ uint8_t myKey[16] = {1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6};
 
 nrf_to_nrf radio;  // nRF24L01(+) radio attached using Getting Started board
 
-ESB_Network<nrf_to_nrf> network(radio);      // Network uses that radio
+RF52Network network(radio);      // Network uses that radio
 const uint16_t this_node = 00;   // Address of our node in Octal format (04, 031, etc)
 const uint16_t other_node = 01;  // Address of the other node in Octal format
 

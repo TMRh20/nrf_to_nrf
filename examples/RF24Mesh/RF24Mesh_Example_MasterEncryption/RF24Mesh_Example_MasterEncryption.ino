@@ -24,8 +24,8 @@ uint8_t myKey[16] = {1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6};
 
 /***** Configure the chosen CE,CS pins *****/
 nrf_to_nrf radio;
-ESB_Network<nrf_to_nrf> network(radio);
-ESB_Mesh <ESB_Network<nrf_to_nrf>, nrf_to_nrf> mesh(radio, network);
+RF52Network network(radio);
+RF52Mesh mesh(radio, network);
 
 uint32_t displayTimer = 0;
 
