@@ -19,8 +19,8 @@ uint8_t myKey[16] = {1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6};
 /**** Configure the nrf24l01 CE and CS pins ****/
 nrf_to_nrf radio;
 
-RF24Network network(radio);
-RF24Mesh mesh(radio, network);
+ESB_Network<nrf_to_nrf> network(radio);
+ESB_Mesh <ESB_Network<nrf_to_nrf>, nrf_to_nrf> mesh(radio, network);
 
 /*
  * User Configuration: nodeID - A unique identifier for each radio. Allows addressing

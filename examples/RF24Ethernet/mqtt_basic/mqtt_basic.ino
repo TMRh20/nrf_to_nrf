@@ -38,8 +38,8 @@
 #include <MQTT.h>
 
 nrf_to_nrf radio;
-RF24Network network(radio);
-RF24Mesh mesh(radio, network);
+ESB_Network<nrf_to_nrf> network(radio);
+ESB_Mesh <ESB_Network<nrf_to_nrf>, nrf_to_nrf> mesh(radio, network);
 RF24EthernetClass RF24Ethernet(radio, network, mesh);
 
 IPAddress ip(10, 1, 3, 244);
