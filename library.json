@@ -15,10 +15,5 @@
     },
     "frameworks": "arduino",
     "platforms": "nordicnrf52",
-    "dependencies": 
-    {
-        "RF24Network": "https://github.com/nRF24/RF24Network.git#nrf52Support",
-        "RF24Mesh": "https://github.com/nRF24/RF24Mesh.git#NRF25Support"
-    }
     
 }
