@@ -17,8 +17,8 @@
 /**** Configure the nrf24l01 CE and CS pins ****/
 nrf_to_nrf radio;
 
-RF24Network network(radio);
-RF24Mesh mesh(radio, network);
+RF52Network network(radio);
+RF52Mesh mesh(radio, network);
 
 /*
  * User Configuration: nodeID - A unique identifier for each radio. Allows addressing

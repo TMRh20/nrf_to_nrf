@@ -38,9 +38,9 @@
 #include <MQTT.h>
 
 nrf_to_nrf radio;
-RF24Network network(radio);
-RF24Mesh mesh(radio, network);
-RF24EthernetClass RF24Ethernet(radio, network, mesh);
+RF52Network network(radio);
+RF52Mesh mesh(radio, network);
+RF52EthernetClass RF24Ethernet(radio, network, mesh);
 
 IPAddress ip(10, 1, 3, 244);
 IPAddress gateway(10, 1, 3, 33);  //Specify the gateway in case different from the server
