@@ -284,7 +284,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
             if (DPL) {
                 rxBuffer[0] -= (CCM_MIC_SIZE + CCM_IV_SIZE + CCM_COUNTER_SIZE);
                 memcpy(&rxBuffer[1], &outBuffer[CCM_START_SIZE], rxBuffer[0]);
-                
+
             }
             else {
                 memcpy(&rxBuffer[1], &outBuffer[CCM_START_SIZE], staticPayloadSize - (CCM_MIC_SIZE - CCM_IV_SIZE - CCM_COUNTER_SIZE));
@@ -332,7 +332,7 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
     uint8_t tmpIV[CCM_IV_SIZE];
     uint32_t tmpCounter = 0;
     uint8_t tmpBuffer[MAX_PACKET_SIZE + CCM_MIC_SIZE + CCM_START_SIZE];
-    
+
     if (enableEncryption && doEncryption) {
         if (len) {
 
@@ -344,7 +344,7 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
             }
             tmpCounter = packetCounter;
             ccmData.counter = tmpCounter;
-            
+
             if (!encrypt(buf, len)) {
                 return 0;
             }
@@ -390,7 +390,7 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
         if (enableEncryption && doEncryption) {
             memcpy(&radioData[dataStart - CCM_COUNTER_SIZE], &tmpCounter, CCM_COUNTER_SIZE);
             memcpy(&radioData[dataStart - CCM_IV_SIZE - CCM_COUNTER_SIZE],&tmpIV[0],CCM_IV_SIZE);
-            memcpy(&radioData[dataStart], &tmpBuffer[0], len - (CCM_IV_SIZE + CCM_COUNTER_SIZE)); 
+            memcpy(&radioData[dataStart], &tmpBuffer[0], len - (CCM_IV_SIZE + CCM_COUNTER_SIZE));
         }
         else {
 #endif
@@ -448,17 +448,17 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
                   if(enableEncryption && doEncryption){
                     memcpy(&rxBuffer[1], &radioData[2 + CCM_COUNTER_SIZE + CCM_IV_SIZE] , max(0, radioData[0] - CCM_COUNTER_SIZE - CCM_IV_SIZE));
                   }else{
-                    memcpy(&rxBuffer[1], &radioData[2] , radioData[0]); 
+                    memcpy(&rxBuffer[1], &radioData[2] , radioData[0]);
                   }
 #else
                  memcpy(&rxBuffer[1], &radioData[2], radioData[0]);
-#endif    
+#endif
 
 #if defined CCM_ENCRYPTION_ENABLED
                     if (enableEncryption && radioData[0] > 0) {
                         memcpy(ccmData.iv, &radioData[2], CCM_IV_SIZE);
                         memcpy(&ccmData.counter, &radioData[2 + CCM_IV_SIZE], CCM_COUNTER_SIZE);
-                        
+
                         if (!decrypt(&rxBuffer[1], radioData[0])) {
                             Serial.println("DECRYPT FAIL");
                             return 0;
@@ -515,13 +515,12 @@ bool nrf_to_nrf::startWrite(void* buf, uint8_t len, bool multicast, bool doEncry
     else {
         PID = ackPID++;
     }
-    uint8_t payloadSize = 0;
 
 #if defined CCM_ENCRYPTION_ENABLED
     uint8_t tmpIV[CCM_IV_SIZE];
     uint32_t tmpCounter = 0;
     uint8_t tmpBuffer[MAX_PACKET_SIZE + CCM_MIC_SIZE + CCM_START_SIZE];
-    
+
     if (enableEncryption && doEncryption) {
         if (len) {
 
@@ -533,7 +532,7 @@ bool nrf_to_nrf::startWrite(void* buf, uint8_t len, bool multicast, bool doEncry
             }
             tmpCounter = packetCounter;
             ccmData.counter = tmpCounter;
-            
+
             if (!encrypt(buf, len)) {
                 return 0;
             }
@@ -579,7 +578,7 @@ bool nrf_to_nrf::startWrite(void* buf, uint8_t len, bool multicast, bool doEncry
         if (enableEncryption && doEncryption) {
             memcpy(&radioData[dataStart - CCM_COUNTER_SIZE], &tmpCounter, CCM_COUNTER_SIZE);
             memcpy(&radioData[dataStart - CCM_IV_SIZE - CCM_COUNTER_SIZE],&tmpIV[0],CCM_IV_SIZE);
-            memcpy(&radioData[dataStart], &tmpBuffer[0], len - (CCM_IV_SIZE + CCM_COUNTER_SIZE)); 
+            memcpy(&radioData[dataStart], &tmpBuffer[0], len - (CCM_IV_SIZE + CCM_COUNTER_SIZE));
         }
         else {
 #endif
@@ -599,7 +598,7 @@ bool nrf_to_nrf::startWrite(void* buf, uint8_t len, bool multicast, bool doEncry
         NRF_RADIO->EVENTS_END = 0;
         NRF_RADIO->TASKS_START = 1;
         lastTxResult = true;
-        
+
     return true;
 }
 
@@ -607,7 +606,7 @@ bool nrf_to_nrf::startWrite(void* buf, uint8_t len, bool multicast, bool doEncry
 
 bool nrf_to_nrf::writeAckPayload(uint8_t pipe, void* buf, uint8_t len)
 {
-    
+
 #if defined CCM_ENCRYPTION_ENABLED
     if(enableEncryption){
         if (len) {
@@ -628,18 +627,18 @@ bool nrf_to_nrf::writeAckPayload(uint8_t pipe, void* buf, uint8_t len)
             }
 
             len += CCM_IV_SIZE + CCM_COUNTER_SIZE + CCM_MIC_SIZE;
-            memcpy(&ackBuffer[1 + CCM_IV_SIZE + CCM_COUNTER_SIZE], &outBuffer[CCM_START_SIZE],len - CCM_IV_SIZE - CCM_COUNTER_SIZE); 
+            memcpy(&ackBuffer[1 + CCM_IV_SIZE + CCM_COUNTER_SIZE], &outBuffer[CCM_START_SIZE],len - CCM_IV_SIZE - CCM_COUNTER_SIZE);
             packetCounter++;
             if (packetCounter > 200000) {
                 packetCounter = 0;
             }
         }
     }else{
-#endif    
+#endif
         memcpy(&ackBuffer[1], buf, len);
-#if defined CCM_ENCRYPTION_ENABLED    
+#if defined CCM_ENCRYPTION_ENABLED
     }
-#endif    
+#endif
     ackBuffer[0] = len;
     ackPipe = pipe;
     return true;
@@ -770,7 +769,7 @@ void nrf_to_nrf::enableDynamicPayloads(uint8_t payloadSize)
             // Using 8 bits for length
             NRF_RADIO->PCNF0 = (0 << RADIO_PCNF0_S0LEN_Pos) | (8 << RADIO_PCNF0_LFLEN_Pos) | (3 << RADIO_PCNF0_S1LEN_Pos);
         }
-        NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) | (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) | (addressWidth - 1 << RADIO_PCNF1_BALEN_Pos) | (0 << RADIO_PCNF1_STATLEN_Pos) | (payloadSize << RADIO_PCNF1_MAXLEN_Pos);
+        NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) | (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) | ((addressWidth - 1) << RADIO_PCNF1_BALEN_Pos) | (0 << RADIO_PCNF1_STATLEN_Pos) | (payloadSize << RADIO_PCNF1_MAXLEN_Pos);
     }
 }
 
@@ -786,7 +785,7 @@ void nrf_to_nrf::disableDynamicPayloads()
     }
     NRF_RADIO->PCNF0 = (lenConfig << RADIO_PCNF0_S0LEN_Pos) | (0 << RADIO_PCNF0_LFLEN_Pos) | (lenConfig << RADIO_PCNF0_S1LEN_Pos);
 
-    NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) | (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) | (addressWidth - 1 << RADIO_PCNF1_BALEN_Pos) | (staticPayloadSize << RADIO_PCNF1_STATLEN_Pos) | (staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos);
+    NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) | (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) | ((addressWidth - 1) << RADIO_PCNF1_BALEN_Pos) | (staticPayloadSize << RADIO_PCNF1_STATLEN_Pos) | (staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos);
 }
 
 /**********************************************************************************************************/
@@ -802,7 +801,7 @@ void nrf_to_nrf::setPayloadSize(uint8_t size)
     }
     NRF_RADIO->PCNF0 = (lenConfig << RADIO_PCNF0_S0LEN_Pos) | (0 << RADIO_PCNF0_LFLEN_Pos) | (lenConfig << RADIO_PCNF0_S1LEN_Pos);
 
-    NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) | (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) | (addressWidth - 1 << RADIO_PCNF1_BALEN_Pos) | (staticPayloadSize << RADIO_PCNF1_STATLEN_Pos) | (staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos);
+    NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) | (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) | ((addressWidth - 1) << RADIO_PCNF1_BALEN_Pos) | (staticPayloadSize << RADIO_PCNF1_STATLEN_Pos) | (staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos);
 }
 
 /**********************************************************************************************************/
@@ -945,26 +944,26 @@ bool nrf_to_nrf::txStandBy() {
       while (NRF_RADIO->EVENTS_END == 0) {}
       NRF_RADIO->EVENTS_END = 0;
     }
-    
+
     NRF_RADIO->EVENTS_DISABLED = 0;
     NRF_RADIO->TASKS_DISABLE = 1;
     while (NRF_RADIO->EVENTS_DISABLED == 0) {
     }
     NRF_RADIO->EVENTS_DISABLED = 0;
 
-    return lastTxResult; 
+    return lastTxResult;
 }
 
 /**********************************************************************************************************/
 
 bool nrf_to_nrf::txStandBy(uint32_t timeout, bool startTx)
 {
-    
+
     if(NRF_RADIO->STATE == 11){
       while (NRF_RADIO->EVENTS_END == 0) {}
       NRF_RADIO->EVENTS_END = 0;
     }
-    
+
     NRF_RADIO->EVENTS_DISABLED = 0;
     NRF_RADIO->TASKS_DISABLE = 1;
     while (NRF_RADIO->EVENTS_DISABLED == 0) {
@@ -1152,7 +1151,7 @@ void nrf_to_nrf::setAddressWidth(uint8_t a_width)
         pSize = staticPayloadSize;
     }
 
-    NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) | (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) | (a_width - 1 << RADIO_PCNF1_BALEN_Pos) | (pSize << RADIO_PCNF1_STATLEN_Pos) | (staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos);
+    NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) | (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) | ((a_width - 1) << RADIO_PCNF1_BALEN_Pos) | (pSize << RADIO_PCNF1_STATLEN_Pos) | (staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos);
 }
 
 /**********************************************************************************************************/
@@ -1333,7 +1332,7 @@ void nrf_to_nrf::setCounter(uint64_t counter)
 /**********************************************************************************************************/
 
 void nrf_to_nrf::setIV(uint8_t IV[CCM_IV_SIZE]){
-    
+
     for(int i=0; i<CCM_IV_SIZE; i++){
         ccmData.iv[i] = IV[i];
     }
