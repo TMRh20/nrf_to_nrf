@@ -2,7 +2,7 @@ var searchData=
 [
   ['sample_5fed_0',['sample_ed',['../classnrf__to__nrf.html#a19d4359f61b67a4d89dfe643a989792a',1,'nrf_to_nrf']]],
   ['setaddresswidth_1',['setAddressWidth',['../classnrf__to__nrf.html#a4f28d2a70f8160e4bf439982f0af6066',1,'nrf_to_nrf']]],
-  ['setautoack_2',['setAutoAck',['../classnrf__to__nrf.html#ae738c2a5b6859fb32990452ad3650fed',1,'nrf_to_nrf::setAutoAck(bool enable)'],['../classnrf__to__nrf.html#a094f79afc06ccba1a2918ab219335abc',1,'nrf_to_nrf::setAutoAck(uint8_t pipe, bool enable)']]],
+  ['setautoack_2',['setautoack',['../classnrf__to__nrf.html#ae738c2a5b6859fb32990452ad3650fed',1,'nrf_to_nrf::setAutoAck(bool enable)'],['../classnrf__to__nrf.html#a094f79afc06ccba1a2918ab219335abc',1,'nrf_to_nrf::setAutoAck(uint8_t pipe, bool enable)']]],
   ['setchannel_3',['setChannel',['../classnrf__to__nrf.html#a3cd8dd57e9eacd92190226b786ac303b',1,'nrf_to_nrf']]],
   ['setcounter_4',['setCounter',['../classnrf__to__nrf.html#a4ecb7e276b024e2eca0b04328fb50263',1,'nrf_to_nrf']]],
   ['setcrclength_5',['setCRCLength',['../classnrf__to__nrf.html#ab5e027f98da933686c5d1baf1ba3ae31',1,'nrf_to_nrf']]],
