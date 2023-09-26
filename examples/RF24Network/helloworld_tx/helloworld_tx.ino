@@ -15,7 +15,6 @@
  * Every 2 seconds, send a payload to the receiver node.
  */
 
-#include <SPI.h>
 #include <nrf_to_nrf.h>
 #include <RF24Network.h>
 

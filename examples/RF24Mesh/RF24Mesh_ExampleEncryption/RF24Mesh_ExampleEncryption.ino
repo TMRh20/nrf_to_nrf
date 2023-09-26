@@ -10,8 +10,6 @@
 #include "nrf_to_nrf.h"
 #include "RF24Network.h"
 #include "RF24Mesh.h"
-#include <SPI.h>
-//#include <printf.h>
 
 //Set up our encryption key
 uint8_t myKey[16] = {1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6};

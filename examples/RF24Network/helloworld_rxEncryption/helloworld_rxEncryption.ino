@@ -15,7 +15,6 @@
  * Listens for messages from the transmitter and prints them out.
  */
 
-#include <SPI.h>
 #include <nrf_to_nrf.h>
 #include <RF24Network.h>
 

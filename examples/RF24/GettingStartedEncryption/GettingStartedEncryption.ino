@@ -10,8 +10,6 @@
  * This example was written to be used on 2 devices acting as "nodes".
  * Use the Serial Monitor to change each node's behavior.
  */
-#include <SPI.h>
-#include "printf.h"
 #include "nrf_to_nrf.h"
 
 uint8_t myKey[16] = {1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6};

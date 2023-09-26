@@ -23,7 +23,6 @@
  */
 
 #include "nrf_to_nrf.h"
-#include "printf.h"
 
 //
 // Hardware configuration

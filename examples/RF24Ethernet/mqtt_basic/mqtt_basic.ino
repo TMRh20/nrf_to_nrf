@@ -30,7 +30,6 @@
 
 */
 
-#include <SPI.h>
 #include <nrf_to_nrf.h>
 #include <RF24Network.h>
 #include <RF24Mesh.h>

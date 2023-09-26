@@ -11,8 +11,7 @@
  * This example was written to be used on 2 devices acting as "nodes".
  * Use the Serial Monitor to change each node's behavior.
  */
-#include <SPI.h>
-#include "printf.h"
+
 #include "nrf_to_nrf.h"
 
 // instantiate an object for the nRF24L01 transceiver
@@ -105,7 +104,6 @@ delay(5000);
   }
 
   // For debugging info
-  // printf_begin();             // needed only once for printing details
   // radio.printDetails();       // (smaller) function that prints raw register values
   // radio.printPrettyDetails(); // (larger) function that prints human readable data
 }
