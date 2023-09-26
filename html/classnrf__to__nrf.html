@@ -237,7 +237,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#_a0">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#_a0">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#_a0">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#_a0">examples/RF24/scanner/scanner.ino</a>, <a class="el" href="examples_2RF24Ethernet_2mqtt_basic_2mqtt_basic_8ino-example.html#_a0">examples/RF24Ethernet/mqtt_basic/mqtt_basic.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_2RF24Mesh_Example_8ino-example.html#_a0">examples/RF24Mesh/RF24Mesh_Example/RF24Mesh_Example.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#_a0">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_MasterEncryption_2RF24Mesh_Example_MasterEncryption_8ino-example.html#_a0">examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rx_2helloworld_rx_8ino-example.html#_a0">examples/RF24Network/helloworld_rx/helloworld_rx.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#_a0">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_tx_2helloworld_tx_8ino-example.html#_a0">examples/RF24Network/helloworld_tx/helloworld_tx.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#_a0">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00116">116</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00104">104</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6e3601bd9cbe9b176c489af224ea9e5b" name="a6e3601bd9cbe9b176c489af224ea9e5b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6e3601bd9cbe9b176c489af224ea9e5b">&#9670;&#160;</a></span>nrf_to_nrf()</h2>
@@ -255,7 +255,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Constructor for <a class="el" href="classnrf__to__nrf.html" title="Driver class for nRF52840 2.4GHz Wireless Transceiver.">nrf_to_nrf</a></p>
 <div class="fragment"><div class="line"><a class="code hl_class" href="classnrf__to__nrf.html">nrf_to_nrf</a> radio;</div>
-<div class="ttc" id="aclassnrf__to__nrf_html"><div class="ttname"><a href="classnrf__to__nrf.html">nrf_to_nrf</a></div><div class="ttdoc">Driver class for nRF52840 2.4GHz Wireless Transceiver.</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8h_source.html#l00116">nrf_to_nrf.h:117</a></div></div>
+<div class="ttc" id="aclassnrf__to__nrf_html"><div class="ttname"><a href="classnrf__to__nrf.html">nrf_to_nrf</a></div><div class="ttdoc">Driver class for nRF52840 2.4GHz Wireless Transceiver.</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8h_source.html#l00104">nrf_to_nrf.h:105</a></div></div>
 </div><!-- fragment --> 
 <p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00042">42</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
@@ -460,7 +460,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Same as NRF24 </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">setWritingPipe</td><td>Same as RF24 </td></tr>
+    <tr><td class="paramname">setWritingPipe</td><td>Used internally </td></tr>
     <tr><td class="paramname">resetAddresses</td><td>Used internally to reset addresses </td></tr>
   </table>
   </dd>
@@ -497,7 +497,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Same as NRF24 except the 52840 has 8 pipes </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a7">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a6">examples/RF24/GettingStarted/GettingStarted.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a6">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>.</dd>
 </dl>
 
@@ -1574,7 +1574,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Data buffer for radio data The radio can handle packets up to 127 bytes if CRC is disabled 125 bytes if using 16-bit CRC </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00209">209</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00197">197</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1591,7 +1591,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Not implemented due to SOC </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00367">367</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00355">355</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1608,7 +1608,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>The data buffer where encrypted data is placed. See the datasheet p115 for the CCM data structure </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00429">429</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00417">417</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1630,7 +1630,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a11">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a3">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_MasterEncryption_2RF24Mesh_Example_MasterEncryption_8ino-example.html#a3">examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a3">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a3">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00462">462</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00450">450</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1641,7 +1641,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 26 2023 05:49:46 for nrf_to_nrf - NRF52 Radio Driver by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Tue Sep 26 2023 05:50:53 for nrf_to_nrf - NRF52 Radio Driver by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>
