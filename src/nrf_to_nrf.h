@@ -258,7 +258,12 @@ public:
     bool setDataRate(uint8_t speed);
 
     /**
-     * Same as NRF24
+     * Same as NRF24 except there is no LNA and the PA levels are as follows:
+     *
+     * (0) represents -12dBm
+     * (1) represents 2dBm
+     * (2) represents 6dBm
+     * (3) represents 8dBm
      */
     void setPALevel(uint8_t level, bool lnaEnable = true);
 
