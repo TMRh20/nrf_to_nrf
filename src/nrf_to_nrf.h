@@ -35,31 +35,19 @@
 typedef enum
 {
     /**
-     * (0) represents:
-     * nRF24L01 | Si24R1 with<br>lnaEnabled = 1 | Si24R1 with<br>lnaEnabled = 0
-     * :-------:|:-----------------------------:|:----------------------------:
-     *  -18 dBm | -6 dBm | -12 dBm
+     * (0) represents -12dBm
      */
     NRF_PA_MIN = 0,
     /**
-     * (1) represents:
-     * nRF24L01 | Si24R1 with<br>lnaEnabled = 1 | Si24R1 with<br>lnaEnabled = 0
-     * :-------:|:-----------------------------:|:----------------------------:
-     *  -12 dBm | 0 dBm | -4 dBm
+     * (1) represents 2dBm
      */
     NRF_PA_LOW,
     /**
-     * (2) represents:
-     * nRF24L01 | Si24R1 with<br>lnaEnabled = 1 | Si24R1 with<br>lnaEnabled = 0
-     * :-------:|:-----------------------------:|:----------------------------:
-     *  -6 dBm | 3 dBm | 1 dBm
+     * (2) represents 6dBm
      */
     NRF_PA_HIGH,
     /**
-     * (3) represents:
-     * nRF24L01 | Si24R1 with<br>lnaEnabled = 1 | Si24R1 with<br>lnaEnabled = 0
-     * :-------:|:-----------------------------:|:----------------------------:
-     *  0 dBm | 7 dBm | 4 dBm
+     * (3) represents 8dBm
      */
     NRF_PA_MAX,
     /**
@@ -171,13 +159,13 @@ public:
 
     /**
      * Same as NRF24
-     * @param setWritingPipe Same as RF24
+     * @param setWritingPipe Used internally
      * @param resetAddresses Used internally to reset addresses
      */
     void stopListening(bool setWritingPipe = true, bool resetAddresses = true);
 
     /**
-     * Same as NRF24
+     * Same as NRF24 except the 52840 has 8 pipes
      */
     void openReadingPipe(uint8_t child, const uint8_t* address);
 
