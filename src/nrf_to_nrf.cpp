@@ -166,6 +166,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
 {
     
     if(payloadAvailable){
+        *pipe_num = (uint8_t)NRF_RADIO->RXMATCH;
         return true;
     }
     
