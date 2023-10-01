@@ -56,6 +56,7 @@ nrf_to_nrf::nrf_to_nrf()
     ARC = 0;
     addressWidth = 5;
     ackTimeout = ACK_TIMEOUT_1MBPS;
+    payloadAvailable = false;
 
 #if defined CCM_ENCRYPTION_ENABLED
     NRF_CCM->INPTR = (uint32_t)inBuffer;
@@ -163,7 +164,11 @@ bool nrf_to_nrf::available()
 
 bool nrf_to_nrf::available(uint8_t* pipe_num)
 {
-
+    
+    if(payloadAvailable){
+        return true;
+    }
+    
     if (!inRxMode) {
         if (ackPayloadAvailable) {
             *pipe_num = ackAvailablePipeNo;
@@ -293,6 +298,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
 #endif
         lastPacketCounter = packetCtr;
         lastData = packetData;
+        payloadAvailable = true;
         return 1;
     }
     if (NRF_RADIO->EVENTS_CRCERROR) {
@@ -312,6 +318,7 @@ void nrf_to_nrf::read(void* buf, uint8_t len)
     if (inRxMode) {
         NRF_RADIO->TASKS_START = 1;
     }
+    payloadAvailable = false;
 }
 
 /**********************************************************************************************************/
