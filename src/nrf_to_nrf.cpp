@@ -359,7 +359,7 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
     }
 #endif
 
-    for (int i = 0; i < retries; i++) {
+    for (int i = 0; i < (retries + 1); i++) {
         ARC = i;
         if (DPL) {
             radioData[0] = len;
