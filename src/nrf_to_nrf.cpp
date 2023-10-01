@@ -264,9 +264,11 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
 
         // If the packet has the same ID number and data, it is most likely a
         // duplicate
-        if (packetCtr == lastPacketCounter && packetData == lastData) {
+        if(NRF_RADIO->CRCCNF != 0){ //If CRC enabled, check this data
+          if (packetCtr == lastPacketCounter && packetData == lastData) {
             NRF_RADIO->TASKS_START = 1;
             return 0;
+          }
         }
 #if defined CCM_ENCRYPTION_ENABLED
         if (enableEncryption) {
