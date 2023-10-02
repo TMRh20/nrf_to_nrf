@@ -848,6 +848,8 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address)
         NRF_RADIO->BASE0 = base;
         NRF_RADIO->PREFIX0 &= ~(0xFF);
         NRF_RADIO->PREFIX0 |= prefix;
+        rxBase = NRF_RADIO->BASE0;
+        rxPrefix = NRF_RADIO->PREFIX0;
     }
     else if (child < 4) { // prefixes AP1-3 are in prefix0
         NRF_RADIO->BASE1 = base;
@@ -860,8 +862,7 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address)
         NRF_RADIO->PREFIX1 |= prefix << (8 * (child - 4));
     }
     NRF_RADIO->RXADDRESSES |= 1 << child;
-    rxBase = NRF_RADIO->BASE0;
-    rxPrefix = NRF_RADIO->PREFIX0;
+
     // Serial.println(addrConv32(NRF_RADIO->BASE1),HEX);
     // Serial.println(addrConv32(NRF_RADIO->PREFIX0),HEX);
     // Serial.println(NRF_RADIO->RXADDRESSES);
@@ -907,6 +908,8 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, const uint8_t* address)
         NRF_RADIO->BASE0 = base;
         NRF_RADIO->PREFIX0 &= ~(0xFF);
         NRF_RADIO->PREFIX0 |= prefix;
+        rxBase = NRF_RADIO->BASE0;
+        rxPrefix = NRF_RADIO->PREFIX0;
     }
     else if (child < 4) { // prefixes AP1-3 are in prefix0
         NRF_RADIO->BASE1 = base;
@@ -919,8 +922,7 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, const uint8_t* address)
         NRF_RADIO->PREFIX1 |= prefix << (8 * (child - 4));
     }
     NRF_RADIO->RXADDRESSES |= 1 << child;
-    rxBase = NRF_RADIO->BASE0;
-    rxPrefix = NRF_RADIO->PREFIX0;
+
     //    Serial.println(addrConv32(NRF_RADIO->BASE0),HEX);
     // Serial.println(addrConv32(NRF_RADIO->PREFIX0),HEX);
     // Serial.println(NRF_RADIO->RXADDRESSES);
