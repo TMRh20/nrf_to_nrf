@@ -855,6 +855,7 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address)
         NRF_RADIO->BASE1 = base;
         NRF_RADIO->PREFIX0 &= ~(0xFF << (8 * child));
         NRF_RADIO->PREFIX0 |= prefix << (8 * child);
+        rxPrefix = NRF_RADIO->PREFIX0;
     }
     else {
         NRF_RADIO->BASE1 = base;
@@ -915,6 +916,7 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, const uint8_t* address)
         NRF_RADIO->BASE1 = base;
         NRF_RADIO->PREFIX0 &= ~(0xFF << (8 * child));
         NRF_RADIO->PREFIX0 |= prefix << (8 * child);
+        rxPrefix = NRF_RADIO->PREFIX0;
     }
     else {
         NRF_RADIO->BASE1 = base;
