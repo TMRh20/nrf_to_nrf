@@ -845,6 +845,7 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address)
     prefix = prefix >> 24;
 
     if (!child) {
+        NRF_RADIO->PREFIX0 = rxPrefix;
         NRF_RADIO->BASE0 = base;
         NRF_RADIO->PREFIX0 &= ~(0xFF);
         NRF_RADIO->PREFIX0 |= prefix;
@@ -852,6 +853,7 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address)
         rxPrefix = NRF_RADIO->PREFIX0;
     }
     else if (child < 4) { // prefixes AP1-3 are in prefix0
+        NRF_RADIO->PREFIX0 = rxPrefix;
         NRF_RADIO->BASE1 = base;
         NRF_RADIO->PREFIX0 &= ~(0xFF << (8 * child));
         NRF_RADIO->PREFIX0 |= prefix << (8 * child);
@@ -906,6 +908,7 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, const uint8_t* address)
 
     // Using pipes 1-7 for reading pipes, leaving pipe0 for a tx pipe
     if (!child) {
+        NRF_RADIO->PREFIX0 = rxPrefix;
         NRF_RADIO->BASE0 = base;
         NRF_RADIO->PREFIX0 &= ~(0xFF);
         NRF_RADIO->PREFIX0 |= prefix;
@@ -913,6 +916,7 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, const uint8_t* address)
         rxPrefix = NRF_RADIO->PREFIX0;
     }
     else if (child < 4) { // prefixes AP1-3 are in prefix0
+        NRF_RADIO->PREFIX0 = rxPrefix;
         NRF_RADIO->BASE1 = base;
         NRF_RADIO->PREFIX0 &= ~(0xFF << (8 * child));
         NRF_RADIO->PREFIX0 |= prefix << (8 * child);
