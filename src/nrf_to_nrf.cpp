@@ -181,6 +181,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
         uint8_t tmpIV[CCM_IV_SIZE];
         NRF_RADIO->EVENTS_CRCOK = 0;
         if (DPL && radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 4) {
+            NRF_RADIO->TASKS_START = 1;
             return 0;
         }
         *pipe_num = (uint8_t)NRF_RADIO->RXMATCH;
@@ -277,12 +278,14 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
             if (DPL) {
                 if (!decrypt(&rxBuffer[1], rxBuffer[0] - CCM_IV_SIZE - CCM_COUNTER_SIZE)) {
                     Serial.println("DECRYPT FAIL");
+                    NRF_RADIO->TASKS_START = 1;
                     return 0;
                 }
             }
             else {
                 if (!decrypt(&rxBuffer[1], staticPayloadSize - CCM_IV_SIZE - CCM_COUNTER_SIZE)) {
                     Serial.println("DECRYPT FAIL");
+                    NRF_RADIO->TASKS_START = 1;
                     return 0;
                 }
             }
@@ -304,11 +307,10 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
         payloadAvailable = true;
         return 1;
     }
-    if (NRF_RADIO->EVENTS_CRCERROR) {
+    if(NRF_RADIO->EVENTS_CRCERROR) {
         NRF_RADIO->EVENTS_CRCERROR = 0;
         NRF_RADIO->TASKS_START = 1;
     }
-
     return 0;
 }
 
