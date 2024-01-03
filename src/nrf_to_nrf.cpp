@@ -180,7 +180,11 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
         uint32_t counter = 0;
         uint8_t tmpIV[CCM_IV_SIZE];
         NRF_RADIO->EVENTS_CRCOK = 0;
-        if (DPL && radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 4 && NRF_RADIO->CRCCNF != 0) {
+        if (DPL && radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 4 && NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_Two) {
+            NRF_RADIO->TASKS_START = 1;
+            return 0;
+        }else
+        if (DPL && radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 3 && NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_One) {
             NRF_RADIO->TASKS_START = 1;
             return 0;
         }else
