@@ -7,6 +7,9 @@
 #ifndef __nrf52840_nrf24l01_H__
 #define __nrf52840_nrf24l01_H__
 #include <Arduino.h>
+#ifndef __MBED__
+#include "Adafruit_TinyUSB.h" //Needed for Serial.print on non-MBED enabled core
+#endif
 
 #define NRF52_RADIO_LIBRARY
 #define DEFAULT_MAX_PAYLOAD_SIZE 32

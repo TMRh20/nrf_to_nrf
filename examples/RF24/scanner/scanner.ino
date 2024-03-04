@@ -49,8 +49,6 @@ void setup(void) {
   //
 
   Serial.begin(115200);
-  delay(5000);
-  printf_begin();
   Serial.println(F("\n\rRF24/examples/scanner/"));
 
   //
