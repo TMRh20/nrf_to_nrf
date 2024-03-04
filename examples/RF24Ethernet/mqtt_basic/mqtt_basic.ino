@@ -35,6 +35,9 @@
 #include <RF24Mesh.h>
 #include <RF24Ethernet.h>
 #include <MQTT.h>
+#ifndef __MBED__
+#include "Adafruit_TinyUSB.h" //Needed for Serial.print on non-MBED enabled core
+#endif
 
 nrf_to_nrf radio;
 RF52Network network(radio);

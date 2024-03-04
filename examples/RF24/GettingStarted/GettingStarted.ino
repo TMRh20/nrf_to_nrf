@@ -11,6 +11,9 @@
  * Use the Serial Monitor to change each node's behavior.
  */
 #include "nrf_to_nrf.h"
+#ifndef __MBED__
+#include "Adafruit_TinyUSB.h" //Needed for Serial.print on non-MBED enabled core
+#endif
 
 // instantiate an object for the nRF24L01 transceiver
 nrf_to_nrf radio;  // using pin 7 for the CE pin, and pin 8 for the CSN pin

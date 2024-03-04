@@ -17,7 +17,9 @@
 
 #include <nrf_to_nrf.h>
 #include <RF24Network.h>
-
+#ifndef __MBED__
+#include "Adafruit_TinyUSB.h" //Needed for Serial.print on non-MBED enabled core
+#endif
 
 nrf_to_nrf radio;  // nRF24L01(+) radio attached using Getting Started board
 

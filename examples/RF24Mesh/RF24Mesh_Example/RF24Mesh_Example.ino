@@ -10,6 +10,9 @@
 #include "nrf_to_nrf.h"
 #include "RF24Network.h"
 #include "RF24Mesh.h"
+#ifndef __MBED__
+#include "Adafruit_TinyUSB.h" //Needed for Serial.print on non-MBED enabled core
+#endif
 
 /**** Configure the nrf24l01 CE and CS pins ****/
 nrf_to_nrf radio;

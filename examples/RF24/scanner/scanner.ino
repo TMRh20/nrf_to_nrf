@@ -23,7 +23,9 @@
  */
 
 #include "nrf_to_nrf.h"
-
+#ifndef __MBED__
+#include "Adafruit_TinyUSB.h" //Needed for Serial.print on non-MBED enabled core
+#endif
 //
 // Hardware configuration
 //
@@ -49,8 +51,6 @@ void setup(void) {
   //
 
   Serial.begin(115200);
-  delay(5000);
-  printf_begin();
   Serial.println(F("\n\rRF24/examples/scanner/"));
 
   //
@@ -95,7 +95,7 @@ void loop(void) {
   // Configure the channel and power level below
   if (Serial.available()) {
     char c = Serial.read();
-    if (c == 'g') {
+    if (c == 'g') {  //CC Mode not available on NRF52 boards
       constCarrierMode = 1;
       radio.stopListening();
       delay(2);
