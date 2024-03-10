@@ -41,12 +41,10 @@ uint32_t nrf_to_nrf::addrConv32(uint32_t addr)
 
 nrf_to_nrf::nrf_to_nrf()
 {
-    // Enable auto ack on all pipes by default
-    for (uint8_t i = 0; i < 8; i++) {
-        acksPerPipe[i] = true;
-    }
-    staticPayloadSize = 32;
     DPL = false;
+    staticPayloadSize = 32;
+    // Enable auto ack on all pipes by default
+    setAutoAck(1);
     retries = 5;
     retryDuration = 5;
     ackPayloadsEnabled = false;
@@ -178,19 +176,23 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
     }
     if (NRF_RADIO->EVENTS_CRCOK) {
         uint32_t counter = 0;
+#if defined CCM_ENCRYPTION_ENABLED
         uint8_t tmpIV[CCM_IV_SIZE];
+#endif
         NRF_RADIO->EVENTS_CRCOK = 0;
-        if (DPL && radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 4 && NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_Two) {
+        if (DPL){
+          if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 4 && NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_Two) {
             NRF_RADIO->TASKS_START = 1;
             return 0;
-        }else
-        if (DPL && radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 3 && NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_One) {
+          }else
+          if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 3 && NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_One) {
             NRF_RADIO->TASKS_START = 1;
             return 0;
-        }else
-        if (DPL && radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 2 && NRF_RADIO->CRCCNF == 0) {
+          }else
+          if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 2 && NRF_RADIO->CRCCNF == 0) {
             NRF_RADIO->TASKS_START = 1;
             return 0;
+          }
         }
     
         *pipe_num = (uint8_t)NRF_RADIO->RXMATCH;
@@ -248,7 +250,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
             stopListening(false, false);
             uint32_t txAddress = NRF_RADIO->TXADDRESS;
             NRF_RADIO->TXADDRESS = NRF_RADIO->RXMATCH;
-            delayMicroseconds(55);
+            delayMicroseconds(75);
             if (ackPayloadsEnabled) {
                 if (*pipe_num == ackPipe) {
                     write(&ackBuffer[1], ackBuffer[0], 1, 0);
