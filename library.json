@@ -1,13 +1,13 @@
 {
     "name": "nrf_to_nrf",
     "keywords": "nrf52840, nrf24l01, wireless, radio",
-    "description": "NRF52840 to NRF24L01 comm using RF24 API. Compatible with RF24 comm stack",
+    "description": "NRF52x to NRF24L01 comm using RF24 API. Compatible with RF24 comm stack",
     "license": "GPL-3.0-only",
     "repository": {
         "type": "git",
         "url": "https://github.com/TMRh20/nrf_to_nrf"
     },
-    "version": "1.2.9",
+    "version": "1.2.10",
     "export": {
         "exclude": [
             ".github/*"
