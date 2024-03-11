@@ -12,6 +12,10 @@
 #include "Adafruit_TinyUSB.h" 
 #endif
 
+#if defined (NRF52811_XXAA) || defined (NRF52820_XXAA) || defined (NRF52833_XXAA) || defined (NRF52840_XXAA)
+#define NRF_HAS_ENERGY_DETECT
+#endif
+
 #define NRF52_RADIO_LIBRARY
 #define DEFAULT_MAX_PAYLOAD_SIZE 32
 #define ACTUAL_MAX_PAYLOAD_SIZE  127
@@ -394,7 +398,9 @@ public:
      */
     uint8_t getARC();
     
+#ifdef NRF_HAS_ENERGY_DETECT
     uint8_t sample_ed(void);
+#endif
 
     /**@}*/
     /**
