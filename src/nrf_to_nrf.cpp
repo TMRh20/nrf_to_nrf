@@ -90,10 +90,10 @@ bool nrf_to_nrf::begin()
         // Do nothing.
     }
 
-    NRF_CLOCK->LFCLKSRC = (CLOCK_LFCLKSRC_SRC_Xtal << CLOCK_LFCLKSRC_SRC_Pos);
     NRF_CLOCK->EVENTS_LFCLKSTARTED = 0;
     NRF_CLOCK->TASKS_LFCLKSTART = 1;
 
+    /* Wait for the low frequency clock to start up */
     while (NRF_CLOCK->EVENTS_LFCLKSTARTED == 0) {
         // Do nothing.
     }
