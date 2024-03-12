@@ -2,6 +2,12 @@
 
 #include "nrf_to_nrf.h"
 
+// Note that 250Kbit mode is deprecated and might not work reliably on all devices.
+// See: https://devzone.nordicsemi.com/f/nordic-q-a/78469/250-kbit-s-nordic-proprietary-radio-mode-on-nrf52840
+#ifndef RADIO_MODE_MODE_Nrf_250Kbit
+#define RADIO_MODE_MODE_Nrf_250Kbit (2UL)
+#endif
+
 /**********************************************************************************************************/
 
 // Function to do bytewise bit-swap on an unsigned 32-bit value
@@ -448,8 +454,9 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
             if (!DPL) {
                 if (NRF_RADIO->MODE == (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos)) {
                     realAckTimeout -= ACK_TIMEOUT_1MBPS_OFFSET;
-                }
-                else {
+                } else if (NRF_RADIO->MODE == (RADIO_MODE_MODE_Nrf_250Kbit << RADIO_MODE_MODE_Pos)) {
+                    realAckTimeout -= ACK_TIMEOUT_250KBPS_OFFSET;
+                } else {
                     realAckTimeout -= ACK_TIMEOUT_2MBPS_OFFSET;
                 }
             }else{
@@ -1032,14 +1039,19 @@ bool nrf_to_nrf::isChipConnected() { return isValid(); }
 bool nrf_to_nrf::setDataRate(uint8_t speed)
 {
 
-    if (!speed) {
+    if (speed == NRF_1MBPS) {
         NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos);
         ackTimeout = ACK_TIMEOUT_1MBPS;
     }
-    else {
+    else if (speed == NRF_250KBPS) {
+        NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_250Kbit << RADIO_MODE_MODE_Pos);
+        ackTimeout = ACK_TIMEOUT_250KBPS;
+    }
+    else { // NRF_2MBPS
         NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_2Mbit << RADIO_MODE_MODE_Pos);
         ackTimeout = ACK_TIMEOUT_2MBPS;
     }
+
     return 1;
 }
 
