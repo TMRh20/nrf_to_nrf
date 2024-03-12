@@ -2,7 +2,6 @@
 
 #include "nrf_to_nrf.h"
 
-
 #if defined (NRF52832_XXAA) || defined (NRF52832_XXAB) || defined (NRF52811_XXAA) || defined (NRF52810_XXAA) || defined (NRF52805_XXAA)
 // TX power range (Product Specification): -20 .. +4dbm, configurable in 4 dB steps
 #define TXPOWER_PA_MIN  0xF4 // -12dBm
@@ -15,6 +14,12 @@
 #define TXPOWER_PA_LOW  0x02 // 2dBm
 #define TXPOWER_PA_HIGH 0x06 // 6dBm
 #define TXPOWER_PA_MAX  0x08 // 8dBm
+#endif
+
+// Note that 250Kbit mode is deprecated and might not work reliably on all devices.
+// See: https://devzone.nordicsemi.com/f/nordic-q-a/78469/250-kbit-s-nordic-proprietary-radio-mode-on-nrf52840
+#ifndef RADIO_MODE_MODE_Nrf_250Kbit
+#define RADIO_MODE_MODE_Nrf_250Kbit (2UL)
 #endif
 
 /**********************************************************************************************************/
@@ -105,10 +110,10 @@ bool nrf_to_nrf::begin()
         // Do nothing.
     }
 
-    NRF_CLOCK->LFCLKSRC = (CLOCK_LFCLKSRC_SRC_Xtal << CLOCK_LFCLKSRC_SRC_Pos);
     NRF_CLOCK->EVENTS_LFCLKSTARTED = 0;
     NRF_CLOCK->TASKS_LFCLKSTART = 1;
 
+    /* Wait for the low frequency clock to start up */
     while (NRF_CLOCK->EVENTS_LFCLKSTARTED == 0) {
         // Do nothing.
     }
@@ -465,8 +470,9 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
             if (!DPL) {
                 if (NRF_RADIO->MODE == (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos)) {
                     realAckTimeout -= ACK_TIMEOUT_1MBPS_OFFSET;
-                }
-                else {
+                } else if (NRF_RADIO->MODE == (RADIO_MODE_MODE_Nrf_250Kbit << RADIO_MODE_MODE_Pos)) {
+                    realAckTimeout -= ACK_TIMEOUT_250KBPS_OFFSET;
+                } else {
                     realAckTimeout -= ACK_TIMEOUT_2MBPS_OFFSET;
                 }
             }else{
@@ -1049,14 +1055,19 @@ bool nrf_to_nrf::isChipConnected() { return isValid(); }
 bool nrf_to_nrf::setDataRate(uint8_t speed)
 {
 
-    if (!speed) {
+    if (speed == NRF_1MBPS) {
         NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos);
         ackTimeout = ACK_TIMEOUT_1MBPS;
     }
-    else {
+    else if (speed == NRF_250KBPS) {
+        NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_250Kbit << RADIO_MODE_MODE_Pos);
+        ackTimeout = ACK_TIMEOUT_250KBPS;
+    }
+    else { // NRF_2MBPS
         NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_2Mbit << RADIO_MODE_MODE_Pos);
         ackTimeout = ACK_TIMEOUT_2MBPS;
     }
+
     return 1;
 }
 
