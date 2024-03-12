@@ -2,6 +2,20 @@
 
 #include "nrf_to_nrf.h"
 
+#if defined (NRF52832_XXAA) || defined (NRF52832_XXAB) || defined (NRF52811_XXAA) || defined (NRF52810_XXAA) || defined (NRF52805_XXAA)
+// TX power range (Product Specification): -20 .. +4dbm, configurable in 4 dB steps
+#define TXPOWER_PA_MIN  0xF4 // -12dBm
+#define TXPOWER_PA_LOW  0xFC // -4dBm
+#define TXPOWER_PA_HIGH 0x00 // 0dBm
+#define TXPOWER_PA_MAX  0x04 // 4dBm
+#else // nRF52840, nRF52833, nRF52820
+// TX power range (Product Specification): -20 .. +8dbm, configurable in 4 dB steps
+#define TXPOWER_PA_MIN  0xF4 // -12dBm
+#define TXPOWER_PA_LOW  0x02 // 2dBm
+#define TXPOWER_PA_HIGH 0x06 // 6dBm
+#define TXPOWER_PA_MAX  0x08 // 8dBm
+#endif
+
 // Note that 250Kbit mode is deprecated and might not work reliably on all devices.
 // See: https://devzone.nordicsemi.com/f/nordic-q-a/78469/250-kbit-s-nordic-proprietary-radio-mode-on-nrf52840
 #ifndef RADIO_MODE_MODE_Nrf_250Kbit
@@ -131,7 +145,7 @@ bool nrf_to_nrf::begin()
     NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos);
     NRF_RADIO->MODECNF0 = 0x200;
     NRF_RADIO->MODECNF0 |= 1;
-    NRF_RADIO->TXPOWER = (0x8 << RADIO_TXPOWER_TXPOWER_Pos);
+    NRF_RADIO->TXPOWER = (TXPOWER_PA_MAX << RADIO_TXPOWER_TXPOWER_Pos);
     NRF_RADIO->SHORTS = 1 << 19;
     NRF_RADIO->FREQUENCY = 0x4C;
 
@@ -141,6 +155,7 @@ bool nrf_to_nrf::begin()
 
 /**********************************************************************************************************/
 
+#ifdef NRF_HAS_ENERGY_DETECT
 #define ED_RSSISCALE 4 // From electrical specifications
 uint8_t nrf_to_nrf::sample_ed(void)
 {
@@ -155,6 +170,7 @@ uint8_t nrf_to_nrf::sample_ed(void)
                          ? 255
                          : val * ED_RSSISCALE); // Convert to IEEE 802.15.4 scale
 }
+#endif
 
 /**********************************************************************************************************/
 
@@ -1062,17 +1078,17 @@ void nrf_to_nrf::setPALevel(uint8_t level, bool lnaEnable)
 
     uint8_t paLevel = 0x00;
 
-    if (level == 0) {
-        paLevel = 0xF4;
+    if (level == NRF_PA_MIN) {
+        paLevel = TXPOWER_PA_MIN;
     }
-    else if (level == 1) {
-        paLevel = 0x2;
+    else if (level == NRF_PA_LOW) {
+        paLevel = TXPOWER_PA_LOW;
     }
-    else if (level == 2) {
-        paLevel = 0x6;
+    else if (level == NRF_PA_HIGH) {
+        paLevel = TXPOWER_PA_HIGH;
     }
-    else if (level == 3) {
-        paLevel = 0x8;
+    else if (level == NRF_PA_MAX) {
+        paLevel = TXPOWER_PA_MAX;
     }
     NRF_RADIO->TXPOWER = paLevel;
 }
@@ -1084,20 +1100,20 @@ uint8_t nrf_to_nrf::getPALevel()
 
     uint8_t paLevel = NRF_RADIO->TXPOWER;
 
-    if (paLevel == 0xF4) {
-        return 0;
+    if (paLevel == TXPOWER_PA_MIN) {
+        return NRF_PA_MIN;
     }
-    else if (paLevel == 0x2) {
-        return 1;
+    else if (paLevel == TXPOWER_PA_LOW) {
+        return NRF_PA_LOW;
     }
-    else if (paLevel == 0x6) {
-        return 2;
+    else if (paLevel == TXPOWER_PA_HIGH) {
+        return NRF_PA_HIGH;
     }
-    else if (paLevel == 0x8) {
-        return 3;
+    else if (paLevel == TXPOWER_PA_MAX) {
+        return NRF_PA_MAX;
     }
     else {
-        return 4;
+        return NRF_PA_ERROR;
     }
 }
 
