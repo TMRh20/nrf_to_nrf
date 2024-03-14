@@ -7,7 +7,7 @@
 #ifndef __nrf52840_nrf24l01_H__
 #define __nrf52840_nrf24l01_H__
 #include <Arduino.h>
-#if !defined(__MBED__) || defined(USE_TINYUSB)
+#if defined(USE_TINYUSB)
 // Needed for Serial.print on non-MBED enabled or adafruit-based nRF52 cores
 #include "Adafruit_TinyUSB.h" 
 #endif
