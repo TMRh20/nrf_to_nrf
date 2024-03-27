@@ -204,15 +204,21 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
         NRF_RADIO->EVENTS_CRCOK = 0;
         if (DPL){
           if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 4 && NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_Two) {
-            NRF_RADIO->TASKS_START = 1;
+            if (inRxMode) {
+              NRF_RADIO->TASKS_START = 1;
+            }
             return 0;
           }else
           if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 3 && NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_One) {
-            NRF_RADIO->TASKS_START = 1;
+            if (inRxMode) {
+              NRF_RADIO->TASKS_START = 1;
+            }
             return 0;
           }else
           if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 2 && NRF_RADIO->CRCCNF == 0) {
-            NRF_RADIO->TASKS_START = 1;
+            if (inRxMode) {
+              NRF_RADIO->TASKS_START = 1;
+            }
             return 0;
           }
         }
@@ -299,7 +305,9 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
             // duplicate
             if(NRF_RADIO->CRCCNF != 0) { //If CRC enabled, check this data
                 if (packetCtr == lastPacketCounter && packetData == lastData) {
-                    NRF_RADIO->TASKS_START = 1;
+                    if (inRxMode) {
+                      NRF_RADIO->TASKS_START = 1;
+                    }
                     return 0;
                 }
             }
@@ -312,14 +320,18 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
             if (DPL) {
                 if (!decrypt(&rxBuffer[1], rxBuffer[0] - CCM_IV_SIZE - CCM_COUNTER_SIZE)) {
                     Serial.println("DECRYPT FAIL");
-                    NRF_RADIO->TASKS_START = 1;
+                    if (inRxMode) {
+                      NRF_RADIO->TASKS_START = 1;
+                    }
                     return 0;
                 }
             }
             else {
                 if (!decrypt(&rxBuffer[1], staticPayloadSize - CCM_IV_SIZE - CCM_COUNTER_SIZE)) {
                     Serial.println("DECRYPT FAIL");
-                    NRF_RADIO->TASKS_START = 1;
+                    if (inRxMode) {
+                      NRF_RADIO->TASKS_START = 1;
+                    }
                     return 0;
                 }
             }
@@ -339,6 +351,9 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
         lastPacketCounter = packetCtr;
         lastData = packetData;
         payloadAvailable = true;
+        if (inRxMode) {
+          NRF_RADIO->TASKS_START = 1;
+        }
         return 1;
     }
     if(NRF_RADIO->EVENTS_CRCERROR) {
@@ -354,9 +369,6 @@ void nrf_to_nrf::read(void* buf, uint8_t len)
 {
     memcpy(buf, &rxBuffer[1], len);
     ackPayloadAvailable = false;
-    if (inRxMode) {
-        NRF_RADIO->TASKS_START = 1;
-    }
     payloadAvailable = false;
 }
 
