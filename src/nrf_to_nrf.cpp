@@ -70,7 +70,6 @@ nrf_to_nrf::nrf_to_nrf()
     ackPayloadsEnabled = false;
     ackPipe = 0;
     inRxMode = false;
-    radioConfigured = false;
     ARC = 0;
     addressWidth = 5;
     ackTimeout = ACK_TIMEOUT_1MBPS;
@@ -97,10 +96,6 @@ nrf_to_nrf::nrf_to_nrf()
 
 bool nrf_to_nrf::begin()
 {
-
-    if (radioConfigured) {
-        return 1;
-    }
 
     NRF_CLOCK->EVENTS_HFCLKSTARTED = 0;
     NRF_CLOCK->TASKS_HFCLKSTART = 1;
@@ -149,7 +144,7 @@ bool nrf_to_nrf::begin()
     NRF_RADIO->SHORTS = 1 << 19;
     NRF_RADIO->FREQUENCY = 0x4C;
 
-    radioConfigured = true;
+    DPL = false;
     return 1;
 }
 
@@ -1198,17 +1193,26 @@ bool nrf_to_nrf::testRPD(uint8_t RSSI)
 
 /**********************************************************************************************************/
 
+uint8_t nrf_to_nrf::getRSSI()
+{
+    NRF_RADIO->EVENTS_RSSIEND = 0;
+    NRF_RADIO->TASKS_RSSISTART = 1;
+    while (!NRF_RADIO->EVENTS_RSSIEND) {
+    }
+    return (uint8_t)NRF_RADIO->RSSISAMPLE;
+}
+
+/**********************************************************************************************************/
+
 void nrf_to_nrf::powerUp()
 {
-    radioConfigured = false;
-    begin();
+    NRF_RADIO->POWER = 1;
 }
 
 /**********************************************************************************************************/
 
 void nrf_to_nrf::powerDown()
 {
-    DPL = false;
     NRF_RADIO->POWER = 0;
 }
 

@@ -396,6 +396,13 @@ public:
     bool testRPD(uint8_t RSSI = 65);
 
     /**
+     * A new function specific to the NRF52x devices, not available on NRF24
+     * @return The function will return the RSSI, which is measured continuously and the value 
+     * filtered using a single-pole IIR filter. This is a negative value: received signal strength = -A dBm
+     */
+    uint8_t getRSSI();
+
+    /**
      * Same as NRF24
      */
     uint8_t getARC();
@@ -488,7 +495,6 @@ private:
     uint32_t rxPrefix;
     uint32_t txBase;
     uint32_t txPrefix;
-    bool radioConfigured;
     bool ackPayloadAvailable;
     uint8_t ackAvailablePipeNo;
     uint8_t lastPacketCounter;
