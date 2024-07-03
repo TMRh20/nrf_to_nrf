@@ -16,9 +16,8 @@ var searchData=
   ['nrf_5fpa_5flow_13',['NRF_PA_LOW',['../nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6abb73fba095816348ffa4f62c7c30a3e2',1,'nrf_to_nrf.h']]],
   ['nrf_5fpa_5fmax_14',['NRF_PA_MAX',['../nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6a6f9553b4da62426766cba57ac4f56487',1,'nrf_to_nrf.h']]],
   ['nrf_5fpa_5fmin_15',['NRF_PA_MIN',['../nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6abe9ed3ab507dfb52d15766e62542d2d4',1,'nrf_to_nrf.h']]],
-  ['nrf_5fto_5fnrf_16',['for nrf_to_nrf',['../index.html#Documentation',1,'']]],
-  ['nrf_5fto_5fnrf_17',['nrf_to_nrf',['../classnrf__to__nrf.html',1,'nrf_to_nrf'],['../classnrf__to__nrf.html#a6e3601bd9cbe9b176c489af224ea9e5b',1,'nrf_to_nrf::nrf_to_nrf()']]],
-  ['nrf_5fto_5fnrf_20nrf52_20radio_20driver_18',['nrf_to_nrf - NRF52 radio driver',['../index.html',1,'']]],
-  ['nrf_5fto_5fnrf_2ecpp_19',['nrf_to_nrf.cpp',['../nrf__to__nrf_8cpp.html',1,'']]],
-  ['nrf_5fto_5fnrf_2eh_20',['nrf_to_nrf.h',['../nrf__to__nrf_8h.html',1,'']]]
+  ['nrf_5fto_5fnrf_16',['nrf_to_nrf',['../index.html#Documentation',1,'for nrf_to_nrf'],['../classnrf__to__nrf.html',1,'nrf_to_nrf'],['../classnrf__to__nrf.html#a6e3601bd9cbe9b176c489af224ea9e5b',1,'nrf_to_nrf::nrf_to_nrf()']]],
+  ['nrf_5fto_5fnrf_20nrf52_20radio_20driver_17',['nrf_to_nrf - NRF52 radio driver',['../index.html',1,'']]],
+  ['nrf_5fto_5fnrf_2ecpp_18',['nrf_to_nrf.cpp',['../nrf__to__nrf_8cpp.html',1,'']]],
+  ['nrf_5fto_5fnrf_2eh_19',['nrf_to_nrf.h',['../nrf__to__nrf_8h.html',1,'']]]
 ];

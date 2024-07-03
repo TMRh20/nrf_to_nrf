@@ -8,22 +8,22 @@
 #define __nrf52840_nrf24l01_H__
 #include <Arduino.h>
 #if defined(USE_TINYUSB)
-// Needed for Serial.print on non-MBED enabled or adafruit-based nRF52 cores
-#include "Adafruit_TinyUSB.h" 
+    // Needed for Serial.print on non-MBED enabled or adafruit-based nRF52 cores
+    #include "Adafruit_TinyUSB.h"
 #endif
 
-#if defined (NRF52811_XXAA) || defined (NRF52820_XXAA) || defined (NRF52833_XXAA) || defined (NRF52840_XXAA)
-#define NRF_HAS_ENERGY_DETECT
+#if defined(NRF52811_XXAA) || defined(NRF52820_XXAA) || defined(NRF52833_XXAA) || defined(NRF52840_XXAA)
+    #define NRF_HAS_ENERGY_DETECT
 #endif
 
 #define NRF52_RADIO_LIBRARY
-#define DEFAULT_MAX_PAYLOAD_SIZE 32
-#define ACTUAL_MAX_PAYLOAD_SIZE  127
-#define ACK_TIMEOUT_1MBPS        600 // 300 with static payloads
-#define ACK_TIMEOUT_2MBPS        400 // 265 with static payloads
-#define ACK_TIMEOUT_250KBPS      800 // 500 with staticPayloads
-#define ACK_TIMEOUT_1MBPS_OFFSET 300
-#define ACK_TIMEOUT_2MBPS_OFFSET 135
+#define DEFAULT_MAX_PAYLOAD_SIZE   32
+#define ACTUAL_MAX_PAYLOAD_SIZE    127
+#define ACK_TIMEOUT_1MBPS          600 // 300 with static payloads
+#define ACK_TIMEOUT_2MBPS          400 // 265 with static payloads
+#define ACK_TIMEOUT_250KBPS        800 // 500 with staticPayloads
+#define ACK_TIMEOUT_1MBPS_OFFSET   300
+#define ACK_TIMEOUT_2MBPS_OFFSET   135
 #define ACK_TIMEOUT_250KBPS_OFFSET 300
 #define ACK_PAYLOAD_TIMEOUT_OFFSET 750
 
@@ -115,14 +115,13 @@ class nrf_to_nrf
 {
 
 public:
-
     /**
      * @name Primary public interface
      *
      *  These are the main methods you need to operate the chip
      */
     /**@{*/
-    
+
     /**
      * Constructor for nrf_to_nrf
      *
@@ -131,7 +130,6 @@ public:
      * @endcode
      */
     nrf_to_nrf();
-
 
     /**
      * Call this before operating the radio
@@ -160,7 +158,7 @@ public:
      * Same as NRF24 radio.write();
      */
     bool write(void* buf, uint8_t len, bool multicast = false, bool doEncryption = true);
-    
+
     /**
      * Same as NRF24
      * @param resetAddresses Used internally to reset addresses
@@ -188,8 +186,7 @@ public:
      * Same as NRF24
      */
     bool isChipConnected();
-    
-    
+
     /**@}*/
     /**
      * @name Advanced Operation
@@ -197,7 +194,7 @@ public:
      * Methods you can use to drive the chip in more advanced ways
      */
     /**@{*/
-    
+
     /**
      * Data buffer for radio data
      * The radio can handle packets up to 127 bytes if CRC is disabled
@@ -205,7 +202,7 @@ public:
      *
      */
     uint8_t radioData[ACTUAL_MAX_PAYLOAD_SIZE + 2];
-    
+
     /**
      * Not currently fully functional, calls the regular write();
      */
@@ -240,7 +237,6 @@ public:
      * Same as NRF24
      */
     void enableDynamicAck();
-
 
     /**
      * Same as NRF24
@@ -396,10 +392,17 @@ public:
     bool testRPD(uint8_t RSSI = 65);
 
     /**
+     * A new function specific to the NRF52x devices, not available on NRF24
+     * @return The function will return the RSSI, which is measured continuously and the value
+     * filtered using a single-pole IIR filter. This is a negative value: received signal strength = -A dBm
+     */
+    uint8_t getRSSI();
+
+    /**
      * Same as NRF24
      */
     uint8_t getARC();
-    
+
 #ifdef NRF_HAS_ENERGY_DETECT
     uint8_t sample_ed(void);
 #endif
@@ -411,7 +414,7 @@ public:
      * Methods you can use to enable encryption & authentication
      */
     /**@{*/
-    
+
     /**
      * Used internally to convert addresses
      */
@@ -422,12 +425,12 @@ public:
      * Function to encrypt data
      */
     uint8_t encrypt(void* bufferIn, uint8_t size);
-    
+
     /**
      * Function to decrypt data
      */
     uint8_t decrypt(void* bufferIn, uint8_t size);
-    
+
     /**
      * The data buffer where encrypted data is placed. See the datasheet p115 for the CCM data structure
      */
@@ -442,14 +445,14 @@ public:
      * Set the (default 3-byte) packet counter used for encryption
      */
     void setCounter(uint64_t counter);
-    
+
     /**
      * Set IV for encryption.
      * This is only used for manual encryption, a random IV is generated using the on-board RNG for encryption
      * during normal operation.
      */
     void setIV(uint8_t IV[CCM_IV_SIZE]);
-    
+
     /**
      * Enable use of the on-board AES CCM mode encryption
      *
@@ -460,12 +463,12 @@ public:
      * Users need to take extra steps to prevent specific attacks, such as replay attacks, which can be prevented by
      * transmitting a timestamp or counter value, and only accepting packets with a current timestamp/counter value,
      * rejecting old data.
-     * 
+     *
      * Encryption uses a 5-byte IV and 3-byte counter, the sizes of which can be configured in nrf_to_nrf.h
      * Maximum: 8-byte IV, 4-byte counter, plus the MAC/MIC is 4-bytes
      */
     bool enableEncryption;
-    /**@}*/
+        /**@}*/
 #endif
 
 private:
@@ -488,7 +491,6 @@ private:
     uint32_t rxPrefix;
     uint32_t txBase;
     uint32_t txPrefix;
-    bool radioConfigured;
     bool ackPayloadAvailable;
     uint8_t ackAvailablePipeNo;
     uint8_t lastPacketCounter;
@@ -521,7 +523,7 @@ private:
  *
  * These docs are considered supplimental to the NRF24 documentation, mainly documenting the differences between NRF52 and NRF24 drivers
  *
- * 
+ *
  */
 
 /**
@@ -543,7 +545,7 @@ private:
 /**
  * @example examples/RF24Network/helloworld_rx/helloworld_rx.ino
  */
- 
+
 /**
  * @example examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino
  */
@@ -551,7 +553,7 @@ private:
 /**
  * @example examples/RF24Network/helloworld_tx/helloworld_tx.ino
  */
- 
+
 /**
  * @example examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino
  */
@@ -559,11 +561,11 @@ private:
 /**
  * @example examples/RF24Mesh/RF24Mesh_Example/RF24Mesh_Example.ino
  */
- 
+
 /**
  * @example examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino
  */
- 
+
 /**
  * @example examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino
  */
