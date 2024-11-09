@@ -222,8 +222,8 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
         if (!DPL && acksEnabled(*pipe_num) == false) {
 #if defined CCM_ENCRYPTION_ENABLED
             if (enableEncryption) {
-                memcpy(&rxBuffer[1], &radioData[CCM_IV_SIZE + CCM_COUNTER_SIZE], staticPayloadSize);
-                memcpy(ccmData.iv, &radioData[0], CCM_IV_SIZE);
+                memcpy(&rxBuffer[1], &radioData[CCM_IV_SIZE + CCM_COUNTER_SIZE], staticPayloadSize - CCM_MIC_SIZE - CCM_IV_SIZE - CCM_COUNTER_SIZE);
+                memcpy(tmpIV, &radioData[0], CCM_IV_SIZE);
                 memcpy(&counter, &radioData[CCM_IV_SIZE], CCM_COUNTER_SIZE);
             }
             else {
@@ -237,10 +237,10 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
 #if defined CCM_ENCRYPTION_ENABLED
             if (enableEncryption) {
                 if (DPL) {
-                    memcpy(&rxBuffer[1], &radioData[2 + CCM_IV_SIZE + CCM_COUNTER_SIZE], max(0, radioData[0] - CCM_IV_SIZE - CCM_COUNTER_SIZE));
+                    memcpy(&rxBuffer[1], &radioData[2 + CCM_IV_SIZE + CCM_COUNTER_SIZE], max(0, radioData[0] - CCM_IV_SIZE - CCM_COUNTER_SIZE - CCM_MIC_SIZE));
                 }
                 else {
-                    memcpy(&rxBuffer[1], &radioData[2 + CCM_IV_SIZE + CCM_COUNTER_SIZE], max(0, staticPayloadSize - CCM_IV_SIZE - CCM_COUNTER_SIZE));
+                    memcpy(&rxBuffer[1], &radioData[2 + CCM_IV_SIZE + CCM_COUNTER_SIZE], max(0, staticPayloadSize - CCM_IV_SIZE - CCM_COUNTER_SIZE - CCM_MIC_SIZE));
                 }
                 memcpy(tmpIV, &radioData[2], CCM_IV_SIZE);
                 memcpy(&counter, &radioData[2 + CCM_IV_SIZE], CCM_COUNTER_SIZE);
