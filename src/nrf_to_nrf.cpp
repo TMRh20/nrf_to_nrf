@@ -114,7 +114,6 @@ bool nrf_to_nrf::begin()
     }
 
     NRF_RADIO->POWER = 1;
-    // NRF_POWER->DCDCEN=1;
 
     NRF_RADIO->PCNF0 = (1 << RADIO_PCNF0_S0LEN_Pos) | (0 << RADIO_PCNF0_LFLEN_Pos) | (1 << RADIO_PCNF0_S1LEN_Pos);
 
@@ -200,12 +199,15 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
         if (DPL) {
             if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 4 && NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_Two) {
                 restartReturnRx();
+                return 0;
             }
             else if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 3 && NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_One) {
                 restartReturnRx();
+                return 0;
             }
             else if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 2 && NRF_RADIO->CRCCNF == 0) {
                 restartReturnRx();
+                return 0;
             }
         }
 
@@ -293,6 +295,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
             if (NRF_RADIO->CRCCNF != 0) { // If CRC enabled, check this data
                 if (packetCtr == lastPacketCounter && packetData == lastData) {
                     restartReturnRx();
+                    return 0;
                 }
             }
         }
@@ -305,12 +308,14 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
                 if (!decrypt(&rxBuffer[1], rxBuffer[0] - CCM_IV_SIZE - CCM_COUNTER_SIZE)) {
                     Serial.println("DECRYPT FAIL");
                     restartReturnRx();
+                    return 0;
                 }
             }
             else {
                 if (!decrypt(&rxBuffer[1], staticPayloadSize - CCM_IV_SIZE - CCM_COUNTER_SIZE)) {
                     Serial.println("DECRYPT FAIL");
                     restartReturnRx();
+                    return 0;
                 }
             }
 
@@ -342,12 +347,11 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
 
 /**********************************************************************************************************/
 
-bool nrf_to_nrf::restartReturnRx()
+void nrf_to_nrf::restartReturnRx()
 {
     if (inRxMode) {
         NRF_RADIO->TASKS_START = 1;
     }
-    return 0;
 }
 
 /**********************************************************************************************************/
@@ -881,7 +885,7 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address)
     base = addrConv32(base);
 
     prefix = addrConv32(address);
-    prefix = prefix >> 24;
+    prefix >>= 24;
 
     if (!child) {
         NRF_RADIO->PREFIX0 = rxPrefix;
@@ -919,7 +923,7 @@ void nrf_to_nrf::openWritingPipe(uint64_t address)
     base = addrConv32(base);
 
     prefix = addrConv32(address);
-    prefix = prefix >> 24;
+    prefix >>= 24;
 
     NRF_RADIO->BASE0 = base;
     NRF_RADIO->PREFIX0 &= 0xFFFFFF00;
@@ -943,7 +947,7 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, const uint8_t* address)
     uint8_t prefixArray[5];
     prefixArray[0] = address[0];
     prefix = addr_conv(prefixArray);
-    prefix = prefix >> 24;
+    prefix >>= 24;
 
     // Using pipes 1-7 for reading pipes, leaving pipe0 for a tx pipe
     if (!child) {
