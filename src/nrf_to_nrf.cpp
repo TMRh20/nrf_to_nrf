@@ -63,8 +63,6 @@ nrf_to_nrf::nrf_to_nrf()
 {
     DPL = false;
     staticPayloadSize = 32;
-    // Enable auto ack on all pipes by default
-    setAutoAck(1);
     retries = 5;
     retryDuration = 5;
     ackPayloadsEnabled = false;
@@ -74,6 +72,7 @@ nrf_to_nrf::nrf_to_nrf()
     addressWidth = 5;
     ackTimeout = ACK_TIMEOUT_1MBPS;
     payloadAvailable = false;
+    enableEncryption = false;
 
 #if defined CCM_ENCRYPTION_ENABLED
     NRF_CCM->INPTR = (uint32_t)inBuffer;
@@ -82,13 +81,6 @@ nrf_to_nrf::nrf_to_nrf()
     NRF_CCM->SCRATCHPTR = (uint32_t)scratchPTR;
     ccmData.counter = 12345;
 
-    NRF_CCM->MODE = 1 << 24 | 1 << 16;
-    NRF_CCM->MAXPACKETSIZE = MAX_PACKET_SIZE;
-    NRF_CCM->SHORTS = 1;
-    NRF_CCM->ENABLE = 2;
-    enableEncryption = false;
-    NRF_RNG->CONFIG = 1;
-    NRF_RNG->TASKS_START = 1;
 #endif
 };
 
@@ -144,6 +136,9 @@ bool nrf_to_nrf::begin()
     NRF_RADIO->FREQUENCY = 0x4C;
 
     DPL = false;
+    // Enable auto ack on all pipes by default
+    setAutoAck(1);
+
     return 1;
 }
 
@@ -447,14 +442,6 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
         }
 #endif
 
-        if (NRF_RADIO->STATE < 9) {
-            NRF_RADIO->EVENTS_TXREADY = 0;
-            NRF_RADIO->TASKS_TXEN = 1;
-            while (NRF_RADIO->EVENTS_TXREADY == 0) {
-            }
-            NRF_RADIO->EVENTS_TXREADY = 0;
-        }
-
         NRF_RADIO->EVENTS_END = 0;
         NRF_RADIO->TASKS_START = 1;
         while (NRF_RADIO->EVENTS_END == 0) {
@@ -639,14 +626,6 @@ bool nrf_to_nrf::startWrite(void* buf, uint8_t len, bool multicast, bool doEncry
     }
 #endif
 
-    if (NRF_RADIO->STATE < 9) {
-        NRF_RADIO->EVENTS_TXREADY = 0;
-        NRF_RADIO->TASKS_TXEN = 1;
-        while (NRF_RADIO->EVENTS_TXREADY == 0) {
-        }
-        NRF_RADIO->EVENTS_TXREADY = 0;
-    }
-
     NRF_RADIO->EVENTS_END = 0;
     NRF_RADIO->TASKS_START = 1;
     lastTxResult = true;
@@ -715,16 +694,16 @@ void nrf_to_nrf::startListening(bool resetAddresses)
     while (NRF_RADIO->EVENTS_DISABLED == 0) {
     }
     NRF_RADIO->EVENTS_DISABLED = 0;
+
     if (resetAddresses == true) {
-        //   Serial.println("rst ad");
         NRF_RADIO->BASE0 = rxBase;
         NRF_RADIO->PREFIX0 = rxPrefix;
-        // Serial.println(addrConv32(NRF_RADIO->BASE0),HEX);
-        // Serial.println(addrConv32(NRF_RADIO->PREFIX0),HEX);
     }
+
     NRF_RADIO->EVENTS_RXREADY = 0;
     NRF_RADIO->EVENTS_CRCOK = 0;
     NRF_RADIO->TASKS_RXEN = 1;
+
     inRxMode = true;
 }
 
@@ -732,12 +711,12 @@ void nrf_to_nrf::startListening(bool resetAddresses)
 
 void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses)
 {
-
     NRF_RADIO->EVENTS_DISABLED = 0;
     NRF_RADIO->TASKS_DISABLE = 1;
     while (NRF_RADIO->EVENTS_DISABLED == 0) {
     }
     NRF_RADIO->EVENTS_DISABLED = 0;
+
     if (resetAddresses) {
         NRF_RADIO->BASE0 = txBase;
         NRF_RADIO->PREFIX0 = txPrefix;
@@ -745,10 +724,15 @@ void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses)
     if (setWritingPipe) {
         NRF_RADIO->TXADDRESS = 0x00;
     }
-    // NRF_RADIO->EVENTS_TXREADY = 0;
-    // NRF_RADIO->TASKS_TXEN = 1;
-    // while (NRF_RADIO->EVENTS_TXREADY == 0);
-    // NRF_RADIO->EVENTS_TXREADY = 0;
+
+    if (NRF_RADIO->STATE < 9) {
+        NRF_RADIO->EVENTS_TXREADY = 0;
+        NRF_RADIO->TASKS_TXEN = 1;
+        while (NRF_RADIO->EVENTS_TXREADY == 0) {
+        }
+        NRF_RADIO->EVENTS_TXREADY = 0;
+    }
+
     inRxMode = false;
 }
 
@@ -1008,11 +992,7 @@ bool nrf_to_nrf::txStandBy()
         NRF_RADIO->EVENTS_END = 0;
     }
 
-    NRF_RADIO->EVENTS_DISABLED = 0;
-    NRF_RADIO->TASKS_DISABLE = 1;
-    while (NRF_RADIO->EVENTS_DISABLED == 0) {
-    }
-    NRF_RADIO->EVENTS_DISABLED = 0;
+    NRF_RADIO->TASKS_STOP = 1;
 
     return lastTxResult;
 }
@@ -1028,11 +1008,7 @@ bool nrf_to_nrf::txStandBy(uint32_t timeout, bool startTx)
         NRF_RADIO->EVENTS_END = 0;
     }
 
-    NRF_RADIO->EVENTS_DISABLED = 0;
-    NRF_RADIO->TASKS_DISABLE = 1;
-    while (NRF_RADIO->EVENTS_DISABLED == 0) {
-    }
-    NRF_RADIO->EVENTS_DISABLED = 0;
+    NRF_RADIO->TASKS_STOP = 1;
 
     return lastTxResult;
 }
@@ -1208,7 +1184,20 @@ uint8_t nrf_to_nrf::getRSSI()
 
 void nrf_to_nrf::powerUp()
 {
+    NRF_CLOCK->EVENTS_HFCLKSTARTED = 0;
+    NRF_CLOCK->TASKS_HFCLKSTART = 1;
+
+    /* Wait for the external oscillator to start up */
+    while (NRF_CLOCK->EVENTS_HFCLKSTARTED == 0) {
+        // Do nothing.
+    }
+
     NRF_RADIO->POWER = 1;
+
+    if (enableEncryption) {
+        NRF_RNG->CONFIG = 1;
+        NRF_RNG->TASKS_START = 1;
+    }
 }
 
 /**********************************************************************************************************/
@@ -1216,6 +1205,11 @@ void nrf_to_nrf::powerUp()
 void nrf_to_nrf::powerDown()
 {
     NRF_RADIO->POWER = 0;
+    NRF_CLOCK->TASKS_HFCLKSTOP = 1;
+    if (enableEncryption) {
+        NRF_RNG->TASKS_STOP = 1;
+        NRF_RNG->CONFIG = 0;
+    }
 }
 
 /**********************************************************************************************************/
@@ -1395,6 +1389,14 @@ uint8_t nrf_to_nrf::decrypt(void* bufferIn, uint8_t size)
 
 void nrf_to_nrf::setKey(uint8_t key[CCM_KEY_SIZE])
 {
+
+    NRF_CCM->MODE = 1 << 24 | 1 << 16;
+    NRF_CCM->MAXPACKETSIZE = MAX_PACKET_SIZE;
+    NRF_CCM->SHORTS = 1;
+    NRF_CCM->ENABLE = 2;
+
+    NRF_RNG->CONFIG = 1;
+    NRF_RNG->TASKS_START = 1;
 
     memcpy(ccmData.key, key, CCM_KEY_SIZE);
 }
