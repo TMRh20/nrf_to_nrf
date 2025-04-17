@@ -1197,6 +1197,7 @@ void nrf_to_nrf::powerUp()
     if (enableEncryption) {
         NRF_RNG->CONFIG = 1;
         NRF_RNG->TASKS_START = 1;
+        NRF_CCM->ENABLE = 2;
     }
 }
 
@@ -1209,6 +1210,7 @@ void nrf_to_nrf::powerDown()
     if (enableEncryption) {
         NRF_RNG->TASKS_STOP = 1;
         NRF_RNG->CONFIG = 0;
+        NRF_CCM->ENABLE = 0;
     }
 }
 
