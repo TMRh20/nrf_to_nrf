@@ -1391,246 +1391,248 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l01197" name="l01197"></a><span class="lineno"> 1197</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="classnrf__to__nrf.html#a7dcfe5f98793e4b1dc441404f1e7134a">enableEncryption</a>) {</div>
 <div class="line"><a id="l01198" name="l01198"></a><span class="lineno"> 1198</span>        NRF_RNG-&gt;CONFIG = 1;</div>
 <div class="line"><a id="l01199" name="l01199"></a><span class="lineno"> 1199</span>        NRF_RNG-&gt;TASKS_START = 1;</div>
-<div class="line"><a id="l01200" name="l01200"></a><span class="lineno"> 1200</span>    }</div>
-<div class="line"><a id="l01201" name="l01201"></a><span class="lineno"> 1201</span>}</div>
+<div class="line"><a id="l01200" name="l01200"></a><span class="lineno"> 1200</span>        NRF_CCM-&gt;ENABLE = 2;</div>
+<div class="line"><a id="l01201" name="l01201"></a><span class="lineno"> 1201</span>    }</div>
+<div class="line"><a id="l01202" name="l01202"></a><span class="lineno"> 1202</span>}</div>
 </div>
-<div class="line"><a id="l01202" name="l01202"></a><span class="lineno"> 1202</span> </div>
-<div class="line"><a id="l01203" name="l01203"></a><span class="lineno"> 1203</span><span class="comment">/**********************************************************************************************************/</span></div>
-<div class="line"><a id="l01204" name="l01204"></a><span class="lineno"> 1204</span> </div>
-<div class="foldopen" id="foldopen01205" data-start="{" data-end="}">
-<div class="line"><a id="l01205" name="l01205"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a860169d285d637a2c9a59f04bf117d6e"> 1205</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a860169d285d637a2c9a59f04bf117d6e">nrf_to_nrf::powerDown</a>()</div>
-<div class="line"><a id="l01206" name="l01206"></a><span class="lineno"> 1206</span>{</div>
-<div class="line"><a id="l01207" name="l01207"></a><span class="lineno"> 1207</span>    NRF_RADIO-&gt;POWER = 0;</div>
-<div class="line"><a id="l01208" name="l01208"></a><span class="lineno"> 1208</span>    NRF_CLOCK-&gt;TASKS_HFCLKSTOP = 1;</div>
-<div class="line"><a id="l01209" name="l01209"></a><span class="lineno"> 1209</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="classnrf__to__nrf.html#a7dcfe5f98793e4b1dc441404f1e7134a">enableEncryption</a>) {</div>
-<div class="line"><a id="l01210" name="l01210"></a><span class="lineno"> 1210</span>        NRF_RNG-&gt;TASKS_STOP = 1;</div>
-<div class="line"><a id="l01211" name="l01211"></a><span class="lineno"> 1211</span>        NRF_RNG-&gt;CONFIG = 0;</div>
-<div class="line"><a id="l01212" name="l01212"></a><span class="lineno"> 1212</span>    }</div>
-<div class="line"><a id="l01213" name="l01213"></a><span class="lineno"> 1213</span>}</div>
+<div class="line"><a id="l01203" name="l01203"></a><span class="lineno"> 1203</span> </div>
+<div class="line"><a id="l01204" name="l01204"></a><span class="lineno"> 1204</span><span class="comment">/**********************************************************************************************************/</span></div>
+<div class="line"><a id="l01205" name="l01205"></a><span class="lineno"> 1205</span> </div>
+<div class="foldopen" id="foldopen01206" data-start="{" data-end="}">
+<div class="line"><a id="l01206" name="l01206"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a860169d285d637a2c9a59f04bf117d6e"> 1206</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a860169d285d637a2c9a59f04bf117d6e">nrf_to_nrf::powerDown</a>()</div>
+<div class="line"><a id="l01207" name="l01207"></a><span class="lineno"> 1207</span>{</div>
+<div class="line"><a id="l01208" name="l01208"></a><span class="lineno"> 1208</span>    NRF_RADIO-&gt;POWER = 0;</div>
+<div class="line"><a id="l01209" name="l01209"></a><span class="lineno"> 1209</span>    NRF_CLOCK-&gt;TASKS_HFCLKSTOP = 1;</div>
+<div class="line"><a id="l01210" name="l01210"></a><span class="lineno"> 1210</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="classnrf__to__nrf.html#a7dcfe5f98793e4b1dc441404f1e7134a">enableEncryption</a>) {</div>
+<div class="line"><a id="l01211" name="l01211"></a><span class="lineno"> 1211</span>        NRF_RNG-&gt;TASKS_STOP = 1;</div>
+<div class="line"><a id="l01212" name="l01212"></a><span class="lineno"> 1212</span>        NRF_RNG-&gt;CONFIG = 0;</div>
+<div class="line"><a id="l01213" name="l01213"></a><span class="lineno"> 1213</span>        NRF_CCM-&gt;ENABLE = 0;</div>
+<div class="line"><a id="l01214" name="l01214"></a><span class="lineno"> 1214</span>    }</div>
+<div class="line"><a id="l01215" name="l01215"></a><span class="lineno"> 1215</span>}</div>
 </div>
-<div class="line"><a id="l01214" name="l01214"></a><span class="lineno"> 1214</span> </div>
-<div class="line"><a id="l01215" name="l01215"></a><span class="lineno"> 1215</span><span class="comment">/**********************************************************************************************************/</span></div>
-<div class="foldopen" id="foldopen01216" data-start="{" data-end="}">
-<div class="line"><a id="l01216" name="l01216"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a4f28d2a70f8160e4bf439982f0af6066"> 1216</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a4f28d2a70f8160e4bf439982f0af6066">nrf_to_nrf::setAddressWidth</a>(uint8_t a_width)</div>
-<div class="line"><a id="l01217" name="l01217"></a><span class="lineno"> 1217</span>{</div>
-<div class="line"><a id="l01218" name="l01218"></a><span class="lineno"> 1218</span> </div>
-<div class="line"><a id="l01219" name="l01219"></a><span class="lineno"> 1219</span>    addressWidth = a_width;</div>
+<div class="line"><a id="l01216" name="l01216"></a><span class="lineno"> 1216</span> </div>
+<div class="line"><a id="l01217" name="l01217"></a><span class="lineno"> 1217</span><span class="comment">/**********************************************************************************************************/</span></div>
+<div class="foldopen" id="foldopen01218" data-start="{" data-end="}">
+<div class="line"><a id="l01218" name="l01218"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a4f28d2a70f8160e4bf439982f0af6066"> 1218</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a4f28d2a70f8160e4bf439982f0af6066">nrf_to_nrf::setAddressWidth</a>(uint8_t a_width)</div>
+<div class="line"><a id="l01219" name="l01219"></a><span class="lineno"> 1219</span>{</div>
 <div class="line"><a id="l01220" name="l01220"></a><span class="lineno"> 1220</span> </div>
-<div class="line"><a id="l01221" name="l01221"></a><span class="lineno"> 1221</span>    uint8_t pSize = 0;</div>
-<div class="line"><a id="l01222" name="l01222"></a><span class="lineno"> 1222</span>    <span class="keywordflow">if</span> (!DPL) {</div>
-<div class="line"><a id="l01223" name="l01223"></a><span class="lineno"> 1223</span>        pSize = staticPayloadSize;</div>
-<div class="line"><a id="l01224" name="l01224"></a><span class="lineno"> 1224</span>    }</div>
-<div class="line"><a id="l01225" name="l01225"></a><span class="lineno"> 1225</span> </div>
-<div class="line"><a id="l01226" name="l01226"></a><span class="lineno"> 1226</span>    NRF_RADIO-&gt;PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled &lt;&lt; RADIO_PCNF1_WHITEEN_Pos) | (RADIO_PCNF1_ENDIAN_Big &lt;&lt; RADIO_PCNF1_ENDIAN_Pos) | ((a_width - 1) &lt;&lt; RADIO_PCNF1_BALEN_Pos) | (pSize &lt;&lt; RADIO_PCNF1_STATLEN_Pos) | (staticPayloadSize &lt;&lt; RADIO_PCNF1_MAXLEN_Pos);</div>
-<div class="line"><a id="l01227" name="l01227"></a><span class="lineno"> 1227</span>}</div>
+<div class="line"><a id="l01221" name="l01221"></a><span class="lineno"> 1221</span>    addressWidth = a_width;</div>
+<div class="line"><a id="l01222" name="l01222"></a><span class="lineno"> 1222</span> </div>
+<div class="line"><a id="l01223" name="l01223"></a><span class="lineno"> 1223</span>    uint8_t pSize = 0;</div>
+<div class="line"><a id="l01224" name="l01224"></a><span class="lineno"> 1224</span>    <span class="keywordflow">if</span> (!DPL) {</div>
+<div class="line"><a id="l01225" name="l01225"></a><span class="lineno"> 1225</span>        pSize = staticPayloadSize;</div>
+<div class="line"><a id="l01226" name="l01226"></a><span class="lineno"> 1226</span>    }</div>
+<div class="line"><a id="l01227" name="l01227"></a><span class="lineno"> 1227</span> </div>
+<div class="line"><a id="l01228" name="l01228"></a><span class="lineno"> 1228</span>    NRF_RADIO-&gt;PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled &lt;&lt; RADIO_PCNF1_WHITEEN_Pos) | (RADIO_PCNF1_ENDIAN_Big &lt;&lt; RADIO_PCNF1_ENDIAN_Pos) | ((a_width - 1) &lt;&lt; RADIO_PCNF1_BALEN_Pos) | (pSize &lt;&lt; RADIO_PCNF1_STATLEN_Pos) | (staticPayloadSize &lt;&lt; RADIO_PCNF1_MAXLEN_Pos);</div>
+<div class="line"><a id="l01229" name="l01229"></a><span class="lineno"> 1229</span>}</div>
 </div>
-<div class="line"><a id="l01228" name="l01228"></a><span class="lineno"> 1228</span> </div>
-<div class="line"><a id="l01229" name="l01229"></a><span class="lineno"> 1229</span><span class="comment">/**********************************************************************************************************/</span></div>
 <div class="line"><a id="l01230" name="l01230"></a><span class="lineno"> 1230</span> </div>
-<div class="foldopen" id="foldopen01231" data-start="{" data-end="}">
-<div class="line"><a id="l01231" name="l01231"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a98b35f97458822fdc9ae4986c56c7b5c"> 1231</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a98b35f97458822fdc9ae4986c56c7b5c">nrf_to_nrf::printDetails</a>()</div>
-<div class="line"><a id="l01232" name="l01232"></a><span class="lineno"> 1232</span>{</div>
-<div class="line"><a id="l01233" name="l01233"></a><span class="lineno"> 1233</span> </div>
-<div class="line"><a id="l01234" name="l01234"></a><span class="lineno"> 1234</span>    Serial.println(<span class="stringliteral">&quot;================ Radio Configuration ================&quot;</span>);</div>
-<div class="line"><a id="l01235" name="l01235"></a><span class="lineno"> 1235</span>    Serial.print(<span class="stringliteral">&quot;STATUS\t\t= &quot;</span>);</div>
-<div class="line"><a id="l01236" name="l01236"></a><span class="lineno"> 1236</span>    Serial.println(NRF_RADIO-&gt;STATE);</div>
-<div class="line"><a id="l01237" name="l01237"></a><span class="lineno"> 1237</span> </div>
-<div class="line"><a id="l01238" name="l01238"></a><span class="lineno"> 1238</span>    <span class="comment">// Serial.println(addrConv32(NRF_RADIO-&gt;PREFIX0);</span></div>
-<div class="line"><a id="l01239" name="l01239"></a><span class="lineno"> 1239</span>    Serial.print(<span class="stringliteral">&quot;RX_ADDR_P0-1\t= 0x&quot;</span>);</div>
-<div class="line"><a id="l01240" name="l01240"></a><span class="lineno"> 1240</span>    uint32_t base = <a class="code hl_function" href="classnrf__to__nrf.html#a41d8dd2384f0c139623d15ac17f08bf7">addrConv32</a>(NRF_RADIO-&gt;BASE0);</div>
-<div class="line"><a id="l01241" name="l01241"></a><span class="lineno"> 1241</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = addressWidth - 2; i &gt; -1; i--) {</div>
-<div class="line"><a id="l01242" name="l01242"></a><span class="lineno"> 1242</span>        Serial.print((base &gt;&gt; (i * 8)) &amp; 0xFF, HEX);</div>
-<div class="line"><a id="l01243" name="l01243"></a><span class="lineno"> 1243</span>    }</div>
-<div class="line"><a id="l01244" name="l01244"></a><span class="lineno"> 1244</span>    uint32_t prefixes = <a class="code hl_function" href="classnrf__to__nrf.html#a41d8dd2384f0c139623d15ac17f08bf7">addrConv32</a>(NRF_RADIO-&gt;PREFIX0);</div>
-<div class="line"><a id="l01245" name="l01245"></a><span class="lineno"> 1245</span>    uint8_t prefix = (prefixes &gt;&gt; 24) &amp; 0xFF;</div>
-<div class="line"><a id="l01246" name="l01246"></a><span class="lineno"> 1246</span>    Serial.print(prefix, HEX);</div>
-<div class="line"><a id="l01247" name="l01247"></a><span class="lineno"> 1247</span>    Serial.print(<span class="stringliteral">&quot; 0x&quot;</span>);</div>
-<div class="line"><a id="l01248" name="l01248"></a><span class="lineno"> 1248</span>    base = <a class="code hl_function" href="classnrf__to__nrf.html#a41d8dd2384f0c139623d15ac17f08bf7">addrConv32</a>(NRF_RADIO-&gt;BASE1);</div>
-<div class="line"><a id="l01249" name="l01249"></a><span class="lineno"> 1249</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = addressWidth - 2; i &gt; -1; i--) {</div>
-<div class="line"><a id="l01250" name="l01250"></a><span class="lineno"> 1250</span>        Serial.print((base &gt;&gt; (i * 8)) &amp; 0xFF, HEX);</div>
-<div class="line"><a id="l01251" name="l01251"></a><span class="lineno"> 1251</span>    }</div>
-<div class="line"><a id="l01252" name="l01252"></a><span class="lineno"> 1252</span>    prefix = (prefixes &gt;&gt; 16) &amp; 0xFF;</div>
-<div class="line"><a id="l01253" name="l01253"></a><span class="lineno"> 1253</span>    Serial.println(prefix, HEX);</div>
-<div class="line"><a id="l01254" name="l01254"></a><span class="lineno"> 1254</span> </div>
-<div class="line"><a id="l01255" name="l01255"></a><span class="lineno"> 1255</span>    Serial.print(<span class="stringliteral">&quot;RX_ADDR_P2-7\t= 0x&quot;</span>);</div>
-<div class="line"><a id="l01256" name="l01256"></a><span class="lineno"> 1256</span>    prefix = (prefixes &gt;&gt; 8) &amp; 0xFF;</div>
-<div class="line"><a id="l01257" name="l01257"></a><span class="lineno"> 1257</span>    Serial.print(prefix, HEX);</div>
-<div class="line"><a id="l01258" name="l01258"></a><span class="lineno"> 1258</span>    Serial.print(<span class="stringliteral">&quot; 0x&quot;</span>);</div>
-<div class="line"><a id="l01259" name="l01259"></a><span class="lineno"> 1259</span>    prefix = (prefixes)&amp;0xFF;</div>
-<div class="line"><a id="l01260" name="l01260"></a><span class="lineno"> 1260</span>    Serial.print(prefix, HEX);</div>
-<div class="line"><a id="l01261" name="l01261"></a><span class="lineno"> 1261</span>    Serial.print(<span class="stringliteral">&quot; 0x&quot;</span>);</div>
-<div class="line"><a id="l01262" name="l01262"></a><span class="lineno"> 1262</span>    prefixes = <a class="code hl_function" href="classnrf__to__nrf.html#a41d8dd2384f0c139623d15ac17f08bf7">addrConv32</a>(NRF_RADIO-&gt;PREFIX1);</div>
-<div class="line"><a id="l01263" name="l01263"></a><span class="lineno"> 1263</span>    prefix = (prefixes &gt;&gt; 24) &amp; 0xFF;</div>
-<div class="line"><a id="l01264" name="l01264"></a><span class="lineno"> 1264</span>    Serial.print(prefix, HEX);</div>
-<div class="line"><a id="l01265" name="l01265"></a><span class="lineno"> 1265</span>    Serial.print(<span class="stringliteral">&quot; 0x&quot;</span>);</div>
-<div class="line"><a id="l01266" name="l01266"></a><span class="lineno"> 1266</span>    prefix = (prefixes &gt;&gt; 16) &amp; 0xFF;</div>
-<div class="line"><a id="l01267" name="l01267"></a><span class="lineno"> 1267</span>    Serial.print(prefix, HEX);</div>
-<div class="line"><a id="l01268" name="l01268"></a><span class="lineno"> 1268</span>    Serial.print(<span class="stringliteral">&quot; 0x&quot;</span>);</div>
-<div class="line"><a id="l01269" name="l01269"></a><span class="lineno"> 1269</span>    prefix = (prefixes &gt;&gt; 8) &amp; 0xFF;</div>
-<div class="line"><a id="l01270" name="l01270"></a><span class="lineno"> 1270</span>    Serial.print(prefix, HEX);</div>
-<div class="line"><a id="l01271" name="l01271"></a><span class="lineno"> 1271</span>    Serial.print(<span class="stringliteral">&quot; 0x&quot;</span>);</div>
-<div class="line"><a id="l01272" name="l01272"></a><span class="lineno"> 1272</span>    prefix = (prefixes)&amp;0xFF;</div>
-<div class="line"><a id="l01273" name="l01273"></a><span class="lineno"> 1273</span>    Serial.println(prefix, HEX);</div>
-<div class="line"><a id="l01274" name="l01274"></a><span class="lineno"> 1274</span> </div>
-<div class="line"><a id="l01275" name="l01275"></a><span class="lineno"> 1275</span>    uint8_t enAA = 0;</div>
-<div class="line"><a id="l01276" name="l01276"></a><span class="lineno"> 1276</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 6; i++) {</div>
-<div class="line"><a id="l01277" name="l01277"></a><span class="lineno"> 1277</span>        enAA |= acksPerPipe[i] &lt;&lt; i;</div>
-<div class="line"><a id="l01278" name="l01278"></a><span class="lineno"> 1278</span>    }</div>
-<div class="line"><a id="l01279" name="l01279"></a><span class="lineno"> 1279</span>    Serial.print(<span class="stringliteral">&quot;EN_AA\t\t= 0x&quot;</span>);</div>
-<div class="line"><a id="l01280" name="l01280"></a><span class="lineno"> 1280</span>    Serial.println(enAA, HEX);</div>
-<div class="line"><a id="l01281" name="l01281"></a><span class="lineno"> 1281</span>    Serial.print(<span class="stringliteral">&quot;EN_RXADDR\t= 0x&quot;</span>);</div>
-<div class="line"><a id="l01282" name="l01282"></a><span class="lineno"> 1282</span>    Serial.println(NRF_RADIO-&gt;RXADDRESSES, HEX);</div>
-<div class="line"><a id="l01283" name="l01283"></a><span class="lineno"> 1283</span>    Serial.print(<span class="stringliteral">&quot;RF_CH\t\t= 0x&quot;</span>);</div>
-<div class="line"><a id="l01284" name="l01284"></a><span class="lineno"> 1284</span>    Serial.println(NRF_RADIO-&gt;FREQUENCY, HEX);</div>
-<div class="line"><a id="l01285" name="l01285"></a><span class="lineno"> 1285</span>    Serial.println(<span class="stringliteral">&quot;DYNPD/FEATURE\t= 0x&quot;</span>);</div>
-<div class="line"><a id="l01286" name="l01286"></a><span class="lineno"> 1286</span>    Serial.print(<span class="stringliteral">&quot;Data Rate\t= &quot;</span>);</div>
-<div class="line"><a id="l01287" name="l01287"></a><span class="lineno"> 1287</span>    Serial.println(NRF_RADIO-&gt;MODE ? <span class="stringliteral">&quot;2 MBPS&quot;</span> : <span class="stringliteral">&quot;1MBPS&quot;</span>);</div>
-<div class="line"><a id="l01288" name="l01288"></a><span class="lineno"> 1288</span>    Serial.println(<span class="stringliteral">&quot;Model\t\t= NRF52&quot;</span>);</div>
-<div class="line"><a id="l01289" name="l01289"></a><span class="lineno"> 1289</span>    Serial.print(<span class="stringliteral">&quot;CRC Length\t= &quot;</span>);</div>
-<div class="line"><a id="l01290" name="l01290"></a><span class="lineno"> 1290</span>    uint8_t crcLen = <a class="code hl_function" href="classnrf__to__nrf.html#af7bcd44a7f8d32db31c40d302364180a">getCRCLength</a>();</div>
-<div class="line"><a id="l01291" name="l01291"></a><span class="lineno"> 1291</span>    <span class="keywordflow">if</span> (crcLen == <a class="code hl_enumvalue" href="nrf__to__nrf_8h.html#a4bcc66714d8fe8c081ff18c621f1b855afd0d402ba74ee6e09930a4e165cac3f3">NRF_CRC_16</a>) {</div>
-<div class="line"><a id="l01292" name="l01292"></a><span class="lineno"> 1292</span>        Serial.println(<span class="stringliteral">&quot;16 bits&quot;</span>);</div>
-<div class="line"><a id="l01293" name="l01293"></a><span class="lineno"> 1293</span>    }</div>
-<div class="line"><a id="l01294" name="l01294"></a><span class="lineno"> 1294</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (crcLen == <a class="code hl_enumvalue" href="nrf__to__nrf_8h.html#a4bcc66714d8fe8c081ff18c621f1b855a1032c0aa859e9928e389a83f43315a94">NRF_CRC_8</a>) {</div>
-<div class="line"><a id="l01295" name="l01295"></a><span class="lineno"> 1295</span>        Serial.println(<span class="stringliteral">&quot;8 bits&quot;</span>);</div>
-<div class="line"><a id="l01296" name="l01296"></a><span class="lineno"> 1296</span>    }</div>
-<div class="line"><a id="l01297" name="l01297"></a><span class="lineno"> 1297</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l01298" name="l01298"></a><span class="lineno"> 1298</span>        Serial.println(<span class="stringliteral">&quot;Disabled&quot;</span>);</div>
-<div class="line"><a id="l01299" name="l01299"></a><span class="lineno"> 1299</span>    }</div>
-<div class="line"><a id="l01300" name="l01300"></a><span class="lineno"> 1300</span>    Serial.print(<span class="stringliteral">&quot;PA Power\t= &quot;</span>);</div>
-<div class="line"><a id="l01301" name="l01301"></a><span class="lineno"> 1301</span>    uint8_t paLevel = <a class="code hl_function" href="classnrf__to__nrf.html#acbfd7a6baf9f697f6b06485e561dc388">getPALevel</a>();</div>
-<div class="line"><a id="l01302" name="l01302"></a><span class="lineno"> 1302</span>    <span class="keywordflow">if</span> (paLevel == <a class="code hl_enumvalue" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6a6f9553b4da62426766cba57ac4f56487">NRF_PA_MAX</a>) {</div>
-<div class="line"><a id="l01303" name="l01303"></a><span class="lineno"> 1303</span>        Serial.println(<span class="stringliteral">&quot;PA_MAX&quot;</span>);</div>
-<div class="line"><a id="l01304" name="l01304"></a><span class="lineno"> 1304</span>    }</div>
-<div class="line"><a id="l01305" name="l01305"></a><span class="lineno"> 1305</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (paLevel == <a class="code hl_enumvalue" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6a7c64f49749c2b8058ce45c584116b827">NRF_PA_HIGH</a>) {</div>
-<div class="line"><a id="l01306" name="l01306"></a><span class="lineno"> 1306</span>        Serial.println(<span class="stringliteral">&quot;PA_HIGH&quot;</span>);</div>
-<div class="line"><a id="l01307" name="l01307"></a><span class="lineno"> 1307</span>    }</div>
-<div class="line"><a id="l01308" name="l01308"></a><span class="lineno"> 1308</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (paLevel == <a class="code hl_enumvalue" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6abb73fba095816348ffa4f62c7c30a3e2">NRF_PA_LOW</a>) {</div>
-<div class="line"><a id="l01309" name="l01309"></a><span class="lineno"> 1309</span>        Serial.println(<span class="stringliteral">&quot;PA_LOW&quot;</span>);</div>
-<div class="line"><a id="l01310" name="l01310"></a><span class="lineno"> 1310</span>    }</div>
-<div class="line"><a id="l01311" name="l01311"></a><span class="lineno"> 1311</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (paLevel == <a class="code hl_enumvalue" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6abe9ed3ab507dfb52d15766e62542d2d4">NRF_PA_MIN</a>) {</div>
-<div class="line"><a id="l01312" name="l01312"></a><span class="lineno"> 1312</span>        Serial.println(<span class="stringliteral">&quot;PA_MIN&quot;</span>);</div>
-<div class="line"><a id="l01313" name="l01313"></a><span class="lineno"> 1313</span>    }</div>
-<div class="line"><a id="l01314" name="l01314"></a><span class="lineno"> 1314</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l01315" name="l01315"></a><span class="lineno"> 1315</span>        Serial.println(<span class="stringliteral">&quot;?&quot;</span>);</div>
-<div class="line"><a id="l01316" name="l01316"></a><span class="lineno"> 1316</span>    }</div>
-<div class="line"><a id="l01317" name="l01317"></a><span class="lineno"> 1317</span>    Serial.print(<span class="stringliteral">&quot;ARC\t\t= &quot;</span>);</div>
-<div class="line"><a id="l01318" name="l01318"></a><span class="lineno"> 1318</span>    Serial.println(ARC);</div>
-<div class="line"><a id="l01319" name="l01319"></a><span class="lineno"> 1319</span>}</div>
+<div class="line"><a id="l01231" name="l01231"></a><span class="lineno"> 1231</span><span class="comment">/**********************************************************************************************************/</span></div>
+<div class="line"><a id="l01232" name="l01232"></a><span class="lineno"> 1232</span> </div>
+<div class="foldopen" id="foldopen01233" data-start="{" data-end="}">
+<div class="line"><a id="l01233" name="l01233"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a98b35f97458822fdc9ae4986c56c7b5c"> 1233</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a98b35f97458822fdc9ae4986c56c7b5c">nrf_to_nrf::printDetails</a>()</div>
+<div class="line"><a id="l01234" name="l01234"></a><span class="lineno"> 1234</span>{</div>
+<div class="line"><a id="l01235" name="l01235"></a><span class="lineno"> 1235</span> </div>
+<div class="line"><a id="l01236" name="l01236"></a><span class="lineno"> 1236</span>    Serial.println(<span class="stringliteral">&quot;================ Radio Configuration ================&quot;</span>);</div>
+<div class="line"><a id="l01237" name="l01237"></a><span class="lineno"> 1237</span>    Serial.print(<span class="stringliteral">&quot;STATUS\t\t= &quot;</span>);</div>
+<div class="line"><a id="l01238" name="l01238"></a><span class="lineno"> 1238</span>    Serial.println(NRF_RADIO-&gt;STATE);</div>
+<div class="line"><a id="l01239" name="l01239"></a><span class="lineno"> 1239</span> </div>
+<div class="line"><a id="l01240" name="l01240"></a><span class="lineno"> 1240</span>    <span class="comment">// Serial.println(addrConv32(NRF_RADIO-&gt;PREFIX0);</span></div>
+<div class="line"><a id="l01241" name="l01241"></a><span class="lineno"> 1241</span>    Serial.print(<span class="stringliteral">&quot;RX_ADDR_P0-1\t= 0x&quot;</span>);</div>
+<div class="line"><a id="l01242" name="l01242"></a><span class="lineno"> 1242</span>    uint32_t base = <a class="code hl_function" href="classnrf__to__nrf.html#a41d8dd2384f0c139623d15ac17f08bf7">addrConv32</a>(NRF_RADIO-&gt;BASE0);</div>
+<div class="line"><a id="l01243" name="l01243"></a><span class="lineno"> 1243</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = addressWidth - 2; i &gt; -1; i--) {</div>
+<div class="line"><a id="l01244" name="l01244"></a><span class="lineno"> 1244</span>        Serial.print((base &gt;&gt; (i * 8)) &amp; 0xFF, HEX);</div>
+<div class="line"><a id="l01245" name="l01245"></a><span class="lineno"> 1245</span>    }</div>
+<div class="line"><a id="l01246" name="l01246"></a><span class="lineno"> 1246</span>    uint32_t prefixes = <a class="code hl_function" href="classnrf__to__nrf.html#a41d8dd2384f0c139623d15ac17f08bf7">addrConv32</a>(NRF_RADIO-&gt;PREFIX0);</div>
+<div class="line"><a id="l01247" name="l01247"></a><span class="lineno"> 1247</span>    uint8_t prefix = (prefixes &gt;&gt; 24) &amp; 0xFF;</div>
+<div class="line"><a id="l01248" name="l01248"></a><span class="lineno"> 1248</span>    Serial.print(prefix, HEX);</div>
+<div class="line"><a id="l01249" name="l01249"></a><span class="lineno"> 1249</span>    Serial.print(<span class="stringliteral">&quot; 0x&quot;</span>);</div>
+<div class="line"><a id="l01250" name="l01250"></a><span class="lineno"> 1250</span>    base = <a class="code hl_function" href="classnrf__to__nrf.html#a41d8dd2384f0c139623d15ac17f08bf7">addrConv32</a>(NRF_RADIO-&gt;BASE1);</div>
+<div class="line"><a id="l01251" name="l01251"></a><span class="lineno"> 1251</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = addressWidth - 2; i &gt; -1; i--) {</div>
+<div class="line"><a id="l01252" name="l01252"></a><span class="lineno"> 1252</span>        Serial.print((base &gt;&gt; (i * 8)) &amp; 0xFF, HEX);</div>
+<div class="line"><a id="l01253" name="l01253"></a><span class="lineno"> 1253</span>    }</div>
+<div class="line"><a id="l01254" name="l01254"></a><span class="lineno"> 1254</span>    prefix = (prefixes &gt;&gt; 16) &amp; 0xFF;</div>
+<div class="line"><a id="l01255" name="l01255"></a><span class="lineno"> 1255</span>    Serial.println(prefix, HEX);</div>
+<div class="line"><a id="l01256" name="l01256"></a><span class="lineno"> 1256</span> </div>
+<div class="line"><a id="l01257" name="l01257"></a><span class="lineno"> 1257</span>    Serial.print(<span class="stringliteral">&quot;RX_ADDR_P2-7\t= 0x&quot;</span>);</div>
+<div class="line"><a id="l01258" name="l01258"></a><span class="lineno"> 1258</span>    prefix = (prefixes &gt;&gt; 8) &amp; 0xFF;</div>
+<div class="line"><a id="l01259" name="l01259"></a><span class="lineno"> 1259</span>    Serial.print(prefix, HEX);</div>
+<div class="line"><a id="l01260" name="l01260"></a><span class="lineno"> 1260</span>    Serial.print(<span class="stringliteral">&quot; 0x&quot;</span>);</div>
+<div class="line"><a id="l01261" name="l01261"></a><span class="lineno"> 1261</span>    prefix = (prefixes)&amp;0xFF;</div>
+<div class="line"><a id="l01262" name="l01262"></a><span class="lineno"> 1262</span>    Serial.print(prefix, HEX);</div>
+<div class="line"><a id="l01263" name="l01263"></a><span class="lineno"> 1263</span>    Serial.print(<span class="stringliteral">&quot; 0x&quot;</span>);</div>
+<div class="line"><a id="l01264" name="l01264"></a><span class="lineno"> 1264</span>    prefixes = <a class="code hl_function" href="classnrf__to__nrf.html#a41d8dd2384f0c139623d15ac17f08bf7">addrConv32</a>(NRF_RADIO-&gt;PREFIX1);</div>
+<div class="line"><a id="l01265" name="l01265"></a><span class="lineno"> 1265</span>    prefix = (prefixes &gt;&gt; 24) &amp; 0xFF;</div>
+<div class="line"><a id="l01266" name="l01266"></a><span class="lineno"> 1266</span>    Serial.print(prefix, HEX);</div>
+<div class="line"><a id="l01267" name="l01267"></a><span class="lineno"> 1267</span>    Serial.print(<span class="stringliteral">&quot; 0x&quot;</span>);</div>
+<div class="line"><a id="l01268" name="l01268"></a><span class="lineno"> 1268</span>    prefix = (prefixes &gt;&gt; 16) &amp; 0xFF;</div>
+<div class="line"><a id="l01269" name="l01269"></a><span class="lineno"> 1269</span>    Serial.print(prefix, HEX);</div>
+<div class="line"><a id="l01270" name="l01270"></a><span class="lineno"> 1270</span>    Serial.print(<span class="stringliteral">&quot; 0x&quot;</span>);</div>
+<div class="line"><a id="l01271" name="l01271"></a><span class="lineno"> 1271</span>    prefix = (prefixes &gt;&gt; 8) &amp; 0xFF;</div>
+<div class="line"><a id="l01272" name="l01272"></a><span class="lineno"> 1272</span>    Serial.print(prefix, HEX);</div>
+<div class="line"><a id="l01273" name="l01273"></a><span class="lineno"> 1273</span>    Serial.print(<span class="stringliteral">&quot; 0x&quot;</span>);</div>
+<div class="line"><a id="l01274" name="l01274"></a><span class="lineno"> 1274</span>    prefix = (prefixes)&amp;0xFF;</div>
+<div class="line"><a id="l01275" name="l01275"></a><span class="lineno"> 1275</span>    Serial.println(prefix, HEX);</div>
+<div class="line"><a id="l01276" name="l01276"></a><span class="lineno"> 1276</span> </div>
+<div class="line"><a id="l01277" name="l01277"></a><span class="lineno"> 1277</span>    uint8_t enAA = 0;</div>
+<div class="line"><a id="l01278" name="l01278"></a><span class="lineno"> 1278</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 6; i++) {</div>
+<div class="line"><a id="l01279" name="l01279"></a><span class="lineno"> 1279</span>        enAA |= acksPerPipe[i] &lt;&lt; i;</div>
+<div class="line"><a id="l01280" name="l01280"></a><span class="lineno"> 1280</span>    }</div>
+<div class="line"><a id="l01281" name="l01281"></a><span class="lineno"> 1281</span>    Serial.print(<span class="stringliteral">&quot;EN_AA\t\t= 0x&quot;</span>);</div>
+<div class="line"><a id="l01282" name="l01282"></a><span class="lineno"> 1282</span>    Serial.println(enAA, HEX);</div>
+<div class="line"><a id="l01283" name="l01283"></a><span class="lineno"> 1283</span>    Serial.print(<span class="stringliteral">&quot;EN_RXADDR\t= 0x&quot;</span>);</div>
+<div class="line"><a id="l01284" name="l01284"></a><span class="lineno"> 1284</span>    Serial.println(NRF_RADIO-&gt;RXADDRESSES, HEX);</div>
+<div class="line"><a id="l01285" name="l01285"></a><span class="lineno"> 1285</span>    Serial.print(<span class="stringliteral">&quot;RF_CH\t\t= 0x&quot;</span>);</div>
+<div class="line"><a id="l01286" name="l01286"></a><span class="lineno"> 1286</span>    Serial.println(NRF_RADIO-&gt;FREQUENCY, HEX);</div>
+<div class="line"><a id="l01287" name="l01287"></a><span class="lineno"> 1287</span>    Serial.println(<span class="stringliteral">&quot;DYNPD/FEATURE\t= 0x&quot;</span>);</div>
+<div class="line"><a id="l01288" name="l01288"></a><span class="lineno"> 1288</span>    Serial.print(<span class="stringliteral">&quot;Data Rate\t= &quot;</span>);</div>
+<div class="line"><a id="l01289" name="l01289"></a><span class="lineno"> 1289</span>    Serial.println(NRF_RADIO-&gt;MODE ? <span class="stringliteral">&quot;2 MBPS&quot;</span> : <span class="stringliteral">&quot;1MBPS&quot;</span>);</div>
+<div class="line"><a id="l01290" name="l01290"></a><span class="lineno"> 1290</span>    Serial.println(<span class="stringliteral">&quot;Model\t\t= NRF52&quot;</span>);</div>
+<div class="line"><a id="l01291" name="l01291"></a><span class="lineno"> 1291</span>    Serial.print(<span class="stringliteral">&quot;CRC Length\t= &quot;</span>);</div>
+<div class="line"><a id="l01292" name="l01292"></a><span class="lineno"> 1292</span>    uint8_t crcLen = <a class="code hl_function" href="classnrf__to__nrf.html#af7bcd44a7f8d32db31c40d302364180a">getCRCLength</a>();</div>
+<div class="line"><a id="l01293" name="l01293"></a><span class="lineno"> 1293</span>    <span class="keywordflow">if</span> (crcLen == <a class="code hl_enumvalue" href="nrf__to__nrf_8h.html#a4bcc66714d8fe8c081ff18c621f1b855afd0d402ba74ee6e09930a4e165cac3f3">NRF_CRC_16</a>) {</div>
+<div class="line"><a id="l01294" name="l01294"></a><span class="lineno"> 1294</span>        Serial.println(<span class="stringliteral">&quot;16 bits&quot;</span>);</div>
+<div class="line"><a id="l01295" name="l01295"></a><span class="lineno"> 1295</span>    }</div>
+<div class="line"><a id="l01296" name="l01296"></a><span class="lineno"> 1296</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (crcLen == <a class="code hl_enumvalue" href="nrf__to__nrf_8h.html#a4bcc66714d8fe8c081ff18c621f1b855a1032c0aa859e9928e389a83f43315a94">NRF_CRC_8</a>) {</div>
+<div class="line"><a id="l01297" name="l01297"></a><span class="lineno"> 1297</span>        Serial.println(<span class="stringliteral">&quot;8 bits&quot;</span>);</div>
+<div class="line"><a id="l01298" name="l01298"></a><span class="lineno"> 1298</span>    }</div>
+<div class="line"><a id="l01299" name="l01299"></a><span class="lineno"> 1299</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l01300" name="l01300"></a><span class="lineno"> 1300</span>        Serial.println(<span class="stringliteral">&quot;Disabled&quot;</span>);</div>
+<div class="line"><a id="l01301" name="l01301"></a><span class="lineno"> 1301</span>    }</div>
+<div class="line"><a id="l01302" name="l01302"></a><span class="lineno"> 1302</span>    Serial.print(<span class="stringliteral">&quot;PA Power\t= &quot;</span>);</div>
+<div class="line"><a id="l01303" name="l01303"></a><span class="lineno"> 1303</span>    uint8_t paLevel = <a class="code hl_function" href="classnrf__to__nrf.html#acbfd7a6baf9f697f6b06485e561dc388">getPALevel</a>();</div>
+<div class="line"><a id="l01304" name="l01304"></a><span class="lineno"> 1304</span>    <span class="keywordflow">if</span> (paLevel == <a class="code hl_enumvalue" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6a6f9553b4da62426766cba57ac4f56487">NRF_PA_MAX</a>) {</div>
+<div class="line"><a id="l01305" name="l01305"></a><span class="lineno"> 1305</span>        Serial.println(<span class="stringliteral">&quot;PA_MAX&quot;</span>);</div>
+<div class="line"><a id="l01306" name="l01306"></a><span class="lineno"> 1306</span>    }</div>
+<div class="line"><a id="l01307" name="l01307"></a><span class="lineno"> 1307</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (paLevel == <a class="code hl_enumvalue" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6a7c64f49749c2b8058ce45c584116b827">NRF_PA_HIGH</a>) {</div>
+<div class="line"><a id="l01308" name="l01308"></a><span class="lineno"> 1308</span>        Serial.println(<span class="stringliteral">&quot;PA_HIGH&quot;</span>);</div>
+<div class="line"><a id="l01309" name="l01309"></a><span class="lineno"> 1309</span>    }</div>
+<div class="line"><a id="l01310" name="l01310"></a><span class="lineno"> 1310</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (paLevel == <a class="code hl_enumvalue" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6abb73fba095816348ffa4f62c7c30a3e2">NRF_PA_LOW</a>) {</div>
+<div class="line"><a id="l01311" name="l01311"></a><span class="lineno"> 1311</span>        Serial.println(<span class="stringliteral">&quot;PA_LOW&quot;</span>);</div>
+<div class="line"><a id="l01312" name="l01312"></a><span class="lineno"> 1312</span>    }</div>
+<div class="line"><a id="l01313" name="l01313"></a><span class="lineno"> 1313</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (paLevel == <a class="code hl_enumvalue" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6abe9ed3ab507dfb52d15766e62542d2d4">NRF_PA_MIN</a>) {</div>
+<div class="line"><a id="l01314" name="l01314"></a><span class="lineno"> 1314</span>        Serial.println(<span class="stringliteral">&quot;PA_MIN&quot;</span>);</div>
+<div class="line"><a id="l01315" name="l01315"></a><span class="lineno"> 1315</span>    }</div>
+<div class="line"><a id="l01316" name="l01316"></a><span class="lineno"> 1316</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l01317" name="l01317"></a><span class="lineno"> 1317</span>        Serial.println(<span class="stringliteral">&quot;?&quot;</span>);</div>
+<div class="line"><a id="l01318" name="l01318"></a><span class="lineno"> 1318</span>    }</div>
+<div class="line"><a id="l01319" name="l01319"></a><span class="lineno"> 1319</span>    Serial.print(<span class="stringliteral">&quot;ARC\t\t= &quot;</span>);</div>
+<div class="line"><a id="l01320" name="l01320"></a><span class="lineno"> 1320</span>    Serial.println(ARC);</div>
+<div class="line"><a id="l01321" name="l01321"></a><span class="lineno"> 1321</span>}</div>
 </div>
-<div class="line"><a id="l01320" name="l01320"></a><span class="lineno"> 1320</span> </div>
-<div class="line"><a id="l01321" name="l01321"></a><span class="lineno"> 1321</span><span class="comment">/**********************************************************************************************************/</span></div>
 <div class="line"><a id="l01322" name="l01322"></a><span class="lineno"> 1322</span> </div>
-<div class="line"><a id="l01323" name="l01323"></a><span class="lineno"> 1323</span><span class="preprocessor">#if defined CCM_ENCRYPTION_ENABLED</span></div>
+<div class="line"><a id="l01323" name="l01323"></a><span class="lineno"> 1323</span><span class="comment">/**********************************************************************************************************/</span></div>
 <div class="line"><a id="l01324" name="l01324"></a><span class="lineno"> 1324</span> </div>
-<div class="foldopen" id="foldopen01325" data-start="{" data-end="}">
-<div class="line"><a id="l01325" name="l01325"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a902d5eca08aad045c966eda3d2534eaa"> 1325</a></span>uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#a902d5eca08aad045c966eda3d2534eaa">nrf_to_nrf::encrypt</a>(<span class="keywordtype">void</span>* bufferIn, uint8_t size)</div>
-<div class="line"><a id="l01326" name="l01326"></a><span class="lineno"> 1326</span>{</div>
-<div class="line"><a id="l01327" name="l01327"></a><span class="lineno"> 1327</span> </div>
-<div class="line"><a id="l01328" name="l01328"></a><span class="lineno"> 1328</span>    <span class="keywordflow">if</span> (!size) {</div>
-<div class="line"><a id="l01329" name="l01329"></a><span class="lineno"> 1329</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l01330" name="l01330"></a><span class="lineno"> 1330</span>    }</div>
-<div class="line"><a id="l01331" name="l01331"></a><span class="lineno"> 1331</span>    <span class="keywordflow">if</span> (size &gt; <a class="code hl_define" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a>) {</div>
-<div class="line"><a id="l01332" name="l01332"></a><span class="lineno"> 1332</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l01333" name="l01333"></a><span class="lineno"> 1333</span>    }</div>
-<div class="line"><a id="l01334" name="l01334"></a><span class="lineno"> 1334</span> </div>
-<div class="line"><a id="l01335" name="l01335"></a><span class="lineno"> 1335</span>    inBuffer[0] = 0;</div>
-<div class="line"><a id="l01336" name="l01336"></a><span class="lineno"> 1336</span>    inBuffer[1] = size;</div>
-<div class="line"><a id="l01337" name="l01337"></a><span class="lineno"> 1337</span>    inBuffer[2] = 0;</div>
-<div class="line"><a id="l01338" name="l01338"></a><span class="lineno"> 1338</span> </div>
-<div class="line"><a id="l01339" name="l01339"></a><span class="lineno"> 1339</span>    memcpy(&amp;inBuffer[<a class="code hl_define" href="nrf__to__nrf_8h.html#a7a8d571811396067c6b8d78bc6afc37f">CCM_START_SIZE</a>], bufferIn, size);</div>
-<div class="line"><a id="l01340" name="l01340"></a><span class="lineno"> 1340</span>    memset(<a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>, 0, <span class="keyword">sizeof</span>(<a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>));</div>
-<div class="line"><a id="l01341" name="l01341"></a><span class="lineno"> 1341</span> </div>
-<div class="line"><a id="l01342" name="l01342"></a><span class="lineno"> 1342</span>    NRF_CCM-&gt;OUTPTR = (uint32_t)<a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>;</div>
-<div class="line"><a id="l01343" name="l01343"></a><span class="lineno"> 1343</span>    NRF_CCM-&gt;EVENTS_ENDKSGEN = 0;</div>
-<div class="line"><a id="l01344" name="l01344"></a><span class="lineno"> 1344</span>    NRF_CCM-&gt;EVENTS_ENDCRYPT = 0;</div>
-<div class="line"><a id="l01345" name="l01345"></a><span class="lineno"> 1345</span>    NRF_CCM-&gt;TASKS_KSGEN = 1;</div>
-<div class="line"><a id="l01346" name="l01346"></a><span class="lineno"> 1346</span>    <span class="keywordflow">while</span> (!NRF_CCM-&gt;EVENTS_ENDCRYPT) {</div>
-<div class="line"><a id="l01347" name="l01347"></a><span class="lineno"> 1347</span>    };</div>
-<div class="line"><a id="l01348" name="l01348"></a><span class="lineno"> 1348</span> </div>
-<div class="line"><a id="l01349" name="l01349"></a><span class="lineno"> 1349</span>    <span class="keywordflow">if</span> (NRF_CCM-&gt;EVENTS_ERROR) {</div>
-<div class="line"><a id="l01350" name="l01350"></a><span class="lineno"> 1350</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l01351" name="l01351"></a><span class="lineno"> 1351</span>    }</div>
-<div class="line"><a id="l01352" name="l01352"></a><span class="lineno"> 1352</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>[1];</div>
-<div class="line"><a id="l01353" name="l01353"></a><span class="lineno"> 1353</span>}</div>
+<div class="line"><a id="l01325" name="l01325"></a><span class="lineno"> 1325</span><span class="preprocessor">#if defined CCM_ENCRYPTION_ENABLED</span></div>
+<div class="line"><a id="l01326" name="l01326"></a><span class="lineno"> 1326</span> </div>
+<div class="foldopen" id="foldopen01327" data-start="{" data-end="}">
+<div class="line"><a id="l01327" name="l01327"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a902d5eca08aad045c966eda3d2534eaa"> 1327</a></span>uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#a902d5eca08aad045c966eda3d2534eaa">nrf_to_nrf::encrypt</a>(<span class="keywordtype">void</span>* bufferIn, uint8_t size)</div>
+<div class="line"><a id="l01328" name="l01328"></a><span class="lineno"> 1328</span>{</div>
+<div class="line"><a id="l01329" name="l01329"></a><span class="lineno"> 1329</span> </div>
+<div class="line"><a id="l01330" name="l01330"></a><span class="lineno"> 1330</span>    <span class="keywordflow">if</span> (!size) {</div>
+<div class="line"><a id="l01331" name="l01331"></a><span class="lineno"> 1331</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l01332" name="l01332"></a><span class="lineno"> 1332</span>    }</div>
+<div class="line"><a id="l01333" name="l01333"></a><span class="lineno"> 1333</span>    <span class="keywordflow">if</span> (size &gt; <a class="code hl_define" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a>) {</div>
+<div class="line"><a id="l01334" name="l01334"></a><span class="lineno"> 1334</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l01335" name="l01335"></a><span class="lineno"> 1335</span>    }</div>
+<div class="line"><a id="l01336" name="l01336"></a><span class="lineno"> 1336</span> </div>
+<div class="line"><a id="l01337" name="l01337"></a><span class="lineno"> 1337</span>    inBuffer[0] = 0;</div>
+<div class="line"><a id="l01338" name="l01338"></a><span class="lineno"> 1338</span>    inBuffer[1] = size;</div>
+<div class="line"><a id="l01339" name="l01339"></a><span class="lineno"> 1339</span>    inBuffer[2] = 0;</div>
+<div class="line"><a id="l01340" name="l01340"></a><span class="lineno"> 1340</span> </div>
+<div class="line"><a id="l01341" name="l01341"></a><span class="lineno"> 1341</span>    memcpy(&amp;inBuffer[<a class="code hl_define" href="nrf__to__nrf_8h.html#a7a8d571811396067c6b8d78bc6afc37f">CCM_START_SIZE</a>], bufferIn, size);</div>
+<div class="line"><a id="l01342" name="l01342"></a><span class="lineno"> 1342</span>    memset(<a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>, 0, <span class="keyword">sizeof</span>(<a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>));</div>
+<div class="line"><a id="l01343" name="l01343"></a><span class="lineno"> 1343</span> </div>
+<div class="line"><a id="l01344" name="l01344"></a><span class="lineno"> 1344</span>    NRF_CCM-&gt;OUTPTR = (uint32_t)<a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>;</div>
+<div class="line"><a id="l01345" name="l01345"></a><span class="lineno"> 1345</span>    NRF_CCM-&gt;EVENTS_ENDKSGEN = 0;</div>
+<div class="line"><a id="l01346" name="l01346"></a><span class="lineno"> 1346</span>    NRF_CCM-&gt;EVENTS_ENDCRYPT = 0;</div>
+<div class="line"><a id="l01347" name="l01347"></a><span class="lineno"> 1347</span>    NRF_CCM-&gt;TASKS_KSGEN = 1;</div>
+<div class="line"><a id="l01348" name="l01348"></a><span class="lineno"> 1348</span>    <span class="keywordflow">while</span> (!NRF_CCM-&gt;EVENTS_ENDCRYPT) {</div>
+<div class="line"><a id="l01349" name="l01349"></a><span class="lineno"> 1349</span>    };</div>
+<div class="line"><a id="l01350" name="l01350"></a><span class="lineno"> 1350</span> </div>
+<div class="line"><a id="l01351" name="l01351"></a><span class="lineno"> 1351</span>    <span class="keywordflow">if</span> (NRF_CCM-&gt;EVENTS_ERROR) {</div>
+<div class="line"><a id="l01352" name="l01352"></a><span class="lineno"> 1352</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l01353" name="l01353"></a><span class="lineno"> 1353</span>    }</div>
+<div class="line"><a id="l01354" name="l01354"></a><span class="lineno"> 1354</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>[1];</div>
+<div class="line"><a id="l01355" name="l01355"></a><span class="lineno"> 1355</span>}</div>
 </div>
-<div class="line"><a id="l01354" name="l01354"></a><span class="lineno"> 1354</span> </div>
-<div class="line"><a id="l01355" name="l01355"></a><span class="lineno"> 1355</span><span class="comment">/**********************************************************************************************************/</span></div>
 <div class="line"><a id="l01356" name="l01356"></a><span class="lineno"> 1356</span> </div>
-<div class="foldopen" id="foldopen01357" data-start="{" data-end="}">
-<div class="line"><a id="l01357" name="l01357"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a2b4c8009858a3fbc1ba06124527a2d85"> 1357</a></span>uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#a2b4c8009858a3fbc1ba06124527a2d85">nrf_to_nrf::decrypt</a>(<span class="keywordtype">void</span>* bufferIn, uint8_t size)</div>
-<div class="line"><a id="l01358" name="l01358"></a><span class="lineno"> 1358</span>{</div>
-<div class="line"><a id="l01359" name="l01359"></a><span class="lineno"> 1359</span> </div>
-<div class="line"><a id="l01360" name="l01360"></a><span class="lineno"> 1360</span>    <span class="keywordflow">if</span> (!size) {</div>
-<div class="line"><a id="l01361" name="l01361"></a><span class="lineno"> 1361</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l01362" name="l01362"></a><span class="lineno"> 1362</span>    }</div>
-<div class="line"><a id="l01363" name="l01363"></a><span class="lineno"> 1363</span>    <span class="keywordflow">if</span> (size &gt; <a class="code hl_define" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a>) {</div>
-<div class="line"><a id="l01364" name="l01364"></a><span class="lineno"> 1364</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l01365" name="l01365"></a><span class="lineno"> 1365</span>    }</div>
-<div class="line"><a id="l01366" name="l01366"></a><span class="lineno"> 1366</span> </div>
-<div class="line"><a id="l01367" name="l01367"></a><span class="lineno"> 1367</span>    memcpy(&amp;inBuffer[3], bufferIn, size);</div>
+<div class="line"><a id="l01357" name="l01357"></a><span class="lineno"> 1357</span><span class="comment">/**********************************************************************************************************/</span></div>
+<div class="line"><a id="l01358" name="l01358"></a><span class="lineno"> 1358</span> </div>
+<div class="foldopen" id="foldopen01359" data-start="{" data-end="}">
+<div class="line"><a id="l01359" name="l01359"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a2b4c8009858a3fbc1ba06124527a2d85"> 1359</a></span>uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#a2b4c8009858a3fbc1ba06124527a2d85">nrf_to_nrf::decrypt</a>(<span class="keywordtype">void</span>* bufferIn, uint8_t size)</div>
+<div class="line"><a id="l01360" name="l01360"></a><span class="lineno"> 1360</span>{</div>
+<div class="line"><a id="l01361" name="l01361"></a><span class="lineno"> 1361</span> </div>
+<div class="line"><a id="l01362" name="l01362"></a><span class="lineno"> 1362</span>    <span class="keywordflow">if</span> (!size) {</div>
+<div class="line"><a id="l01363" name="l01363"></a><span class="lineno"> 1363</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l01364" name="l01364"></a><span class="lineno"> 1364</span>    }</div>
+<div class="line"><a id="l01365" name="l01365"></a><span class="lineno"> 1365</span>    <span class="keywordflow">if</span> (size &gt; <a class="code hl_define" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a>) {</div>
+<div class="line"><a id="l01366" name="l01366"></a><span class="lineno"> 1366</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l01367" name="l01367"></a><span class="lineno"> 1367</span>    }</div>
 <div class="line"><a id="l01368" name="l01368"></a><span class="lineno"> 1368</span> </div>
-<div class="line"><a id="l01369" name="l01369"></a><span class="lineno"> 1369</span>    inBuffer[0] = 0;</div>
-<div class="line"><a id="l01370" name="l01370"></a><span class="lineno"> 1370</span>    inBuffer[1] = size;</div>
-<div class="line"><a id="l01371" name="l01371"></a><span class="lineno"> 1371</span>    inBuffer[2] = 0;</div>
-<div class="line"><a id="l01372" name="l01372"></a><span class="lineno"> 1372</span> </div>
-<div class="line"><a id="l01373" name="l01373"></a><span class="lineno"> 1373</span>    memset(<a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>, 0, <span class="keyword">sizeof</span>(<a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>));</div>
+<div class="line"><a id="l01369" name="l01369"></a><span class="lineno"> 1369</span>    memcpy(&amp;inBuffer[3], bufferIn, size);</div>
+<div class="line"><a id="l01370" name="l01370"></a><span class="lineno"> 1370</span> </div>
+<div class="line"><a id="l01371" name="l01371"></a><span class="lineno"> 1371</span>    inBuffer[0] = 0;</div>
+<div class="line"><a id="l01372" name="l01372"></a><span class="lineno"> 1372</span>    inBuffer[1] = size;</div>
+<div class="line"><a id="l01373" name="l01373"></a><span class="lineno"> 1373</span>    inBuffer[2] = 0;</div>
 <div class="line"><a id="l01374" name="l01374"></a><span class="lineno"> 1374</span> </div>
-<div class="line"><a id="l01375" name="l01375"></a><span class="lineno"> 1375</span>    NRF_CCM-&gt;EVENTS_ENDKSGEN = 0;</div>
-<div class="line"><a id="l01376" name="l01376"></a><span class="lineno"> 1376</span>    NRF_CCM-&gt;EVENTS_ENDCRYPT = 0;</div>
-<div class="line"><a id="l01377" name="l01377"></a><span class="lineno"> 1377</span>    NRF_CCM-&gt;TASKS_KSGEN = 1;</div>
-<div class="line"><a id="l01378" name="l01378"></a><span class="lineno"> 1378</span> </div>
-<div class="line"><a id="l01379" name="l01379"></a><span class="lineno"> 1379</span>    <span class="keywordflow">while</span> (!NRF_CCM-&gt;EVENTS_ENDCRYPT) {</div>
-<div class="line"><a id="l01380" name="l01380"></a><span class="lineno"> 1380</span>    };</div>
-<div class="line"><a id="l01381" name="l01381"></a><span class="lineno"> 1381</span> </div>
-<div class="line"><a id="l01382" name="l01382"></a><span class="lineno"> 1382</span>    <span class="keywordflow">if</span> (NRF_CCM-&gt;EVENTS_ERROR) {</div>
-<div class="line"><a id="l01383" name="l01383"></a><span class="lineno"> 1383</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l01384" name="l01384"></a><span class="lineno"> 1384</span>    }</div>
-<div class="line"><a id="l01385" name="l01385"></a><span class="lineno"> 1385</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>[1];</div>
-<div class="line"><a id="l01386" name="l01386"></a><span class="lineno"> 1386</span>}</div>
+<div class="line"><a id="l01375" name="l01375"></a><span class="lineno"> 1375</span>    memset(<a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>, 0, <span class="keyword">sizeof</span>(<a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>));</div>
+<div class="line"><a id="l01376" name="l01376"></a><span class="lineno"> 1376</span> </div>
+<div class="line"><a id="l01377" name="l01377"></a><span class="lineno"> 1377</span>    NRF_CCM-&gt;EVENTS_ENDKSGEN = 0;</div>
+<div class="line"><a id="l01378" name="l01378"></a><span class="lineno"> 1378</span>    NRF_CCM-&gt;EVENTS_ENDCRYPT = 0;</div>
+<div class="line"><a id="l01379" name="l01379"></a><span class="lineno"> 1379</span>    NRF_CCM-&gt;TASKS_KSGEN = 1;</div>
+<div class="line"><a id="l01380" name="l01380"></a><span class="lineno"> 1380</span> </div>
+<div class="line"><a id="l01381" name="l01381"></a><span class="lineno"> 1381</span>    <span class="keywordflow">while</span> (!NRF_CCM-&gt;EVENTS_ENDCRYPT) {</div>
+<div class="line"><a id="l01382" name="l01382"></a><span class="lineno"> 1382</span>    };</div>
+<div class="line"><a id="l01383" name="l01383"></a><span class="lineno"> 1383</span> </div>
+<div class="line"><a id="l01384" name="l01384"></a><span class="lineno"> 1384</span>    <span class="keywordflow">if</span> (NRF_CCM-&gt;EVENTS_ERROR) {</div>
+<div class="line"><a id="l01385" name="l01385"></a><span class="lineno"> 1385</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l01386" name="l01386"></a><span class="lineno"> 1386</span>    }</div>
+<div class="line"><a id="l01387" name="l01387"></a><span class="lineno"> 1387</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>[1];</div>
+<div class="line"><a id="l01388" name="l01388"></a><span class="lineno"> 1388</span>}</div>
 </div>
-<div class="line"><a id="l01387" name="l01387"></a><span class="lineno"> 1387</span> </div>
-<div class="line"><a id="l01388" name="l01388"></a><span class="lineno"> 1388</span><span class="comment">/**********************************************************************************************************/</span></div>
 <div class="line"><a id="l01389" name="l01389"></a><span class="lineno"> 1389</span> </div>
-<div class="foldopen" id="foldopen01390" data-start="{" data-end="}">
-<div class="line"><a id="l01390" name="l01390"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a6f7e3aa9689f57c51a6f23020d023da3"> 1390</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a6f7e3aa9689f57c51a6f23020d023da3">nrf_to_nrf::setKey</a>(uint8_t key[<a class="code hl_define" href="nrf__to__nrf_8h.html#a9ac4e8f13ee123e866aa5a5bf9b2f53b">CCM_KEY_SIZE</a>])</div>
-<div class="line"><a id="l01391" name="l01391"></a><span class="lineno"> 1391</span>{</div>
-<div class="line"><a id="l01392" name="l01392"></a><span class="lineno"> 1392</span> </div>
-<div class="line"><a id="l01393" name="l01393"></a><span class="lineno"> 1393</span>    NRF_CCM-&gt;MODE = 1 &lt;&lt; 24 | 1 &lt;&lt; 16;</div>
-<div class="line"><a id="l01394" name="l01394"></a><span class="lineno"> 1394</span>    NRF_CCM-&gt;MAXPACKETSIZE = <a class="code hl_define" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a>;</div>
-<div class="line"><a id="l01395" name="l01395"></a><span class="lineno"> 1395</span>    NRF_CCM-&gt;SHORTS = 1;</div>
-<div class="line"><a id="l01396" name="l01396"></a><span class="lineno"> 1396</span>    NRF_CCM-&gt;ENABLE = 2;</div>
-<div class="line"><a id="l01397" name="l01397"></a><span class="lineno"> 1397</span> </div>
-<div class="line"><a id="l01398" name="l01398"></a><span class="lineno"> 1398</span>    NRF_RNG-&gt;CONFIG = 1;</div>
-<div class="line"><a id="l01399" name="l01399"></a><span class="lineno"> 1399</span>    NRF_RNG-&gt;TASKS_START = 1;</div>
-<div class="line"><a id="l01400" name="l01400"></a><span class="lineno"> 1400</span> </div>
-<div class="line"><a id="l01401" name="l01401"></a><span class="lineno"> 1401</span>    memcpy(ccmData.key, key, <a class="code hl_define" href="nrf__to__nrf_8h.html#a9ac4e8f13ee123e866aa5a5bf9b2f53b">CCM_KEY_SIZE</a>);</div>
-<div class="line"><a id="l01402" name="l01402"></a><span class="lineno"> 1402</span>}</div>
+<div class="line"><a id="l01390" name="l01390"></a><span class="lineno"> 1390</span><span class="comment">/**********************************************************************************************************/</span></div>
+<div class="line"><a id="l01391" name="l01391"></a><span class="lineno"> 1391</span> </div>
+<div class="foldopen" id="foldopen01392" data-start="{" data-end="}">
+<div class="line"><a id="l01392" name="l01392"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a6f7e3aa9689f57c51a6f23020d023da3"> 1392</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a6f7e3aa9689f57c51a6f23020d023da3">nrf_to_nrf::setKey</a>(uint8_t key[<a class="code hl_define" href="nrf__to__nrf_8h.html#a9ac4e8f13ee123e866aa5a5bf9b2f53b">CCM_KEY_SIZE</a>])</div>
+<div class="line"><a id="l01393" name="l01393"></a><span class="lineno"> 1393</span>{</div>
+<div class="line"><a id="l01394" name="l01394"></a><span class="lineno"> 1394</span> </div>
+<div class="line"><a id="l01395" name="l01395"></a><span class="lineno"> 1395</span>    NRF_CCM-&gt;MODE = 1 &lt;&lt; 24 | 1 &lt;&lt; 16;</div>
+<div class="line"><a id="l01396" name="l01396"></a><span class="lineno"> 1396</span>    NRF_CCM-&gt;MAXPACKETSIZE = <a class="code hl_define" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a>;</div>
+<div class="line"><a id="l01397" name="l01397"></a><span class="lineno"> 1397</span>    NRF_CCM-&gt;SHORTS = 1;</div>
+<div class="line"><a id="l01398" name="l01398"></a><span class="lineno"> 1398</span>    NRF_CCM-&gt;ENABLE = 2;</div>
+<div class="line"><a id="l01399" name="l01399"></a><span class="lineno"> 1399</span> </div>
+<div class="line"><a id="l01400" name="l01400"></a><span class="lineno"> 1400</span>    NRF_RNG-&gt;CONFIG = 1;</div>
+<div class="line"><a id="l01401" name="l01401"></a><span class="lineno"> 1401</span>    NRF_RNG-&gt;TASKS_START = 1;</div>
+<div class="line"><a id="l01402" name="l01402"></a><span class="lineno"> 1402</span> </div>
+<div class="line"><a id="l01403" name="l01403"></a><span class="lineno"> 1403</span>    memcpy(ccmData.key, key, <a class="code hl_define" href="nrf__to__nrf_8h.html#a9ac4e8f13ee123e866aa5a5bf9b2f53b">CCM_KEY_SIZE</a>);</div>
+<div class="line"><a id="l01404" name="l01404"></a><span class="lineno"> 1404</span>}</div>
 </div>
-<div class="line"><a id="l01403" name="l01403"></a><span class="lineno"> 1403</span> </div>
-<div class="line"><a id="l01404" name="l01404"></a><span class="lineno"> 1404</span><span class="comment">/**********************************************************************************************************/</span></div>
 <div class="line"><a id="l01405" name="l01405"></a><span class="lineno"> 1405</span> </div>
-<div class="foldopen" id="foldopen01406" data-start="{" data-end="}">
-<div class="line"><a id="l01406" name="l01406"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a4ecb7e276b024e2eca0b04328fb50263"> 1406</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a4ecb7e276b024e2eca0b04328fb50263">nrf_to_nrf::setCounter</a>(uint64_t counter)</div>
-<div class="line"><a id="l01407" name="l01407"></a><span class="lineno"> 1407</span>{</div>
-<div class="line"><a id="l01408" name="l01408"></a><span class="lineno"> 1408</span> </div>
-<div class="line"><a id="l01409" name="l01409"></a><span class="lineno"> 1409</span>    ccmData.counter = counter;</div>
-<div class="line"><a id="l01410" name="l01410"></a><span class="lineno"> 1410</span>    packetCounter = counter;</div>
-<div class="line"><a id="l01411" name="l01411"></a><span class="lineno"> 1411</span>}</div>
+<div class="line"><a id="l01406" name="l01406"></a><span class="lineno"> 1406</span><span class="comment">/**********************************************************************************************************/</span></div>
+<div class="line"><a id="l01407" name="l01407"></a><span class="lineno"> 1407</span> </div>
+<div class="foldopen" id="foldopen01408" data-start="{" data-end="}">
+<div class="line"><a id="l01408" name="l01408"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a4ecb7e276b024e2eca0b04328fb50263"> 1408</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a4ecb7e276b024e2eca0b04328fb50263">nrf_to_nrf::setCounter</a>(uint64_t counter)</div>
+<div class="line"><a id="l01409" name="l01409"></a><span class="lineno"> 1409</span>{</div>
+<div class="line"><a id="l01410" name="l01410"></a><span class="lineno"> 1410</span> </div>
+<div class="line"><a id="l01411" name="l01411"></a><span class="lineno"> 1411</span>    ccmData.counter = counter;</div>
+<div class="line"><a id="l01412" name="l01412"></a><span class="lineno"> 1412</span>    packetCounter = counter;</div>
+<div class="line"><a id="l01413" name="l01413"></a><span class="lineno"> 1413</span>}</div>
 </div>
-<div class="line"><a id="l01412" name="l01412"></a><span class="lineno"> 1412</span><span class="comment">/**********************************************************************************************************/</span></div>
-<div class="line"><a id="l01413" name="l01413"></a><span class="lineno"> 1413</span> </div>
-<div class="foldopen" id="foldopen01414" data-start="{" data-end="}">
-<div class="line"><a id="l01414" name="l01414"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#aeede062c4a125f1bca719f4c2a96e76a"> 1414</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#aeede062c4a125f1bca719f4c2a96e76a">nrf_to_nrf::setIV</a>(uint8_t IV[<a class="code hl_define" href="nrf__to__nrf_8h.html#adf3d9827d3b02ae63b08d846b809e1dc">CCM_IV_SIZE</a>])</div>
-<div class="line"><a id="l01415" name="l01415"></a><span class="lineno"> 1415</span>{</div>
-<div class="line"><a id="l01416" name="l01416"></a><span class="lineno"> 1416</span> </div>
-<div class="line"><a id="l01417" name="l01417"></a><span class="lineno"> 1417</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_define" href="nrf__to__nrf_8h.html#adf3d9827d3b02ae63b08d846b809e1dc">CCM_IV_SIZE</a>; i++) {</div>
-<div class="line"><a id="l01418" name="l01418"></a><span class="lineno"> 1418</span>        ccmData.iv[i] = IV[i];</div>
-<div class="line"><a id="l01419" name="l01419"></a><span class="lineno"> 1419</span>    }</div>
-<div class="line"><a id="l01420" name="l01420"></a><span class="lineno"> 1420</span>}</div>
+<div class="line"><a id="l01414" name="l01414"></a><span class="lineno"> 1414</span><span class="comment">/**********************************************************************************************************/</span></div>
+<div class="line"><a id="l01415" name="l01415"></a><span class="lineno"> 1415</span> </div>
+<div class="foldopen" id="foldopen01416" data-start="{" data-end="}">
+<div class="line"><a id="l01416" name="l01416"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#aeede062c4a125f1bca719f4c2a96e76a"> 1416</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#aeede062c4a125f1bca719f4c2a96e76a">nrf_to_nrf::setIV</a>(uint8_t IV[<a class="code hl_define" href="nrf__to__nrf_8h.html#adf3d9827d3b02ae63b08d846b809e1dc">CCM_IV_SIZE</a>])</div>
+<div class="line"><a id="l01417" name="l01417"></a><span class="lineno"> 1417</span>{</div>
+<div class="line"><a id="l01418" name="l01418"></a><span class="lineno"> 1418</span> </div>
+<div class="line"><a id="l01419" name="l01419"></a><span class="lineno"> 1419</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_define" href="nrf__to__nrf_8h.html#adf3d9827d3b02ae63b08d846b809e1dc">CCM_IV_SIZE</a>; i++) {</div>
+<div class="line"><a id="l01420" name="l01420"></a><span class="lineno"> 1420</span>        ccmData.iv[i] = IV[i];</div>
+<div class="line"><a id="l01421" name="l01421"></a><span class="lineno"> 1421</span>    }</div>
+<div class="line"><a id="l01422" name="l01422"></a><span class="lineno"> 1422</span>}</div>
 </div>
-<div class="line"><a id="l01421" name="l01421"></a><span class="lineno"> 1421</span> </div>
-<div class="line"><a id="l01422" name="l01422"></a><span class="lineno"> 1422</span><span class="preprocessor">#endif </span><span class="comment">// defined CCM_ENCRYPTION_ENABLED</span></div>
+<div class="line"><a id="l01423" name="l01423"></a><span class="lineno"> 1423</span> </div>
+<div class="line"><a id="l01424" name="l01424"></a><span class="lineno"> 1424</span><span class="preprocessor">#endif </span><span class="comment">// defined CCM_ENCRYPTION_ENABLED</span></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a01f4833ad19dbe8498329eb1076da808"><div class="ttname"><a href="classnrf__to__nrf.html#a01f4833ad19dbe8498329eb1076da808">nrf_to_nrf::startListening</a></div><div class="ttdeci">void startListening(bool resetAddresses=true)</div><div class="ttdef"><b>Definition</b> <a href="#l00689">nrf_to_nrf.cpp:689</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a070731ead0431745af9ea6fb06aedbac"><div class="ttname"><a href="classnrf__to__nrf.html#a070731ead0431745af9ea6fb06aedbac">nrf_to_nrf::openReadingPipe</a></div><div class="ttdeci">void openReadingPipe(uint8_t child, const uint8_t *address)</div><div class="ttdef"><b>Definition</b> <a href="#l00924">nrf_to_nrf.cpp:924</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a084414c7da7afeb387274bc1d3bcc00b"><div class="ttname"><a href="classnrf__to__nrf.html#a084414c7da7afeb387274bc1d3bcc00b">nrf_to_nrf::powerUp</a></div><div class="ttdeci">void powerUp()</div><div class="ttdef"><b>Definition</b> <a href="#l01185">nrf_to_nrf.cpp:1185</a></div></div>
@@ -1638,30 +1640,30 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassnrf__to__nrf_html_a0ec4ad74f4508034bffe8fa2cb25260c"><div class="ttname"><a href="classnrf__to__nrf.html#a0ec4ad74f4508034bffe8fa2cb25260c">nrf_to_nrf::setPALevel</a></div><div class="ttdeci">void setPALevel(uint8_t level, bool lnaEnable=true)</div><div class="ttdef"><b>Definition</b> <a href="#l01062">nrf_to_nrf.cpp:1062</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a1b0d3c0393baaec2963e325dca708935"><div class="ttname"><a href="classnrf__to__nrf.html#a1b0d3c0393baaec2963e325dca708935">nrf_to_nrf::testCarrier</a></div><div class="ttdeci">bool testCarrier(uint8_t RSSI=65)</div><div class="ttdef"><b>Definition</b> <a href="#l01152">nrf_to_nrf.cpp:1152</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a1b2f567dda77209301cbaea4c5a75862"><div class="ttname"><a href="classnrf__to__nrf.html#a1b2f567dda77209301cbaea4c5a75862">nrf_to_nrf::txStandBy</a></div><div class="ttdeci">bool txStandBy()</div><div class="ttdef"><b>Definition</b> <a href="#l00986">nrf_to_nrf.cpp:986</a></div></div>
-<div class="ttc" id="aclassnrf__to__nrf_html_a2b4c8009858a3fbc1ba06124527a2d85"><div class="ttname"><a href="classnrf__to__nrf.html#a2b4c8009858a3fbc1ba06124527a2d85">nrf_to_nrf::decrypt</a></div><div class="ttdeci">uint8_t decrypt(void *bufferIn, uint8_t size)</div><div class="ttdef"><b>Definition</b> <a href="#l01357">nrf_to_nrf.cpp:1357</a></div></div>
+<div class="ttc" id="aclassnrf__to__nrf_html_a2b4c8009858a3fbc1ba06124527a2d85"><div class="ttname"><a href="classnrf__to__nrf.html#a2b4c8009858a3fbc1ba06124527a2d85">nrf_to_nrf::decrypt</a></div><div class="ttdeci">uint8_t decrypt(void *bufferIn, uint8_t size)</div><div class="ttdef"><b>Definition</b> <a href="#l01359">nrf_to_nrf.cpp:1359</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a3183dc6c9f8a06ca01ef9d015420791d"><div class="ttname"><a href="classnrf__to__nrf.html#a3183dc6c9f8a06ca01ef9d015420791d">nrf_to_nrf::radioData</a></div><div class="ttdeci">uint8_t radioData[ACTUAL_MAX_PAYLOAD_SIZE+2]</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8h_source.html#l00204">nrf_to_nrf.h:204</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a3cd8dd57e9eacd92190226b786ac303b"><div class="ttname"><a href="classnrf__to__nrf.html#a3cd8dd57e9eacd92190226b786ac303b">nrf_to_nrf::setChannel</a></div><div class="ttdeci">void setChannel(uint8_t channel)</div><div class="ttdef"><b>Definition</b> <a href="#l00763">nrf_to_nrf.cpp:763</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a41d8dd2384f0c139623d15ac17f08bf7"><div class="ttname"><a href="classnrf__to__nrf.html#a41d8dd2384f0c139623d15ac17f08bf7">nrf_to_nrf::addrConv32</a></div><div class="ttdeci">uint32_t addrConv32(uint32_t addr)</div><div class="ttdef"><b>Definition</b> <a href="#l00048">nrf_to_nrf.cpp:48</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a4a4dbfe26229f0dc341071aa77c04773"><div class="ttname"><a href="classnrf__to__nrf.html#a4a4dbfe26229f0dc341071aa77c04773">nrf_to_nrf::disableDynamicPayloads</a></div><div class="ttdeci">void disableDynamicPayloads()</div><div class="ttdef"><b>Definition</b> <a href="#l00815">nrf_to_nrf.cpp:815</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a4b72553f78465e14ba15c13a392fa7e3"><div class="ttname"><a href="classnrf__to__nrf.html#a4b72553f78465e14ba15c13a392fa7e3">nrf_to_nrf::write</a></div><div class="ttdeci">bool write(void *buf, uint8_t len, bool multicast=false, bool doEncryption=true)</div><div class="ttdef"><b>Definition</b> <a href="#l00363">nrf_to_nrf.cpp:363</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a4de30b154367928dae7b778b21748d53"><div class="ttname"><a href="classnrf__to__nrf.html#a4de30b154367928dae7b778b21748d53">nrf_to_nrf::testRPD</a></div><div class="ttdeci">bool testRPD(uint8_t RSSI=65)</div><div class="ttdef"><b>Definition</b> <a href="#l01167">nrf_to_nrf.cpp:1167</a></div></div>
-<div class="ttc" id="aclassnrf__to__nrf_html_a4ecb7e276b024e2eca0b04328fb50263"><div class="ttname"><a href="classnrf__to__nrf.html#a4ecb7e276b024e2eca0b04328fb50263">nrf_to_nrf::setCounter</a></div><div class="ttdeci">void setCounter(uint64_t counter)</div><div class="ttdef"><b>Definition</b> <a href="#l01406">nrf_to_nrf.cpp:1406</a></div></div>
+<div class="ttc" id="aclassnrf__to__nrf_html_a4ecb7e276b024e2eca0b04328fb50263"><div class="ttname"><a href="classnrf__to__nrf.html#a4ecb7e276b024e2eca0b04328fb50263">nrf_to_nrf::setCounter</a></div><div class="ttdeci">void setCounter(uint64_t counter)</div><div class="ttdef"><b>Definition</b> <a href="#l01408">nrf_to_nrf.cpp:1408</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a4f0c7933c8a5e593ee223e2b804ea69d"><div class="ttname"><a href="classnrf__to__nrf.html#a4f0c7933c8a5e593ee223e2b804ea69d">nrf_to_nrf::isChipConnected</a></div><div class="ttdeci">bool isChipConnected()</div><div class="ttdef"><b>Definition</b> <a href="#l01037">nrf_to_nrf.cpp:1037</a></div></div>
-<div class="ttc" id="aclassnrf__to__nrf_html_a4f28d2a70f8160e4bf439982f0af6066"><div class="ttname"><a href="classnrf__to__nrf.html#a4f28d2a70f8160e4bf439982f0af6066">nrf_to_nrf::setAddressWidth</a></div><div class="ttdeci">void setAddressWidth(uint8_t a_width)</div><div class="ttdef"><b>Definition</b> <a href="#l01216">nrf_to_nrf.cpp:1216</a></div></div>
+<div class="ttc" id="aclassnrf__to__nrf_html_a4f28d2a70f8160e4bf439982f0af6066"><div class="ttname"><a href="classnrf__to__nrf.html#a4f28d2a70f8160e4bf439982f0af6066">nrf_to_nrf::setAddressWidth</a></div><div class="ttdeci">void setAddressWidth(uint8_t a_width)</div><div class="ttdef"><b>Definition</b> <a href="#l01218">nrf_to_nrf.cpp:1218</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a543bbc33034094b5be199efdb77c2a7a"><div class="ttname"><a href="classnrf__to__nrf.html#a543bbc33034094b5be199efdb77c2a7a">nrf_to_nrf::getDynamicPayloadSize</a></div><div class="ttdeci">uint8_t getDynamicPayloadSize()</div><div class="ttdef"><b>Definition</b> <a href="#l00741">nrf_to_nrf.cpp:741</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a5d82b0fb8292e7a51e2f69cd13e48a7b"><div class="ttname"><a href="classnrf__to__nrf.html#a5d82b0fb8292e7a51e2f69cd13e48a7b">nrf_to_nrf::setDataRate</a></div><div class="ttdeci">bool setDataRate(uint8_t speed)</div><div class="ttdef"><b>Definition</b> <a href="#l01041">nrf_to_nrf.cpp:1041</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a65f5edbd8771ad381c0dd6532c38f16b"><div class="ttname"><a href="classnrf__to__nrf.html#a65f5edbd8771ad381c0dd6532c38f16b">nrf_to_nrf::isValid</a></div><div class="ttdeci">bool isValid()</div><div class="ttdef"><b>Definition</b> <a href="#l00749">nrf_to_nrf.cpp:749</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a6e3601bd9cbe9b176c489af224ea9e5b"><div class="ttname"><a href="classnrf__to__nrf.html#a6e3601bd9cbe9b176c489af224ea9e5b">nrf_to_nrf::nrf_to_nrf</a></div><div class="ttdeci">nrf_to_nrf()</div><div class="ttdef"><b>Definition</b> <a href="#l00062">nrf_to_nrf.cpp:62</a></div></div>
-<div class="ttc" id="aclassnrf__to__nrf_html_a6f7e3aa9689f57c51a6f23020d023da3"><div class="ttname"><a href="classnrf__to__nrf.html#a6f7e3aa9689f57c51a6f23020d023da3">nrf_to_nrf::setKey</a></div><div class="ttdeci">void setKey(uint8_t key[CCM_KEY_SIZE])</div><div class="ttdef"><b>Definition</b> <a href="#l01390">nrf_to_nrf.cpp:1390</a></div></div>
+<div class="ttc" id="aclassnrf__to__nrf_html_a6f7e3aa9689f57c51a6f23020d023da3"><div class="ttname"><a href="classnrf__to__nrf.html#a6f7e3aa9689f57c51a6f23020d023da3">nrf_to_nrf::setKey</a></div><div class="ttdeci">void setKey(uint8_t key[CCM_KEY_SIZE])</div><div class="ttdef"><b>Definition</b> <a href="#l01392">nrf_to_nrf.cpp:1392</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a7732e9d1424d384c575377c8385c725d"><div class="ttname"><a href="classnrf__to__nrf.html#a7732e9d1424d384c575377c8385c725d">nrf_to_nrf::begin</a></div><div class="ttdeci">bool begin()</div><div class="ttdef"><b>Definition</b> <a href="#l00089">nrf_to_nrf.cpp:89</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a7b9b9b7116aab9d2723f7a317c1ae766"><div class="ttname"><a href="classnrf__to__nrf.html#a7b9b9b7116aab9d2723f7a317c1ae766">nrf_to_nrf::writeAckPayload</a></div><div class="ttdeci">bool writeAckPayload(uint8_t pipe, void *buf, uint8_t len)</div><div class="ttdef"><b>Definition</b> <a href="#l00638">nrf_to_nrf.cpp:638</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a7dcfe5f98793e4b1dc441404f1e7134a"><div class="ttname"><a href="classnrf__to__nrf.html#a7dcfe5f98793e4b1dc441404f1e7134a">nrf_to_nrf::enableEncryption</a></div><div class="ttdeci">bool enableEncryption</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8h_source.html#l00470">nrf_to_nrf.h:470</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a7eab024220706b66d73f543ee6a094b0"><div class="ttname"><a href="classnrf__to__nrf.html#a7eab024220706b66d73f543ee6a094b0">nrf_to_nrf::enableDynamicPayloads</a></div><div class="ttdeci">void enableDynamicPayloads(uint8_t payloadSize=DEFAULT_MAX_PAYLOAD_SIZE)</div><div class="ttdef"><b>Definition</b> <a href="#l00795">nrf_to_nrf.cpp:795</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a82ece976ff6ed46b07eb9c3920d9603a"><div class="ttname"><a href="classnrf__to__nrf.html#a82ece976ff6ed46b07eb9c3920d9603a">nrf_to_nrf::disableAckPayload</a></div><div class="ttdeci">void disableAckPayload()</div><div class="ttdef"><b>Definition</b> <a href="#l00685">nrf_to_nrf.cpp:685</a></div></div>
-<div class="ttc" id="aclassnrf__to__nrf_html_a860169d285d637a2c9a59f04bf117d6e"><div class="ttname"><a href="classnrf__to__nrf.html#a860169d285d637a2c9a59f04bf117d6e">nrf_to_nrf::powerDown</a></div><div class="ttdeci">void powerDown()</div><div class="ttdef"><b>Definition</b> <a href="#l01205">nrf_to_nrf.cpp:1205</a></div></div>
+<div class="ttc" id="aclassnrf__to__nrf_html_a860169d285d637a2c9a59f04bf117d6e"><div class="ttname"><a href="classnrf__to__nrf.html#a860169d285d637a2c9a59f04bf117d6e">nrf_to_nrf::powerDown</a></div><div class="ttdeci">void powerDown()</div><div class="ttdef"><b>Definition</b> <a href="#l01206">nrf_to_nrf.cpp:1206</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a88266b8fca35d23d053be7b89c287388"><div class="ttname"><a href="classnrf__to__nrf.html#a88266b8fca35d23d053be7b89c287388">nrf_to_nrf::getARC</a></div><div class="ttdeci">uint8_t getARC()</div><div class="ttdef"><b>Definition</b> <a href="#l01108">nrf_to_nrf.cpp:1108</a></div></div>
-<div class="ttc" id="aclassnrf__to__nrf_html_a902d5eca08aad045c966eda3d2534eaa"><div class="ttname"><a href="classnrf__to__nrf.html#a902d5eca08aad045c966eda3d2534eaa">nrf_to_nrf::encrypt</a></div><div class="ttdeci">uint8_t encrypt(void *bufferIn, uint8_t size)</div><div class="ttdef"><b>Definition</b> <a href="#l01325">nrf_to_nrf.cpp:1325</a></div></div>
-<div class="ttc" id="aclassnrf__to__nrf_html_a98b35f97458822fdc9ae4986c56c7b5c"><div class="ttname"><a href="classnrf__to__nrf.html#a98b35f97458822fdc9ae4986c56c7b5c">nrf_to_nrf::printDetails</a></div><div class="ttdeci">void printDetails()</div><div class="ttdef"><b>Definition</b> <a href="#l01231">nrf_to_nrf.cpp:1231</a></div></div>
+<div class="ttc" id="aclassnrf__to__nrf_html_a902d5eca08aad045c966eda3d2534eaa"><div class="ttname"><a href="classnrf__to__nrf.html#a902d5eca08aad045c966eda3d2534eaa">nrf_to_nrf::encrypt</a></div><div class="ttdeci">uint8_t encrypt(void *bufferIn, uint8_t size)</div><div class="ttdef"><b>Definition</b> <a href="#l01327">nrf_to_nrf.cpp:1327</a></div></div>
+<div class="ttc" id="aclassnrf__to__nrf_html_a98b35f97458822fdc9ae4986c56c7b5c"><div class="ttname"><a href="classnrf__to__nrf.html#a98b35f97458822fdc9ae4986c56c7b5c">nrf_to_nrf::printDetails</a></div><div class="ttdeci">void printDetails()</div><div class="ttdef"><b>Definition</b> <a href="#l01233">nrf_to_nrf.cpp:1233</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a9ca9c7ee9db0160ff3e4dc78bc6431ab"><div class="ttname"><a href="classnrf__to__nrf.html#a9ca9c7ee9db0160ff3e4dc78bc6431ab">nrf_to_nrf::getChannel</a></div><div class="ttdeci">uint8_t getChannel()</div><div class="ttdef"><b>Definition</b> <a href="#l00767">nrf_to_nrf.cpp:767</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a9dfe4f382f4b33d8db2fd0733df4dec3"><div class="ttname"><a href="classnrf__to__nrf.html#a9dfe4f382f4b33d8db2fd0733df4dec3">nrf_to_nrf::startWrite</a></div><div class="ttdeci">bool startWrite(void *buf, uint8_t len, bool multicast, bool doEncryption=true)</div><div class="ttdef"><b>Definition</b> <a href="#l00548">nrf_to_nrf.cpp:548</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_aa05eb66e748ff5cbff931bce1d87d5a8"><div class="ttname"><a href="classnrf__to__nrf.html#aa05eb66e748ff5cbff931bce1d87d5a8">nrf_to_nrf::getRSSI</a></div><div class="ttdeci">uint8_t getRSSI()</div><div class="ttdef"><b>Definition</b> <a href="#l01174">nrf_to_nrf.cpp:1174</a></div></div>
@@ -1675,7 +1677,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassnrf__to__nrf_html_ae738c2a5b6859fb32990452ad3650fed"><div class="ttname"><a href="classnrf__to__nrf.html#ae738c2a5b6859fb32990452ad3650fed">nrf_to_nrf::setAutoAck</a></div><div class="ttdeci">void setAutoAck(bool enable)</div><div class="ttdef"><b>Definition</b> <a href="#l00771">nrf_to_nrf.cpp:771</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_ae9457410ab65e1cf3109e45cc3155010"><div class="ttname"><a href="classnrf__to__nrf.html#ae9457410ab65e1cf3109e45cc3155010">nrf_to_nrf::read</a></div><div class="ttdeci">void read(void *buf, uint8_t len)</div><div class="ttdef"><b>Definition</b> <a href="#l00354">nrf_to_nrf.cpp:354</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_ae9fa4209ae57be1ed77ac9d23eeeedfc"><div class="ttname"><a href="classnrf__to__nrf.html#ae9fa4209ae57be1ed77ac9d23eeeedfc">nrf_to_nrf::stopListening</a></div><div class="ttdeci">void stopListening(bool setWritingPipe=true, bool resetAddresses=true)</div><div class="ttdef"><b>Definition</b> <a href="#l00712">nrf_to_nrf.cpp:712</a></div></div>
-<div class="ttc" id="aclassnrf__to__nrf_html_aeede062c4a125f1bca719f4c2a96e76a"><div class="ttname"><a href="classnrf__to__nrf.html#aeede062c4a125f1bca719f4c2a96e76a">nrf_to_nrf::setIV</a></div><div class="ttdeci">void setIV(uint8_t IV[CCM_IV_SIZE])</div><div class="ttdef"><b>Definition</b> <a href="#l01414">nrf_to_nrf.cpp:1414</a></div></div>
+<div class="ttc" id="aclassnrf__to__nrf_html_aeede062c4a125f1bca719f4c2a96e76a"><div class="ttname"><a href="classnrf__to__nrf.html#aeede062c4a125f1bca719f4c2a96e76a">nrf_to_nrf::setIV</a></div><div class="ttdeci">void setIV(uint8_t IV[CCM_IV_SIZE])</div><div class="ttdef"><b>Definition</b> <a href="#l01416">nrf_to_nrf.cpp:1416</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_af72198132531f955c5c2da9bef899aaa"><div class="ttname"><a href="classnrf__to__nrf.html#af72198132531f955c5c2da9bef899aaa">nrf_to_nrf::setPayloadSize</a></div><div class="ttdeci">void setPayloadSize(uint8_t size)</div><div class="ttdef"><b>Definition</b> <a href="#l00830">nrf_to_nrf.cpp:830</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_af7bcd44a7f8d32db31c40d302364180a"><div class="ttname"><a href="classnrf__to__nrf.html#af7bcd44a7f8d32db31c40d302364180a">nrf_to_nrf::getCRCLength</a></div><div class="ttdeci">nrf_crclength_e getCRCLength()</div><div class="ttdef"><b>Definition</b> <a href="#l01137">nrf_to_nrf.cpp:1137</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_af8cdf0351e55cb9784e96f9385ece778"><div class="ttname"><a href="classnrf__to__nrf.html#af8cdf0351e55cb9784e96f9385ece778">nrf_to_nrf::getPayloadSize</a></div><div class="ttdeci">uint8_t getPayloadSize()</div><div class="ttdef"><b>Definition</b> <a href="#l00846">nrf_to_nrf.cpp:846</a></div></div>
@@ -1716,7 +1718,7 @@ $(function(){ initResizable(false); });
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 14 2025 11:44:29 for nrf_to_nrf - NRF52 Radio Driver by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Thu Apr 17 2025 08:31:39 for nrf_to_nrf - NRF52 Radio Driver by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>
