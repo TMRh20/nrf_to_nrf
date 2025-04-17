@@ -225,10 +225,10 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
 #if defined CCM_ENCRYPTION_ENABLED
             if (enableEncryption) {
                 if (DPL) {
-                    memcpy(&rxBuffer[1], &radioData[2 + CCM_IV_SIZE + CCM_COUNTER_SIZE], max(0, radioData[0] - CCM_IV_SIZE - CCM_COUNTER_SIZE - CCM_MIC_SIZE));
+                    memcpy(&rxBuffer[1], &radioData[2 + CCM_IV_SIZE + CCM_COUNTER_SIZE], max(0, radioData[0] - CCM_IV_SIZE - CCM_COUNTER_SIZE));
                 }
                 else {
-                    memcpy(&rxBuffer[1], &radioData[2 + CCM_IV_SIZE + CCM_COUNTER_SIZE], max(0, staticPayloadSize - CCM_IV_SIZE - CCM_COUNTER_SIZE - CCM_MIC_SIZE));
+                    memcpy(&rxBuffer[1], &radioData[2 + CCM_IV_SIZE + CCM_COUNTER_SIZE], max(0, staticPayloadSize - CCM_IV_SIZE - CCM_COUNTER_SIZE));
                 }
                 memcpy(tmpIV, &radioData[2], CCM_IV_SIZE);
                 memcpy(&counter, &radioData[2 + CCM_IV_SIZE], CCM_COUNTER_SIZE);
@@ -245,14 +245,16 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
             }
 #endif
         }
-        rxBuffer[0] = radioData[0];
+        
         rxFifoAvailable = true;
         uint8_t packetCtr = 0;
         if (DPL) {
             packetCtr = radioData[1];
+            rxBuffer[0] = radioData[0];
         }
         else {
             packetCtr = radioData[0];
+            rxBuffer[0] = staticPayloadSize;
         }
 
         ackPID = packetCtr;
@@ -1326,7 +1328,8 @@ void nrf_to_nrf::printDetails()
 
 uint8_t nrf_to_nrf::encrypt(void* bufferIn, uint8_t size)
 {
-
+    NRF_CCM->MODE = 0 | 1 << 24 | 1 << 16;
+    
     if (!size) {
         return 0;
     }
@@ -1358,7 +1361,8 @@ uint8_t nrf_to_nrf::encrypt(void* bufferIn, uint8_t size)
 
 uint8_t nrf_to_nrf::decrypt(void* bufferIn, uint8_t size)
 {
-
+    NRF_CCM->MODE = 1 | 1 << 24 | 1 << 16;
+    
     if (!size) {
         return 0;
     }
@@ -1380,10 +1384,15 @@ uint8_t nrf_to_nrf::decrypt(void* bufferIn, uint8_t size)
 
     while (!NRF_CCM->EVENTS_ENDCRYPT) {
     };
-
+    
     if (NRF_CCM->EVENTS_ERROR) {
         return 0;
     }
+    
+    if(NRF_CCM->MICSTATUS == (CCM_MICSTATUS_MICSTATUS_CheckFailed << CCM_MICSTATUS_MICSTATUS_Pos)){
+        return 0;
+    }
+    
     return outBuffer[1];
 }
 
