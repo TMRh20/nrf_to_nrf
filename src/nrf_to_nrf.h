@@ -197,8 +197,8 @@ public:
 
     /**
      * Data buffer for radio data
-     * The radio can handle packets up to 127 bytes if CRC is disabled
-     * 125 bytes if using 16-bit CRC
+     * The radio can handle packets up to 127 bytes if CRC & DPL is disabled
+     * 125 bytes if using 16-bit CRC & DPL is disabled
      *
      */
     uint8_t radioData[ACTUAL_MAX_PAYLOAD_SIZE + 2];
@@ -259,7 +259,7 @@ public:
     uint8_t getChannel();
 
     /**
-     * Supported speeds: NRF_1MBPS NRF_2MBPS
+     * Supported speeds: NRF_250KBPS NRF_1MBPS NRF_2MBPS
      */
     bool setDataRate(uint8_t speed);
 
@@ -290,8 +290,9 @@ public:
 
     /**
      * Once this function has been called, users need to call disableDynamicPayloads if they want to call it again, else it has no effect.
-     * @note If using with RF24Network or RF24Mesh, users can edit RF24Network.h and set MAX_FRAME_SIZE to a maximum of 111 if encryption is enabled, 123 without encryption.
-     * @param payloadSize Set the maximum payload size. Up to 125 with CRC disabled or 123 with 16-bit CRC
+     * @note If using with RF24Network or RF24Mesh, users can call `radio.begin()` then `radio.enableDynamicPayloads(123);` before
+     * initializeing the network. This will enable maximum payload sizes and fragmentation/reassembly won't engage until this length is exceeded.
+     * @param payloadSize Set the maximum payload size. Up to 125 with DPL enabled & CRC disabled or 123 with 16-bit CRC & DPL enabled
      */
     void enableDynamicPayloads(uint8_t payloadSize = DEFAULT_MAX_PAYLOAD_SIZE);
 
@@ -301,7 +302,7 @@ public:
     void disableDynamicPayloads();
 
     /**
-     * NRF52840 will handle up to 127 byte payloads with CRC disabled, 125 with 16-bit CRC
+     * NRF52840 will handle up to 127 byte payloads with CRC & DPL disabled, 125 with 16-bit CRC and DPL disabled
      */
     void setPayloadSize(uint8_t size);
 
