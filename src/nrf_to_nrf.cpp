@@ -1381,7 +1381,6 @@ uint8_t nrf_to_nrf::decrypt(void* bufferIn, uint8_t size)
     NRF_CCM->EVENTS_ENDKSGEN = 0;
     NRF_CCM->EVENTS_ENDCRYPT = 0;
     NRF_CCM->TASKS_KSGEN = 1;
-    NRF_CCM->TASKS_KSGEN = 1;
 
     while (!NRF_CCM->EVENTS_ENDCRYPT) {
     };
