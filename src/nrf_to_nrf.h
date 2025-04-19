@@ -537,6 +537,10 @@ private:
  */
 
 /**
+ * @example examples/RF24/GettingStartedMicros/GettingStartedMicros.ino
+ */
+ 
+/**
  * @example examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino
  */
 
