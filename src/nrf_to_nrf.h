@@ -353,14 +353,18 @@ public:
 
     /**
      * When powering up from powerdown ALL radio settings will need to be re-applied
+     *
      * Enables the Radio & HF Clock
+     *
      * If encryption is enabled, also enables RNG & CCM peripherals
      */
     void powerUp();
 
     /**
      * When called ALL radio settings will be reverted to default
+     *
      * Disables the Radio & HF Clock
+     *
      * If encryption is enabled, also disables RNG & CCM peripherals
      */
     void powerDown();
@@ -428,12 +432,14 @@ public:
 
     /**
      * Function to encrypt data
+     *
      * Called automatically when a write is performed
      */
     uint8_t encrypt(void* bufferIn, uint8_t size);
 
     /**
      * Function to decrypt data
+     *
      * Called automatically when incoming data is received
      */
     uint8_t decrypt(void* bufferIn, uint8_t size);
