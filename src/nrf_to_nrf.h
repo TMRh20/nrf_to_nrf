@@ -291,7 +291,7 @@ public:
     /**
      * Once this function has been called, users need to call disableDynamicPayloads if they want to call it again, else it has no effect.
      * @note If using with RF24Network or RF24Mesh, users can call `radio.begin()` then `radio.enableDynamicPayloads(123);` before
-     * initializeing the network. This will enable maximum payload sizes and fragmentation/reassembly won't engage until this length is exceeded.
+     * initializing the network. This will enable maximum payload sizes and fragmentation/reassembly won't engage until this length is exceeded.
      * @param payloadSize Set the maximum payload size. Up to 125 with DPL enabled & CRC disabled or 123 with 16-bit CRC & DPL enabled
      */
     void enableDynamicPayloads(uint8_t payloadSize = DEFAULT_MAX_PAYLOAD_SIZE);
@@ -353,11 +353,15 @@ public:
 
     /**
      * When powering up from powerdown ALL radio settings will need to be re-applied
+     * Enables the Radio & HF Clock
+     * If encryption is enabled, also enables RNG & CCM peripherals
      */
     void powerUp();
 
     /**
      * When called ALL radio settings will be reverted to default
+     * Disables the Radio & HF Clock
+     * If encryption is enabled, also disables RNG & CCM peripherals
      */
     void powerDown();
 
@@ -424,11 +428,13 @@ public:
 
     /**
      * Function to encrypt data
+     * Called automatically when a write is performed
      */
     uint8_t encrypt(void* bufferIn, uint8_t size);
 
     /**
      * Function to decrypt data
+     * Called automatically when incoming data is received
      */
     uint8_t decrypt(void* bufferIn, uint8_t size);
 
