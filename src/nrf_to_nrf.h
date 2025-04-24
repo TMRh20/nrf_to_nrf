@@ -499,7 +499,6 @@ private:
     uint8_t ackPID;
     uint8_t ackPipe;
     bool lastTxResult;
-    bool overWrite;
     uint32_t rxBase;
     uint32_t rxPrefix;
     uint32_t txBase;
@@ -510,7 +509,6 @@ private:
     uint16_t lastData;
     bool dynamicAckEnabled;
     uint8_t ARC;
-    uint8_t addressWidth;
     uint16_t ackTimeout;
     bool payloadAvailable;
     bool restartReturnRx();

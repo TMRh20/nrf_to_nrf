@@ -69,7 +69,6 @@ nrf_to_nrf::nrf_to_nrf()
     ackPipe = 0;
     inRxMode = false;
     ARC = 0;
-    addressWidth = 5;
     ackTimeout = ACK_TIMEOUT_1MBPS;
     payloadAvailable = false;
     enableEncryption = false;
@@ -802,7 +801,9 @@ void nrf_to_nrf::enableDynamicPayloads(uint8_t payloadSize)
             // Using 8 bits for length
             NRF_RADIO->PCNF0 = (0 << RADIO_PCNF0_S0LEN_Pos) | (8 << RADIO_PCNF0_LFLEN_Pos) | (3 << RADIO_PCNF0_S1LEN_Pos);
         }
-        NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) | (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) | ((addressWidth - 1) << RADIO_PCNF1_BALEN_Pos) | (0 << RADIO_PCNF1_STATLEN_Pos) | (payloadSize << RADIO_PCNF1_MAXLEN_Pos);
+
+        NRF_RADIO->PCNF1 &= ~(0xFF << RADIO_PCNF1_MAXLEN_Pos | 0xFF << RADIO_PCNF1_STATLEN_Pos);
+        NRF_RADIO->PCNF1 |= payloadSize << RADIO_PCNF1_MAXLEN_Pos;
     }
 }
 
@@ -818,7 +819,8 @@ void nrf_to_nrf::disableDynamicPayloads()
     }
     NRF_RADIO->PCNF0 = (lenConfig << RADIO_PCNF0_S0LEN_Pos) | (0 << RADIO_PCNF0_LFLEN_Pos) | (lenConfig << RADIO_PCNF0_S1LEN_Pos);
 
-    NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) | (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) | ((addressWidth - 1) << RADIO_PCNF1_BALEN_Pos) | (staticPayloadSize << RADIO_PCNF1_STATLEN_Pos) | (staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos);
+    NRF_RADIO->PCNF1 &= ~(0xFF << RADIO_PCNF1_MAXLEN_Pos | 0xFF << RADIO_PCNF1_STATLEN_Pos);
+    NRF_RADIO->PCNF1 |= staticPayloadSize << RADIO_PCNF1_STATLEN_Pos | staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos;
 }
 
 /**********************************************************************************************************/
@@ -834,7 +836,8 @@ void nrf_to_nrf::setPayloadSize(uint8_t size)
     }
     NRF_RADIO->PCNF0 = (lenConfig << RADIO_PCNF0_S0LEN_Pos) | (0 << RADIO_PCNF0_LFLEN_Pos) | (lenConfig << RADIO_PCNF0_S1LEN_Pos);
 
-    NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) | (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) | ((addressWidth - 1) << RADIO_PCNF1_BALEN_Pos) | (staticPayloadSize << RADIO_PCNF1_STATLEN_Pos) | (staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos);
+    NRF_RADIO->PCNF1 &= ~(0xFF << RADIO_PCNF1_MAXLEN_Pos | 0xFF << RADIO_PCNF1_STATLEN_Pos);
+    NRF_RADIO->PCNF1 |= staticPayloadSize << RADIO_PCNF1_STATLEN_Pos | staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos;
 }
 
 /**********************************************************************************************************/
@@ -1192,20 +1195,20 @@ void nrf_to_nrf::powerDown()
 void nrf_to_nrf::setAddressWidth(uint8_t a_width)
 {
 
-    addressWidth = a_width;
-
     uint8_t pSize = 0;
     if (!DPL) {
         pSize = staticPayloadSize;
     }
 
-    NRF_RADIO->PCNF1 = (RADIO_PCNF1_WHITEEN_Disabled << RADIO_PCNF1_WHITEEN_Pos) | (RADIO_PCNF1_ENDIAN_Big << RADIO_PCNF1_ENDIAN_Pos) | ((a_width - 1) << RADIO_PCNF1_BALEN_Pos) | (pSize << RADIO_PCNF1_STATLEN_Pos) | (staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos);
+    NRF_RADIO->PCNF1 &= ~(0xFF << RADIO_PCNF1_BALEN_Pos);
+    NRF_RADIO->PCNF1 |= (a_width - 1) << RADIO_PCNF1_BALEN_Pos;
 }
 
 /**********************************************************************************************************/
 
 void nrf_to_nrf::printDetails()
 {
+    uint8_t addressWidth = (NRF_RADIO->PCNF1 >> 16) & 0xFF;
 
     Serial.println("================ Radio Configuration ================");
     Serial.print("STATUS\t\t= ");
