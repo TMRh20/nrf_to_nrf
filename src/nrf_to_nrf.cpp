@@ -1208,7 +1208,7 @@ void nrf_to_nrf::setAddressWidth(uint8_t a_width)
 
 void nrf_to_nrf::printDetails()
 {
-    uint8_t addressWidth = (NRF_RADIO->PCNF1 >> 16) & 0xFF;
+    uint8_t addressWidth = ((NRF_RADIO->PCNF1 >> 16) & 0xFF) + 1;
 
     Serial.println("================ Radio Configuration ================");
     Serial.print("STATUS\t\t= ");
