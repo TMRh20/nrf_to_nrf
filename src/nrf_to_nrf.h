@@ -499,7 +499,6 @@ private:
     uint8_t ackPID;
     uint8_t ackPipe;
     bool lastTxResult;
-    bool overWrite;
     uint32_t rxBase;
     uint32_t rxPrefix;
     uint32_t txBase;
@@ -510,10 +509,11 @@ private:
     uint16_t lastData;
     bool dynamicAckEnabled;
     uint8_t ARC;
-    uint8_t addressWidth;
     uint16_t ackTimeout;
     bool payloadAvailable;
-    void restartReturnRx();
+    bool restartReturnRx();
+    void openReadingPipe(uint8_t child, uint32_t base, uint32_t prefix);
+    void openWritingPipe(uint32_t base, uint32_t prefix);
 #if defined CCM_ENCRYPTION_ENABLED
     uint8_t inBuffer[MAX_PACKET_SIZE + CCM_MIC_SIZE + CCM_START_SIZE];
     uint8_t scratchPTR[MAX_PACKET_SIZE + CCM_MODE_LENGTH_EXTENDED];
@@ -551,7 +551,7 @@ private:
 /**
  * @example examples/RF24/GettingStartedMicros/GettingStartedMicros.ino
  */
- 
+
 /**
  * @example examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino
  */
