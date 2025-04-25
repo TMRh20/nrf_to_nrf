@@ -881,8 +881,7 @@ void nrf_to_nrf::openWritingPipe(uint64_t address)
 void nrf_to_nrf::openReadingPipe(uint8_t child, const uint8_t* address)
 {
     uint32_t base = addr_conv(&address[1]);
-    uint8_t prefixArray[5] = {address[0]};
-    uint32_t prefix = addr_conv(prefixArray) >> 24;
+    uint32_t prefix = addr_conv(&address[0]) >> 24;
 
     openReadingPipe(child, base, prefix);
 }
@@ -922,8 +921,7 @@ void nrf_to_nrf::openWritingPipe(const uint8_t* address)
 {
 
     uint32_t base = addr_conv(&address[1]);
-    uint32_t prefix = addr_conv(&address[0]);
-    prefix = prefix >> 24;
+    uint32_t prefix = addr_conv(&address[0]) >> 24;
 
     openWritingPipe(base, prefix);
 }
