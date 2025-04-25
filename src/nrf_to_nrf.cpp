@@ -860,15 +860,8 @@ void nrf_to_nrf::setRetries(uint8_t retryVar, uint8_t attempts)
 
 void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address)
 {
-
-    // child += 1;
-    uint32_t base = address >> 8;
-    uint32_t prefix = address & 0xFF;
-
-    base = addrConv32(base);
-
-    prefix = addrConv32(address);
-    prefix >>= 24;
+    uint32_t base = addrConv32(address >> 8);
+    uint32_t prefix = addrConv32(address & 0xFF) >> 24;
 
     openReadingPipe(child, base, prefix);
 }
@@ -877,12 +870,8 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address)
 
 void nrf_to_nrf::openWritingPipe(uint64_t address)
 {
-    uint32_t base = address >> 8;
-    uint32_t prefix = address & 0xFF;
-    base = addrConv32(base);
-
-    prefix = addrConv32(address);
-    prefix >>= 24;
+    uint32_t base = addrConv32(address >> 8);
+    uint32_t prefix = addrConv32(address & 0xFF) >> 24;
 
     openWritingPipe(base, prefix);
 }
@@ -891,13 +880,9 @@ void nrf_to_nrf::openWritingPipe(uint64_t address)
 
 void nrf_to_nrf::openReadingPipe(uint8_t child, const uint8_t* address)
 {
-
     uint32_t base = addr_conv(&address[1]);
-    uint32_t prefix = 0;
-    uint8_t prefixArray[5];
-    prefixArray[0] = address[0];
-    prefix = addr_conv(prefixArray);
-    prefix >>= 24;
+    uint8_t prefixArray[5] = {address[0]};
+    uint32_t prefix = addr_conv(prefixArray) >> 24;
 
     openReadingPipe(child, base, prefix);
 }
@@ -936,11 +921,8 @@ void nrf_to_nrf::openReadingPipe(uint8_t child, uint32_t base, uint32_t prefix)
 void nrf_to_nrf::openWritingPipe(const uint8_t* address)
 {
 
-    uint32_t base = 0;
-    uint32_t prefix = 0;
-
-    base = addr_conv(&address[1]);
-    prefix = addr_conv(&address[0]);
+    uint32_t base = addr_conv(&address[1]);
+    uint32_t prefix = addr_conv(&address[0]);
     prefix = prefix >> 24;
 
     openWritingPipe(base, prefix);
@@ -952,7 +934,7 @@ void nrf_to_nrf::openWritingPipe(uint32_t base, uint32_t prefix)
 {
 
     NRF_RADIO->BASE0 = base;
-    NRF_RADIO->PREFIX0 &= 0xFFFFFF00;
+    NRF_RADIO->PREFIX0 &= ~(0xFF);
     NRF_RADIO->PREFIX0 |= prefix;
     NRF_RADIO->TXADDRESS = 0x00;
     txBase = NRF_RADIO->BASE0;
