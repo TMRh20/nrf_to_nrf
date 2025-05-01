@@ -412,6 +412,11 @@ public:
      */
     uint8_t getARC();
 
+    /**
+     * Does nothing, added for backward compatibility
+     */
+    uint8_t flush_rx();
+
 #ifdef NRF_HAS_ENERGY_DETECT
     uint8_t sample_ed(void);
 #endif
