@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['powerdown_0',['powerDown',['../classnrf__to__nrf.html#a860169d285d637a2c9a59f04bf117d6e',1,'nrf_to_nrf']]],
-  ['powerup_1',['powerUp',['../classnrf__to__nrf.html#a084414c7da7afeb387274bc1d3bcc00b',1,'nrf_to_nrf']]],
-  ['printdetails_2',['printDetails',['../classnrf__to__nrf.html#a98b35f97458822fdc9ae4986c56c7b5c',1,'nrf_to_nrf']]]
+  ['openreadingpipe_0',['openReadingPipe',['../classnrf__to__nrf.html#a070731ead0431745af9ea6fb06aedbac',1,'nrf_to_nrf::openReadingPipe(uint8_t child, const uint8_t *address)'],['../classnrf__to__nrf.html#aeb3274fcaaf8484b47a44e8e7faf63b3',1,'nrf_to_nrf::openReadingPipe(uint8_t child, uint64_t address)']]],
+  ['openwritingpipe_1',['openWritingPipe',['../classnrf__to__nrf.html#ab41aba27b662740ac908d7a30d7009c2',1,'nrf_to_nrf::openWritingPipe(const uint8_t *address)'],['../classnrf__to__nrf.html#ab82369a2aa747de5e76740f293f4e919',1,'nrf_to_nrf::openWritingPipe(uint64_t address)']]]
 ];
