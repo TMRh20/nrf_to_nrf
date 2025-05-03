@@ -68,7 +68,7 @@ nrf_to_nrf::nrf_to_nrf()
     ackPayloadsEnabled = false;
     ackPipe = 0;
     inRxMode = false;
-    ARC = 0;
+    arcCounter = 0;
     ackTimeout = ACK_TIMEOUT_1MBPS;
     payloadAvailable = false;
     enableEncryption = false;
@@ -400,7 +400,7 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
 #endif
 
     for (int i = 0; i < (retries + 1); i++) {
-        ARC = i;
+        arcCounter = i;
         if (DPL) {
             radioData[0] = len;
             radioData[1] = PID;
@@ -584,7 +584,7 @@ bool nrf_to_nrf::startWrite(void* buf, uint8_t len, bool multicast, bool doEncry
 #endif
 
     //   for (int i = 0; i < retries; i++) {
-    ARC = 0;
+    arcCounter = 0;
     if (DPL) {
         radioData[0] = len;
         radioData[1] = PID;
@@ -1064,7 +1064,7 @@ uint8_t nrf_to_nrf::getPALevel()
 
 uint8_t nrf_to_nrf::getARC()
 {
-    return ARC;
+    return arcCounter;
 }
 
 /**********************************************************************************************************/
@@ -1181,12 +1181,6 @@ void nrf_to_nrf::powerDown()
 /**********************************************************************************************************/
 void nrf_to_nrf::setAddressWidth(uint8_t a_width)
 {
-
-    uint8_t pSize = 0;
-    if (!DPL) {
-        pSize = staticPayloadSize;
-    }
-
     NRF_RADIO->PCNF1 &= ~(0xFF << RADIO_PCNF1_BALEN_Pos);
     NRF_RADIO->PCNF1 |= (a_width - 1) << RADIO_PCNF1_BALEN_Pos;
 }
@@ -1281,7 +1275,7 @@ void nrf_to_nrf::printDetails()
         Serial.println("?");
     }
     Serial.print("ARC\t\t= ");
-    Serial.println(ARC);
+    Serial.println(arcCounter);
 }
 
 /**********************************************************************************************************/

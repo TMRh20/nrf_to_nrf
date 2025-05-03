@@ -513,7 +513,7 @@ private:
     uint8_t lastPacketCounter;
     uint16_t lastData;
     bool dynamicAckEnabled;
-    uint8_t ARC;
+    uint8_t arcCounter;
     uint16_t ackTimeout;
     bool payloadAvailable;
     bool restartReturnRx();
