@@ -172,6 +172,8 @@ public:
      */
     void stopListening(bool setWritingPipe = true, bool resetAddresses = true);
 
+    void stopListening(const uint8_t* txAddress, bool setWritingPipe = true, bool resetAddresses = true);
+
     /**
      * Same as NRF24 except the 52840 has 8 pipes
      */
