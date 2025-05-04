@@ -733,6 +733,15 @@ void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses)
 
 /**********************************************************************************************************/
 
+void nrf_to_nrf::stopListening(const uint8_t* txAddress, bool setWritingPipe, bool resetAddresses)
+{
+
+    stopListening();
+    openWritingPipe(txAddress);
+}
+
+/**********************************************************************************************************/
+
 uint8_t nrf_to_nrf::getDynamicPayloadSize()
 {
     uint8_t size = min(staticPayloadSize, rxBuffer[0]);
