@@ -13,5 +13,5 @@ var searchData=
   ['setretries_10',['setRetries',['../classnrf__to__nrf.html#ab1cc57d3ba6684489c33c8dff671947c',1,'nrf_to_nrf']]],
   ['startlistening_11',['startListening',['../classnrf__to__nrf.html#a01f4833ad19dbe8498329eb1076da808',1,'nrf_to_nrf']]],
   ['startwrite_12',['startWrite',['../classnrf__to__nrf.html#a9dfe4f382f4b33d8db2fd0733df4dec3',1,'nrf_to_nrf']]],
-  ['stoplistening_13',['stopListening',['../classnrf__to__nrf.html#ae9fa4209ae57be1ed77ac9d23eeeedfc',1,'nrf_to_nrf']]]
+  ['stoplistening_13',['stopListening',['../classnrf__to__nrf.html#ae9fa4209ae57be1ed77ac9d23eeeedfc',1,'nrf_to_nrf::stopListening(bool setWritingPipe=true, bool resetAddresses=true)'],['../classnrf__to__nrf.html#a46dda864c9ea8d4002d3b52e95735c86',1,'nrf_to_nrf::stopListening(const uint8_t *txAddress, bool setWritingPipe=true, bool resetAddresses=true)']]]
 ];
