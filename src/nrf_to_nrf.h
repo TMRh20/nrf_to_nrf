@@ -251,7 +251,9 @@ public:
     bool isValid();
 
     /**
-     * Same as NRF24
+     * Same as NRF24, except we can map the channels lower
+     * @param channel Set 0 to 100 for 2400-2500Mhz if map == 0, 2360-2460Mhz if map == 1
+     * @param map 1 is low range (2360-2460Mhz), 0 is high range (2400-2500Mhz)
      */
     void setChannel(uint8_t channel, bool map = 0);
 
