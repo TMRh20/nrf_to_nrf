@@ -253,7 +253,7 @@ public:
     /**
      * Same as NRF24
      */
-    void setChannel(uint8_t channel);
+    void setChannel(uint8_t channel, bool map = 0);
 
     /**
      * Same as NRF24
