@@ -736,7 +736,7 @@ void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses)
 void nrf_to_nrf::stopListening(const uint8_t* txAddress, bool setWritingPipe, bool resetAddresses)
 {
 
-    stopListening();
+    stopListening(setWritingPipe, resetAddresses);
     openWritingPipe(txAddress);
 }
 
