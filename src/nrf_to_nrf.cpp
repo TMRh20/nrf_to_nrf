@@ -764,7 +764,7 @@ bool nrf_to_nrf::isValid()
 
 /**********************************************************************************************************/
 
-void nrf_to_nrf::setChannel(uint8_t channel) { NRF_RADIO->FREQUENCY = channel; }
+void nrf_to_nrf::setChannel(uint8_t channel, bool map) { NRF_RADIO->FREQUENCY = channel | map << RADIO_FREQUENCY_MAP_Pos; }
 
 /**********************************************************************************************************/
 
