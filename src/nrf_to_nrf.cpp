@@ -1081,8 +1081,12 @@ uint8_t nrf_to_nrf::getARC()
 
 void nrf_to_nrf::setCRCLength(nrf_crclength_e length)
 {
-
-    if (length == NRF_CRC_16) {
+    if (length == NRF_CRC_24) {
+        NRF_RADIO->CRCCNF = RADIO_CRCCNF_LEN_Three; /* CRC configuration: 24bit */
+        NRF_RADIO->CRCINIT = 0xFFFFFFUL;            // Initial value
+        NRF_RADIO->CRCPOLY = 0x65BUL;
+    }
+    else if (length == NRF_CRC_16) {
         NRF_RADIO->CRCCNF = RADIO_CRCCNF_LEN_Two; /* CRC configuration: 16bit */
         NRF_RADIO->CRCINIT = 0xFFFFUL;            // Initial value
         NRF_RADIO->CRCPOLY = 0x11021UL;           // CRC poly: x^16+x^12^x^5+1
@@ -1109,8 +1113,11 @@ nrf_crclength_e nrf_to_nrf::getCRCLength()
     else if (NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_One) {
         return NRF_CRC_8;
     }
-    else {
+    if (NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_Two) {
         return NRF_CRC_16;
+    }
+    else {
+        return NRF_CRC_24;
     }
 }
 
