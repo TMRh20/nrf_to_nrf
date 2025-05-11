@@ -321,11 +321,13 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
 #endif
         lastPacketCounter = packetCtr;
         lastData = packetData;
-        payloadAvailable = true;
         if (inRxMode) {
             NRF_RADIO->TASKS_START = 1;
         }
-        return 1;
+        if (rxBuffer[0]) {
+            payloadAvailable = true;
+            return 1;
+        }
     }
     if (NRF_RADIO->EVENTS_CRCERROR) {
         NRF_RADIO->EVENTS_CRCERROR = 0;
@@ -735,7 +737,6 @@ void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses)
 
 void nrf_to_nrf::stopListening(const uint8_t* txAddress, bool setWritingPipe, bool resetAddresses)
 {
-
     stopListening(setWritingPipe, resetAddresses);
     openWritingPipe(txAddress);
 }
@@ -803,7 +804,7 @@ void nrf_to_nrf::enableDynamicPayloads(uint8_t payloadSize)
         DPL = true;
         staticPayloadSize = payloadSize;
 
-        if (payloadSize <= 32) {
+        if (payloadSize <= 63) {
             NRF_RADIO->PCNF0 = (0 << RADIO_PCNF0_S0LEN_Pos) | (6 << RADIO_PCNF0_LFLEN_Pos) | (3 << RADIO_PCNF0_S1LEN_Pos);
         }
         else {
