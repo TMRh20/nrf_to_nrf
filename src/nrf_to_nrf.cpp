@@ -191,13 +191,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
 #endif
         NRF_RADIO->EVENTS_CRCOK = 0;
         if (DPL) {
-            if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 4 && NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_Two) {
-                return restartReturnRx();
-            }
-            else if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 3 && NRF_RADIO->CRCCNF == RADIO_CRCCNF_LEN_One) {
-                return restartReturnRx();
-            }
-            else if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - 2 && NRF_RADIO->CRCCNF == 0) {
+            if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - (2 + NRF_RADIO->CRCCNF)) {
                 return restartReturnRx();
             }
         }
