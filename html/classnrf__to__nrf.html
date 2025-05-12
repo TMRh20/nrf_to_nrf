@@ -173,8 +173,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a543bbc33034094b5be199efdb77c2a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65f5edbd8771ad381c0dd6532c38f16b" id="r_a65f5edbd8771ad381c0dd6532c38f16b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65f5edbd8771ad381c0dd6532c38f16b">isValid</a> ()</td></tr>
 <tr class="separator:a65f5edbd8771ad381c0dd6532c38f16b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cd8dd57e9eacd92190226b786ac303b" id="r_a3cd8dd57e9eacd92190226b786ac303b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3cd8dd57e9eacd92190226b786ac303b">setChannel</a> (uint8_t channel)</td></tr>
-<tr class="separator:a3cd8dd57e9eacd92190226b786ac303b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5403835fd82f4b062ffe7095d934b6fe" id="r_a5403835fd82f4b062ffe7095d934b6fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5403835fd82f4b062ffe7095d934b6fe">setChannel</a> (uint8_t channel, bool map=0)</td></tr>
+<tr class="separator:a5403835fd82f4b062ffe7095d934b6fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ca9c7ee9db0160ff3e4dc78bc6431ab" id="r_a9ca9c7ee9db0160ff3e4dc78bc6431ab"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ca9c7ee9db0160ff3e4dc78bc6431ab">getChannel</a> ()</td></tr>
 <tr class="separator:a9ca9c7ee9db0160ff3e4dc78bc6431ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d82b0fb8292e7a51e2f69cd13e48a7b" id="r_a5d82b0fb8292e7a51e2f69cd13e48a7b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d82b0fb8292e7a51e2f69cd13e48a7b">setDataRate</a> (uint8_t speed)</td></tr>
@@ -761,8 +761,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a3cd8dd57e9eacd92190226b786ac303b" name="a3cd8dd57e9eacd92190226b786ac303b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cd8dd57e9eacd92190226b786ac303b">&#9670;&#160;</a></span>setChannel()</h2>
+<a id="a5403835fd82f4b062ffe7095d934b6fe" name="a5403835fd82f4b062ffe7095d934b6fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5403835fd82f4b062ffe7095d934b6fe">&#9670;&#160;</a></span>setChannel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -770,12 +770,22 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void nrf_to_nrf::setChannel </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>channel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>map</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Same as NRF24, except we can map the channels lower </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Set 0 to 100 for 2400-2500Mhz if map == 0, 2360-2460Mhz if map == 1 </td></tr>
+    <tr><td class="paramname">map</td><td>1 is low range (2360-2460Mhz), 0 is high range (2400-2500Mhz) </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a5">examples/RF24/scanner/scanner.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rx_2helloworld_rx_8ino-example.html#a2">examples/RF24Network/helloworld_rx/helloworld_rx.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a5">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_tx_2helloworld_tx_8ino-example.html#a2">examples/RF24Network/helloworld_tx/helloworld_tx.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a5">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
@@ -1561,7 +1571,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Not implemented due to SOC </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00388">388</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00390">390</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1578,7 +1588,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>The data buffer where encrypted data is placed. See the datasheet p115 for the CCM data structure </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00468">468</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00470">470</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1600,7 +1610,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a10">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a3">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_MasterEncryption_2RF24Mesh_Example_MasterEncryption_8ino-example.html#a3">examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a3">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a3">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00501">501</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00503">503</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1611,7 +1621,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon May 12 2025 03:50:06 for nrf_to_nrf - NRF52 Radio Driver by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon May 12 2025 23:15:02 for nrf_to_nrf - NRF52 Radio Driver by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

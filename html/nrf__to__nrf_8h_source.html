@@ -234,148 +234,148 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span></div>
 <div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnrf__to__nrf.html#a65f5edbd8771ad381c0dd6532c38f16b">isValid</a>();</div>
 <div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span></div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a3cd8dd57e9eacd92190226b786ac303b">setChannel</a>(uint8_t channel);</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span></div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#a9ca9c7ee9db0160ff3e4dc78bc6431ab">getChannel</a>();</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span></div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnrf__to__nrf.html#a5d82b0fb8292e7a51e2f69cd13e48a7b">setDataRate</a>(uint8_t speed);</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span></div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a0ec4ad74f4508034bffe8fa2cb25260c">setPALevel</a>(uint8_t level, <span class="keywordtype">bool</span> lnaEnable = <span class="keyword">true</span>);</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span></div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#acbfd7a6baf9f697f6b06485e561dc388">getPALevel</a>();</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span></div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#ae738c2a5b6859fb32990452ad3650fed">setAutoAck</a>(<span class="keywordtype">bool</span> enable);</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span></div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#ae738c2a5b6859fb32990452ad3650fed">setAutoAck</a>(uint8_t pipe, <span class="keywordtype">bool</span> enable);</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span></div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a7eab024220706b66d73f543ee6a094b0">enableDynamicPayloads</a>(uint8_t payloadSize = <a class="code hl_define" href="nrf__to__nrf_8h.html#a2d5ab7e31eb34a640249f88518eea523">DEFAULT_MAX_PAYLOAD_SIZE</a>);</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span></div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a4a4dbfe26229f0dc341071aa77c04773">disableDynamicPayloads</a>();</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span></div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#af72198132531f955c5c2da9bef899aaa">setPayloadSize</a>(uint8_t size);</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span></div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#af8cdf0351e55cb9784e96f9385ece778">getPayloadSize</a>();</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span></div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#ab5e027f98da933686c5d1baf1ba3ae31">setCRCLength</a>(<a class="code hl_enumeration" href="nrf__to__nrf_8h.html#a4bcc66714d8fe8c081ff18c621f1b855">nrf_crclength_e</a> length);</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span></div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    <a class="code hl_enumeration" href="nrf__to__nrf_8h.html#a4bcc66714d8fe8c081ff18c621f1b855">nrf_crclength_e</a> <a class="code hl_function" href="classnrf__to__nrf.html#af7bcd44a7f8d32db31c40d302364180a">getCRCLength</a>();</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span></div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a84cfdfd802d1cb6afcbb02fa74132061">  340</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a84cfdfd802d1cb6afcbb02fa74132061">disableCRC</a>();</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span></div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#ab1cc57d3ba6684489c33c8dff671947c">setRetries</a>(uint8_t retryVar, uint8_t attempts);</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span></div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a070731ead0431745af9ea6fb06aedbac">openReadingPipe</a>(uint8_t child, uint64_t address);</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span></div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#ab41aba27b662740ac908d7a30d7009c2">openWritingPipe</a>(uint64_t address);</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span></div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a4f28d2a70f8160e4bf439982f0af6066">setAddressWidth</a>(uint8_t a_width);</div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span></div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a98b35f97458822fdc9ae4986c56c7b5c">printDetails</a>();</div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span></div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a084414c7da7afeb387274bc1d3bcc00b">powerUp</a>();</div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span></div>
-<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a860169d285d637a2c9a59f04bf117d6e">powerDown</a>();</div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span></div>
-<div class="line"><a id="l00388" name="l00388"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#ac1af6725bd2d65b8e52884f4421e7915">  388</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="classnrf__to__nrf.html#ac1af6725bd2d65b8e52884f4421e7915">failureDetected</a>;</div>
-<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span></div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnrf__to__nrf.html#a1b2f567dda77209301cbaea4c5a75862">txStandBy</a>();</div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span></div>
-<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnrf__to__nrf.html#a1b2f567dda77209301cbaea4c5a75862">txStandBy</a>(uint32_t timeout, <span class="keywordtype">bool</span> startTx = 0);</div>
-<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span></div>
-<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnrf__to__nrf.html#a1b0d3c0393baaec2963e325dca708935">testCarrier</a>(uint8_t RSSI = 65);</div>
-<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span></div>
-<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnrf__to__nrf.html#a4de30b154367928dae7b778b21748d53">testRPD</a>(uint8_t RSSI = 65);</div>
-<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span></div>
-<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#aa05eb66e748ff5cbff931bce1d87d5a8">getRSSI</a>();</div>
-<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span></div>
-<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#a88266b8fca35d23d053be7b89c287388">getARC</a>();</div>
-<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span></div>
-<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#a882de38c80b08c5cf19c890b178b19a7">flush_rx</a>();</div>
-<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span> </div>
-<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span><span class="preprocessor">#ifdef NRF_HAS_ENERGY_DETECT</span></div>
-<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>    uint8_t sample_ed(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span></div>
-<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span></div>
-<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span>    uint32_t <a class="code hl_function" href="classnrf__to__nrf.html#a41d8dd2384f0c139623d15ac17f08bf7">addrConv32</a>(uint32_t addr);</div>
-<div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span><span class="preprocessor">#if defined CCM_ENCRYPTION_ENABLED || defined(DOXYGEN)</span></div>
-<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span></div>
-<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#a902d5eca08aad045c966eda3d2534eaa">encrypt</a>(<span class="keywordtype">void</span>* bufferIn, uint8_t size);</div>
-<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span></div>
-<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#a2b4c8009858a3fbc1ba06124527a2d85">decrypt</a>(<span class="keywordtype">void</span>* bufferIn, uint8_t size);</div>
-<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span></div>
-<div class="line"><a id="l00468" name="l00468"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">  468</a></span>    uint8_t <a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>[<a class="code hl_define" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a> + <a class="code hl_define" href="nrf__to__nrf_8h.html#a91b1d8c61b6a2094fba30d01ff1972d3">CCM_MIC_SIZE</a> + <a class="code hl_define" href="nrf__to__nrf_8h.html#a7a8d571811396067c6b8d78bc6afc37f">CCM_START_SIZE</a>];</div>
-<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span></div>
-<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a6f7e3aa9689f57c51a6f23020d023da3">setKey</a>(uint8_t key[<a class="code hl_define" href="nrf__to__nrf_8h.html#a9ac4e8f13ee123e866aa5a5bf9b2f53b">CCM_KEY_SIZE</a>]);</div>
-<div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span></div>
-<div class="line"><a id="l00478" name="l00478"></a><span class="lineno">  478</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a4ecb7e276b024e2eca0b04328fb50263">setCounter</a>(uint64_t counter);</div>
-<div class="line"><a id="l00479" name="l00479"></a><span class="lineno">  479</span></div>
-<div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#aeede062c4a125f1bca719f4c2a96e76a">setIV</a>(uint8_t IV[<a class="code hl_define" href="nrf__to__nrf_8h.html#adf3d9827d3b02ae63b08d846b809e1dc">CCM_IV_SIZE</a>]);</div>
-<div class="line"><a id="l00486" name="l00486"></a><span class="lineno">  486</span></div>
-<div class="line"><a id="l00501" name="l00501"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a7dcfe5f98793e4b1dc441404f1e7134a">  501</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="classnrf__to__nrf.html#a7dcfe5f98793e4b1dc441404f1e7134a">enableEncryption</a>;</div>
-<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span> </div>
-<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>    <span class="keywordtype">bool</span> acksEnabled(uint8_t pipe);</div>
-<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>    <span class="keywordtype">bool</span> acksPerPipe[8];</div>
-<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>    uint8_t retries;</div>
-<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>    uint8_t retryDuration;</div>
-<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>    uint8_t rxBuffer[<a class="code hl_define" href="nrf__to__nrf_8h.html#a86f99279499412c45d603a56b52f15e1">ACTUAL_MAX_PAYLOAD_SIZE</a> + 1];</div>
-<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>    uint8_t ackBuffer[<a class="code hl_define" href="nrf__to__nrf_8h.html#a86f99279499412c45d603a56b52f15e1">ACTUAL_MAX_PAYLOAD_SIZE</a> + 1];</div>
-<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>    uint8_t rxFifoAvailable;</div>
-<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>    <span class="keywordtype">bool</span> DPL;</div>
-<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>    <span class="keywordtype">bool</span> ackPayloadsEnabled;</div>
-<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>    <span class="keywordtype">bool</span> inRxMode;</div>
-<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>    uint8_t staticPayloadSize;</div>
-<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>    uint8_t ackPID;</div>
-<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>    uint8_t ackPipe;</div>
-<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>    <span class="keywordtype">bool</span> lastTxResult;</div>
-<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>    uint32_t rxBase;</div>
-<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>    uint32_t rxPrefix;</div>
-<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>    uint32_t txBase;</div>
-<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>    uint32_t txPrefix;</div>
-<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>    <span class="keywordtype">bool</span> ackPayloadAvailable;</div>
-<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>    uint8_t ackAvailablePipeNo;</div>
-<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>    uint8_t lastPacketCounter;</div>
-<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>    uint16_t lastData;</div>
-<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>    <span class="keywordtype">bool</span> dynamicAckEnabled;</div>
-<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>    uint8_t arcCounter;</div>
-<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>    uint16_t ackTimeout;</div>
-<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>    <span class="keywordtype">bool</span> payloadAvailable;</div>
-<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>    <span class="keywordtype">bool</span> restartReturnRx();</div>
-<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a070731ead0431745af9ea6fb06aedbac">openReadingPipe</a>(uint8_t child, uint32_t base, uint32_t prefix);</div>
-<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#ab41aba27b662740ac908d7a30d7009c2">openWritingPipe</a>(uint32_t base, uint32_t prefix);</div>
-<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span><span class="preprocessor">#if defined CCM_ENCRYPTION_ENABLED</span></div>
-<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>    uint8_t inBuffer[<a class="code hl_define" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a> + <a class="code hl_define" href="nrf__to__nrf_8h.html#a91b1d8c61b6a2094fba30d01ff1972d3">CCM_MIC_SIZE</a> + <a class="code hl_define" href="nrf__to__nrf_8h.html#a7a8d571811396067c6b8d78bc6afc37f">CCM_START_SIZE</a>];</div>
-<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>    uint8_t scratchPTR[<a class="code hl_define" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a> + <a class="code hl_define" href="nrf__to__nrf_8h.html#a117bc8340fa00a5e905774a5469ee041">CCM_MODE_LENGTH_EXTENDED</a>];</div>
-<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>    <span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>    {</div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>        uint8_t key[<a class="code hl_define" href="nrf__to__nrf_8h.html#a9ac4e8f13ee123e866aa5a5bf9b2f53b">CCM_KEY_SIZE</a>];</div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>        uint64_t counter;</div>
-<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>        uint8_t direction;</div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>        uint8_t iv[<a class="code hl_define" href="nrf__to__nrf_8h.html#a66443f5201dd24b40f68666181334f2c">CCM_IV_SIZE_ACTUAL</a>];</div>
-<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>    } ccmData_t;</div>
-<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>    ccmData_t ccmData;</div>
-<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>    uint32_t packetCounter;</div>
-<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>};</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a5403835fd82f4b062ffe7095d934b6fe">setChannel</a>(uint8_t channel, <span class="keywordtype">bool</span> map = 0);</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#a9ca9c7ee9db0160ff3e4dc78bc6431ab">getChannel</a>();</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnrf__to__nrf.html#a5d82b0fb8292e7a51e2f69cd13e48a7b">setDataRate</a>(uint8_t speed);</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span></div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a0ec4ad74f4508034bffe8fa2cb25260c">setPALevel</a>(uint8_t level, <span class="keywordtype">bool</span> lnaEnable = <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span></div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#acbfd7a6baf9f697f6b06485e561dc388">getPALevel</a>();</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span></div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#ae738c2a5b6859fb32990452ad3650fed">setAutoAck</a>(<span class="keywordtype">bool</span> enable);</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#ae738c2a5b6859fb32990452ad3650fed">setAutoAck</a>(uint8_t pipe, <span class="keywordtype">bool</span> enable);</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span></div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a7eab024220706b66d73f543ee6a094b0">enableDynamicPayloads</a>(uint8_t payloadSize = <a class="code hl_define" href="nrf__to__nrf_8h.html#a2d5ab7e31eb34a640249f88518eea523">DEFAULT_MAX_PAYLOAD_SIZE</a>);</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span></div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a4a4dbfe26229f0dc341071aa77c04773">disableDynamicPayloads</a>();</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span></div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#af72198132531f955c5c2da9bef899aaa">setPayloadSize</a>(uint8_t size);</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span></div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#af8cdf0351e55cb9784e96f9385ece778">getPayloadSize</a>();</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#ab5e027f98da933686c5d1baf1ba3ae31">setCRCLength</a>(<a class="code hl_enumeration" href="nrf__to__nrf_8h.html#a4bcc66714d8fe8c081ff18c621f1b855">nrf_crclength_e</a> length);</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span></div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    <a class="code hl_enumeration" href="nrf__to__nrf_8h.html#a4bcc66714d8fe8c081ff18c621f1b855">nrf_crclength_e</a> <a class="code hl_function" href="classnrf__to__nrf.html#af7bcd44a7f8d32db31c40d302364180a">getCRCLength</a>();</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span></div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a84cfdfd802d1cb6afcbb02fa74132061">  342</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a84cfdfd802d1cb6afcbb02fa74132061">disableCRC</a>();</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span></div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#ab1cc57d3ba6684489c33c8dff671947c">setRetries</a>(uint8_t retryVar, uint8_t attempts);</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span></div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a070731ead0431745af9ea6fb06aedbac">openReadingPipe</a>(uint8_t child, uint64_t address);</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span></div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#ab41aba27b662740ac908d7a30d7009c2">openWritingPipe</a>(uint64_t address);</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span></div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a4f28d2a70f8160e4bf439982f0af6066">setAddressWidth</a>(uint8_t a_width);</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span></div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a98b35f97458822fdc9ae4986c56c7b5c">printDetails</a>();</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span></div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a084414c7da7afeb387274bc1d3bcc00b">powerUp</a>();</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span></div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a860169d285d637a2c9a59f04bf117d6e">powerDown</a>();</div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span></div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#ac1af6725bd2d65b8e52884f4421e7915">  390</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="classnrf__to__nrf.html#ac1af6725bd2d65b8e52884f4421e7915">failureDetected</a>;</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span></div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnrf__to__nrf.html#a1b2f567dda77209301cbaea4c5a75862">txStandBy</a>();</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span></div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnrf__to__nrf.html#a1b2f567dda77209301cbaea4c5a75862">txStandBy</a>(uint32_t timeout, <span class="keywordtype">bool</span> startTx = 0);</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span></div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnrf__to__nrf.html#a1b0d3c0393baaec2963e325dca708935">testCarrier</a>(uint8_t RSSI = 65);</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span></div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnrf__to__nrf.html#a4de30b154367928dae7b778b21748d53">testRPD</a>(uint8_t RSSI = 65);</div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span></div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#aa05eb66e748ff5cbff931bce1d87d5a8">getRSSI</a>();</div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span></div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#a88266b8fca35d23d053be7b89c287388">getARC</a>();</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span></div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#a882de38c80b08c5cf19c890b178b19a7">flush_rx</a>();</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span> </div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span><span class="preprocessor">#ifdef NRF_HAS_ENERGY_DETECT</span></div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>    uint8_t sample_ed(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span></div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span></div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span>    uint32_t <a class="code hl_function" href="classnrf__to__nrf.html#a41d8dd2384f0c139623d15ac17f08bf7">addrConv32</a>(uint32_t addr);</div>
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span><span class="preprocessor">#if defined CCM_ENCRYPTION_ENABLED || defined(DOXYGEN)</span></div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span></div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#a902d5eca08aad045c966eda3d2534eaa">encrypt</a>(<span class="keywordtype">void</span>* bufferIn, uint8_t size);</div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span></div>
+<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>    uint8_t <a class="code hl_function" href="classnrf__to__nrf.html#a2b4c8009858a3fbc1ba06124527a2d85">decrypt</a>(<span class="keywordtype">void</span>* bufferIn, uint8_t size);</div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span></div>
+<div class="line"><a id="l00470" name="l00470"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">  470</a></span>    uint8_t <a class="code hl_variable" href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">outBuffer</a>[<a class="code hl_define" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a> + <a class="code hl_define" href="nrf__to__nrf_8h.html#a91b1d8c61b6a2094fba30d01ff1972d3">CCM_MIC_SIZE</a> + <a class="code hl_define" href="nrf__to__nrf_8h.html#a7a8d571811396067c6b8d78bc6afc37f">CCM_START_SIZE</a>];</div>
+<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span></div>
+<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a6f7e3aa9689f57c51a6f23020d023da3">setKey</a>(uint8_t key[<a class="code hl_define" href="nrf__to__nrf_8h.html#a9ac4e8f13ee123e866aa5a5bf9b2f53b">CCM_KEY_SIZE</a>]);</div>
+<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span></div>
+<div class="line"><a id="l00480" name="l00480"></a><span class="lineno">  480</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a4ecb7e276b024e2eca0b04328fb50263">setCounter</a>(uint64_t counter);</div>
+<div class="line"><a id="l00481" name="l00481"></a><span class="lineno">  481</span></div>
+<div class="line"><a id="l00487" name="l00487"></a><span class="lineno">  487</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#aeede062c4a125f1bca719f4c2a96e76a">setIV</a>(uint8_t IV[<a class="code hl_define" href="nrf__to__nrf_8h.html#adf3d9827d3b02ae63b08d846b809e1dc">CCM_IV_SIZE</a>]);</div>
+<div class="line"><a id="l00488" name="l00488"></a><span class="lineno">  488</span></div>
+<div class="line"><a id="l00503" name="l00503"></a><span class="lineno"><a class="line" href="classnrf__to__nrf.html#a7dcfe5f98793e4b1dc441404f1e7134a">  503</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="classnrf__to__nrf.html#a7dcfe5f98793e4b1dc441404f1e7134a">enableEncryption</a>;</div>
+<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span> </div>
+<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>    <span class="keywordtype">bool</span> acksEnabled(uint8_t pipe);</div>
+<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>    <span class="keywordtype">bool</span> acksPerPipe[8];</div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>    uint8_t retries;</div>
+<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>    uint8_t retryDuration;</div>
+<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>    uint8_t rxBuffer[<a class="code hl_define" href="nrf__to__nrf_8h.html#a86f99279499412c45d603a56b52f15e1">ACTUAL_MAX_PAYLOAD_SIZE</a> + 1];</div>
+<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>    uint8_t ackBuffer[<a class="code hl_define" href="nrf__to__nrf_8h.html#a86f99279499412c45d603a56b52f15e1">ACTUAL_MAX_PAYLOAD_SIZE</a> + 1];</div>
+<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>    uint8_t rxFifoAvailable;</div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>    <span class="keywordtype">bool</span> DPL;</div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>    <span class="keywordtype">bool</span> ackPayloadsEnabled;</div>
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>    <span class="keywordtype">bool</span> inRxMode;</div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>    uint8_t staticPayloadSize;</div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>    uint8_t ackPID;</div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>    uint8_t ackPipe;</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>    <span class="keywordtype">bool</span> lastTxResult;</div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>    uint32_t rxBase;</div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>    uint32_t rxPrefix;</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>    uint32_t txBase;</div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>    uint32_t txPrefix;</div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>    <span class="keywordtype">bool</span> ackPayloadAvailable;</div>
+<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>    uint8_t ackAvailablePipeNo;</div>
+<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>    uint8_t lastPacketCounter;</div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>    uint16_t lastData;</div>
+<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>    <span class="keywordtype">bool</span> dynamicAckEnabled;</div>
+<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>    uint8_t arcCounter;</div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>    uint16_t ackTimeout;</div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>    <span class="keywordtype">bool</span> payloadAvailable;</div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>    <span class="keywordtype">bool</span> restartReturnRx();</div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#a070731ead0431745af9ea6fb06aedbac">openReadingPipe</a>(uint8_t child, uint32_t base, uint32_t prefix);</div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classnrf__to__nrf.html#ab41aba27b662740ac908d7a30d7009c2">openWritingPipe</a>(uint32_t base, uint32_t prefix);</div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span><span class="preprocessor">#if defined CCM_ENCRYPTION_ENABLED</span></div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>    uint8_t inBuffer[<a class="code hl_define" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a> + <a class="code hl_define" href="nrf__to__nrf_8h.html#a91b1d8c61b6a2094fba30d01ff1972d3">CCM_MIC_SIZE</a> + <a class="code hl_define" href="nrf__to__nrf_8h.html#a7a8d571811396067c6b8d78bc6afc37f">CCM_START_SIZE</a>];</div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>    uint8_t scratchPTR[<a class="code hl_define" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">MAX_PACKET_SIZE</a> + <a class="code hl_define" href="nrf__to__nrf_8h.html#a117bc8340fa00a5e905774a5469ee041">CCM_MODE_LENGTH_EXTENDED</a>];</div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>    <span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>    {</div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>        uint8_t key[<a class="code hl_define" href="nrf__to__nrf_8h.html#a9ac4e8f13ee123e866aa5a5bf9b2f53b">CCM_KEY_SIZE</a>];</div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>        uint64_t counter;</div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>        uint8_t direction;</div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>        uint8_t iv[<a class="code hl_define" href="nrf__to__nrf_8h.html#a66443f5201dd24b40f68666181334f2c">CCM_IV_SIZE_ACTUAL</a>];</div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>    } ccmData_t;</div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>    ccmData_t ccmData;</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>    uint32_t packetCounter;</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>};</div>
 </div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span></div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span></div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span></div>
-<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span></div>
-<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span></div>
-<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span></div>
-<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span></div>
-<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span></div>
-<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span></div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span></div>
-<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span></div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span></div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span></div>
-<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span></div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span> </div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span><span class="preprocessor">#endif </span><span class="comment">//__nrf52840_nrf24l01_H__</span></div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span></div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span></div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span></div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span></div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span></div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span></div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span></div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span></div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span></div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span></div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span></div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span></div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span></div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span></div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span> </div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span><span class="preprocessor">#endif </span><span class="comment">//__nrf52840_nrf24l01_H__</span></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a01f4833ad19dbe8498329eb1076da808"><div class="ttname"><a href="classnrf__to__nrf.html#a01f4833ad19dbe8498329eb1076da808">nrf_to_nrf::startListening</a></div><div class="ttdeci">void startListening(bool resetAddresses=true)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00666">nrf_to_nrf.cpp:666</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a070731ead0431745af9ea6fb06aedbac"><div class="ttname"><a href="classnrf__to__nrf.html#a070731ead0431745af9ea6fb06aedbac">nrf_to_nrf::openReadingPipe</a></div><div class="ttdeci">void openReadingPipe(uint8_t child, const uint8_t *address)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00874">nrf_to_nrf.cpp:874</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a084414c7da7afeb387274bc1d3bcc00b"><div class="ttname"><a href="classnrf__to__nrf.html#a084414c7da7afeb387274bc1d3bcc00b">nrf_to_nrf::powerUp</a></div><div class="ttdeci">void powerUp()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l01131">nrf_to_nrf.cpp:1131</a></div></div>
@@ -385,7 +385,6 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassnrf__to__nrf_html_a1b2f567dda77209301cbaea4c5a75862"><div class="ttname"><a href="classnrf__to__nrf.html#a1b2f567dda77209301cbaea4c5a75862">nrf_to_nrf::txStandBy</a></div><div class="ttdeci">bool txStandBy()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00936">nrf_to_nrf.cpp:936</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a2b4c8009858a3fbc1ba06124527a2d85"><div class="ttname"><a href="classnrf__to__nrf.html#a2b4c8009858a3fbc1ba06124527a2d85">nrf_to_nrf::decrypt</a></div><div class="ttdeci">uint8_t decrypt(void *bufferIn, uint8_t size)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l01299">nrf_to_nrf.cpp:1299</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a3183dc6c9f8a06ca01ef9d015420791d"><div class="ttname"><a href="classnrf__to__nrf.html#a3183dc6c9f8a06ca01ef9d015420791d">nrf_to_nrf::radioData</a></div><div class="ttdeci">uint8_t radioData[ACTUAL_MAX_PAYLOAD_SIZE+2]</div><div class="ttdef"><b>Definition</b> <a href="#l00208">nrf_to_nrf.h:208</a></div></div>
-<div class="ttc" id="aclassnrf__to__nrf_html_a3cd8dd57e9eacd92190226b786ac303b"><div class="ttname"><a href="classnrf__to__nrf.html#a3cd8dd57e9eacd92190226b786ac303b">nrf_to_nrf::setChannel</a></div><div class="ttdeci">void setChannel(uint8_t channel)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00751">nrf_to_nrf.cpp:751</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a41d8dd2384f0c139623d15ac17f08bf7"><div class="ttname"><a href="classnrf__to__nrf.html#a41d8dd2384f0c139623d15ac17f08bf7">nrf_to_nrf::addrConv32</a></div><div class="ttdeci">uint32_t addrConv32(uint32_t addr)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00048">nrf_to_nrf.cpp:48</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a4a4dbfe26229f0dc341071aa77c04773"><div class="ttname"><a href="classnrf__to__nrf.html#a4a4dbfe26229f0dc341071aa77c04773">nrf_to_nrf::disableDynamicPayloads</a></div><div class="ttdeci">void disableDynamicPayloads()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00805">nrf_to_nrf.cpp:805</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a4b72553f78465e14ba15c13a392fa7e3"><div class="ttname"><a href="classnrf__to__nrf.html#a4b72553f78465e14ba15c13a392fa7e3">nrf_to_nrf::write</a></div><div class="ttdeci">bool write(void *buf, uint8_t len, bool multicast=false, bool doEncryption=true)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00348">nrf_to_nrf.cpp:348</a></div></div>
@@ -393,6 +392,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassnrf__to__nrf_html_a4ecb7e276b024e2eca0b04328fb50263"><div class="ttname"><a href="classnrf__to__nrf.html#a4ecb7e276b024e2eca0b04328fb50263">nrf_to_nrf::setCounter</a></div><div class="ttdeci">void setCounter(uint64_t counter)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l01354">nrf_to_nrf.cpp:1354</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a4f0c7933c8a5e593ee223e2b804ea69d"><div class="ttname"><a href="classnrf__to__nrf.html#a4f0c7933c8a5e593ee223e2b804ea69d">nrf_to_nrf::isChipConnected</a></div><div class="ttdeci">bool isChipConnected()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00969">nrf_to_nrf.cpp:969</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a4f28d2a70f8160e4bf439982f0af6066"><div class="ttname"><a href="classnrf__to__nrf.html#a4f28d2a70f8160e4bf439982f0af6066">nrf_to_nrf::setAddressWidth</a></div><div class="ttdeci">void setAddressWidth(uint8_t a_width)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l01164">nrf_to_nrf.cpp:1164</a></div></div>
+<div class="ttc" id="aclassnrf__to__nrf_html_a5403835fd82f4b062ffe7095d934b6fe"><div class="ttname"><a href="classnrf__to__nrf.html#a5403835fd82f4b062ffe7095d934b6fe">nrf_to_nrf::setChannel</a></div><div class="ttdeci">void setChannel(uint8_t channel, bool map=0)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00751">nrf_to_nrf.cpp:751</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a543bbc33034094b5be199efdb77c2a7a"><div class="ttname"><a href="classnrf__to__nrf.html#a543bbc33034094b5be199efdb77c2a7a">nrf_to_nrf::getDynamicPayloadSize</a></div><div class="ttdeci">uint8_t getDynamicPayloadSize()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00729">nrf_to_nrf.cpp:729</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a5d82b0fb8292e7a51e2f69cd13e48a7b"><div class="ttname"><a href="classnrf__to__nrf.html#a5d82b0fb8292e7a51e2f69cd13e48a7b">nrf_to_nrf::setDataRate</a></div><div class="ttdeci">bool setDataRate(uint8_t speed)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00973">nrf_to_nrf.cpp:973</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a65f5edbd8771ad381c0dd6532c38f16b"><div class="ttname"><a href="classnrf__to__nrf.html#a65f5edbd8771ad381c0dd6532c38f16b">nrf_to_nrf::isValid</a></div><div class="ttdeci">bool isValid()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00737">nrf_to_nrf.cpp:737</a></div></div>
@@ -401,7 +401,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassnrf__to__nrf_html_a6f7e3aa9689f57c51a6f23020d023da3"><div class="ttname"><a href="classnrf__to__nrf.html#a6f7e3aa9689f57c51a6f23020d023da3">nrf_to_nrf::setKey</a></div><div class="ttdeci">void setKey(uint8_t key[CCM_KEY_SIZE])</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l01338">nrf_to_nrf.cpp:1338</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a7732e9d1424d384c575377c8385c725d"><div class="ttname"><a href="classnrf__to__nrf.html#a7732e9d1424d384c575377c8385c725d">nrf_to_nrf::begin</a></div><div class="ttdeci">bool begin()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00088">nrf_to_nrf.cpp:88</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a7b9b9b7116aab9d2723f7a317c1ae766"><div class="ttname"><a href="classnrf__to__nrf.html#a7b9b9b7116aab9d2723f7a317c1ae766">nrf_to_nrf::writeAckPayload</a></div><div class="ttdeci">bool writeAckPayload(uint8_t pipe, void *buf, uint8_t len)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00615">nrf_to_nrf.cpp:615</a></div></div>
-<div class="ttc" id="aclassnrf__to__nrf_html_a7dcfe5f98793e4b1dc441404f1e7134a"><div class="ttname"><a href="classnrf__to__nrf.html#a7dcfe5f98793e4b1dc441404f1e7134a">nrf_to_nrf::enableEncryption</a></div><div class="ttdeci">bool enableEncryption</div><div class="ttdef"><b>Definition</b> <a href="#l00501">nrf_to_nrf.h:501</a></div></div>
+<div class="ttc" id="aclassnrf__to__nrf_html_a7dcfe5f98793e4b1dc441404f1e7134a"><div class="ttname"><a href="classnrf__to__nrf.html#a7dcfe5f98793e4b1dc441404f1e7134a">nrf_to_nrf::enableEncryption</a></div><div class="ttdeci">bool enableEncryption</div><div class="ttdef"><b>Definition</b> <a href="#l00503">nrf_to_nrf.h:503</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a7eab024220706b66d73f543ee6a094b0"><div class="ttname"><a href="classnrf__to__nrf.html#a7eab024220706b66d73f543ee6a094b0">nrf_to_nrf::enableDynamicPayloads</a></div><div class="ttdeci">void enableDynamicPayloads(uint8_t payloadSize=DEFAULT_MAX_PAYLOAD_SIZE)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00783">nrf_to_nrf.cpp:783</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a82ece976ff6ed46b07eb9c3920d9603a"><div class="ttname"><a href="classnrf__to__nrf.html#a82ece976ff6ed46b07eb9c3920d9603a">nrf_to_nrf::disableAckPayload</a></div><div class="ttdeci">void disableAckPayload()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00662">nrf_to_nrf.cpp:662</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a84cfdfd802d1cb6afcbb02fa74132061"><div class="ttname"><a href="classnrf__to__nrf.html#a84cfdfd802d1cb6afcbb02fa74132061">nrf_to_nrf::disableCRC</a></div><div class="ttdeci">void disableCRC()</div></div>
@@ -413,12 +413,12 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassnrf__to__nrf_html_a9ca9c7ee9db0160ff3e4dc78bc6431ab"><div class="ttname"><a href="classnrf__to__nrf.html#a9ca9c7ee9db0160ff3e4dc78bc6431ab">nrf_to_nrf::getChannel</a></div><div class="ttdeci">uint8_t getChannel()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00755">nrf_to_nrf.cpp:755</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a9dfe4f382f4b33d8db2fd0733df4dec3"><div class="ttname"><a href="classnrf__to__nrf.html#a9dfe4f382f4b33d8db2fd0733df4dec3">nrf_to_nrf::startWrite</a></div><div class="ttdeci">bool startWrite(void *buf, uint8_t len, bool multicast, bool doEncryption=true)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00527">nrf_to_nrf.cpp:527</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_aa05eb66e748ff5cbff931bce1d87d5a8"><div class="ttname"><a href="classnrf__to__nrf.html#aa05eb66e748ff5cbff931bce1d87d5a8">nrf_to_nrf::getRSSI</a></div><div class="ttdeci">uint8_t getRSSI()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l01113">nrf_to_nrf.cpp:1113</a></div></div>
-<div class="ttc" id="aclassnrf__to__nrf_html_aaea87e1ed1f9370a8bfb28827e2d380f"><div class="ttname"><a href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">nrf_to_nrf::outBuffer</a></div><div class="ttdeci">uint8_t outBuffer[MAX_PACKET_SIZE+CCM_MIC_SIZE+CCM_START_SIZE]</div><div class="ttdef"><b>Definition</b> <a href="#l00468">nrf_to_nrf.h:468</a></div></div>
+<div class="ttc" id="aclassnrf__to__nrf_html_aaea87e1ed1f9370a8bfb28827e2d380f"><div class="ttname"><a href="classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f">nrf_to_nrf::outBuffer</a></div><div class="ttdeci">uint8_t outBuffer[MAX_PACKET_SIZE+CCM_MIC_SIZE+CCM_START_SIZE]</div><div class="ttdef"><b>Definition</b> <a href="#l00470">nrf_to_nrf.h:470</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_ab1cc57d3ba6684489c33c8dff671947c"><div class="ttname"><a href="classnrf__to__nrf.html#ab1cc57d3ba6684489c33c8dff671947c">nrf_to_nrf::setRetries</a></div><div class="ttdeci">void setRetries(uint8_t retryVar, uint8_t attempts)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00845">nrf_to_nrf.cpp:845</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_ab3eac2c417beef4757739e905973aed4"><div class="ttname"><a href="classnrf__to__nrf.html#ab3eac2c417beef4757739e905973aed4">nrf_to_nrf::enableAckPayload</a></div><div class="ttdeci">void enableAckPayload()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00658">nrf_to_nrf.cpp:658</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_ab41aba27b662740ac908d7a30d7009c2"><div class="ttname"><a href="classnrf__to__nrf.html#ab41aba27b662740ac908d7a30d7009c2">nrf_to_nrf::openWritingPipe</a></div><div class="ttdeci">void openWritingPipe(const uint8_t *address)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00913">nrf_to_nrf.cpp:913</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_ab5e027f98da933686c5d1baf1ba3ae31"><div class="ttname"><a href="classnrf__to__nrf.html#ab5e027f98da933686c5d1baf1ba3ae31">nrf_to_nrf::setCRCLength</a></div><div class="ttdeci">void setCRCLength(nrf_crclength_e length)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l01047">nrf_to_nrf.cpp:1047</a></div></div>
-<div class="ttc" id="aclassnrf__to__nrf_html_ac1af6725bd2d65b8e52884f4421e7915"><div class="ttname"><a href="classnrf__to__nrf.html#ac1af6725bd2d65b8e52884f4421e7915">nrf_to_nrf::failureDetected</a></div><div class="ttdeci">bool failureDetected</div><div class="ttdef"><b>Definition</b> <a href="#l00388">nrf_to_nrf.h:388</a></div></div>
+<div class="ttc" id="aclassnrf__to__nrf_html_ac1af6725bd2d65b8e52884f4421e7915"><div class="ttname"><a href="classnrf__to__nrf.html#ac1af6725bd2d65b8e52884f4421e7915">nrf_to_nrf::failureDetected</a></div><div class="ttdeci">bool failureDetected</div><div class="ttdef"><b>Definition</b> <a href="#l00390">nrf_to_nrf.h:390</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_ac23bd0686bcfafada06a668ba32bcbd7"><div class="ttname"><a href="classnrf__to__nrf.html#ac23bd0686bcfafada06a668ba32bcbd7">nrf_to_nrf::writeFast</a></div><div class="ttdeci">bool writeFast(void *buf, uint8_t len, bool multicast=0)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00950">nrf_to_nrf.cpp:950</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_acbfd7a6baf9f697f6b06485e561dc388"><div class="ttname"><a href="classnrf__to__nrf.html#acbfd7a6baf9f697f6b06485e561dc388">nrf_to_nrf::getPALevel</a></div><div class="ttdeci">uint8_t getPALevel()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l01016">nrf_to_nrf.cpp:1016</a></div></div>
 <div class="ttc" id="aclassnrf__to__nrf_html_ae738c2a5b6859fb32990452ad3650fed"><div class="ttname"><a href="classnrf__to__nrf.html#ae738c2a5b6859fb32990452ad3650fed">nrf_to_nrf::setAutoAck</a></div><div class="ttdeci">void setAutoAck(bool enable)</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00759">nrf_to_nrf.cpp:759</a></div></div>
@@ -455,7 +455,7 @@ $(function(){ initResizable(false); });
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon May 12 2025 03:50:06 for nrf_to_nrf - NRF52 Radio Driver by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon May 12 2025 23:15:02 for nrf_to_nrf - NRF52 Radio Driver by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>
