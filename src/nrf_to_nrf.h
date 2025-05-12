@@ -103,7 +103,9 @@ typedef enum
     /** (1) represents CRC 8 bit checksum is used */
     NRF_CRC_8,
     /** (2) represents CRC 16 bit checksum is used */
-    NRF_CRC_16
+    NRF_CRC_16,
+    /** (3) represents CRC 24 bit checksum is used */
+    NRF_CRC_24
 } nrf_crclength_e;
 
 /**
@@ -314,7 +316,16 @@ public:
     uint8_t getPayloadSize();
 
     /**
-     * Same as NRF24
+     * Set the CRCLength (in bits)
+     *
+     * CRC cannot be disabled if auto-ack is enabled
+     * @param length Specify one of the values (as defined by @ref nrf_crclength_e)
+     * | @p length (enum value)     | description                    |
+     * |:--------------------------:|:------------------------------:|
+     * | @ref NRF_CRC_DISABLED (0)  | to disable using CRC checksums |
+     * | @ref NRF_CRC_8 (1)         | to use 8-bit checksums         |
+     * | @ref NRF_CRC_16 (2)        | to use 16-bit checksums        |
+     * | @ref NRF_CRC_24 (3)        | to use 24-bit checksums        |
      */
     void setCRCLength(nrf_crclength_e length);
 
