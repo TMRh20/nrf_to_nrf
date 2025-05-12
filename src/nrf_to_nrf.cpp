@@ -1077,7 +1077,7 @@ void nrf_to_nrf::setCRCLength(nrf_crclength_e length)
 {
     if (length == NRF_CRC_24) {
         NRF_RADIO->CRCCNF = RADIO_CRCCNF_LEN_Three; /* CRC configuration: 24bit */
-        NRF_RADIO->CRCINIT = 0xFFFFFFUL;            // Initial value
+        NRF_RADIO->CRCINIT = 0x555555UL;            // Initial value
         NRF_RADIO->CRCPOLY = 0x65BUL;
     }
     else if (length == NRF_CRC_16) {
