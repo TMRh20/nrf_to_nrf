@@ -316,10 +316,10 @@ public:
     uint8_t getPayloadSize();
 
     /**
-     * Set the @ref CRCLength (in bits)
+     * Set the CRCLength (in bits)
      *
      * CRC cannot be disabled if auto-ack is enabled
-     * @param length Specify one of the values (as defined by @ref rf24_crclength_e)
+     * @param length Specify one of the values (as defined by @ref nrf_crclength_e)
      * | @p length (enum value)     | description                    |
      * |:--------------------------:|:------------------------------:|
      * | @ref NRF_CRC_DISABLED (0)  | to disable using CRC checksums |
