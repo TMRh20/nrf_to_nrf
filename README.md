@@ -8,6 +8,7 @@
      - `#include <nrf_to_nrf.h>` instead of RF24.h
      - Call `nrf_to_nrf radio;` instead of `RF24 radio(7,8);`
      - Modify the enums per note 2
+     - Use RF52 prefix: Instead of calling `RF24Network network(radio)` call `RF52Network network(radio)`
      
 The higher layer libs like RF24Network have been updated to version 2.0 to accommodate this library.
 
