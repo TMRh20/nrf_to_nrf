@@ -442,7 +442,7 @@ public:
      *
      * This is configured for compatibility with nRF24L01 radios. Can be set lower if communicating between nRF52x devices.
      */
-    uint16_t interframeSpacing = 115;
+    uint16_t interframeSpacing;
 
 #ifdef NRF_HAS_ENERGY_DETECT
     uint8_t sample_ed(void);

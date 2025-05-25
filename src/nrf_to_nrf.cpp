@@ -72,6 +72,7 @@ nrf_to_nrf::nrf_to_nrf()
     ackTimeout = ACK_TIMEOUT_1MBPS;
     payloadAvailable = false;
     enableEncryption = false;
+    interframeSpacing = 115;
 
 #if defined CCM_ENCRYPTION_ENABLED
     NRF_CCM->INPTR = (uint32_t)inBuffer;
