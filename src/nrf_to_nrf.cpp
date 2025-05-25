@@ -128,8 +128,7 @@ bool nrf_to_nrf::begin()
 
     NRF_RADIO->PACKETPTR = (uint32_t)radioData;
     NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos);
-    NRF_RADIO->MODECNF0 = 0x200;
-    NRF_RADIO->MODECNF0 |= 1;
+    NRF_RADIO->MODECNF0 = 0x201;
     NRF_RADIO->TXPOWER = (TXPOWER_PA_MAX << RADIO_TXPOWER_TXPOWER_Pos);
     NRF_RADIO->FREQUENCY = 0x4C;
 
@@ -675,7 +674,10 @@ void nrf_to_nrf::startListening(bool resetAddresses)
     if (resetAddresses == true) {
         NRF_RADIO->BASE0 = rxBase;
         NRF_RADIO->PREFIX0 = rxPrefix;
+        NRF_RADIO->MODECNF0 = 0x201;
+        NRF_RADIO->TIFS = 0;
     }
+    NRF_RADIO->SHORTS = 0x0;
 
     NRF_RADIO->EVENTS_RXREADY = 0;
     NRF_RADIO->EVENTS_CRCOK = 0;
@@ -703,8 +705,11 @@ void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses)
     }
     if (setWritingPipe) {
         NRF_RADIO->TXADDRESS = 0x00;
+        NRF_RADIO->TIFS = interframeSpacing;
+        NRF_RADIO->MODECNF0 = 0x200;
     }
 
+    NRF_RADIO->SHORTS = 0x6;
     if (NRF_RADIO->STATE < 9) {
         NRF_RADIO->EVENTS_TXREADY = 0;
         NRF_RADIO->TASKS_TXEN = 1;

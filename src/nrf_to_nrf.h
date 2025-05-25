@@ -432,6 +432,18 @@ public:
      */
     uint8_t flush_rx();
 
+    /**
+     * The IEEE 802.15.4 standard defines a specific time that is alotted for the MAC sublayer to process received data.
+     * Usage of this interframe spacing (IFS) comes into play to avoid that two frames are transmitted too close to
+     * each other in time.
+     *
+     * This is the time period in uS the radio will wait between the last bit of the previous transmission, and the
+     * first bit of the next transmission.
+     *
+     * This is configured for compatibility with nRF24L01 radios. Can be set lower if communicating between nRF52x devices.
+     */
+    uint16_t interframeSpacing = 115;
+
 #ifdef NRF_HAS_ENERGY_DETECT
     uint8_t sample_ed(void);
 #endif
