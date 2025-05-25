@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['outbuffer_0',['outBuffer',['../classnrf__to__nrf.html#aaea87e1ed1f9370a8bfb28827e2d380f',1,'nrf_to_nrf']]]
+  ['interframespacing_0',['interframeSpacing',['../classnrf__to__nrf.html#aa71931037dba808a9e49eb7a10db60a5',1,'nrf_to_nrf']]]
 ];
