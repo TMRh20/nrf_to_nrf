@@ -186,7 +186,7 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
     if (NRF_RADIO->EVENTS_CRCOK) {
         NRF_RADIO->EVENTS_CRCOK = 0;
         if (DPL) {
-            if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - (2 + NRF_RADIO->CRCCNF)) {
+            if (radioData[0] > ACTUAL_MAX_PAYLOAD_SIZE - (2 + NRF_RADIO->CRCCNF) || radioData[0] == 0) {
                 return restartReturnRx();
             }
         }
