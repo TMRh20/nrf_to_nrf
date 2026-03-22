@@ -1,17 +1,77 @@
 # nrf_to_nrf
- NRF52840 to NRF24L01 communication library for Arduino
- 
- Notes:
- 1. There is only a single layer buffer instead of a 3-layer FIFO like the NRF24L01
- 2. The enums like `RF24_PA_MAX` are now `NRF_PA_MAX` etc.
- 3. To modify RF24 examples to work with this library, just change the following:
-     - `#include <nrf_to_nrf.h>` instead of RF24.h
-     - Call `nrf_to_nrf radio;` instead of `RF24 radio(7,8);`
-     - Modify the enums per note 2
-     - Use RF52 prefix: Instead of calling `RF24Network network(radio)` call `RF52Network network(radio)`
-     
-The higher layer libs like RF24Network have been updated to version 2.0 to accommodate this library.
 
-The examples work for communication between NRF52840 and NRF24L01 out of the box.
+**nRF52x Enhanced ShockBurst (ESB) driver with an RF24-compatible API** (Arduino / PlatformIO).
 
-Please log an issue for problems with any of the provided examples.
+This library targets nRF52 devices (ex: nRF52840) and is designed to feel familiar to users of the `RF24` library (similar function names and workflows).
+
+## Key points / Differences from nRF24L01
+1. There is only a **single-layer buffer** (not a 3-layer FIFO like the nRF24L01).
+2. Enums like `RF24_PA_MAX` become `NRF_PA_MAX` (etc).
+3. Porting RF24 sketches:
+   - use `#include <nrf_to_nrf.h>` instead of `RF24.h`
+   - create the radio as `nrf_to_nrf radio;` (no CE/CS pins like RF24 modules)
+   - update enums (note #2)
+   - higher layer libs use the RF52 prefix: `RF52Network`, `RF52Mesh`, etc.
+
+> The higher layer libraries (RF24Network/RF24Mesh/RF24Ethernet) have been updated (v2.x) to accommodate this driver.
+
+---
+
+## Supported environments
+- Arduino IDE
+- PlatformIO (`framework = arduino`)
+
+## Installation
+
+### Arduino IDE (Library Manager)
+Arduino IDE → **Library Manager** → search for `nrf_to_nrf` → **Install**
+
+### PlatformIO
+Add to `platformio.ini`:
+
+```ini
+[env:nrf52]
+platform = nordicnrf52
+board = <your_board_id>
+framework = arduino
+monitor_speed = 115200
+
+lib_deps =
+  https://github.com/TMRh20/nrf_to_nrf.git
+```
+
+---
+
+## Examples (Receiver / Transmitter)
+
+Use the provided examples:
+
+- RF24-style:
+  - Receiver (RX): `examples/RF24/GettingStarted/GettingStarted.ino`
+  - Transmitter (TX): `examples/RF24/GettingStarted/GettingStarted.ino` (same sketch; select role via Serial)
+
+- RF24Network “Hello World”:
+  - Receiver (RX): `examples/RF24Network/helloworld_rx/helloworld_rx.ino`
+  - Transmitter (TX): `examples/RF24Network/helloworld_tx/helloworld_tx.ino`
+
+- Encryption examples:
+  - RF24Network RX encryption: `examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino`
+  - RF24Network TX encryption: `examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino`
+  - RF24 GettingStarted encryption: `examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino`
+
+> Address note (RF24-compatible): for 5-byte addresses, the **first byte is the identifier/prefix byte** (eg: `{'1','N','O','D','E'}`).
+
+---
+
+## Encryption (optional)
+There are examples under `examples/` showing encryption usage (setting a 16-byte key, enabling encryption, and increasing max payload sizes):
+
+- `radio.setKey(myKey);`
+- `radio.enableEncryption = true;`
+- `radio.enableDynamicPayloads(123);` (important so encryption overhead doesn’t reduce usable payload)
+
+---
+
+## Troubleshooting
+- **No RX packets:** confirm both sides use the same channel and addresses; start RX with `startListening()` and TX with `stopListening()`.
+- **Short/garbled messages:** ensure you’re reading/writing the same payload length; consider enabling dynamic payloads if your lengths vary.
