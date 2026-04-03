@@ -2,6 +2,10 @@
 
 #include "nrf_to_nrf.h"
 
+#ifndef __REV
+    #define __REV(x) __builtin_bswap32(x);
+#endif
+
 #if defined(NRF52832_XXAA) || defined(NRF52832_XXAB) || defined(NRF52811_XXAA) || defined(NRF52810_XXAA) || defined(NRF52805_XXAA)
     // TX power range (Product Specification): -20 .. +4dbm, configurable in 4 dB steps
     #define TXPOWER_PA_MIN  0xF4 // -12dBm
@@ -71,7 +75,6 @@ nrf_to_nrf::nrf_to_nrf()
     arcCounter = 0;
     ackTimeout = ACK_TIMEOUT_1MBPS;
     payloadAvailable = false;
-    enableEncryption = false;
     interframeSpacing = 115;
 
 #if defined CCM_ENCRYPTION_ENABLED
@@ -80,7 +83,7 @@ nrf_to_nrf::nrf_to_nrf()
     NRF_CCM->CNFPTR = (uint32_t)&ccmData;
     NRF_CCM->SCRATCHPTR = (uint32_t)scratchPTR;
     ccmData.counter = 12345;
-
+    enableEncryption = false;
 #endif
 };
 
@@ -89,6 +92,7 @@ nrf_to_nrf::nrf_to_nrf()
 bool nrf_to_nrf::begin()
 {
 
+#ifndef ARDUINO_NRF54L15
     NRF_CLOCK->EVENTS_HFCLKSTARTED = 0;
     NRF_CLOCK->TASKS_HFCLKSTART = 1;
 
@@ -96,6 +100,15 @@ bool nrf_to_nrf::begin()
     while (NRF_CLOCK->EVENTS_HFCLKSTARTED == 0) {
         // Do nothing.
     }
+#else
+    NRF_POWER->TASKS_CONSTLAT = 1;
+    NRF_CLOCK->EVENTS_XOSTARTED = 0;
+    NRF_CLOCK->TASKS_XOSTART = 1;
+
+    while (NRF_CLOCK->EVENTS_XOSTARTED == 0) {
+        // Keep waiting until stable
+    }
+#endif
 
     NRF_CLOCK->EVENTS_LFCLKSTARTED = 0;
     NRF_CLOCK->TASKS_LFCLKSTART = 1;
@@ -105,7 +118,9 @@ bool nrf_to_nrf::begin()
         // Do nothing.
     }
 
+#ifndef ARDUINO_NRF54L15
     NRF_RADIO->POWER = 1;
+#endif
 
     NRF_RADIO->PCNF0 = (1 << RADIO_PCNF0_S0LEN_Pos) | (0 << RADIO_PCNF0_LFLEN_Pos) | (1 << RADIO_PCNF0_S1LEN_Pos);
 
@@ -129,13 +144,22 @@ bool nrf_to_nrf::begin()
 
     NRF_RADIO->PACKETPTR = (uint32_t)radioData;
     NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos);
+
+#ifndef ARDUINO_NRF54L15
     NRF_RADIO->MODECNF0 = 0x201;
+#else
+    NRF_RADIO->TIMING = 0x1;
+#endif
     NRF_RADIO->TXPOWER = (TXPOWER_PA_MAX << RADIO_TXPOWER_TXPOWER_Pos);
     NRF_RADIO->FREQUENCY = 0x4C;
 
     DPL = false;
     // Enable auto ack on all pipes by default
     setAutoAck(1);
+
+#ifdef ARDUINO_NRF54L15
+    NRF_RADIO->TASKS_START = 1;
+#endif
 
     return 1;
 }
@@ -347,6 +371,8 @@ void nrf_to_nrf::read(void* buf, uint8_t len)
 
 bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption)
 {
+    while (NRF_RADIO->STATE != 10) {
+    }
 
     uint8_t PID = ackPID;
     if (DPL) {
@@ -675,7 +701,12 @@ void nrf_to_nrf::startListening(bool resetAddresses)
     if (resetAddresses == true) {
         NRF_RADIO->BASE0 = rxBase;
         NRF_RADIO->PREFIX0 = rxPrefix;
+#ifndef ARDUINO_NRF54L15
         NRF_RADIO->MODECNF0 = 0x201;
+#else
+        NRF_RADIO->TIMING = 0x1;
+#endif
+        // NRF_RADIO->MODECNF0 = 0x201;
         NRF_RADIO->TIFS = 0;
     }
     NRF_RADIO->SHORTS = 0x0;
@@ -707,10 +738,15 @@ void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses)
     if (setWritingPipe) {
         NRF_RADIO->TXADDRESS = 0x00;
         NRF_RADIO->TIFS = interframeSpacing;
+#ifndef ARDUINO_NRF54L15
         NRF_RADIO->MODECNF0 = 0x200;
+#else
+        NRF_RADIO->TIMING = 0x1;
+#endif
     }
 
     NRF_RADIO->SHORTS = 0x6;
+
     if (NRF_RADIO->STATE < 9) {
         NRF_RADIO->EVENTS_TXREADY = 0;
         NRF_RADIO->TASKS_TXEN = 1;
@@ -1096,7 +1132,7 @@ nrf_crclength_e nrf_to_nrf::getCRCLength()
 
 bool nrf_to_nrf::testCarrier(uint8_t RSSI)
 {
-
+#ifndef ARDUINO_NRF54L15
     NRF_RADIO->EVENTS_RSSIEND = 0;
     NRF_RADIO->TASKS_RSSISTART = 1;
     while (!NRF_RADIO->EVENTS_RSSIEND) {
@@ -1104,6 +1140,7 @@ bool nrf_to_nrf::testCarrier(uint8_t RSSI)
     if (NRF_RADIO->RSSISAMPLE < RSSI) {
         return 1;
     }
+#endif
     return 0;
 }
 
@@ -1118,11 +1155,14 @@ bool nrf_to_nrf::testRPD(uint8_t RSSI)
 
 uint8_t nrf_to_nrf::getRSSI()
 {
+#ifndef ARDUINO_NRF54L15
     NRF_RADIO->EVENTS_RSSIEND = 0;
     NRF_RADIO->TASKS_RSSISTART = 1;
     while (!NRF_RADIO->EVENTS_RSSIEND) {
     }
     return (uint8_t)NRF_RADIO->RSSISAMPLE;
+#endif
+    return 0;
 }
 
 /**********************************************************************************************************/
@@ -1136,6 +1176,7 @@ uint8_t nrf_to_nrf::flush_rx()
 
 void nrf_to_nrf::powerUp()
 {
+#ifndef ARDUINO_NRF54L15
     NRF_CLOCK->EVENTS_HFCLKSTARTED = 0;
     NRF_CLOCK->TASKS_HFCLKSTART = 1;
 
@@ -1145,25 +1186,43 @@ void nrf_to_nrf::powerUp()
     }
 
     NRF_RADIO->POWER = 1;
+#else
+    NRF_POWER->TASKS_CONSTLAT = 1;
+    NRF_CLOCK->EVENTS_XOSTARTED = 0;
+    NRF_CLOCK->TASKS_XOSTART = 1;
 
+    while (NRF_CLOCK->EVENTS_XOSTARTED == 0) {
+        // Keep waiting until stable
+    }
+#endif
+
+#ifdef CCM_ENCRYPTION_ENABLED
     if (enableEncryption) {
         NRF_RNG->CONFIG = 1;
         NRF_RNG->TASKS_START = 1;
         NRF_CCM->ENABLE = 2;
     }
+#endif
 }
 
 /**********************************************************************************************************/
 
 void nrf_to_nrf::powerDown()
 {
+#ifndef ARDUINO_NRF54L15
     NRF_RADIO->POWER = 0;
     NRF_CLOCK->TASKS_HFCLKSTOP = 1;
+#else
+    NRF_CLOCK->TASKS_XOSTART = 1;
+#endif
+
+#ifdef CCM_ENCRYPTION_ENABLED
     if (enableEncryption) {
         NRF_RNG->TASKS_STOP = 1;
         NRF_RNG->CONFIG = 0;
         NRF_CCM->ENABLE = 0;
     }
+#endif
 }
 
 /**********************************************************************************************************/
@@ -1204,7 +1263,7 @@ void nrf_to_nrf::printDetails()
     prefix = (prefixes >> 8) & 0xFF;
     Serial.print(prefix, HEX);
     Serial.print(" 0x");
-    prefix = (prefixes)&0xFF;
+    prefix = (prefixes) & 0xFF;
     Serial.print(prefix, HEX);
     Serial.print(" 0x");
     prefixes = addrConv32(NRF_RADIO->PREFIX1);
@@ -1217,7 +1276,7 @@ void nrf_to_nrf::printDetails()
     prefix = (prefixes >> 8) & 0xFF;
     Serial.print(prefix, HEX);
     Serial.print(" 0x");
-    prefix = (prefixes)&0xFF;
+    prefix = (prefixes) & 0xFF;
     Serial.println(prefix, HEX);
 
     uint8_t enAA = 0;
