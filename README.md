@@ -1,8 +1,8 @@
 # nrf_to_nrf
 
-**nRF52x Enhanced ShockBurst (ESB) driver with an RF24-compatible API** (Arduino / PlatformIO).
+**nRF52x & nRF54x Enhanced ShockBurst (ESB) driver with an RF24-compatible API** (Arduino / PlatformIO).
 
-This library targets nRF52 devices (ex: nRF52840) and is designed to feel familiar to users of the `RF24` library (similar function names and workflows).
+This library targets nRF52 & nRF54 devices (ex: nRF52840 or nRF54l15) and is designed to feel familiar to users of the `RF24` library (similar function names and workflows).
 
 ## Key points / Differences from nRF24L01
 1. There is only a **single-layer buffer** (not a 3-layer FIFO like the nRF24L01).
