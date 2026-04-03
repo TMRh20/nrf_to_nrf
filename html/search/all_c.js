@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['radio_20driver_0',['nrf_to_nrf - NRF52 radio driver',['../index.html',1,'']]],
-  ['radio_5fmode_5fmode_5fnrf_5f250kbit_1',['RADIO_MODE_MODE_Nrf_250Kbit',['../nrf__to__nrf_8cpp.html#a0195d51696da7b4323456b757d1e260d',1,'nrf_to_nrf.cpp']]],
-  ['radiodata_2',['radioData',['../classnrf__to__nrf.html#a3183dc6c9f8a06ca01ef9d015420791d',1,'nrf_to_nrf']]],
-  ['read_3',['read',['../classnrf__to__nrf.html#ae9457410ab65e1cf3109e45cc3155010',1,'nrf_to_nrf']]]
+  ['powerdown_0',['powerDown',['../classnrf__to__nrf.html#a860169d285d637a2c9a59f04bf117d6e',1,'nrf_to_nrf']]],
+  ['powerup_1',['powerUp',['../classnrf__to__nrf.html#a084414c7da7afeb387274bc1d3bcc00b',1,'nrf_to_nrf']]],
+  ['printdetails_2',['printDetails',['../classnrf__to__nrf.html#a98b35f97458822fdc9ae4986c56c7b5c',1,'nrf_to_nrf']]]
 ];

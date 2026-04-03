@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['ccm_5fcounter_5fsize_0',['CCM_COUNTER_SIZE',['../nrf__to__nrf_8h.html#a36c27edd0340a9bcd8d269c5d95c4aa3',1,'nrf_to_nrf.h']]],
-  ['ccm_5fencryption_5fenabled_1',['CCM_ENCRYPTION_ENABLED',['../nrf__to__nrf_8h.html#a11bd5cb2afdcf95dac74cab238fe1d45',1,'nrf_to_nrf.h']]],
-  ['ccm_5fiv_5fsize_2',['CCM_IV_SIZE',['../nrf__to__nrf_8h.html#adf3d9827d3b02ae63b08d846b809e1dc',1,'nrf_to_nrf.h']]],
-  ['ccm_5fiv_5fsize_5factual_3',['CCM_IV_SIZE_ACTUAL',['../nrf__to__nrf_8h.html#a66443f5201dd24b40f68666181334f2c',1,'nrf_to_nrf.h']]],
-  ['ccm_5fkey_5fsize_4',['CCM_KEY_SIZE',['../nrf__to__nrf_8h.html#a9ac4e8f13ee123e866aa5a5bf9b2f53b',1,'nrf_to_nrf.h']]],
-  ['ccm_5fmic_5fsize_5',['CCM_MIC_SIZE',['../nrf__to__nrf_8h.html#a91b1d8c61b6a2094fba30d01ff1972d3',1,'nrf_to_nrf.h']]],
-  ['ccm_5fmode_5flength_5fextended_6',['CCM_MODE_LENGTH_EXTENDED',['../nrf__to__nrf_8h.html#a117bc8340fa00a5e905774a5469ee041',1,'nrf_to_nrf.h']]],
-  ['ccm_5fstart_5fsize_7',['CCM_START_SIZE',['../nrf__to__nrf_8h.html#a7a8d571811396067c6b8d78bc6afc37f',1,'nrf_to_nrf.h']]]
+  ['ack_5fpayload_5ftimeout_5foffset_0',['ACK_PAYLOAD_TIMEOUT_OFFSET',['../nrf__to__nrf_8h.html#a2dd505c7bafeca0827ed648669e6340f',1,'nrf_to_nrf.h']]],
+  ['ack_5ftimeout_5f1mbps_1',['ACK_TIMEOUT_1MBPS',['../nrf__to__nrf_8h.html#ac2a8119d65fc07b14573f7e831318910',1,'nrf_to_nrf.h']]],
+  ['ack_5ftimeout_5f1mbps_5foffset_2',['ACK_TIMEOUT_1MBPS_OFFSET',['../nrf__to__nrf_8h.html#a030c0e5971b11e84c1557267286efce4',1,'nrf_to_nrf.h']]],
+  ['ack_5ftimeout_5f250kbps_3',['ACK_TIMEOUT_250KBPS',['../nrf__to__nrf_8h.html#a609c96f213e335d2fd08fdce35506724',1,'nrf_to_nrf.h']]],
+  ['ack_5ftimeout_5f250kbps_5foffset_4',['ACK_TIMEOUT_250KBPS_OFFSET',['../nrf__to__nrf_8h.html#a4896730b35009d2286fbe07e2073398d',1,'nrf_to_nrf.h']]],
+  ['ack_5ftimeout_5f2mbps_5',['ACK_TIMEOUT_2MBPS',['../nrf__to__nrf_8h.html#a709d6647f34a17c549e677e568bf5dc3',1,'nrf_to_nrf.h']]],
+  ['ack_5ftimeout_5f2mbps_5foffset_6',['ACK_TIMEOUT_2MBPS_OFFSET',['../nrf__to__nrf_8h.html#aafcf7551fc9a5d008c32094e9f6cafae',1,'nrf_to_nrf.h']]],
+  ['actual_5fmax_5fpayload_5fsize_7',['ACTUAL_MAX_PAYLOAD_SIZE',['../nrf__to__nrf_8h.html#a86f99279499412c45d603a56b52f15e1',1,'nrf_to_nrf.h']]]
 ];
