@@ -371,8 +371,11 @@ void nrf_to_nrf::read(void* buf, uint8_t len)
 
 bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption)
 {
-    while (NRF_RADIO->STATE != 10) {
+    #ifdef ARDUINO_NRF54L15
+    uint32_t timeout = millis();
+    while (NRF_RADIO->STATE != 10 && millis() < timeout + 100) {
     }
+    #endif
 
     uint8_t PID = ackPID;
     if (DPL) {
