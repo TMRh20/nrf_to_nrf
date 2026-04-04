@@ -265,7 +265,7 @@ public:
     uint8_t getChannel();
 
     /**
-     * Supported speeds: NRF_250KBPS NRF_1MBPS NRF_2MBPS
+     * Supported speeds: NRF_250KBPS NRF_1MBPS NRF_2MBPS - NRF54x ONLY: NRF_4MBPS_OBT4 NRF_4MBPS_OBT6
      */
     bool setDataRate(uint8_t speed);
 
@@ -309,6 +309,7 @@ public:
 
     /**
      * NRF52840 will handle up to 127 byte payloads with CRC & DPL disabled, 125 with 16-bit CRC and DPL disabled
+     * NRF54L15 will handle up to 255 byte payloads
      */
     void setPayloadSize(uint8_t size);
 
