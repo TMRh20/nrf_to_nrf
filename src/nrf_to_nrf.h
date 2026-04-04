@@ -18,7 +18,11 @@
 
 #define NRF52_RADIO_LIBRARY
 #define DEFAULT_MAX_PAYLOAD_SIZE   32
+#ifdef ARDUINO_NRF54L15
+#define ACTUAL_MAX_PAYLOAD_SIZE    258
+#else
 #define ACTUAL_MAX_PAYLOAD_SIZE    127
+#endif
 #define ACK_TIMEOUT_1MBPS          600 // 300 with static payloads
 #define ACK_TIMEOUT_2MBPS          400 // 265 with static payloads
 #define ACK_TIMEOUT_250KBPS        800 // 500 with staticPayloads
@@ -83,6 +87,12 @@ typedef enum
     NRF_2MBPS,
     /** (2) represents 250 kbps */
     NRF_250KBPS
+    #ifdef ARDUINO_NRF54L15
+    /** (3) represents 4 Mbps OBT4 */
+    ,NRF_4MBPS_OBT4,
+    /** (4) represents 4 Mbps OBT6 */
+    NRF_4MBPS_OBT6
+    #endif
 } nrf_datarate_e;
 
 /**

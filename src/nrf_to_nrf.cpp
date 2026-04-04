@@ -12,19 +12,28 @@
     #define TXPOWER_PA_LOW  0xFC // -4dBm
     #define TXPOWER_PA_HIGH 0x00 // 0dBm
     #define TXPOWER_PA_MAX  0x04 // 4dBm
-#else                            // nRF52840, nRF52833, nRF52820
+#elif !defined(ARDUINO_NRF54L15)                        // nRF52840, nRF52833, nRF52820
     // TX power range (Product Specification): -20 .. +8dbm, configurable in 4 dB steps
     #define TXPOWER_PA_MIN  0xF4 // -12dBm
     #define TXPOWER_PA_LOW  0x02 // 2dBm
     #define TXPOWER_PA_HIGH 0x06 // 6dBm
     #define TXPOWER_PA_MAX  0x08 // 8dBm
+#else
+    #define TXPOWER_PA_MIN  0x6 // -12dBm
+    #define TXPOWER_PA_LOW  0x1F // 2dBm
+    #define TXPOWER_PA_HIGH 0x33 // 6dBm
+    #define TXPOWER_PA_MAX  0x3F // 8dBm
 #endif
-
 // Note that 250Kbit mode is deprecated and might not work reliably on all devices.
 // See: https://devzone.nordicsemi.com/f/nordic-q-a/78469/250-kbit-s-nordic-proprietary-radio-mode-on-nrf52840
 #ifndef RADIO_MODE_MODE_Nrf_250Kbit
     #define RADIO_MODE_MODE_Nrf_250Kbit (2UL)
 #endif
+#ifdef ARDUINO_NRF54L15
+    #define RADIO_MODE_MODE_Nrf_4Mbit_OBT4 (10UL)
+    #define RADIO_MODE_MODE_Nrf_4Mbit_OBT6 (9UL)
+#endif
+
 
 /**********************************************************************************************************/
 
@@ -1026,10 +1035,19 @@ bool nrf_to_nrf::setDataRate(uint8_t speed)
         NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_250Kbit << RADIO_MODE_MODE_Pos);
         ackTimeout = ACK_TIMEOUT_250KBPS;
     }
-    else { // NRF_2MBPS
+    else if (speed == NRF_2MBPS) { // NRF_2MBPS
         NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_2Mbit << RADIO_MODE_MODE_Pos);
         ackTimeout = ACK_TIMEOUT_2MBPS;
     }
+    #ifdef ARDUINO_NRF54L15
+    else if(speed == NRF_4MBPS_OBT4){
+        NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_4Mbit_OBT4 << RADIO_MODE_MODE_Pos);
+        ackTimeout = ACK_TIMEOUT_2MBPS;
+    }else{
+        NRF_RADIO->MODE = (RADIO_MODE_MODE_Nrf_4Mbit_OBT6 << RADIO_MODE_MODE_Pos);
+        ackTimeout = ACK_TIMEOUT_2MBPS;
+    }    
+    #endif
 
     return 1;
 }
