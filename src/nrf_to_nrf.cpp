@@ -381,7 +381,12 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
 {
 #ifdef ARDUINO_NRF54L15
     uint32_t timeout = millis();
-    while (NRF_RADIO->STATE != 10 && millis() < timeout + 100) {
+    while (NRF_RADIO->STATE != 10) {
+        __WFE;
+        if (millis() > timeout + 250) {
+            stopListening();
+            break;
+        }
     }
 #endif
 
