@@ -208,8 +208,8 @@ public:
 
     /**
      * Data buffer for radio data
-     * The radio can handle packets up to 127 bytes if CRC & DPL is disabled
-     * 125 bytes if using 16-bit CRC & DPL is disabled
+     * The radio can handle packets up to 255 bytes if CRC & DPL is disabled
+     * 254 bytes if using 16-bit CRC & DPL is disabled
      *
      */
     uint8_t radioData[ACTUAL_MAX_PAYLOAD_SIZE + 2];
@@ -315,8 +315,8 @@ public:
     void disableDynamicPayloads();
 
     /**
-     * NRF52840 will handle up to 127 byte payloads with CRC & DPL disabled, 125 with 16-bit CRC and DPL disabled
-     * NRF54L15 will handle up to 255 byte payloads
+     * NRF52840 will handle up to 255 byte payloads with CRC & DPL disabled, 254 with 16-bit CRC and DPL
+     * NRF54L15 will do the same
      */
     void setPayloadSize(uint8_t size);
 
