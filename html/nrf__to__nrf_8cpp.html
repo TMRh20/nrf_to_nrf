@@ -119,9 +119,11 @@ Macros</h2></td></tr>
 <tr class="memitem:a5eea11725d8e7bd5357713c3e3da2f1f" id="r_a5eea11725d8e7bd5357713c3e3da2f1f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a5eea11725d8e7bd5357713c3e3da2f1f">TXPOWER_PA_HIGH</a>&#160;&#160;&#160;0x06</td></tr>
 <tr class="memitem:a2bf77ceada4577229d1c5b6dcb7f7b4c" id="r_a2bf77ceada4577229d1c5b6dcb7f7b4c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a2bf77ceada4577229d1c5b6dcb7f7b4c">TXPOWER_PA_MAX</a>&#160;&#160;&#160;0x08</td></tr>
 <tr class="memitem:a0195d51696da7b4323456b757d1e260d" id="r_a0195d51696da7b4323456b757d1e260d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a0195d51696da7b4323456b757d1e260d">RADIO_MODE_MODE_Nrf_250Kbit</a>&#160;&#160;&#160;(2UL)</td></tr>
+<tr class="memitem:aad2dd72565852b91c809cd4685833b17" id="r_aad2dd72565852b91c809cd4685833b17"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aad2dd72565852b91c809cd4685833b17">DEFAULT_TIMEOUT</a>&#160;&#160;&#160;250</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:aafd2b50d97614bab7e21436f907c1e55" id="r_aafd2b50d97614bab7e21436f907c1e55"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#aafd2b50d97614bab7e21436f907c1e55">waitForEvent</a> (volatile uint32_t &amp;event, uint32_t timeout=<a class="el" href="#aad2dd72565852b91c809cd4685833b17">DEFAULT_TIMEOUT</a>)</td></tr>
 <tr class="memitem:a85301329a5ba40727dcbe297c6333c20" id="r_a85301329a5ba40727dcbe297c6333c20"><td class="memItemLeft">static uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a85301329a5ba40727dcbe297c6333c20">bytewise_bit_swap</a> (uint8_t const *p_inp)</td></tr>
 <tr class="memitem:aa7e5782f60d66a6f654f6a84b02e0876" id="r_aa7e5782f60d66a6f654f6a84b02e0876"><td class="memItemLeft">static uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aa7e5782f60d66a6f654f6a84b02e0876">addr_conv</a> (uint8_t const *p_addr)</td></tr>
 </table>
@@ -226,7 +228,54 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aad2dd72565852b91c809cd4685833b17" name="aad2dd72565852b91c809cd4685833b17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad2dd72565852b91c809cd4685833b17">&#9670;&#160;</a></span>DEFAULT_TIMEOUT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DEFAULT_TIMEOUT&#160;&#160;&#160;250</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00037">37</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="aafd2b50d97614bab7e21436f907c1e55" name="aafd2b50d97614bab7e21436f907c1e55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafd2b50d97614bab7e21436f907c1e55">&#9670;&#160;</a></span>waitForEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool waitForEvent </td>
+          <td>(</td>
+          <td class="paramtype">volatile uint32_t &amp;</td>          <td class="paramname"><span class="paramname"><em>event</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>timeout</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#aad2dd72565852b91c809cd4685833b17">DEFAULT_TIMEOUT</a></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00041">41</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a85301329a5ba40727dcbe297c6333c20" name="a85301329a5ba40727dcbe297c6333c20"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a85301329a5ba40727dcbe297c6333c20">&#9670;&#160;</a></span>bytewise_bit_swap()</h2>
 
@@ -250,7 +299,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00040">40</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00055">55</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -277,7 +326,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00052">52</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00067">67</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
