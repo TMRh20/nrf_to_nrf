@@ -34,6 +34,21 @@
     #define RADIO_MODE_MODE_Nrf_4Mbit_OBT6 (9UL)
 #endif
 
+#define DEFAULT_TIMEOUT 250
+
+/**********************************************************************************************************/
+
+static bool waitForEvent(volatile uint32_t& event, uint32_t timeout = DEFAULT_TIMEOUT)
+{
+    uint32_t start = millis();
+    while (!event) {
+        if (millis() - start > timeout) {
+            return false;
+        }
+    }
+    return true;
+}
+
 /**********************************************************************************************************/
 
 // Function to do bytewise bit-swap on an unsigned 32-bit value
@@ -105,26 +120,23 @@ bool nrf_to_nrf::begin()
     NRF_CLOCK->TASKS_HFCLKSTART = 1;
 
     /* Wait for the external oscillator to start up */
-    while (NRF_CLOCK->EVENTS_HFCLKSTARTED == 0) {
-        // Do nothing.
-    }
+    if (!waitForEvent(NRF_CLOCK->EVENTS_HFCLKSTARTED))
+        return false;
 #else
     NRF_POWER->TASKS_CONSTLAT = 1;
     NRF_CLOCK->EVENTS_XOSTARTED = 0;
     NRF_CLOCK->TASKS_XOSTART = 1;
 
-    while (NRF_CLOCK->EVENTS_XOSTARTED == 0) {
-        // Keep waiting until stable
-    }
+    if (!waitForEvent(NRF_CLOCK->EVENTS_XOSTARTED))
+        return false;
 #endif
 
     NRF_CLOCK->EVENTS_LFCLKSTARTED = 0;
     NRF_CLOCK->TASKS_LFCLKSTART = 1;
 
     /* Wait for the low frequency clock to start up */
-    while (NRF_CLOCK->EVENTS_LFCLKSTARTED == 0) {
-        // Do nothing.
-    }
+    if (!waitForEvent(NRF_CLOCK->EVENTS_LFCLKSTARTED))
+        return false;
 
 #ifndef ARDUINO_NRF54L15
     NRF_RADIO->POWER = 1;
@@ -180,10 +192,9 @@ uint8_t nrf_to_nrf::sample_ed(void)
 {
     int val;
     NRF_RADIO->TASKS_EDSTART = 1; // Start
-    while (NRF_RADIO->EVENTS_EDEND != 1) {
-        // CPU can sleep here or do something else
-        // Use of interrupts are encouraged
-    }
+    if (!waitForEvent(NRF_RADIO->EVENTS_EDEND))
+        return 0;
+
     val = NRF_RADIO->EDSAMPLE; // Read level
     return (uint8_t)(val > 63
                          ? 255
@@ -382,8 +393,8 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
 #ifdef ARDUINO_NRF54L15
     uint32_t timeout = millis();
     while (NRF_RADIO->STATE != 10) {
-        __WFE();
-        if (millis() > timeout + 250) {
+        yield();
+        if (millis() - timeout > 250) {
             return 0;
         }
     }
@@ -404,8 +415,8 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
         if (len) {
 
             for (int i = 0; i < CCM_IV_SIZE; i++) {
-                while (!NRF_RNG->EVENTS_VALRDY) {
-                }
+                if (!waitForEvent(NRF_RNG->EVENTS_VALRDY, 100))
+                    return 0;
                 NRF_RNG->EVENTS_VALRDY = 0;
                 ccmData.iv[i] = NRF_RNG->VALUE;
             }
@@ -464,8 +475,9 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
 
         NRF_RADIO->EVENTS_END = 0;
         NRF_RADIO->TASKS_START = 1;
-        while (NRF_RADIO->EVENTS_END == 0) {
-        }
+        if (!waitForEvent(NRF_RADIO->EVENTS_END))
+            return false;
+
         NRF_RADIO->EVENTS_END = 0;
         if (!multicast && acksPerPipe[NRF_RADIO->TXADDRESS] == true) {
             uint32_t rxAddress = NRF_RADIO->RXADDRESSES;
@@ -476,7 +488,7 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
             }
             startListening(false);
 
-            uint32_t realAckTimeout = ackTimeout;
+            int32_t realAckTimeout = (int32_t)ackTimeout;
             if (!DPL) {
                 if (NRF_RADIO->MODE == (RADIO_MODE_MODE_Nrf_1Mbit << RADIO_MODE_MODE_Pos)) {
                     realAckTimeout -= ACK_TIMEOUT_1MBPS_OFFSET;
@@ -496,6 +508,10 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
                     realAckTimeout += ACK_PAYLOAD_TIMEOUT_OFFSET;
                 }
             }
+            if (realAckTimeout < 0) {
+                realAckTimeout = 0;
+            }
+
             uint32_t ack_timeout = micros();
             while (!NRF_RADIO->EVENTS_CRCOK && !NRF_RADIO->EVENTS_CRCERROR) {
                 if (micros() - ack_timeout > realAckTimeout) {
@@ -584,8 +600,8 @@ bool nrf_to_nrf::startWrite(void* buf, uint8_t len, bool multicast, bool doEncry
         if (len) {
 
             for (int i = 0; i < CCM_IV_SIZE; i++) {
-                while (!NRF_RNG->EVENTS_VALRDY) {
-                }
+                if (!waitForEvent(NRF_RNG->EVENTS_VALRDY, 100))
+                    return 0;
                 NRF_RNG->EVENTS_VALRDY = 0;
                 tmpIV[i] = NRF_RNG->VALUE;
                 ccmData.iv[i] = tmpIV[i];
@@ -661,8 +677,8 @@ bool nrf_to_nrf::writeAckPayload(uint8_t pipe, void* buf, uint8_t len)
         if (len) {
 
             for (int i = 0; i < CCM_IV_SIZE; i++) {
-                while (!NRF_RNG->EVENTS_VALRDY) {
-                }
+                if (!waitForEvent(NRF_RNG->EVENTS_VALRDY, 100))
+                    return 0;
                 NRF_RNG->EVENTS_VALRDY = 0;
                 ccmData.iv[i] = NRF_RNG->VALUE;
                 ackBuffer[i + 1] = ccmData.iv[i];
@@ -709,8 +725,8 @@ void nrf_to_nrf::startListening(bool resetAddresses)
 
     NRF_RADIO->EVENTS_DISABLED = 0;
     NRF_RADIO->TASKS_DISABLE = 1;
-    while (NRF_RADIO->EVENTS_DISABLED == 0) {
-    }
+    if (!waitForEvent(NRF_RADIO->EVENTS_DISABLED))
+        return;
     NRF_RADIO->EVENTS_DISABLED = 0;
 
     if (resetAddresses == true) {
@@ -729,8 +745,8 @@ void nrf_to_nrf::startListening(bool resetAddresses)
     NRF_RADIO->EVENTS_RXREADY = 0;
     NRF_RADIO->EVENTS_CRCOK = 0;
     NRF_RADIO->TASKS_RXEN = 1;
-    while (NRF_RADIO->EVENTS_RXREADY == 0) {
-    }
+    if (!waitForEvent(NRF_RADIO->EVENTS_RXREADY))
+        return;
 
     NRF_RADIO->TASKS_START = 1;
     inRxMode = true;
@@ -742,8 +758,8 @@ void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses)
 {
     NRF_RADIO->EVENTS_DISABLED = 0;
     NRF_RADIO->TASKS_DISABLE = 1;
-    while (NRF_RADIO->EVENTS_DISABLED == 0) {
-    }
+    if (!waitForEvent(NRF_RADIO->EVENTS_DISABLED))
+        return;
     NRF_RADIO->EVENTS_DISABLED = 0;
 
     if (resetAddresses) {
@@ -767,8 +783,8 @@ void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses)
     if (NRF_RADIO->STATE < 9) {
         NRF_RADIO->EVENTS_TXREADY = 0;
         NRF_RADIO->TASKS_TXEN = 1;
-        while (NRF_RADIO->EVENTS_TXREADY == 0) {
-        }
+        if (!waitForEvent(NRF_RADIO->EVENTS_TXREADY))
+            return;
         NRF_RADIO->EVENTS_TXREADY = 0;
     }
 
@@ -1162,8 +1178,9 @@ bool nrf_to_nrf::testCarrier(uint8_t RSSI)
 #ifndef ARDUINO_NRF54L15
     NRF_RADIO->EVENTS_RSSIEND = 0;
     NRF_RADIO->TASKS_RSSISTART = 1;
-    while (!NRF_RADIO->EVENTS_RSSIEND) {
-    }
+    if (!waitForEvent(NRF_RADIO->EVENTS_RSSIEND))
+        return false;
+
     if (NRF_RADIO->RSSISAMPLE < RSSI) {
         return 1;
     }
@@ -1185,8 +1202,9 @@ uint8_t nrf_to_nrf::getRSSI()
 #ifndef ARDUINO_NRF54L15
     NRF_RADIO->EVENTS_RSSIEND = 0;
     NRF_RADIO->TASKS_RSSISTART = 1;
-    while (!NRF_RADIO->EVENTS_RSSIEND) {
-    }
+    if (!waitForEvent(NRF_RADIO->EVENTS_RSSIEND))
+        return 0;
+
     return (uint8_t)NRF_RADIO->RSSISAMPLE;
 #endif
     return 0;
@@ -1208,9 +1226,7 @@ void nrf_to_nrf::powerUp()
     NRF_CLOCK->TASKS_HFCLKSTART = 1;
 
     /* Wait for the external oscillator to start up */
-    while (NRF_CLOCK->EVENTS_HFCLKSTARTED == 0) {
-        // Do nothing.
-    }
+    waitForEvent(NRF_CLOCK->EVENTS_HFCLKSTARTED);
 
     NRF_RADIO->POWER = 1;
 #else
@@ -1218,9 +1234,7 @@ void nrf_to_nrf::powerUp()
     NRF_CLOCK->EVENTS_XOSTARTED = 0;
     NRF_CLOCK->TASKS_XOSTART = 1;
 
-    while (NRF_CLOCK->EVENTS_XOSTARTED == 0) {
-        // Keep waiting until stable
-    }
+    waitForEvent(NRF_CLOCK->EVENTS_XOSTARTED);
 #endif
 
 #ifdef CCM_ENCRYPTION_ENABLED
@@ -1240,7 +1254,7 @@ void nrf_to_nrf::powerDown()
     NRF_RADIO->POWER = 0;
     NRF_CLOCK->TASKS_HFCLKSTOP = 1;
 #else
-    NRF_CLOCK->TASKS_XOSTART = 1;
+    NRF_CLOCK->TASKS_XOSTOP = 1;
 #endif
 
 #ifdef CCM_ENCRYPTION_ENABLED
@@ -1377,8 +1391,8 @@ uint8_t nrf_to_nrf::encrypt(void* bufferIn, uint8_t size)
     NRF_CCM->EVENTS_ENDKSGEN = 0;
     NRF_CCM->EVENTS_ENDCRYPT = 0;
     NRF_CCM->TASKS_KSGEN = 1;
-    while (!NRF_CCM->EVENTS_ENDCRYPT) {
-    };
+    if (!waitForEvent(NRF_CCM->EVENTS_ENDCRYPT))
+        return 0;
 
     if (NRF_CCM->EVENTS_ERROR) {
         return 0;
@@ -1411,8 +1425,8 @@ uint8_t nrf_to_nrf::decrypt(void* bufferIn, uint8_t size)
     NRF_CCM->EVENTS_ENDCRYPT = 0;
     NRF_CCM->TASKS_KSGEN = 1;
 
-    while (!NRF_CCM->EVENTS_ENDCRYPT) {
-    };
+    if (!waitForEvent(NRF_CCM->EVENTS_ENDCRYPT))
+        return 0;
 
     if (NRF_CCM->EVENTS_ERROR) {
         return 0;
