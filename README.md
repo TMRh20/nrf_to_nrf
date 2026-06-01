@@ -68,7 +68,7 @@ There are examples under `examples/` showing encryption usage (setting a 16-byte
 
 - `radio.setKey(myKey);`
 - `radio.enableEncryption = true;`
-- `radio.enableDynamicPayloads(123);` (important so encryption overhead doesn’t reduce usable payload)
+- `radio.enableDynamicPayloads(254);` (important so encryption overhead doesn’t reduce usable payload)
 
 ---
 
