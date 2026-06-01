@@ -305,7 +305,7 @@ public:
      * Once this function has been called, users need to call disableDynamicPayloads if they want to call it again, else it has no effect.
      * @note If using with RF24Network or RF24Mesh, users can call `radio.begin()` then `radio.enableDynamicPayloads(254);` before
      * initializing the network. This will enable maximum payload sizes and fragmentation/reassembly won't engage until this length is exceeded.
-     * @param payloadSize Set the maximum payload size. Up to 125 with DPL enabled & CRC disabled or 123 with 16-bit CRC & DPL enabled
+     * @param payloadSize Set the maximum payload size. Up to 254 with DPL enabled
      */
     void enableDynamicPayloads(uint8_t payloadSize = DEFAULT_MAX_PAYLOAD_SIZE);
 
