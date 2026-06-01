@@ -7,7 +7,7 @@
         "type": "git",
         "url": "https://github.com/TMRh20/nrf_to_nrf"
     },
-    "version": "1.4.3",
+    "version": "1.4.4",
     "export": {
         "exclude": [
             ".github/*"
