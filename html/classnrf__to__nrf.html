@@ -919,10 +919,10 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Once this function has been called, users need to call disableDynamicPayloads if they want to call it again, else it has no effect. </p><dl class="section note"><dt>Note</dt><dd>If using with RF24Network or RF24Mesh, users can call <span class="tt">radio.begin()</span> then <span class="tt">radio.enableDynamicPayloads(123);</span> before initializing the network. This will enable maximum payload sizes and fragmentation/reassembly won't engage until this length is exceeded. </dd></dl>
+<p>Once this function has been called, users need to call disableDynamicPayloads if they want to call it again, else it has no effect. </p><dl class="section note"><dt>Note</dt><dd>If using with RF24Network or RF24Mesh, users can call <span class="tt">radio.begin()</span> then <span class="tt">radio.enableDynamicPayloads(254);</span> before initializing the network. This will enable maximum payload sizes and fragmentation/reassembly won't engage until this length is exceeded. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">payloadSize</td><td>Set the maximum payload size. Up to 125 with DPL enabled &amp; CRC disabled or 123 with 16-bit CRC &amp; DPL enabled </td></tr>
+    <tr><td class="paramname">payloadSize</td><td>Set the maximum payload size. Up to 254 with DPL enabled </td></tr>
   </table>
   </dd>
 </dl>

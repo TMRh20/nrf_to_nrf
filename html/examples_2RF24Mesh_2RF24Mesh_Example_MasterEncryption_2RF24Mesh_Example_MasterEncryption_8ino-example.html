@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div class="line">  radio.<a id="a1" name="a1"></a><a class="code hl_function" href="classnrf__to__nrf.html#a7732e9d1424d384c575377c8385c725d">begin</a>();</div>
 <div class="line">  radio.<a id="a2" name="a2"></a><a class="code hl_function" href="classnrf__to__nrf.html#a6f7e3aa9689f57c51a6f23020d023da3">setKey</a>(myKey);           <span class="comment">// Set our key and IV</span></div>
 <div class="line">  radio.<a id="a3" name="a3"></a><a class="code hl_variable" href="classnrf__to__nrf.html#a7dcfe5f98793e4b1dc441404f1e7134a">enableEncryption</a> = <span class="keyword">true</span>; <span class="comment">// Enable encryption</span></div>
-<div class="line">  radio.<a id="a4" name="a4"></a><a class="code hl_function" href="classnrf__to__nrf.html#a7eab024220706b66d73f543ee6a094b0">enableDynamicPayloads</a>(123); <span class="comment">//This is important to call so the encryption overhead will not be included in the 32-byte limit</span></div>
+<div class="line">  radio.<a id="a4" name="a4"></a><a class="code hl_function" href="classnrf__to__nrf.html#a7eab024220706b66d73f543ee6a094b0">enableDynamicPayloads</a>(254); <span class="comment">//This is important to call so the encryption overhead will not be included in the 32-byte limit</span></div>
 <div class="line">                                    <span class="comment">//To overcome the 32-byte limit, edit RF24Network.h and set MAX_FRAME_SIZE to 111</span></div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Set the nodeID to 0 for the master node</span></div>
