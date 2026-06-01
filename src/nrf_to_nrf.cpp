@@ -98,7 +98,6 @@ nrf_to_nrf::nrf_to_nrf()
     arcCounter = 0;
     ackTimeout = ACK_TIMEOUT_1MBPS;
     payloadAvailable = false;
-    
     #ifndef ARDUINO_NRF54L15
     interframeSpacing = 115;
     #else
