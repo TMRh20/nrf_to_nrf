@@ -98,11 +98,11 @@ nrf_to_nrf::nrf_to_nrf()
     arcCounter = 0;
     ackTimeout = ACK_TIMEOUT_1MBPS;
     payloadAvailable = false;
-    #ifndef ARDUINO_NRF54L15
+#ifndef ARDUINO_NRF54L15
     interframeSpacing = 115;
-    #else
+#else
     interframeSpacing = 130;
-    #endif
+#endif
 
 #if defined CCM_ENCRYPTION_ENABLED
     NRF_CCM->INPTR = (uint32_t)inBuffer;
@@ -467,7 +467,15 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
 #if defined CCM_ENCRYPTION_ENABLED
         }
 #endif
-
+#ifdef ARDUINO_NRF54L15
+        uint32_t timeout = millis();
+        while (NRF_RADIO->STATE != 10) {
+            yield();
+            if (millis() - timeout > 250) {
+                return 0;
+            }
+        }
+#endif
         NRF_RADIO->EVENTS_END = 0;
         NRF_RADIO->TASKS_START = 1;
         if (!waitForEvent(NRF_RADIO->EVENTS_END))
