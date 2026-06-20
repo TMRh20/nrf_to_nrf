@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="nrf__to__nrf_8cpp.html#a6a37685aaa008c5b12b89698521a5d23">   41</a></span><span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="nrf__to__nrf_8cpp.html#a6a37685aaa008c5b12b89698521a5d23">waitForEvent</a>(<span class="keyword">volatile</span> uint32_t* event, uint32_t timeout = <a class="code hl_define" href="nrf__to__nrf_8cpp.html#aad2dd72565852b91c809cd4685833b17">DEFAULT_TIMEOUT</a>)</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>{</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    uint32_t start = millis();</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">while</span> (!event) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">while</span> (*event == 0) {</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">if</span> (millis() - start &gt; timeout) {</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        }</div>
