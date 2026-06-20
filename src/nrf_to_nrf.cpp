@@ -41,7 +41,7 @@
 static bool waitForEvent(volatile uint32_t* event, uint32_t timeout = DEFAULT_TIMEOUT)
 {
     uint32_t start = millis();
-    while (!event) {
+    while (*event == 0) {
         if (millis() - start > timeout) {
             return false;
         }
