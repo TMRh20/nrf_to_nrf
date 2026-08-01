@@ -744,13 +744,20 @@ void nrf_to_nrf::startListening(bool resetAddresses)
         NRF_RADIO->TIFS = 0;
     }
     NRF_RADIO->SHORTS = 0x0;
-
+#if defined(NRF52832_XXAA)
+    NRF_RADIO->EVENTS_READY = 0;
+#else
     NRF_RADIO->EVENTS_RXREADY = 0;
+#endif
     NRF_RADIO->EVENTS_CRCOK = 0;
-    NRF_RADIO->TASKS_RXEN = 1;
+    NRF_RADIO->TASKS_RXEN = 1;  
+#if defined(NRF52832_XXAA)
+    if (!waitForEvent(&NRF_RADIO->EVENTS_READY))
+      return;
+#else
     if (!waitForEvent(&NRF_RADIO->EVENTS_RXREADY))
-        return;
-
+      return;
+#endif
     NRF_RADIO->TASKS_START = 1;
     inRxMode = true;
 }
@@ -784,11 +791,21 @@ void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses)
     NRF_RADIO->SHORTS = 0x80004;
 #endif
     if (NRF_RADIO->STATE < 9) {
+#if defined(NRF52832_XXAA)
+        NRF_RADIO->EVENTS_READY = 0;
+#else
         NRF_RADIO->EVENTS_TXREADY = 0;
+#endif
         NRF_RADIO->TASKS_TXEN = 1;
+#if defined(NRF52832_XXAA)
+        if (!waitForEvent(&NRF_RADIO->EVENTS_READY))
+            return;
+        NRF_RADIO->EVENTS_READY = 0;
+#else
         if (!waitForEvent(&NRF_RADIO->EVENTS_TXREADY))
             return;
         NRF_RADIO->EVENTS_TXREADY = 0;
+#endif
     }
 
     inRxMode = false;
@@ -1448,7 +1465,9 @@ void nrf_to_nrf::setKey(uint8_t key[CCM_KEY_SIZE])
 {
 
     NRF_CCM->MODE = 1 << 24 | 1 << 16;
+#ifndef NRF52832_XXAA
     NRF_CCM->MAXPACKETSIZE = MAX_PACKET_SIZE;
+#endif
     NRF_CCM->SHORTS = 1;
     NRF_CCM->ENABLE = 2;
 
