@@ -1466,7 +1466,7 @@ void nrf_to_nrf::setKey(uint8_t key[CCM_KEY_SIZE])
 
     NRF_CCM->MODE = 1 << 24 | 1 << 16;
 #ifndef NRF52832_XXAA
-    NRF_CCM->MAXPACKETSIZE = MAX_PACKET_SIZE;
+    NRF_CCM->MAXPACKETSIZE = MAX_PACKET_SIZE > 251 ? 251 : MAX_PACKET_SIZE;
 #endif
     NRF_CCM->SHORTS = 1;
     NRF_CCM->ENABLE = 2;
