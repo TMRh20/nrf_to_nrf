@@ -2,6 +2,12 @@
 
 #include "nrf_to_nrf.h"
 
+#if defined NRF54_CCM_ENCRYPTION
+    #include <nrf54l15_hal.h>
+static xiao_nrf54l15::Ccm nrf54Ccm;
+static xiao_nrf54l15::CracenRng nrf54Rng;
+#endif
+
 #ifndef __REV
     #define __REV(x) __builtin_bswap32(x);
 #endif
@@ -105,10 +111,12 @@ nrf_to_nrf::nrf_to_nrf()
 #endif
 
 #if defined CCM_ENCRYPTION_ENABLED
+    #if !defined NRF54_CCM_ENCRYPTION
     NRF_CCM->INPTR = (uint32_t)inBuffer;
     NRF_CCM->OUTPTR = (uint32_t)outBuffer;
     NRF_CCM->CNFPTR = (uint32_t)&ccmData;
     NRF_CCM->SCRATCHPTR = (uint32_t)scratchPTR;
+    #endif
     ccmData.counter = 12345;
     enableEncryption = false;
 #endif
@@ -409,11 +417,8 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
     if (enableEncryption && doEncryption) {
         if (len) {
 
-            for (int i = 0; i < CCM_IV_SIZE; i++) {
-                if (!waitForEvent(&NRF_RNG->EVENTS_VALRDY, 100))
-                    return 0;
-                NRF_RNG->EVENTS_VALRDY = 0;
-                ccmData.iv[i] = NRF_RNG->VALUE;
+            if (!generateIV(ccmData.iv)) {
+                return 0;
             }
             ccmData.counter = packetCounter;
 
@@ -602,13 +607,10 @@ bool nrf_to_nrf::startWrite(void* buf, uint8_t len, bool multicast, bool doEncry
     if (enableEncryption && doEncryption) {
         if (len) {
 
-            for (int i = 0; i < CCM_IV_SIZE; i++) {
-                if (!waitForEvent(&NRF_RNG->EVENTS_VALRDY, 100))
-                    return 0;
-                NRF_RNG->EVENTS_VALRDY = 0;
-                tmpIV[i] = NRF_RNG->VALUE;
-                ccmData.iv[i] = tmpIV[i];
+            if (!generateIV(tmpIV)) {
+                return 0;
             }
+            memcpy(ccmData.iv, tmpIV, CCM_IV_SIZE);
             tmpCounter = packetCounter;
             ccmData.counter = tmpCounter;
 
@@ -679,13 +681,10 @@ bool nrf_to_nrf::writeAckPayload(uint8_t pipe, void* buf, uint8_t len)
     if (enableEncryption) {
         if (len) {
 
-            for (int i = 0; i < CCM_IV_SIZE; i++) {
-                if (!waitForEvent(&NRF_RNG->EVENTS_VALRDY, 100))
-                    return 0;
-                NRF_RNG->EVENTS_VALRDY = 0;
-                ccmData.iv[i] = NRF_RNG->VALUE;
-                ackBuffer[i + 1] = ccmData.iv[i];
+            if (!generateIV(ccmData.iv)) {
+                return 0;
             }
+            memcpy(&ackBuffer[1], ccmData.iv, CCM_IV_SIZE);
 
             ccmData.counter = packetCounter;
             memcpy(&ackBuffer[1 + CCM_IV_SIZE], &ccmData.counter, CCM_COUNTER_SIZE);
@@ -1259,9 +1258,13 @@ void nrf_to_nrf::powerUp()
 
 #ifdef CCM_ENCRYPTION_ENABLED
     if (enableEncryption) {
+    #if defined NRF54_CCM_ENCRYPTION
+        nrf54Rng.begin(); // The Ccm class enables CCM00 for each operation
+    #else
         NRF_RNG->CONFIG = 1;
         NRF_RNG->TASKS_START = 1;
         NRF_CCM->ENABLE = 2;
+    #endif
     }
 #endif
 }
@@ -1279,9 +1282,13 @@ void nrf_to_nrf::powerDown()
 
 #ifdef CCM_ENCRYPTION_ENABLED
     if (enableEncryption) {
+    #if defined NRF54_CCM_ENCRYPTION
+        nrf54Rng.end();
+    #else
         NRF_RNG->TASKS_STOP = 1;
         NRF_RNG->CONFIG = 0;
         NRF_CCM->ENABLE = 0;
+    #endif
     }
 #endif
 }
@@ -1390,6 +1397,62 @@ void nrf_to_nrf::printDetails()
 
 #if defined CCM_ENCRYPTION_ENABLED
 
+    #if defined NRF54_CCM_ENCRYPTION
+
+// The nRF54L15 CCM takes the key and nonce in registers and the data through EasyDMA job lists.
+// The core's Ccm class handles that and builds the same Bluetooth LE nonce (packet counter,
+// direction bit, IV) as the nRF52 CCM, so frames are compatible with nRF52 nodes and RF24CCM.
+// The result goes to outBuffer[CCM_START_SIZE] and its length to outBuffer[1], as on the nRF52.
+
+uint8_t nrf_to_nrf::encrypt(void* bufferIn, uint8_t size)
+{
+    if (!size || size > MAX_PACKET_SIZE) {
+        return 0;
+    }
+    memset(outBuffer, 0, sizeof(outBuffer));
+
+    uint8_t length = 0;
+    if (!nrf54Ccm.encryptBlePacket(ccmData.key, ccmData.iv, ccmData.counter, ccmData.direction, 0, static_cast<const uint8_t*>(bufferIn), size,
+                                   &outBuffer[CCM_START_SIZE], &length, xiao_nrf54l15::CcmBleDataRate::k2Mbit)) {
+        return 0;
+    }
+    outBuffer[1] = length;
+    return length;
+}
+
+/**********************************************************************************************************/
+
+uint8_t nrf_to_nrf::decrypt(void* bufferIn, uint8_t size)
+{
+    if (!size || size > MAX_PACKET_SIZE) {
+        return 0;
+    }
+    memset(outBuffer, 0, sizeof(outBuffer));
+
+    // Decryption runs at the pace of the data rate, so use the fastest BLE rate
+    uint8_t length = 0;
+    bool macValid = false;
+    if (!nrf54Ccm.decryptBlePacket(ccmData.key, ccmData.iv, ccmData.counter, ccmData.direction, 0, static_cast<const uint8_t*>(bufferIn), size,
+                                   &outBuffer[CCM_START_SIZE], &length, &macValid, xiao_nrf54l15::CcmBleDataRate::k2Mbit)
+        || !macValid) {
+        return 0;
+    }
+    outBuffer[1] = length;
+    return length;
+}
+
+/**********************************************************************************************************/
+
+void nrf_to_nrf::setKey(uint8_t key[CCM_KEY_SIZE])
+{
+    nrf54Rng.begin();
+    memcpy(ccmData.key, key, CCM_KEY_SIZE);
+}
+
+/**********************************************************************************************************/
+
+    #else
+
 uint8_t nrf_to_nrf::encrypt(void* bufferIn, uint8_t size)
 {
     NRF_CCM->MODE = 0 | 1 << 24 | 1 << 16;
@@ -1477,6 +1540,8 @@ void nrf_to_nrf::setKey(uint8_t key[CCM_KEY_SIZE])
     memcpy(ccmData.key, key, CCM_KEY_SIZE);
 }
 
+    #endif // defined NRF54_CCM_ENCRYPTION
+
 /**********************************************************************************************************/
 
 void nrf_to_nrf::setCounter(uint64_t counter)
@@ -1493,6 +1558,24 @@ void nrf_to_nrf::setIV(uint8_t IV[CCM_IV_SIZE])
     for (int i = 0; i < CCM_IV_SIZE; i++) {
         ccmData.iv[i] = IV[i];
     }
+}
+
+/**********************************************************************************************************/
+
+bool nrf_to_nrf::generateIV(uint8_t iv[CCM_IV_SIZE])
+{
+    #if defined NRF54_CCM_ENCRYPTION
+    return nrf54Rng.fill(iv, CCM_IV_SIZE);
+    #else
+    for (int i = 0; i < CCM_IV_SIZE; i++) {
+        if (!waitForEvent(&NRF_RNG->EVENTS_VALRDY, 100)) {
+            return false;
+        }
+        NRF_RNG->EVENTS_VALRDY = 0;
+        iv[i] = NRF_RNG->VALUE;
+    }
+    return true;
+    #endif
 }
 
 #endif // defined CCM_ENCRYPTION_ENABLED

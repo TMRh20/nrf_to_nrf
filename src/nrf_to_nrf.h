@@ -28,7 +28,12 @@
 #define ACK_PAYLOAD_TIMEOUT_OFFSET 750
 
 // AES CCM ENCRYPTION
-#if defined NRF_CCM || defined(DOXYGEN)
+// The nRF54L15 CCM is a different peripheral with no NRF_CCM; with the nrf54l15clean core
+// (https://github.com/lolren/nrf54-arduino-core) encryption uses its Ccm and CracenRng classes
+#if defined(ARDUINO_NRF54L15) && defined(ARDUINO_ARCH_NRF54L15CLEAN)
+    #define NRF54_CCM_ENCRYPTION
+#endif
+#if defined NRF_CCM || defined NRF54_CCM_ENCRYPTION || defined(DOXYGEN)
     #define CCM_ENCRYPTION_ENABLED
 #endif
 #if defined CCM_ENCRYPTION_ENABLED || defined(DOXYGEN)
@@ -566,6 +571,7 @@ private:
     } ccmData_t;
     ccmData_t ccmData;
     uint32_t packetCounter;
+    bool generateIV(uint8_t iv[CCM_IV_SIZE]);
 #endif
 };
 
