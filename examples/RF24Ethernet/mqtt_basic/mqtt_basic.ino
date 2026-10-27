@@ -28,6 +28,8 @@
   It will reconnect to the server if the connection is lost using a blocking
   reconnect function.
 
+  To enable encryption with RF24Gateway, uncomment the line specifying the key, as well as the 
+  lines radio.setKey(myKey); & radio.enableEncryption = true; called before mesh.begin().
 */
 
 #include <nrf_to_nrf.h>
@@ -35,6 +37,8 @@
 #include <RF24Mesh.h>
 #include <RF24Ethernet.h>
 #include <MQTT.h>
+
+// uint8_t myKey[16] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10};
 
 nrf_to_nrf radio;
 RF52Network network(radio);
@@ -84,6 +88,9 @@ void setup() {
   delay(5000);
   Ethernet.begin(ip, gateway);
 
+  //radio.setKey(myKey);
+  //radio.enableEncryption = true;
+   
   if (mesh.begin()) {
     Serial.println(" OK");
   } else {

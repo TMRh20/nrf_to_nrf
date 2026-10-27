@@ -126,6 +126,8 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div class="line"><span class="comment">  It will reconnect to the server if the connection is lost using a blocking</span></div>
 <div class="line"><span class="comment">  reconnect function.</span></div>
 <div class="line"><span class="comment"></span> </div>
+<div class="line"><span class="comment">  To enable encryption with RF24Gateway, uncomment the line specifying the key, as well as the </span></div>
+<div class="line"><span class="comment">  lines radio.setKey(myKey); &amp; radio.enableEncryption = true; called before mesh.begin().</span></div>
 <div class="line"><span class="comment">*/</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="nrf__to__nrf_8h.html">nrf_to_nrf.h</a>&gt;</span></div>
@@ -133,6 +135,8 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div class="line"><span class="preprocessor">#include &lt;RF24Mesh.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;RF24Ethernet.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;MQTT.h&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// uint8_t myKey[16] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10};</span></div>
 <div class="line"> </div>
 <div class="line"><a id="_a0" name="_a0"></a><a class="code hl_class" href="classnrf__to__nrf.html">nrf_to_nrf</a> radio;</div>
 <div class="line">RF52Network network(radio);</div>
@@ -182,6 +186,9 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div class="line">  delay(5000);</div>
 <div class="line">  Ethernet.begin(ip, gateway);</div>
 <div class="line"> </div>
+<div class="line">  <span class="comment">//radio.setKey(myKey);</span></div>
+<div class="line">  <span class="comment">//radio.enableEncryption = true;</span></div>
+<div class="line">   </div>
 <div class="line">  <span class="keywordflow">if</span> (mesh.begin()) {</div>
 <div class="line">    Serial.println(<span class="stringliteral">&quot; OK&quot;</span>);</div>
 <div class="line">  } <span class="keywordflow">else</span> {</div>
