@@ -189,6 +189,23 @@ public:
     void stopListening(const uint8_t* txAddress, bool setWritingPipe = true, bool resetAddresses = true);
 
     /**
+     * Receive packets from the radio interrupt, so a slow loop() doesn't leave the radio idle.
+     * available() and read() are used as normal. Don't use BLE in the same sketch.
+     *
+     * @note The library defines the radio interrupt handler, so a sketch can't define its own.
+     *
+     * Call this after the payload size is set, and after mesh.begin() or network.begin() if using those.
+     * Once the queue is full, packets aren't acknowledged, so the sender retries them.
+     *
+     * @param depth The number of packets to queue, from 1 to 254. Uses (depth + 1) * (payload size + 2) bytes of RAM.
+     * @return false if depth is invalid, there isn't enough memory, or this was already called
+     */
+    bool enableRxInterrupt(uint8_t depth = 8);
+
+    /** Called by the library's radio interrupt handler */
+    void handleInterrupt();
+
+    /**
      * Same as NRF24 except the 52840 has 8 pipes
      */
     void openReadingPipe(uint8_t child, const uint8_t* address);
@@ -559,6 +576,14 @@ private:
     bool restartReturnRx();
     void openReadingPipe(uint8_t child, uint32_t base, uint32_t prefix);
     void openWritingPipe(uint32_t base, uint32_t prefix);
+    bool pollRadio(uint8_t* pipe_num);
+    uint8_t* rxQueueFront();
+    uint8_t* rxQueue;
+    uint16_t rxQueueSlotSize;
+    uint8_t rxQueueSlots;
+    volatile uint8_t rxQueueHead;
+    volatile uint8_t rxQueueTail;
+    bool inInterrupt;
 #if defined CCM_ENCRYPTION_ENABLED
     uint8_t inBuffer[MAX_PACKET_SIZE + CCM_MIC_SIZE + CCM_START_SIZE];
     uint8_t scratchPTR[MAX_PACKET_SIZE + CCM_MODE_LENGTH_EXTENDED];
