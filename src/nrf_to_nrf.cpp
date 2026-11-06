@@ -725,6 +725,7 @@ void nrf_to_nrf::disableAckPayload() { ackPayloadsEnabled = false; }
 void nrf_to_nrf::startListening(bool resetAddresses)
 {
 
+    NRF_RADIO->SHORTS = 0x0;
     NRF_RADIO->EVENTS_DISABLED = 0;
     NRF_RADIO->TASKS_DISABLE = 1;
     if (!waitForEvent(&NRF_RADIO->EVENTS_DISABLED))
@@ -742,7 +743,7 @@ void nrf_to_nrf::startListening(bool resetAddresses)
         // NRF_RADIO->MODECNF0 = 0x201;
         NRF_RADIO->TIFS = 0;
     }
-    NRF_RADIO->SHORTS = 0x0;
+
 #if defined(NRF52832_XXAA)
     NRF_RADIO->EVENTS_READY = 0;
 #else
