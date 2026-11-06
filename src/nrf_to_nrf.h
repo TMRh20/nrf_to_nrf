@@ -194,8 +194,8 @@ public:
      *
      * @note The library defines the radio interrupt handler, so a sketch can't define its own.
      *
-     * Call this after the payload size is set, and after mesh.begin() or network.begin() if using those.
-     * Once the queue is full, packets aren't acknowledged, so the sender retries them.
+     * This is called automatically on begin(), so if you want to disable it, call disableRxInterrupt() 
+     * after the radio and/or network/mesh has been configured.
      *
      * @param depth The number of packets to queue, from 1 to 254. Uses (depth + 1) * (payload size + 2) bytes of RAM.
      * @return false if depth is invalid, there isn't enough memory, or this was already called
