@@ -1,10 +1,15 @@
 var searchData=
 [
-  ['testcarrier_0',['testCarrier',['../classnrf__to__nrf.html#a1b0d3c0393baaec2963e325dca708935',1,'nrf_to_nrf']]],
-  ['testrpd_1',['testRPD',['../classnrf__to__nrf.html#a4de30b154367928dae7b778b21748d53',1,'nrf_to_nrf']]],
-  ['txpower_5fpa_5fhigh_2',['TXPOWER_PA_HIGH',['../nrf__to__nrf_8cpp.html#a5eea11725d8e7bd5357713c3e3da2f1f',1,'nrf_to_nrf.cpp']]],
-  ['txpower_5fpa_5flow_3',['TXPOWER_PA_LOW',['../nrf__to__nrf_8cpp.html#a7633dffce130c492784308bae811db9f',1,'nrf_to_nrf.cpp']]],
-  ['txpower_5fpa_5fmax_4',['TXPOWER_PA_MAX',['../nrf__to__nrf_8cpp.html#a2bf77ceada4577229d1c5b6dcb7f7b4c',1,'nrf_to_nrf.cpp']]],
-  ['txpower_5fpa_5fmin_5',['TXPOWER_PA_MIN',['../nrf__to__nrf_8cpp.html#a025ff473ec14e70ffd5712c3ef7abd95',1,'nrf_to_nrf.cpp']]],
-  ['txstandby_6',['txStandBy',['../classnrf__to__nrf.html#a1b2f567dda77209301cbaea4c5a75862',1,'nrf_to_nrf::txStandBy()'],['../classnrf__to__nrf.html#a8c249d4566bb6b6219b22b69c46daa9d',1,'nrf_to_nrf::txStandBy(uint32_t timeout, bool startTx=0)']]]
+  ['radio_20driver_0',['nrf_to_nrf - NRF52 radio driver',['../index.html',1,'']]],
+  ['radio_5fmode_5fmode_5fnrf_5f250kbit_1',['RADIO_MODE_MODE_Nrf_250Kbit',['../nrf__to__nrf_8cpp.html#a0195d51696da7b4323456b757d1e260d',1,'nrf_to_nrf.cpp']]],
+  ['radiodata_2',['radioData',['../classnrf__to__nrf.html#a3183dc6c9f8a06ca01ef9d015420791d',1,'nrf_to_nrf']]],
+  ['radioirqlock_3',['RadioIrqLock',['../structRadioIrqLock.html',1,'RadioIrqLock'],['../structRadioIrqLock.html#abe7f8ffafb6c79f5c1939d50504575ed',1,'RadioIrqLock::RadioIrqLock()']]],
+  ['read_4',['read',['../classnrf__to__nrf.html#ae9457410ab65e1cf3109e45cc3155010',1,'nrf_to_nrf']]],
+  ['rx_5firq_5fclear_5',['RX_IRQ_CLEAR',['../nrf__to__nrf_8cpp.html#a0f65ab6e5dd50b6ab9bbd8cd96da06d5',1,'nrf_to_nrf.cpp']]],
+  ['rx_5firq_5fhandler_6',['RX_IRQ_HANDLER',['../nrf__to__nrf_8cpp.html#aedd16dc81d9d72bdead5818ef8a16086',1,'nrf_to_nrf.cpp']]],
+  ['rx_5firq_5fmask_7',['RX_IRQ_MASK',['../nrf__to__nrf_8cpp.html#abf5d31df79ec80ae6c68f53882786041',1,'nrf_to_nrf.cpp']]],
+  ['rx_5firq_5fnumber_8',['RX_IRQ_NUMBER',['../nrf__to__nrf_8cpp.html#a9310a98fb6e4a981c1e5b41899a2d21d',1,'nrf_to_nrf.cpp']]],
+  ['rx_5firq_5fset_9',['RX_IRQ_SET',['../nrf__to__nrf_8cpp.html#aa7d58b058a1498660d2b8d29dfaf573f',1,'nrf_to_nrf.cpp']]],
+  ['rxirqdisable_10',['rxIrqDisable',['../nrf__to__nrf_8cpp.html#a803f7bbd1068f45836ea50b6f5c5c4fc',1,'nrf_to_nrf.cpp']]],
+  ['rxirqradio_11',['rxIrqRadio',['../nrf__to__nrf_8cpp.html#a208b983d6775a6c8afb6f4dcada6f6f4',1,'nrf_to_nrf.cpp']]]
 ];

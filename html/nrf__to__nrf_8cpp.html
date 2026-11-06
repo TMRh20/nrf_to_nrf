@@ -104,8 +104,10 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">nrf_to_nrf.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -113,6 +115,10 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 </div>
 <p><a href="nrf__to__nrf_8cpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:RadioIrqLock" id="r_RadioIrqLock"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structRadioIrqLock.html">RadioIrqLock</a></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a29de0b478e3a57bf82dda49e3311d9f8" id="r_a29de0b478e3a57bf82dda49e3311d9f8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a29de0b478e3a57bf82dda49e3311d9f8">__REV</a>(x)</td></tr>
@@ -122,12 +128,23 @@ Macros</h2></td></tr>
 <tr class="memitem:a2bf77ceada4577229d1c5b6dcb7f7b4c" id="r_a2bf77ceada4577229d1c5b6dcb7f7b4c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a2bf77ceada4577229d1c5b6dcb7f7b4c">TXPOWER_PA_MAX</a>&#160;&#160;&#160;0x08</td></tr>
 <tr class="memitem:a0195d51696da7b4323456b757d1e260d" id="r_a0195d51696da7b4323456b757d1e260d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a0195d51696da7b4323456b757d1e260d">RADIO_MODE_MODE_Nrf_250Kbit</a>&#160;&#160;&#160;(2UL)</td></tr>
 <tr class="memitem:aad2dd72565852b91c809cd4685833b17" id="r_aad2dd72565852b91c809cd4685833b17"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aad2dd72565852b91c809cd4685833b17">DEFAULT_TIMEOUT</a>&#160;&#160;&#160;250</td></tr>
+<tr class="memitem:a9310a98fb6e4a981c1e5b41899a2d21d" id="r_a9310a98fb6e4a981c1e5b41899a2d21d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9310a98fb6e4a981c1e5b41899a2d21d">RX_IRQ_NUMBER</a>&#160;&#160;&#160;RADIO_IRQn</td></tr>
+<tr class="memitem:abf5d31df79ec80ae6c68f53882786041" id="r_abf5d31df79ec80ae6c68f53882786041"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#abf5d31df79ec80ae6c68f53882786041">RX_IRQ_MASK</a>&#160;&#160;&#160;(RADIO_INTENSET_CRCOK_Msk | RADIO_INTENSET_CRCERROR_Msk)</td></tr>
+<tr class="memitem:aa7d58b058a1498660d2b8d29dfaf573f" id="r_aa7d58b058a1498660d2b8d29dfaf573f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aa7d58b058a1498660d2b8d29dfaf573f">RX_IRQ_SET</a>&#160;&#160;&#160;INTENSET</td></tr>
+<tr class="memitem:a0f65ab6e5dd50b6ab9bbd8cd96da06d5" id="r_a0f65ab6e5dd50b6ab9bbd8cd96da06d5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a0f65ab6e5dd50b6ab9bbd8cd96da06d5">RX_IRQ_CLEAR</a>&#160;&#160;&#160;INTENCLR</td></tr>
+<tr class="memitem:aedd16dc81d9d72bdead5818ef8a16086" id="r_aedd16dc81d9d72bdead5818ef8a16086"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aedd16dc81d9d72bdead5818ef8a16086">RX_IRQ_HANDLER</a>&#160;&#160;&#160;RADIO_IRQHandler</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a6a37685aaa008c5b12b89698521a5d23" id="r_a6a37685aaa008c5b12b89698521a5d23"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a6a37685aaa008c5b12b89698521a5d23">waitForEvent</a> (volatile uint32_t *event, uint32_t timeout=<a class="el" href="#aad2dd72565852b91c809cd4685833b17">DEFAULT_TIMEOUT</a>)</td></tr>
+<tr class="memitem:a7d567208311a23d1ebd271e1724f836c" id="r_a7d567208311a23d1ebd271e1724f836c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7d567208311a23d1ebd271e1724f836c">__attribute__</a> ((__used__)) void <a class="el" href="#aedd16dc81d9d72bdead5818ef8a16086">RX_IRQ_HANDLER</a>(void)</td></tr>
+<tr class="memitem:a803f7bbd1068f45836ea50b6f5c5c4fc" id="r_a803f7bbd1068f45836ea50b6f5c5c4fc"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a803f7bbd1068f45836ea50b6f5c5c4fc">rxIrqDisable</a> ()</td></tr>
 <tr class="memitem:a85301329a5ba40727dcbe297c6333c20" id="r_a85301329a5ba40727dcbe297c6333c20"><td class="memItemLeft">static uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a85301329a5ba40727dcbe297c6333c20">bytewise_bit_swap</a> (uint8_t const *p_inp)</td></tr>
 <tr class="memitem:aa7e5782f60d66a6f654f6a84b02e0876" id="r_aa7e5782f60d66a6f654f6a84b02e0876"><td class="memItemLeft">static uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aa7e5782f60d66a6f654f6a84b02e0876">addr_conv</a> (uint8_t const *p_addr)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a208b983d6775a6c8afb6f4dcada6f6f4" id="r_a208b983d6775a6c8afb6f4dcada6f6f4"><td class="memItemLeft">static <a class="el" href="classnrf__to__nrf.html">nrf_to_nrf</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a208b983d6775a6c8afb6f4dcada6f6f4">rxIrqRadio</a> = nullptr</td></tr>
 </table>
 <a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a29de0b478e3a57bf82dda49e3311d9f8" name="a29de0b478e3a57bf82dda49e3311d9f8"></a>
@@ -246,6 +263,86 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9310a98fb6e4a981c1e5b41899a2d21d" name="a9310a98fb6e4a981c1e5b41899a2d21d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9310a98fb6e4a981c1e5b41899a2d21d">&#9670;&#160;</a></span>RX_IRQ_NUMBER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RX_IRQ_NUMBER&#160;&#160;&#160;RADIO_IRQn</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00068">68</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abf5d31df79ec80ae6c68f53882786041" name="abf5d31df79ec80ae6c68f53882786041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf5d31df79ec80ae6c68f53882786041">&#9670;&#160;</a></span>RX_IRQ_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RX_IRQ_MASK&#160;&#160;&#160;(RADIO_INTENSET_CRCOK_Msk | RADIO_INTENSET_CRCERROR_Msk)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00069">69</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa7d58b058a1498660d2b8d29dfaf573f" name="aa7d58b058a1498660d2b8d29dfaf573f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7d58b058a1498660d2b8d29dfaf573f">&#9670;&#160;</a></span>RX_IRQ_SET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RX_IRQ_SET&#160;&#160;&#160;INTENSET</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00070">70</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0f65ab6e5dd50b6ab9bbd8cd96da06d5" name="a0f65ab6e5dd50b6ab9bbd8cd96da06d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f65ab6e5dd50b6ab9bbd8cd96da06d5">&#9670;&#160;</a></span>RX_IRQ_CLEAR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RX_IRQ_CLEAR&#160;&#160;&#160;INTENCLR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00071">71</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aedd16dc81d9d72bdead5818ef8a16086" name="aedd16dc81d9d72bdead5818ef8a16086"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedd16dc81d9d72bdead5818ef8a16086">&#9670;&#160;</a></span>RX_IRQ_HANDLER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RX_IRQ_HANDLER&#160;&#160;&#160;RADIO_IRQHandler</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00075">75</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a6a37685aaa008c5b12b89698521a5d23" name="a6a37685aaa008c5b12b89698521a5d23"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6a37685aaa008c5b12b89698521a5d23">&#9670;&#160;</a></span>waitForEvent()</h2>
@@ -274,7 +371,53 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00047">47</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00048">48</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7d567208311a23d1ebd271e1724f836c" name="a7d567208311a23d1ebd271e1724f836c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d567208311a23d1ebd271e1724f836c">&#9670;&#160;</a></span>__attribute__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__attribute__ </td>
+          <td>(</td>
+          <td class="paramtype">(__used__)</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00082">82</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a803f7bbd1068f45836ea50b6f5c5c4fc" name="a803f7bbd1068f45836ea50b6f5c5c4fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a803f7bbd1068f45836ea50b6f5c5c4fc">&#9670;&#160;</a></span>rxIrqDisable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rxIrqDisable </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00087">87</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -301,7 +444,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00061">61</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00114">114</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -328,7 +471,32 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00073">73</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00126">126</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a208b983d6775a6c8afb6f4dcada6f6f4" name="a208b983d6775a6c8afb6f4dcada6f6f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a208b983d6775a6c8afb6f4dcada6f6f4">&#9670;&#160;</a></span>rxIrqRadio</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnrf__to__nrf.html">nrf_to_nrf</a>* rxIrqRadio = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00080">80</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>

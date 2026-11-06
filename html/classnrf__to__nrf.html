@@ -125,6 +125,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a01f4833ad19dbe8498329eb1076da808" id="r_a01f4833ad19dbe8498329eb1076da808"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a01f4833ad19dbe8498329eb1076da808">startListening</a> (bool resetAddresses=true)</td></tr>
 <tr class="memitem:ae9fa4209ae57be1ed77ac9d23eeeedfc" id="r_ae9fa4209ae57be1ed77ac9d23eeeedfc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae9fa4209ae57be1ed77ac9d23eeeedfc">stopListening</a> (bool setWritingPipe=true, bool resetAddresses=true)</td></tr>
 <tr class="memitem:a46dda864c9ea8d4002d3b52e95735c86" id="r_a46dda864c9ea8d4002d3b52e95735c86"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a46dda864c9ea8d4002d3b52e95735c86">stopListening</a> (const uint8_t *txAddress, bool setWritingPipe=true, bool resetAddresses=true)</td></tr>
+<tr class="memitem:aed7b1524a6fa46523cfc8b7dbf8d7e14" id="r_aed7b1524a6fa46523cfc8b7dbf8d7e14"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aed7b1524a6fa46523cfc8b7dbf8d7e14">enableRxInterrupt</a> (uint8_t depth=3)</td></tr>
+<tr class="memitem:a12c3ef73d3661e72154bf7601004b5f4" id="r_a12c3ef73d3661e72154bf7601004b5f4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a12c3ef73d3661e72154bf7601004b5f4">disableRxInterrupt</a> ()</td></tr>
+<tr class="memitem:a81bad823a7ef4c433e227b09b437744b" id="r_a81bad823a7ef4c433e227b09b437744b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a81bad823a7ef4c433e227b09b437744b">handleInterrupt</a> ()</td></tr>
 <tr class="memitem:a070731ead0431745af9ea6fb06aedbac" id="r_a070731ead0431745af9ea6fb06aedbac"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a070731ead0431745af9ea6fb06aedbac">openReadingPipe</a> (uint8_t child, const uint8_t *address)</td></tr>
 <tr class="memitem:ab41aba27b662740ac908d7a30d7009c2" id="r_ab41aba27b662740ac908d7a30d7009c2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab41aba27b662740ac908d7a30d7009c2">openWritingPipe</a> (const uint8_t *address)</td></tr>
 <tr class="memitem:a4f0c7933c8a5e593ee223e2b804ea69d" id="r_a4f0c7933c8a5e593ee223e2b804ea69d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4f0c7933c8a5e593ee223e2b804ea69d">isChipConnected</a> ()</td></tr>
@@ -209,9 +212,9 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Constructor for <a class="el" href="classnrf__to__nrf.html" title="Driver class for nRF52840 2.4GHz Wireless Transceiver.">nrf_to_nrf</a></p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="#a6e3601bd9cbe9b176c489af224ea9e5b">nrf_to_nrf</a> radio;</div>
-<div class="ttc" id="aclassnrf__to__nrf_html_a6e3601bd9cbe9b176c489af224ea9e5b"><div class="ttname"><a href="#a6e3601bd9cbe9b176c489af224ea9e5b">nrf_to_nrf::nrf_to_nrf</a></div><div class="ttdeci">nrf_to_nrf()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00095">nrf_to_nrf.cpp:95</a></div></div>
+<div class="ttc" id="aclassnrf__to__nrf_html_a6e3601bd9cbe9b176c489af224ea9e5b"><div class="ttname"><a href="#a6e3601bd9cbe9b176c489af224ea9e5b">nrf_to_nrf::nrf_to_nrf</a></div><div class="ttdeci">nrf_to_nrf()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00148">nrf_to_nrf.cpp:148</a></div></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00095">95</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00148">148</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -234,7 +237,7 @@ Encryption</h2></td></tr>
 </div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a1">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a1">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a1">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a1">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>, <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a1">examples/RF24/scanner/scanner.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a1">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_MasterEncryption_2RF24Mesh_Example_MasterEncryption_8ino-example.html#a1">examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rx_2helloworld_rx_8ino-example.html#a1">examples/RF24Network/helloworld_rx/helloworld_rx.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a1">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_tx_2helloworld_tx_8ino-example.html#a1">examples/RF24Network/helloworld_tx/helloworld_tx.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a1">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00127">127</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00184">184</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -256,7 +259,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a12">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a10">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a13">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a11">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00219">219</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00277">277</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -276,7 +279,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Same as NRF24 radio.available(); </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00227">227</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00365">365</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -302,7 +305,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a13">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a12">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a14">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a13">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00394">394</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00553">553</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -338,7 +341,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a11">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a9">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a12">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a10">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00403">403</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00571">571</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -365,7 +368,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a10">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a8">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a8">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a9">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>, and <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a3">examples/RF24/scanner/scanner.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00725">725</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00896">896</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -397,7 +400,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a8">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a7">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a7">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a8">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>, and <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a4">examples/RF24/scanner/scanner.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00767">767</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00945">945</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -425,7 +428,76 @@ Encryption</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00816">816</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00998">998</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aed7b1524a6fa46523cfc8b7dbf8d7e14" name="aed7b1524a6fa46523cfc8b7dbf8d7e14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed7b1524a6fa46523cfc8b7dbf8d7e14">&#9670;&#160;</a></span>enableRxInterrupt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool nrf_to_nrf::enableRxInterrupt </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>depth</em></span><span class="paramdefsep"> = </span><span class="paramdefval">3</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Receive packets from the radio interrupt, so a slow loop() doesn't leave the radio idle. <a class="el" href="#a08df99a63e6dc2cbe4a8f014b7300ae4">available()</a> and <a class="el" href="#ae9457410ab65e1cf3109e45cc3155010">read()</a> are used as normal. Don't use BLE in the same sketch.</p>
+<dl class="section note"><dt>Note</dt><dd>The library defines the radio interrupt handler, so a sketch can't define its own.</dd></dl>
+<p>This is called automatically on <a class="el" href="#a7732e9d1424d384c575377c8385c725d">begin()</a>, so if you want to disable it, call <a class="el" href="#a12c3ef73d3661e72154bf7601004b5f4">disableRxInterrupt()</a> after the radio and/or network/mesh has been configured.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">depth</td><td>The number of packets to queue, from 1 to 254. Uses (depth + 1) * (payload size + 2) bytes of RAM. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>false if depth is invalid, there isn't enough memory, or this was already called </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00285">285</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a12c3ef73d3661e72154bf7601004b5f4" name="a12c3ef73d3661e72154bf7601004b5f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12c3ef73d3661e72154bf7601004b5f4">&#9670;&#160;</a></span>disableRxInterrupt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nrf_to_nrf::disableRxInterrupt </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Disable interrupts on reception of data. Requires constant polling via <a class="el" href="#a08df99a63e6dc2cbe4a8f014b7300ae4">available()</a>; </p>
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00311">311</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a81bad823a7ef4c433e227b09b437744b" name="a81bad823a7ef4c433e227b09b437744b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81bad823a7ef4c433e227b09b437744b">&#9670;&#160;</a></span>handleInterrupt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nrf_to_nrf::handleInterrupt </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Called by the library's radio interrupt handler </p>
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00327">327</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -451,7 +523,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a7">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a6">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a6">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a6">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00969">969</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01155">1155</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -473,7 +545,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a6">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a5">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a5">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a5">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01008">1008</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01194">1194</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -495,7 +567,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_2RF24Mesh_Example_8ino-example.html#a1">examples/RF24Mesh/RF24Mesh_Example/RF24Mesh_Example.ino</a>, and <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a5">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01064">1064</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01250">1250</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -524,7 +596,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Not currently fully functional, calls the regular <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a>; </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01045">1045</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01231">1231</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -560,7 +632,7 @@ Encryption</h2></td></tr>
 <p>This function will not wait for the radio to finish transmitting or for an ACK</p>
 <p>Call <a class="el" href="#a1b2f567dda77209301cbaea4c5a75862">txStandBy()</a> to take the radio out of TX state or call <a class="el" href="#a01f4833ad19dbe8498329eb1076da808">startListening()</a> to go into RX mode </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00592">592</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00762">762</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -591,7 +663,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a9">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00677">677</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00847">847</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -613,7 +685,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a5">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00717">717</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00888">888</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -633,7 +705,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Same as NRF24 </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00721">721</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00892">892</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -673,7 +745,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a14">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00824">824</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01006">1006</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -693,7 +765,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Same as NRF24 </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00832">832</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01018">1018</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -725,7 +797,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a5">examples/RF24/scanner/scanner.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rx_2helloworld_rx_8ino-example.html#a2">examples/RF24Network/helloworld_rx/helloworld_rx.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a5">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_tx_2helloworld_tx_8ino-example.html#a2">examples/RF24Network/helloworld_tx/helloworld_tx.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a5">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00846">846</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01032">1032</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -745,7 +817,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Same as NRF24 </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00850">850</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01036">1036</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -765,7 +837,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Supported speeds: NRF_250KBPS NRF_1MBPS NRF_2MBPS - NRF54x ONLY: NRF_4MBPS_OBT4 NRF_4MBPS_OBT6 </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01068">1068</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01254">1254</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -792,7 +864,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a2">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a2">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a2">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a2">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_2RF24Mesh_Example_8ino-example.html#a2">examples/RF24Mesh/RF24Mesh_Example/RF24Mesh_Example.ino</a>, and <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a6">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01099">1099</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01285">1285</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -812,7 +884,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Same as NRF24 </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01121">1121</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01307">1307</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -834,7 +906,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a7">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>, and <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a2">examples/RF24/scanner/scanner.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00854">854</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01040">1040</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -858,7 +930,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section note"><dt>Note</dt><dd>If using static payloads, acks cannot be enabled &amp; disabled on separate pipes, either ACKs are enabled or not </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00867">867</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01053">1053</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -886,7 +958,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a4">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a4">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_MasterEncryption_2RF24Mesh_Example_MasterEncryption_8ino-example.html#a4">examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a4">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a4">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00878">878</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01064">1064</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -906,7 +978,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Same as NRF24 </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00900">900</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01086">1086</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -928,7 +1000,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a4">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a4">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a4">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00916">916</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01102">1102</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -950,7 +1022,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a11">examples/RF24/GettingStarted/GettingStarted.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a12">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00933">933</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01119">1119</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -988,7 +1060,7 @@ Encryption</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01152">1152</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01338">1338</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1008,7 +1080,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Same as NRF24 </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01178">1178</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01364">1364</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1050,7 +1122,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Same as NRF24 </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00940">940</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01126">1126</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1074,7 +1146,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Same as NRF24 </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00949">949</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01135">1135</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1094,7 +1166,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Same as NRF24 </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00959">959</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01145">1145</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1114,7 +1186,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Same as NRF24 </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01298">1298</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01485">1485</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1136,7 +1208,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24Ethernet_2mqtt_basic_2mqtt_basic_8ino-example.html#a1">examples/RF24Ethernet/mqtt_basic/mqtt_basic.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01306">1306</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01493">1493</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1158,7 +1230,7 @@ Encryption</h2></td></tr>
 <p>Enables the Radio &amp; HF Clock</p>
 <p>If encryption is enabled, also enables RNG &amp; CCM peripherals </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01242">1242</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01429">1429</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1180,7 +1252,7 @@ Encryption</h2></td></tr>
 <p>Disables the Radio &amp; HF Clock</p>
 <p>If encryption is enabled, also disables RNG &amp; CCM peripherals </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01275">1275</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01462">1462</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1201,7 +1273,7 @@ Encryption</h2></td></tr>
 <p>Takes the radio out of TX state.</p>
 <p>Can be called after any type of write to put the radio into a disabled state </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01031">1031</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01217">1217</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1226,7 +1298,7 @@ Encryption</h2></td></tr>
 <p>Takes the radio out of TX state</p>
 <p>Can be called after any type of write to put the radio into a disabled state </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01038">1038</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01224">1224</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1253,7 +1325,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a6">examples/RF24/scanner/scanner.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01196">1196</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01382">1382</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1278,7 +1350,7 @@ Encryption</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01213">1213</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01399">1399</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1298,7 +1370,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>A new function specific to the NRF52x devices, not available on NRF24 </p><dl class="section return"><dt>Returns</dt><dd>The function will return the RSSI, which is measured continuously and the value filtered using a single-pole IIR filter. This is a negative value: received signal strength = -A dBm </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01220">1220</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01406">1406</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1318,7 +1390,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Same as NRF24 </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01145">1145</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01331">1331</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1338,7 +1410,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Does nothing, added for backward compatibility </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01235">1235</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01421">1421</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1358,7 +1430,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Used internally to convert addresses </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00081">81</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00134">134</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1383,7 +1455,7 @@ Encryption</h2></td></tr>
 <p>Function to encrypt data</p>
 <p>Called automatically when a write is performed </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01457">1457</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01644">1644</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1408,7 +1480,7 @@ Encryption</h2></td></tr>
 <p>Function to decrypt data</p>
 <p>Called automatically when incoming data is received </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01489">1489</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01676">1676</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1430,7 +1502,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a9">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a2">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_MasterEncryption_2RF24Mesh_Example_MasterEncryption_8ino-example.html#a2">examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a2">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a2">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01528">1528</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01715">1715</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1452,7 +1524,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a10">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01548">1548</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01735">1735</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1472,7 +1544,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Set IV for encryption. This is only used for manual encryption, a random IV is generated using the on-board RNG for encryption during normal operation. </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01556">1556</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01743">1743</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1490,7 +1562,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Data buffer for radio data The radio can handle packets up to 255 bytes if CRC &amp; DPL is disabled 254 bytes if using 16-bit CRC &amp; DPL is disabled </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00220">220</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00242">242</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1507,7 +1579,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Not implemented due to SOC </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00403">403</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00425">425</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1526,7 +1598,7 @@ Encryption</h2></td></tr>
 <p>This is the time period in uS the radio will wait between the last bit of the previous transmission, and the first bit of the next transmission.</p>
 <p>This is configured for compatibility with nRF24L01 radios. Can be set lower if communicating between nRF52x devices. </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00458">458</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00480">480</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1543,7 +1615,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>The data buffer where encrypted data is placed. See the datasheet p115 for the CCM data structure </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00495">495</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00517">517</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1565,7 +1637,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a11">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a3">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_MasterEncryption_2RF24Mesh_Example_MasterEncryption_8ino-example.html#a3">examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a3">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a3">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00528">528</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00550">550</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>

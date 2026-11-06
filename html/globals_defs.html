@@ -81,12 +81,50 @@ document.addEventListener('DOMContentLoaded', codefold.init);
     <ul class="tablist">
       <li><a href="globals.html"><span>All</span></a></li>
       <li><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
       <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
       <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
       <li class="current"><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
   </div>
-</div><!-- main-nav -->
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="#index__5F"><span>_</span></a></li>
+      <li><a href="#index_a"><span>a</span></a></li>
+      <li><a href="#index_c"><span>c</span></a></li>
+      <li><a href="#index_d"><span>d</span></a></li>
+      <li><a href="#index_m"><span>m</span></a></li>
+      <li><a href="#index_n"><span>n</span></a></li>
+      <li><a href="#index_r"><span>r</span></a></li>
+      <li class="current"><a href="#index_t"><span>t</span></a></li>
+    </ul>
+  </div>
+
+<script type="text/javascript">
+function updateNavHighlight() {
+  var currentHash = window.location.hash;
+  var navItems = document.querySelectorAll('#navrow4 .tablist li');
+
+  for (var i = 0; i < navItems.length; i++) {
+    var item = navItems[i];
+    var link = item.querySelector('a');
+    item.classList.remove('current');
+    if (link && link.getAttribute('href') === currentHash) {
+      item.classList.add('current');
+    }
+  }
+
+  if (currentHash) {
+    var target = document.querySelector(currentHash);
+    if (target) {
+      target.scrollIntoView();
+    }
+  }
+}
+updateNavHighlight();
+window.addEventListener('hashchange', updateNavHighlight);
+</script>
+  </div><!-- main-nav -->
 </div><!-- top -->
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -108,8 +146,14 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all macros with links to the files they belong to:</div><ul>
+<div class="textblock">Here is a list of all macros with links to the files they belong to:</div>
+
+<h3 class="doxsection"><a id="index__5F" name="index__5F"></a>- _ -</h3><ul>
 <li>__REV&#160;:&#160;<a class="el" href="nrf__to__nrf_8cpp.html#a29de0b478e3a57bf82dda49e3311d9f8">nrf_to_nrf.cpp</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_a" name="index_a"></a>- a -</h3><ul>
 <li>ACK_PAYLOAD_TIMEOUT_OFFSET&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#a2dd505c7bafeca0827ed648669e6340f">nrf_to_nrf.h</a></li>
 <li>ACK_TIMEOUT_1MBPS&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#ac2a8119d65fc07b14573f7e831318910">nrf_to_nrf.h</a></li>
 <li>ACK_TIMEOUT_1MBPS_OFFSET&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#a030c0e5971b11e84c1557267286efce4">nrf_to_nrf.h</a></li>
@@ -118,6 +162,10 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <li>ACK_TIMEOUT_2MBPS&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#a709d6647f34a17c549e677e568bf5dc3">nrf_to_nrf.h</a></li>
 <li>ACK_TIMEOUT_2MBPS_OFFSET&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#aafcf7551fc9a5d008c32094e9f6cafae">nrf_to_nrf.h</a></li>
 <li>ACTUAL_MAX_PAYLOAD_SIZE&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#a86f99279499412c45d603a56b52f15e1">nrf_to_nrf.h</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_c" name="index_c"></a>- c -</h3><ul>
 <li>CCM_COUNTER_SIZE&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#a36c27edd0340a9bcd8d269c5d95c4aa3">nrf_to_nrf.h</a></li>
 <li>CCM_ENCRYPTION_ENABLED&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#a11bd5cb2afdcf95dac74cab238fe1d45">nrf_to_nrf.h</a></li>
 <li>CCM_IV_SIZE&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#adf3d9827d3b02ae63b08d846b809e1dc">nrf_to_nrf.h</a></li>
@@ -126,11 +174,36 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <li>CCM_MIC_SIZE&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#a91b1d8c61b6a2094fba30d01ff1972d3">nrf_to_nrf.h</a></li>
 <li>CCM_MODE_LENGTH_EXTENDED&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#a117bc8340fa00a5e905774a5469ee041">nrf_to_nrf.h</a></li>
 <li>CCM_START_SIZE&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#a7a8d571811396067c6b8d78bc6afc37f">nrf_to_nrf.h</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_d" name="index_d"></a>- d -</h3><ul>
 <li>DEFAULT_MAX_PAYLOAD_SIZE&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#a2d5ab7e31eb34a640249f88518eea523">nrf_to_nrf.h</a></li>
 <li>DEFAULT_TIMEOUT&#160;:&#160;<a class="el" href="nrf__to__nrf_8cpp.html#aad2dd72565852b91c809cd4685833b17">nrf_to_nrf.cpp</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_m" name="index_m"></a>- m -</h3><ul>
 <li>MAX_PACKET_SIZE&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#a879456c3b8e2853f7044d764e9c180d4">nrf_to_nrf.h</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_n" name="index_n"></a>- n -</h3><ul>
 <li>NRF52_RADIO_LIBRARY&#160;:&#160;<a class="el" href="nrf__to__nrf_8h.html#a71f80fae430f482698c0bc98a838d885">nrf_to_nrf.h</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_r" name="index_r"></a>- r -</h3><ul>
 <li>RADIO_MODE_MODE_Nrf_250Kbit&#160;:&#160;<a class="el" href="nrf__to__nrf_8cpp.html#a0195d51696da7b4323456b757d1e260d">nrf_to_nrf.cpp</a></li>
+<li>RX_IRQ_CLEAR&#160;:&#160;<a class="el" href="nrf__to__nrf_8cpp.html#a0f65ab6e5dd50b6ab9bbd8cd96da06d5">nrf_to_nrf.cpp</a></li>
+<li>RX_IRQ_HANDLER&#160;:&#160;<a class="el" href="nrf__to__nrf_8cpp.html#aedd16dc81d9d72bdead5818ef8a16086">nrf_to_nrf.cpp</a></li>
+<li>RX_IRQ_MASK&#160;:&#160;<a class="el" href="nrf__to__nrf_8cpp.html#abf5d31df79ec80ae6c68f53882786041">nrf_to_nrf.cpp</a></li>
+<li>RX_IRQ_NUMBER&#160;:&#160;<a class="el" href="nrf__to__nrf_8cpp.html#a9310a98fb6e4a981c1e5b41899a2d21d">nrf_to_nrf.cpp</a></li>
+<li>RX_IRQ_SET&#160;:&#160;<a class="el" href="nrf__to__nrf_8cpp.html#aa7d58b058a1498660d2b8d29dfaf573f">nrf_to_nrf.cpp</a></li>
+</ul>
+
+
+<h3 class="doxsection"><a id="index_t" name="index_t"></a>- t -</h3><ul>
 <li>TXPOWER_PA_HIGH&#160;:&#160;<a class="el" href="nrf__to__nrf_8cpp.html#a5eea11725d8e7bd5357713c3e3da2f1f">nrf_to_nrf.cpp</a></li>
 <li>TXPOWER_PA_LOW&#160;:&#160;<a class="el" href="nrf__to__nrf_8cpp.html#a7633dffce130c492784308bae811db9f">nrf_to_nrf.cpp</a></li>
 <li>TXPOWER_PA_MAX&#160;:&#160;<a class="el" href="nrf__to__nrf_8cpp.html#a2bf77ceada4577229d1c5b6dcb7f7b4c">nrf_to_nrf.cpp</a></li>
