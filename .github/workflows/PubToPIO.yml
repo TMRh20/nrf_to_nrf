@@ -1,0 +1,36 @@
+name: Publish to PlatformIO
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      # PlatformIO reads the version from library.json, so stop if a release tag doesn't match it
+      - name: Check the version
+        if: github.event_name == 'release'
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          version=$(python -c "import json; print(json.load(open('library.json'))['version'])")
+          if [ "${TAG#v}" != "$version" ]; then
+            echo "::error file=library.json::Tag $TAG doesn't match library.json version $version"
+            exit 1
+          fi
+
+      - name: Install PlatformIO
+        run: pip install platformio
+
+      - name: Publish
+        env:
+          PLATFORMIO_AUTH_TOKEN: ${{ secrets.PLATFORMIO_AUTH_TOKEN }}
+        run: pio pkg publish --type library --owner tmrh20 --no-interactive
