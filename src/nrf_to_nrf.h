@@ -200,7 +200,7 @@ public:
      * @param depth The number of packets to queue, from 1 to 254. Uses (depth + 1) * (payload size + 2) bytes of RAM.
      * @return false if depth is invalid, there isn't enough memory, or this was already called
      */
-    bool enableRxInterrupt(uint8_t depth = 1);
+    bool enableRxInterrupt(uint8_t depth = 3);
 
     /** Called by the library's radio interrupt handler */
     void handleInterrupt();

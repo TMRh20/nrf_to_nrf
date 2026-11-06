@@ -249,6 +249,7 @@ bool nrf_to_nrf::begin()
 #ifdef ARDUINO_NRF54L15
     NRF_RADIO->TASKS_START = 1;
 #endif
+    enableRxInterrupt();
 
     return 1;
 }
