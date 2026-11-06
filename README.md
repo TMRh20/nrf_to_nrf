@@ -1,6 +1,6 @@
 [![Build examples](https://github.com/TMRh20/nrf_to_nrf/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/TMRh20/nrf_to_nrf/actions/workflows/build.yml)
   
-[![Publish to PlatformIO](https://github.com/TMRh20/nrf_to_nrf/actions/workflows/publish-platformio.yml/badge.svg)](https://github.com/TMRh20/nrf_to_nrf/actions/workflows/publish-platformio.yml)
+[![Publish to PlatformIO](https://github.com/TMRh20/nrf_to_nrf/actions/workflows/PubToPIO.yml/badge.svg)](https://github.com/TMRh20/nrf_to_nrf/actions/workflows/PubToPIO.yml)
 
 # nrf_to_nrf
 
