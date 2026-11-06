@@ -9,7 +9,7 @@ This library targets nRF52 & nRF54 devices (ex: nRF52840 or nRF54l15) and is des
 2. Porting RF24 sketches:
    - use `#include <nrf_to_nrf.h>` instead of `RF24.h`
    - create the radio as `nrf_to_nrf radio;` (no CE/CS pins like RF24 modules)
-   - update enums (note #2)
+   - update enums (note #1)
    - higher layer libs use the RF52 prefix: `RF52Network`, `RF52Mesh`, etc.
 
 > The higher layer libraries (RF24Network/RF24Mesh/RF24Ethernet) have been updated (v2.x) to accommodate this driver.
