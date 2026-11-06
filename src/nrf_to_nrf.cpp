@@ -44,16 +44,69 @@ static xiao_nrf54l15::CracenRng nrf54Rng;
 
 /**********************************************************************************************************/
 
+// The count ends the wait if millis() doesn't advance inside the radio interrupt
 static bool waitForEvent(volatile uint32_t* event, uint32_t timeout = DEFAULT_TIMEOUT)
 {
     uint32_t start = millis();
-    while (*event == 0) {
-        if (millis() - start > timeout) {
+    for (uint32_t count = 0; *event == 0; count++) {
+        if (millis() - start > timeout || count > 4000000) {
             return false;
         }
     }
     return true;
 }
+
+/**********************************************************************************************************/
+
+#if defined(ARDUINO_NRF54L15)
+    #define RX_IRQ_NUMBER  RADIO_1_IRQn
+    #define RX_IRQ_MASK    (RADIO_INTENSET10_CRCOK_Msk | RADIO_INTENSET10_CRCERROR_Msk)
+    #define RX_IRQ_SET     INTENSET10
+    #define RX_IRQ_CLEAR   INTENCLR10
+    #define RX_IRQ_HANDLER RADIO_1_IRQHandler // The nRF54 HAL defines RADIO_0_IRQHandler
+#else
+    #define RX_IRQ_NUMBER RADIO_IRQn
+    #define RX_IRQ_MASK   (RADIO_INTENSET_CRCOK_Msk | RADIO_INTENSET_CRCERROR_Msk)
+    #define RX_IRQ_SET    INTENSET
+    #define RX_IRQ_CLEAR  INTENCLR
+    #if defined(__MBED__)
+        #define RX_IRQ_HANDLER RADIO_IRQHandler_v
+    #else
+        #define RX_IRQ_HANDLER RADIO_IRQHandler
+    #endif
+#endif
+
+// Only enabled by enableRxInterrupt(), which also sets the radio to use
+static nrf_to_nrf* rxIrqRadio = nullptr;
+
+extern "C" __attribute__((__used__)) void RX_IRQ_HANDLER(void)
+{
+    rxIrqRadio->handleInterrupt();
+}
+
+static void rxIrqDisable()
+{
+    NRF_RADIO->RX_IRQ_CLEAR = RX_IRQ_MASK;
+    (void)NRF_RADIO->RX_IRQ_CLEAR; // Writes are buffered, so make sure this has taken effect
+}
+
+// Stops the interrupt handler from using buffers and the CCM peripheral while this is in scope
+struct RadioIrqLock
+{
+    bool locked;
+    RadioIrqLock(bool lock) : locked(lock)
+    {
+        if (locked) {
+            NVIC_DisableIRQ(RX_IRQ_NUMBER);
+        }
+    }
+    ~RadioIrqLock()
+    {
+        if (locked) {
+            NVIC_EnableIRQ(RX_IRQ_NUMBER);
+        }
+    }
+};
 
 /**********************************************************************************************************/
 
@@ -104,6 +157,10 @@ nrf_to_nrf::nrf_to_nrf()
     arcCounter = 0;
     ackTimeout = ACK_TIMEOUT_1MBPS;
     payloadAvailable = false;
+    rxQueue = nullptr;
+    rxQueueHead = 0;
+    rxQueueTail = 0;
+    inInterrupt = false;
 #ifndef ARDUINO_NRF54L15
     interframeSpacing = 115;
 #else
@@ -192,6 +249,7 @@ bool nrf_to_nrf::begin()
 #ifdef ARDUINO_NRF54L15
     NRF_RADIO->TASKS_START = 1;
 #endif
+    enableRxInterrupt();
 
     return 1;
 }
@@ -224,7 +282,106 @@ bool nrf_to_nrf::available()
 
 /**********************************************************************************************************/
 
+bool nrf_to_nrf::enableRxInterrupt(uint8_t depth)
+{
+    if (rxQueue != nullptr || depth == 0 || depth == 255) {
+        return false;
+    }
+    // One slot stays empty to tell a full queue from an empty one
+    // Each slot holds the pipe number, payload length and payload
+    rxQueueSlots = depth + 1;
+    rxQueueSlotSize = staticPayloadSize + 2;
+    rxQueue = (uint8_t*)malloc(rxQueueSlots * rxQueueSlotSize);
+    if (rxQueue == nullptr) {
+        return false;
+    }
+
+    rxIrqRadio = this;
+    NVIC_SetPriority(RX_IRQ_NUMBER, 7);
+    NVIC_ClearPendingIRQ(RX_IRQ_NUMBER);
+    NVIC_EnableIRQ(RX_IRQ_NUMBER);
+    if (inRxMode) {
+        NRF_RADIO->RX_IRQ_SET = RX_IRQ_MASK;
+    }
+    return true;
+}
+
+/**********************************************************************************************************/
+
+void nrf_to_nrf::disableRxInterrupt()
+{
+    if (rxQueue == nullptr) {
+        return;
+    }
+    rxIrqDisable();
+    NVIC_DisableIRQ(RX_IRQ_NUMBER);
+
+    free(rxQueue);
+    rxQueue = nullptr;
+    rxQueueHead = 0;
+    rxQueueTail = 0;
+}
+
+/**********************************************************************************************************/
+
+void nrf_to_nrf::handleInterrupt()
+{
+    const uint8_t next = (rxQueueHead + 1) % rxQueueSlots;
+    if (next == rxQueueTail) {
+        // No room, so leave the packet unacknowledged in the radio until read() makes some
+        rxIrqDisable();
+        return;
+    }
+
+    uint8_t pipe = 0;
+    inInterrupt = true;
+    if (pollRadio(&pipe)) {
+        uint8_t* slot = &rxQueue[rxQueueHead * rxQueueSlotSize];
+        const uint8_t length = min((uint16_t)rxBuffer[0], (uint16_t)(rxQueueSlotSize - 2));
+        slot[0] = pipe;
+        slot[1] = length;
+        memcpy(&slot[2], &rxBuffer[1], length);
+        payloadAvailable = false;
+        __DMB();
+        rxQueueHead = next;
+    }
+    inInterrupt = false;
+    (void)NRF_RADIO->EVENTS_CRCOK; // Writes are buffered, so make sure the event is clear before returning
+}
+
+/**********************************************************************************************************/
+
+uint8_t* nrf_to_nrf::rxQueueFront()
+{
+    // An ACK payload from write() is read through rxBuffer, as usual
+    if (rxQueue == nullptr || (!inRxMode && ackPayloadAvailable) || rxQueueTail == rxQueueHead) {
+        return nullptr;
+    }
+    return &rxQueue[rxQueueTail * rxQueueSlotSize];
+}
+
+/**********************************************************************************************************/
+
 bool nrf_to_nrf::available(uint8_t* pipe_num)
+{
+    if (rxQueue == nullptr) {
+        return pollRadio(pipe_num);
+    }
+    if (!inRxMode && ackPayloadAvailable) {
+        *pipe_num = ackAvailablePipeNo;
+        return true;
+    }
+    const uint8_t* slot = rxQueueFront();
+    if (slot == nullptr) {
+        return false;
+    }
+    *pipe_num = slot[0];
+    return true;
+}
+
+/**********************************************************************************************************/
+
+bool nrf_to_nrf::pollRadio(uint8_t* pipe_num)
 {
 
     if (payloadAvailable) {
@@ -346,7 +503,9 @@ bool nrf_to_nrf::available(uint8_t* pipe_num)
                 bufferLength = staticPayloadSize - CCM_IV_SIZE - CCM_COUNTER_SIZE;
             }
             if (!decrypt(&rxBuffer[1], bufferLength)) {
-                Serial.println("DECRYPT FAIL");
+                if (!inInterrupt) {
+                    Serial.println("DECRYPT FAIL");
+                }
                 return restartReturnRx();
             }
 
@@ -393,6 +552,15 @@ bool nrf_to_nrf::restartReturnRx()
 
 void nrf_to_nrf::read(void* buf, uint8_t len)
 {
+    const uint8_t* slot = rxQueueFront();
+    if (slot != nullptr) {
+        memcpy(buf, &slot[2], min((uint16_t)len, (uint16_t)(rxQueueSlotSize - 2)));
+        rxQueueTail = (rxQueueTail + 1) % rxQueueSlots;
+        if (inRxMode) {
+            NRF_RADIO->RX_IRQ_SET = RX_IRQ_MASK; // There is room again if the queue was full
+        }
+        return;
+    }
     memcpy(buf, &rxBuffer[1], len);
     ackPayloadAvailable = false;
     payloadAvailable = false;
@@ -475,7 +643,9 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
 #ifdef ARDUINO_NRF54L15
         uint32_t timeout = millis();
         while (NRF_RADIO->STATE != 10) {
-            yield();
+            if (!inInterrupt) {
+                yield();
+            }
             if (millis() - timeout > 250) {
                 return 0;
             }
@@ -676,6 +846,7 @@ bool nrf_to_nrf::startWrite(void* buf, uint8_t len, bool multicast, bool doEncry
 
 bool nrf_to_nrf::writeAckPayload(uint8_t pipe, void* buf, uint8_t len)
 {
+    RadioIrqLock lock(rxQueue != nullptr);
 
 #if defined CCM_ENCRYPTION_ENABLED
     if (enableEncryption) {
@@ -724,7 +895,12 @@ void nrf_to_nrf::disableAckPayload() { ackPayloadsEnabled = false; }
 
 void nrf_to_nrf::startListening(bool resetAddresses)
 {
+    // Only the library's own calls, which manage the interrupt themselves, pass false
+    if (resetAddresses && rxQueue != nullptr) {
+        rxIrqDisable();
+    }
 
+    // The shortcuts from stopListening() would start the transmitter as soon as the radio is disabled
     NRF_RADIO->SHORTS = 0x0;
     NRF_RADIO->EVENTS_DISABLED = 0;
     NRF_RADIO->TASKS_DISABLE = 1;
@@ -743,7 +919,6 @@ void nrf_to_nrf::startListening(bool resetAddresses)
         // NRF_RADIO->MODECNF0 = 0x201;
         NRF_RADIO->TIFS = 0;
     }
-
 #if defined(NRF52832_XXAA)
     NRF_RADIO->EVENTS_READY = 0;
 #else
@@ -760,12 +935,19 @@ void nrf_to_nrf::startListening(bool resetAddresses)
 #endif
     NRF_RADIO->TASKS_START = 1;
     inRxMode = true;
+    if (resetAddresses && rxQueue != nullptr) {
+        NRF_RADIO->RX_IRQ_SET = RX_IRQ_MASK;
+    }
 }
 
 /**********************************************************************************************************/
 
 void nrf_to_nrf::stopListening(bool setWritingPipe, bool resetAddresses)
 {
+    if (resetAddresses && rxQueue != nullptr) {
+        rxIrqDisable();
+    }
+
     NRF_RADIO->EVENTS_DISABLED = 0;
     NRF_RADIO->TASKS_DISABLE = 1;
     if (!waitForEvent(&NRF_RADIO->EVENTS_DISABLED))
@@ -823,6 +1005,10 @@ void nrf_to_nrf::stopListening(const uint8_t* txAddress, bool setWritingPipe, bo
 
 uint8_t nrf_to_nrf::getDynamicPayloadSize()
 {
+    const uint8_t* slot = rxQueueFront();
+    if (slot != nullptr) {
+        return slot[1];
+    }
     uint8_t size = min(staticPayloadSize, rxBuffer[0]);
     return size;
 }
@@ -1234,6 +1420,7 @@ uint8_t nrf_to_nrf::getRSSI()
 
 uint8_t nrf_to_nrf::flush_rx()
 {
+    rxQueueTail = rxQueueHead;
     return 0;
 }
 

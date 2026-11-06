@@ -1,0 +1,63 @@
+name: Build examples
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: nRF52840
+            core: adafruit:nrf52
+            fqbn: adafruit:nrf52:feather52840
+            url: https://adafruit.github.io/arduino-board-index/package_adafruit_index.json
+          - name: nRF54L15
+            core: nrf54l15clean:nrf54l15clean
+            fqbn: nrf54l15clean:nrf54l15clean:xiao_nrf54l15
+            url: https://raw.githubusercontent.com/lolren/nrf54-arduino-core/main/package_nrf54l15clean_index.json
+            skip: GettingStartedMicros
+
+    name: ${{ matrix.name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      # The Adafruit core runs this after linking
+      - name: Install adafruit-nrfutil
+        run: pip install adafruit-nrfutil
+
+      - uses: arduino/setup-arduino-cli@v2
+
+      - name: Install the core and libraries
+        run: |
+          arduino-cli config init
+          arduino-cli config add board_manager.additional_urls "${{ matrix.url }}"
+          arduino-cli core update-index
+          arduino-cli core install "${{ matrix.core }}"
+          arduino-cli lib install RF24Network RF24Mesh
+
+      - name: Compile the examples
+        run: |
+          failed=""
+          for sketch in $(find examples/RF24 examples/RF24Network examples/RF24Mesh -name '*.ino' ! -path "*/${{ matrix.skip || 'none' }}/*" | sort); do
+            echo "::group::$sketch"
+            if ! arduino-cli compile --fqbn "${{ matrix.fqbn }}" --library "$GITHUB_WORKSPACE" "$(dirname "$sketch")"; then
+              failed="$failed $sketch"
+              echo "::error file=$sketch::Failed to compile for ${{ matrix.name }}"
+            fi
+            echo "::endgroup::"
+          done
+          if [ -n "$failed" ]; then
+            echo "Failed:$failed"
+            exit 1
+          fi

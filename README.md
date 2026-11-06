@@ -9,12 +9,11 @@
 This library targets nRF52 & nRF54 devices (ex: nRF52840 or nRF54l15) and is designed to feel familiar to users of the `RF24` library (similar function names and workflows).
 
 ## Key points / Differences from nRF24L01
-1. There is only a **single-layer buffer** (not a 3-layer FIFO like the nRF24L01).
-2. Enums like `RF24_PA_MAX` become `NRF_PA_MAX` (etc).
-3. Porting RF24 sketches:
+1. Enums like `RF24_PA_MAX` become `NRF_PA_MAX` (etc).
+2. Porting RF24 sketches:
    - use `#include <nrf_to_nrf.h>` instead of `RF24.h`
    - create the radio as `nrf_to_nrf radio;` (no CE/CS pins like RF24 modules)
-   - update enums (note #2)
+   - update enums (note #1)
    - higher layer libs use the RF52 prefix: `RF52Network`, `RF52Mesh`, etc.
 
 > The higher layer libraries (RF24Network/RF24Mesh/RF24Ethernet) have been updated (v2.x) to accommodate this driver.
