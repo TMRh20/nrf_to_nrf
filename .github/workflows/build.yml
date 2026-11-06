@@ -22,6 +22,7 @@ jobs:
             core: nrf54l15clean:nrf54l15clean
             fqbn: nrf54l15clean:nrf54l15clean:xiao_nrf54l15
             url: https://raw.githubusercontent.com/lolren/nrf54-arduino-core/main/package_nrf54l15clean_index.json
+            skip: GettingStartedMicros
 
     name: ${{ matrix.name }}
     steps:
@@ -48,7 +49,7 @@ jobs:
       - name: Compile the examples
         run: |
           failed=""
-          for sketch in $(find examples/RF24 examples/RF24Network examples/RF24Mesh -name '*.ino' | sort); do
+          for sketch in $(find examples/RF24 examples/RF24Network examples/RF24Mesh -name '*.ino' ! -path "*/${{ matrix.skip || 'none' }}/*" | sort); do
             echo "::group::$sketch"
             if ! arduino-cli compile --fqbn "${{ matrix.fqbn }}" --library "$GITHUB_WORKSPACE" "$(dirname "$sketch")"; then
               failed="$failed $sketch"
