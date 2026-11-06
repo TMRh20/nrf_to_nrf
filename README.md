@@ -1,3 +1,7 @@
+[![Build examples](https://github.com/TMRh20/nrf_to_nrf/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/TMRh20/nrf_to_nrf/actions/workflows/build.yml)
+  
+[![Publish to PlatformIO](https://github.com/TMRh20/nrf_to_nrf/actions/workflows/publish-platformio.yml/badge.svg)](https://github.com/TMRh20/nrf_to_nrf/actions/workflows/publish-platformio.yml)
+
 # nrf_to_nrf
 
 **nRF52x & nRF54x Enhanced ShockBurst (ESB) driver with an RF24-compatible API** (Arduino / PlatformIO).
