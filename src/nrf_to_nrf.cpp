@@ -308,6 +308,22 @@ bool nrf_to_nrf::enableRxInterrupt(uint8_t depth)
 
 /**********************************************************************************************************/
 
+void nrf_to_nrf::disableRxInterrupt()
+{
+    if (rxQueue == nullptr) {
+        return;
+    }
+    rxIrqDisable();
+    NVIC_DisableIRQ(RX_IRQ_NUMBER);
+
+    free(rxQueue);
+    rxQueue = nullptr;
+    rxQueueHead = 0;
+    rxQueueTail = 0;
+}
+
+/**********************************************************************************************************/
+
 void nrf_to_nrf::handleInterrupt()
 {
     const uint8_t next = (rxQueueHead + 1) % rxQueueSlots;

@@ -202,6 +202,11 @@ public:
      */
     bool enableRxInterrupt(uint8_t depth = 3);
 
+    /** 
+     * Disable interrupts on reception of data. Requires constant polling via available();
+     */
+    void disableRxInterrupt();
+
     /** Called by the library's radio interrupt handler */
     void handleInterrupt();
 
