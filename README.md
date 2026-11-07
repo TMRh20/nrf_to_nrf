@@ -7,6 +7,11 @@
 
 This library targets nRF52 & nRF54 devices (ex: nRF52840 or nRF54l15) and is designed to feel familiar to users of the `RF24` library (similar function names and workflows).
 
+## Notice:
+This library now automatically uses the RADIO IRQ for reception of data for faster radio response times and sleeping of the MCU
+
+Please log an issue if problems are discovered in v1.7.0
+
 ## Key points / Differences from nRF24L01
 1. Enums like `RF24_PA_MAX` become `NRF_PA_MAX` (etc).
 2. Porting RF24 sketches:
