@@ -422,10 +422,10 @@ bool nrf_to_nrf::pollRadio(uint8_t* pipe_num)
 #if defined CCM_ENCRYPTION_ENABLED
             if (enableEncryption) {
                 if (DPL) {
-                    memcpy(&rxBuffer[1], &radioData[2 + CCM_IV_SIZE + CCM_COUNTER_SIZE], max(0, (int8_t)radioData[0] - CCM_IV_SIZE - CCM_COUNTER_SIZE));
+                    memcpy(&rxBuffer[1], &radioData[2 + CCM_IV_SIZE + CCM_COUNTER_SIZE], max(0, (int16_t)radioData[0] - CCM_IV_SIZE - CCM_COUNTER_SIZE));
                 }
                 else {
-                    memcpy(&rxBuffer[1], &radioData[CCM_IV_SIZE + CCM_COUNTER_SIZE], max(0, (int8_t)staticPayloadSize - CCM_IV_SIZE - CCM_COUNTER_SIZE));
+                    memcpy(&rxBuffer[1], &radioData[CCM_IV_SIZE + CCM_COUNTER_SIZE], max(0, (int16_t)staticPayloadSize - CCM_IV_SIZE - CCM_COUNTER_SIZE));
                 }
                 memcpy(ccmData.iv, &radioData[2], CCM_IV_SIZE);
                 memcpy(&ccmData.counter, &radioData[2 + CCM_IV_SIZE], CCM_COUNTER_SIZE);
@@ -1078,6 +1078,7 @@ void nrf_to_nrf::enableDynamicPayloads(uint8_t payloadSize)
 
         NRF_RADIO->PCNF1 &= ~(0xFF << RADIO_PCNF1_MAXLEN_Pos | 0xFF << RADIO_PCNF1_STATLEN_Pos);
         NRF_RADIO->PCNF1 |= payloadSize << RADIO_PCNF1_MAXLEN_Pos;
+        resizeRxQueue();
     }
 }
 
@@ -1112,6 +1113,18 @@ void nrf_to_nrf::setPayloadSize(uint8_t size)
 
     NRF_RADIO->PCNF1 &= ~(0xFF << RADIO_PCNF1_MAXLEN_Pos | 0xFF << RADIO_PCNF1_STATLEN_Pos);
     NRF_RADIO->PCNF1 |= staticPayloadSize << RADIO_PCNF1_STATLEN_Pos | staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos;
+    resizeRxQueue();    
+}
+
+/**********************************************************************************************************/
+
+void nrf_to_nrf::resizeRxQueue()
+{
+    if (rxQueue != nullptr && rxQueueSlotSize != staticPayloadSize + 2) {
+        uint8_t depth = rxQueueSlots - 1;
+        disableRxInterrupt();
+        enableRxInterrupt(depth);
+    }
 }
 
 /**********************************************************************************************************/
