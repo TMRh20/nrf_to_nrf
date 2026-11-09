@@ -82,7 +82,8 @@ static nrf_to_nrf* rxIrqRadio = nullptr;
 extern "C" __attribute__((__used__)) void RX_IRQ_HANDLER(void)
 {
     if (rxIrqRadio == nullptr) {
-        rxIrqDisable();
+        NRF_RADIO->RX_IRQ_CLEAR = RX_IRQ_MASK;
+        (void)NRF_RADIO->RX_IRQ_CLEAR;
         return;
     }
     rxIrqRadio->handleInterrupt();
