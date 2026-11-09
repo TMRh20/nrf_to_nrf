@@ -413,7 +413,7 @@ bool nrf_to_nrf::pollRadio(uint8_t* pipe_num)
         }
 
         *pipe_num = (uint8_t)NRF_RADIO->RXMATCH;
-        if (!DPL && acksEnabled(*pipe_num) == false) {
+        if (!DPL && acksEnabled(0) == false) {
 #if defined CCM_ENCRYPTION_ENABLED
             if (enableEncryption) {
                 memcpy(&rxBuffer[1], &radioData[CCM_IV_SIZE + CCM_COUNTER_SIZE], staticPayloadSize - CCM_IV_SIZE - CCM_COUNTER_SIZE);
