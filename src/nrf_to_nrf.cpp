@@ -474,11 +474,11 @@ bool nrf_to_nrf::pollRadio(uint8_t* pipe_num)
                 uint8_t payloadSize = 0;
                 if (!DPL) {
                     payloadSize = getPayloadSize();
-                    setPayloadSize(0);
+                    setStaticLength(0);
                 }
                 write(0, 0, 1, 0); // Send an ACK
                 if (!DPL) {
-                    setPayloadSize(payloadSize);
+                    setStaticLength(payloadSize);
                 }
             }
             NRF_RADIO->TXADDRESS = txAddress;
@@ -662,7 +662,7 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
             NRF_RADIO->RXADDRESSES = 1 << NRF_RADIO->TXADDRESS;
             if (!DPL) {
                 payloadSize = getPayloadSize();
-                setPayloadSize(0);
+                setStaticLength(0);
             }
             startListening(false);
 
@@ -731,7 +731,7 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
                 NRF_RADIO->EVENTS_CRCOK = 0;
                 stopListening(false, false);
                 if (!DPL) {
-                    setPayloadSize(payloadSize);
+                    setStaticLength(payloadSize);
                 }
                 NRF_RADIO->RXADDRESSES = rxAddress;
                 lastTxResult = true;
@@ -744,7 +744,7 @@ bool nrf_to_nrf::write(void* buf, uint8_t len, bool multicast, bool doEncryption
             delayMicroseconds(duration);
             stopListening(false, false);
             if (!DPL) {
-                setPayloadSize(payloadSize);
+                setStaticLength(payloadSize);
             }
             NRF_RADIO->RXADDRESSES = rxAddress;
         }
@@ -1102,6 +1102,14 @@ void nrf_to_nrf::disableDynamicPayloads()
 
 void nrf_to_nrf::setPayloadSize(uint8_t size)
 {
+    setStaticLength(size);
+    resizeRxQueue();
+}
+
+/**********************************************************************************************************/
+
+void nrf_to_nrf::setStaticLength(uint8_t size)
+{
     staticPayloadSize = size;
     DPL = false;
 
@@ -1113,7 +1121,6 @@ void nrf_to_nrf::setPayloadSize(uint8_t size)
 
     NRF_RADIO->PCNF1 &= ~(0xFF << RADIO_PCNF1_MAXLEN_Pos | 0xFF << RADIO_PCNF1_STATLEN_Pos);
     NRF_RADIO->PCNF1 |= staticPayloadSize << RADIO_PCNF1_STATLEN_Pos | staticPayloadSize << RADIO_PCNF1_MAXLEN_Pos;
-    resizeRxQueue();    
 }
 
 /**********************************************************************************************************/
