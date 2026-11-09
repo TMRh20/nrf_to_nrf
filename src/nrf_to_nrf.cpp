@@ -81,6 +81,11 @@ static nrf_to_nrf* rxIrqRadio = nullptr;
 
 extern "C" __attribute__((__used__)) void RX_IRQ_HANDLER(void)
 {
+    if (rxIrqRadio == nullptr) {
+        NRF_RADIO->RX_IRQ_CLEAR = RX_IRQ_MASK;
+        (void)NRF_RADIO->RX_IRQ_CLEAR;
+        return;
+    }
     rxIrqRadio->handleInterrupt();
 }
 
@@ -328,8 +333,10 @@ void nrf_to_nrf::handleInterrupt()
 {
     const uint8_t next = (rxQueueHead + 1) % rxQueueSlots;
     if (next == rxQueueTail) {
-        // No room, so leave the packet unacknowledged in the radio until read() makes some
-        rxIrqDisable();
+        NRF_RADIO->EVENTS_CRCOK = 0;
+        NRF_RADIO->EVENTS_CRCERROR = 0;
+        NRF_RADIO->TASKS_START = 1;
+        (void)NRF_RADIO->EVENTS_CRCERROR;
         return;
     }
 
@@ -516,7 +523,7 @@ bool nrf_to_nrf::pollRadio(uint8_t* pipe_num)
                 memcpy(&rxBuffer[1], &outBuffer[CCM_START_SIZE], rxBuffer[0]);
             }
             else {
-                memcpy(&rxBuffer[1], &outBuffer[CCM_START_SIZE], staticPayloadSize - (CCM_MIC_SIZE - CCM_IV_SIZE - CCM_COUNTER_SIZE));
+                memcpy(&rxBuffer[1], &outBuffer[CCM_START_SIZE], staticPayloadSize - (CCM_MIC_SIZE + CCM_IV_SIZE + CCM_COUNTER_SIZE));
             }
         }
 #endif
@@ -556,9 +563,6 @@ void nrf_to_nrf::read(void* buf, uint8_t len)
     if (slot != nullptr) {
         memcpy(buf, &slot[2], min((uint16_t)len, (uint16_t)(rxQueueSlotSize - 2)));
         rxQueueTail = (rxQueueTail + 1) % rxQueueSlots;
-        if (inRxMode) {
-            NRF_RADIO->RX_IRQ_SET = RX_IRQ_MASK; // There is room again if the queue was full
-        }
         return;
     }
     memcpy(buf, &rxBuffer[1], len);
