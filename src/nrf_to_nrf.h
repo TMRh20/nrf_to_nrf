@@ -561,7 +561,7 @@ private:
     uint8_t rxFifoAvailable;
     bool DPL;
     bool ackPayloadsEnabled;
-    bool inRxMode;
+    volatile bool inRxMode;
     uint8_t staticPayloadSize;
     uint8_t ackPID;
     uint8_t ackPipe;
@@ -570,14 +570,14 @@ private:
     uint32_t rxPrefix;
     uint32_t txBase;
     uint32_t txPrefix;
-    bool ackPayloadAvailable;
+    volatile bool ackPayloadAvailable;
     uint8_t ackAvailablePipeNo;
     uint8_t lastPacketCounter;
     uint16_t lastData;
     bool dynamicAckEnabled;
     uint8_t arcCounter;
     uint16_t ackTimeout;
-    bool payloadAvailable;
+    volatile bool payloadAvailable;
     bool restartReturnRx();
     void openReadingPipe(uint8_t child, uint32_t base, uint32_t prefix);
     void openWritingPipe(uint32_t base, uint32_t prefix);
