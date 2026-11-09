@@ -1408,6 +1408,7 @@ nrf_crclength_e nrf_to_nrf::getCRCLength()
 bool nrf_to_nrf::testCarrier(uint8_t RSSI)
 {
 #ifndef ARDUINO_NRF54L15
+    RadioIrqLock lock(rxQueue != nullptr);
     NRF_RADIO->EVENTS_RSSIEND = 0;
     NRF_RADIO->TASKS_RSSISTART = 1;
     if (!waitForEvent(&NRF_RADIO->EVENTS_RSSIEND))
