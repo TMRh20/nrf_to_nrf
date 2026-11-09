@@ -266,6 +266,8 @@ bool nrf_to_nrf::begin()
 uint8_t nrf_to_nrf::sample_ed(void)
 {
     int val;
+    RadioIrqLock lock(rxQueue != nullptr);
+    NRF_RADIO->EVENTS_EDEND = 0;
     NRF_RADIO->TASKS_EDSTART = 1; // Start
     if (!waitForEvent(&NRF_RADIO->EVENTS_EDEND))
         return 0;
@@ -1430,6 +1432,7 @@ bool nrf_to_nrf::testRPD(uint8_t RSSI)
 uint8_t nrf_to_nrf::getRSSI()
 {
 #ifndef ARDUINO_NRF54L15
+    RadioIrqLock lock(rxQueue != nullptr);
     NRF_RADIO->EVENTS_RSSIEND = 0;
     NRF_RADIO->TASKS_RSSISTART = 1;
     if (!waitForEvent(&NRF_RADIO->EVENTS_RSSIEND))
