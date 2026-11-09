@@ -590,6 +590,7 @@ private:
     volatile uint8_t rxQueueTail;
     bool inInterrupt;
     void resizeRxQueue();
+    void setStaticLength(uint8_t size);
 #if defined CCM_ENCRYPTION_ENABLED
     uint8_t inBuffer[MAX_PACKET_SIZE + CCM_MIC_SIZE + CCM_START_SIZE];
     uint8_t scratchPTR[MAX_PACKET_SIZE + CCM_MODE_LENGTH_EXTENDED];
