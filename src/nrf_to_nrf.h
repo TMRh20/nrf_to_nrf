@@ -962,7 +962,7 @@ private:
  *
  * nrf_to_nrf uses the same API as RF24. These docs cover the whole API, and note where nrf_to_nrf behaves differently from RF24
  *
- * <img width="2560" height="960" alt="nrf_to_nrf_banner" src="https://github.com/user-attachments/assets/c248691a-8c60-4ed6-bfa6-0d55177e9f93" />
+ * <img alt="nrf_to_nrf_banner" src="https://github.com/user-attachments/assets/c248691a-8c60-4ed6-bfa6-0d55177e9f93" style="width:100%; max-width:2560px; height:auto;" />
  */
 
 /**
