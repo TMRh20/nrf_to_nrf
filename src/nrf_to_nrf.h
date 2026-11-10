@@ -257,7 +257,19 @@ public:
     bool startWrite(void* buf, uint8_t len, bool multicast, bool doEncryption = true);
 
     /**
-     * Same as NRF24
+     * Load a payload to send back in the ACK for the next packet received on @p pipe
+     *
+     * With the RX interrupt enabled (the default), payloads are queued like the NRF24 TX FIFO.
+     * Up to the enableRxInterrupt() depth can be queued, so one can be loaded for each packet the RX queue holds.
+     * Each packet received takes the oldest payload queued for its pipe and sends it once; a retransmitted
+     * packet gets the same payload again. If none is queued for that pipe, a plain ACK is sent.
+     * Payloads can be at most getPayloadSize() bytes, including encryption overhead.
+     * The queue uses depth * (payload size + 2) bytes of RAM, allocated on the first call.
+     *
+     * In polling mode (disableRxInterrupt()), one payload is stored. It is sent with the ACK for the next
+     * packet on @p pipe, re-sent if that packet is retransmitted, and discarded when the next new packet arrives.
+     *
+     * @return false if the queue is full, the payload is too large, or there isn't enough memory
      */
     bool writeAckPayload(uint8_t pipe, void* buf, uint8_t len);
 
@@ -468,6 +480,11 @@ public:
     uint8_t flush_rx();
 
     /**
+     * Discard any ACK payloads loaded with writeAckPayload()
+     */
+    uint8_t flush_tx();
+
+    /**
      * The IEEE 802.15.4 standard defines a specific time that is alotted for the MAC sublayer to process received data.
      * Usage of this interframe spacing (IFS) comes into play to avoid that two frames are transmitted too close to
      * each other in time.
@@ -588,6 +605,13 @@ private:
     uint8_t rxQueueSlots;
     volatile uint8_t rxQueueHead;
     volatile uint8_t rxQueueTail;
+    uint8_t* ackQueue;
+    uint16_t ackQueueSlotSize;
+    uint8_t ackQueueDepth;
+    volatile uint8_t ackQueueHead;
+    volatile uint8_t ackQueueCount;
+    bool ackPayloadSent;
+    void loadAckPayload(uint8_t pipe);
     bool inInterrupt;
     void resizeRxQueue();
     void setStaticLength(uint8_t size);

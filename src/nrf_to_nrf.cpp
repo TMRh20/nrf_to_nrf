@@ -165,6 +165,11 @@ nrf_to_nrf::nrf_to_nrf()
     rxQueue = nullptr;
     rxQueueHead = 0;
     rxQueueTail = 0;
+    ackQueue = nullptr;
+    ackQueueHead = 0;
+    ackQueueCount = 0;
+    ackBuffer[0] = 0;
+    ackPayloadSent = false;
     inInterrupt = false;
 #ifndef ARDUINO_NRF54L15
     interframeSpacing = 115;
@@ -327,6 +332,52 @@ void nrf_to_nrf::disableRxInterrupt()
     rxQueue = nullptr;
     rxQueueHead = 0;
     rxQueueTail = 0;
+
+    if (ackQueue != nullptr) {
+        // Polling mode re-sends one ACK payload, so keep the newest one
+        if (ackQueueCount) {
+            const uint8_t* slot = &ackQueue[((ackQueueHead + ackQueueCount - 1) % ackQueueDepth) * ackQueueSlotSize];
+            ackPipe = slot[0];
+            memcpy(ackBuffer, &slot[1], slot[1] + 1);
+            ackPayloadSent = false;
+        }
+        free(ackQueue);
+        ackQueue = nullptr;
+        ackQueueHead = 0;
+        ackQueueCount = 0;
+    }
+}
+
+/**********************************************************************************************************/
+
+void nrf_to_nrf::loadAckPayload(uint8_t pipe)
+{
+    // Called for each new packet, not retransmissions: the payload sent with the last ACK is done
+    if (ackPayloadSent) {
+        ackBuffer[0] = 0;
+        ackPayloadSent = false;
+    }
+    if (ackQueue == nullptr) {
+        return; // Polling mode keeps an unsent payload for its pipe
+    }
+    // Move the oldest queued payload for this pipe into ackBuffer, or send a plain ACK
+    ackPipe = pipe;
+    ackBuffer[0] = 0;
+    for (uint8_t i = 0; i < ackQueueCount; i++) {
+        uint8_t* slot = &ackQueue[((ackQueueHead + i) % ackQueueDepth) * ackQueueSlotSize];
+        if (slot[0] != pipe) {
+            continue;
+        }
+        memcpy(ackBuffer, &slot[1], slot[1] + 1);
+        // Close the gap by moving older payloads for other pipes up one slot
+        for (uint8_t j = i; j > 0; j--) {
+            memcpy(&ackQueue[((ackQueueHead + j) % ackQueueDepth) * ackQueueSlotSize],
+                   &ackQueue[((ackQueueHead + j - 1) % ackQueueDepth) * ackQueueSlotSize], ackQueueSlotSize);
+        }
+        ackQueueHead = (ackQueueHead + 1) % ackQueueDepth;
+        ackQueueCount--;
+        return;
+    }
 }
 
 /**********************************************************************************************************/
@@ -467,6 +518,12 @@ bool nrf_to_nrf::pollRadio(uint8_t* pipe_num)
         uint16_t packetData = NRF_RADIO->RXCRC;
         // If ack is enabled on this receiving pipe
         if (acksEnabled(NRF_RADIO->RXMATCH)) {
+            // If the packet has the same ID number and data, it is most likely a duplicate
+            const bool duplicate = NRF_RADIO->CRCCNF != 0 && packetCtr == lastPacketCounter && packetData == lastData;
+            // A retransmission means the last ACK was lost, so it gets the same ACK payload again
+            if (!duplicate) {
+                loadAckPayload(*pipe_num);
+            }
             stopListening(false, false);
             uint32_t txAddress = NRF_RADIO->TXADDRESS;
             NRF_RADIO->TXADDRESS = NRF_RADIO->RXMATCH;
@@ -474,6 +531,7 @@ bool nrf_to_nrf::pollRadio(uint8_t* pipe_num)
             if (ackPayloadsEnabled) {
                 if (*pipe_num == ackPipe) {
                     write(&ackBuffer[1], ackBuffer[0], 1, 0);
+                    ackPayloadSent = ackBuffer[0] > 0;
                 }
                 else {
                     write(0, 0, 1, 0);
@@ -493,12 +551,8 @@ bool nrf_to_nrf::pollRadio(uint8_t* pipe_num)
             NRF_RADIO->TXADDRESS = txAddress;
             startListening(false);
 
-            // If the packet has the same ID number and data, it is most likely a
-            // duplicate
-            if (NRF_RADIO->CRCCNF != 0) { // If CRC enabled, check this data
-                if (packetCtr == lastPacketCounter && packetData == lastData) {
-                    return restartReturnRx();
-                }
+            if (duplicate) {
+                return restartReturnRx();
             }
         }
 
@@ -854,6 +908,35 @@ bool nrf_to_nrf::writeAckPayload(uint8_t pipe, void* buf, uint8_t len)
 {
     RadioIrqLock lock(rxQueue != nullptr);
 
+    uint16_t sendLength = len;
+#if defined CCM_ENCRYPTION_ENABLED
+    if (enableEncryption && len) {
+        sendLength += CCM_IV_SIZE + CCM_COUNTER_SIZE + CCM_MIC_SIZE;
+    }
+#endif
+
+    // With the RX interrupt, ACK payloads are queued and each one is sent once
+    uint8_t* dest = ackBuffer; // Length byte followed by the payload
+    if (rxQueue != nullptr) {
+        if (ackQueue == nullptr) {
+            ackQueueDepth = rxQueueSlots - 1;
+            ackQueueSlotSize = rxQueueSlotSize;
+            ackQueue = (uint8_t*)malloc(ackQueueDepth * ackQueueSlotSize);
+            if (ackQueue == nullptr) {
+                return false;
+            }
+        }
+        if (ackQueueCount >= ackQueueDepth || sendLength > ackQueueSlotSize - 2) {
+            return false;
+        }
+        uint8_t* slot = &ackQueue[((ackQueueHead + ackQueueCount) % ackQueueDepth) * ackQueueSlotSize];
+        slot[0] = pipe;
+        dest = &slot[1];
+    }
+    else if (sendLength > ACTUAL_MAX_PAYLOAD_SIZE) {
+        return false;
+    }
+
 #if defined CCM_ENCRYPTION_ENABLED
     if (enableEncryption) {
         if (len) {
@@ -861,17 +944,17 @@ bool nrf_to_nrf::writeAckPayload(uint8_t pipe, void* buf, uint8_t len)
             if (!generateIV(ccmData.iv)) {
                 return 0;
             }
-            memcpy(&ackBuffer[1], ccmData.iv, CCM_IV_SIZE);
+            memcpy(&dest[1], ccmData.iv, CCM_IV_SIZE);
 
             ccmData.counter = packetCounter;
-            memcpy(&ackBuffer[1 + CCM_IV_SIZE], &ccmData.counter, CCM_COUNTER_SIZE);
+            memcpy(&dest[1 + CCM_IV_SIZE], &ccmData.counter, CCM_COUNTER_SIZE);
 
             if (!encrypt(buf, len)) {
                 return 0;
             }
 
             len += CCM_IV_SIZE + CCM_COUNTER_SIZE + CCM_MIC_SIZE;
-            memcpy(&ackBuffer[1 + CCM_IV_SIZE + CCM_COUNTER_SIZE], &outBuffer[CCM_START_SIZE], len - CCM_IV_SIZE - CCM_COUNTER_SIZE);
+            memcpy(&dest[1 + CCM_IV_SIZE + CCM_COUNTER_SIZE], &outBuffer[CCM_START_SIZE], len - CCM_IV_SIZE - CCM_COUNTER_SIZE);
             packetCounter++;
             if (packetCounter > 200000) {
                 packetCounter = 0;
@@ -880,12 +963,18 @@ bool nrf_to_nrf::writeAckPayload(uint8_t pipe, void* buf, uint8_t len)
     }
     else {
 #endif
-        memcpy(&ackBuffer[1], buf, len);
+        memcpy(&dest[1], buf, len);
 #if defined CCM_ENCRYPTION_ENABLED
     }
 #endif
-    ackBuffer[0] = len;
-    ackPipe = pipe;
+    dest[0] = len;
+    if (dest == ackBuffer) {
+        ackPipe = pipe;
+        ackPayloadSent = false;
+    }
+    else {
+        ackQueueCount++;
+    }
     return true;
 }
 
@@ -1451,6 +1540,18 @@ uint8_t nrf_to_nrf::flush_rx()
     rxQueueTail = rxQueueHead;
     payloadAvailable = false;
     ackPayloadAvailable = false;
+    return 0;
+}
+
+/**********************************************************************************************************/
+
+uint8_t nrf_to_nrf::flush_tx()
+{
+    RadioIrqLock lock(rxQueue != nullptr);
+    ackQueueHead = 0;
+    ackQueueCount = 0;
+    ackBuffer[0] = 0;
+    ackPayloadSent = false;
     return 0;
 }
 
