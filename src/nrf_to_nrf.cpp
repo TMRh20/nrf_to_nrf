@@ -307,6 +307,9 @@ bool nrf_to_nrf::enableRxInterrupt(uint8_t depth)
     if (rxQueue == nullptr) {
         return false;
     }
+    if (ackPayloadsEnabled) {
+        allocateAckQueue();
+    }
 
     rxIrqRadio = this;
     NVIC_SetPriority(RX_IRQ_NUMBER, 7);
@@ -346,6 +349,21 @@ void nrf_to_nrf::disableRxInterrupt()
         ackQueueHead = 0;
         ackQueueCount = 0;
     }
+}
+
+/**********************************************************************************************************/
+
+void nrf_to_nrf::allocateAckQueue()
+{
+    // Call with the RX interrupt disabled or locked
+    if (rxQueue == nullptr || ackQueue != nullptr) {
+        return;
+    }
+    ackQueueDepth = rxQueueSlots - 1;
+    ackQueueSlotSize = rxQueueSlotSize;
+    ackQueueHead = 0;
+    ackQueueCount = 0;
+    ackQueue = (uint8_t*)malloc(ackQueueDepth * ackQueueSlotSize);
 }
 
 /**********************************************************************************************************/
@@ -919,12 +937,7 @@ bool nrf_to_nrf::writeAckPayload(uint8_t pipe, void* buf, uint8_t len)
     uint8_t* dest = ackBuffer; // Length byte followed by the payload
     if (rxQueue != nullptr) {
         if (ackQueue == nullptr) {
-            ackQueueDepth = rxQueueSlots - 1;
-            ackQueueSlotSize = rxQueueSlotSize;
-            ackQueue = (uint8_t*)malloc(ackQueueDepth * ackQueueSlotSize);
-            if (ackQueue == nullptr) {
-                return false;
-            }
+            return false; // ACK payloads aren't enabled, or there wasn't enough memory
         }
         if (ackQueueCount >= ackQueueDepth || sendLength > ackQueueSlotSize - 2) {
             return false;
@@ -980,11 +993,24 @@ bool nrf_to_nrf::writeAckPayload(uint8_t pipe, void* buf, uint8_t len)
 
 /**********************************************************************************************************/
 
-void nrf_to_nrf::enableAckPayload() { ackPayloadsEnabled = true; }
+void nrf_to_nrf::enableAckPayload()
+{
+    RadioIrqLock lock(rxQueue != nullptr);
+    ackPayloadsEnabled = true;
+    allocateAckQueue();
+}
 
 /**********************************************************************************************************/
 
-void nrf_to_nrf::disableAckPayload() { ackPayloadsEnabled = false; }
+void nrf_to_nrf::disableAckPayload()
+{
+    RadioIrqLock lock(rxQueue != nullptr);
+    ackPayloadsEnabled = false;
+    free(ackQueue);
+    ackQueue = nullptr;
+    ackQueueHead = 0;
+    ackQueueCount = 0;
+}
 
 /**********************************************************************************************************/
 
