@@ -194,10 +194,11 @@ public:
      *
      * @note The library defines the radio interrupt handler, so a sketch can't define its own.
      *
-     * This is called automatically on begin(), so if you want to disable it, call disableRxInterrupt() 
+     * This is called automatically on begin(), so if you want to disable it, call disableRxInterrupt()
      * after the radio and/or network/mesh has been configured.
      *
-     * @param depth The number of packets to queue, from 1 to 254. Uses (depth + 1) * (payload size + 2) bytes of RAM.
+     * @param depth The number of packets to queue, from 1 to 254. Uses (depth + 1) * (payload size + 2) bytes of RAM,
+     * plus depth * (payload size + 2) for the ACK payload queue if enableAckPayload() is called.
      * @return false if depth is invalid, there isn't enough memory, or this was already called
      */
     bool enableRxInterrupt(uint8_t depth = 3);
@@ -257,17 +258,31 @@ public:
     bool startWrite(void* buf, uint8_t len, bool multicast, bool doEncryption = true);
 
     /**
-     * Same as NRF24
+     * Load a payload to send back in the ACK for the next packet received on @p pipe
+     *
+     * With the RX interrupt enabled (the default), payloads are queued like the NRF24 TX FIFO.
+     * Up to the enableRxInterrupt() depth can be queued, so one can be loaded for each packet the RX queue holds.
+     * Each packet received takes the oldest payload queued for its pipe and sends it once; a retransmitted
+     * packet gets the same payload again. If none is queued for that pipe, a plain ACK is sent.
+     * Payloads can be at most getPayloadSize() bytes, including encryption overhead.
+     * Call enableAckPayload() first; it allocates the queue.
+     *
+     * In polling mode (disableRxInterrupt()), one payload is stored. It is sent with the ACK for the next
+     * packet on @p pipe, re-sent if that packet is retransmitted, and discarded when the next new packet arrives.
+     *
+     * @return false if the queue is full, the payload is too large, or with the RX interrupt, if ACK payloads
+     * aren't enabled or there wasn't enough memory for the queue
      */
     bool writeAckPayload(uint8_t pipe, void* buf, uint8_t len);
 
     /**
-     * Same as NRF24
+     * Same as NRF24. With the RX interrupt, this also allocates the ACK payload queue used by writeAckPayload():
+     * depth * (payload size + 2) bytes of RAM, where depth is the enableRxInterrupt() depth.
      */
     void enableAckPayload();
 
     /**
-     * Same as NRF24
+     * Same as NRF24. This also frees the ACK payload queue.
      */
     void disableAckPayload();
 
@@ -468,6 +483,11 @@ public:
     uint8_t flush_rx();
 
     /**
+     * Discard any ACK payloads loaded with writeAckPayload()
+     */
+    uint8_t flush_tx();
+
+    /**
      * The IEEE 802.15.4 standard defines a specific time that is alotted for the MAC sublayer to process received data.
      * Usage of this interframe spacing (IFS) comes into play to avoid that two frames are transmitted too close to
      * each other in time.
@@ -588,6 +608,14 @@ private:
     uint8_t rxQueueSlots;
     volatile uint8_t rxQueueHead;
     volatile uint8_t rxQueueTail;
+    uint8_t* ackQueue;
+    uint16_t ackQueueSlotSize;
+    uint8_t ackQueueDepth;
+    volatile uint8_t ackQueueHead;
+    volatile uint8_t ackQueueCount;
+    bool ackPayloadSent;
+    void loadAckPayload(uint8_t pipe);
+    void allocateAckQueue();
     bool inInterrupt;
     void resizeRxQueue();
     void setStaticLength(uint8_t size);
