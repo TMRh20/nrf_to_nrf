@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:nrf_5Fto_5Fnrf" id="r_nrf_5Fto_5Fnrf"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classnrf__to__nrf.html">nrf_to_nrf</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver class for nRF52840 2.4GHz Wireless Transceiver.  <a href="classnrf__to__nrf.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver for the 2.4GHz radio in nRF52x and nRF54x chips, using the RF24 API.  <a href="classnrf__to__nrf.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -483,20 +483,38 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Power Amplifier (PA) levels. The output power depends on the chip:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">level (enum value)  </th><th class="markdownTableHeadCenter">nRF52840, nRF52833, nRF52820, nRF54L15  </th><th class="markdownTableHeadCenter">nRF52832, nRF52811, nRF52810, nRF52805  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><a class="el" href="#a30d719167ee0e6839d6653faa420d8a6abe9ed3ab507dfb52d15766e62542d2d4" title="NRF_PA_MIN">NRF_PA_MIN</a> (0)  </td><td class="markdownTableBodyCenter">-12 dBm  </td><td class="markdownTableBodyCenter">-12 dBm  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><a class="el" href="#a30d719167ee0e6839d6653faa420d8a6abb73fba095816348ffa4f62c7c30a3e2" title="NRF_PA_LOW">NRF_PA_LOW</a> (1)  </td><td class="markdownTableBodyCenter">2 dBm  </td><td class="markdownTableBodyCenter">-4 dBm  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><a class="el" href="#a30d719167ee0e6839d6653faa420d8a6a7c64f49749c2b8058ce45c584116b827" title="NRF_PA_HIGH">NRF_PA_HIGH</a> (2)  </td><td class="markdownTableBodyCenter">6 dBm  </td><td class="markdownTableBodyCenter">0 dBm  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><a class="el" href="#a30d719167ee0e6839d6653faa420d8a6a6f9553b4da62426766cba57ac4f56487" title="NRF_PA_MAX">NRF_PA_MAX</a> (3)  </td><td class="markdownTableBodyCenter">8 dBm  </td><td class="markdownTableBodyCenter">4 dBm  </td></tr>
+</table>
+<dl class="section see"><dt>See also</dt><dd><ul>
+<li><a class="el" href="classnrf__to__nrf.html#a0ec4ad74f4508034bffe8fa2cb25260c">nrf_to_nrf::setPALevel()</a></li>
+<li><a class="el" href="classnrf__to__nrf.html#acbfd7a6baf9f697f6b06485e561dc388">nrf_to_nrf::getPALevel()</a> </li>
+</ul>
+</dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a30d719167ee0e6839d6653faa420d8a6abe9ed3ab507dfb52d15766e62542d2d4" name="a30d719167ee0e6839d6653faa420d8a6abe9ed3ab507dfb52d15766e62542d2d4"></a>NRF_PA_MIN&#160;</td><td class="fielddoc"><p>(0) represents -12dBm </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a30d719167ee0e6839d6653faa420d8a6abb73fba095816348ffa4f62c7c30a3e2" name="a30d719167ee0e6839d6653faa420d8a6abb73fba095816348ffa4f62c7c30a3e2"></a>NRF_PA_LOW&#160;</td><td class="fielddoc"><p>(1) represents 2dBm </p>
+<tr><td class="fieldname"><a id="a30d719167ee0e6839d6653faa420d8a6abb73fba095816348ffa4f62c7c30a3e2" name="a30d719167ee0e6839d6653faa420d8a6abb73fba095816348ffa4f62c7c30a3e2"></a>NRF_PA_LOW&#160;</td><td class="fielddoc"><p>(1) represents 2dBm (-4dBm on nRF52832, nRF52811, nRF52810, nRF52805) </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a30d719167ee0e6839d6653faa420d8a6a7c64f49749c2b8058ce45c584116b827" name="a30d719167ee0e6839d6653faa420d8a6a7c64f49749c2b8058ce45c584116b827"></a>NRF_PA_HIGH&#160;</td><td class="fielddoc"><p>(2) represents 6dBm </p>
+<tr><td class="fieldname"><a id="a30d719167ee0e6839d6653faa420d8a6a7c64f49749c2b8058ce45c584116b827" name="a30d719167ee0e6839d6653faa420d8a6a7c64f49749c2b8058ce45c584116b827"></a>NRF_PA_HIGH&#160;</td><td class="fielddoc"><p>(2) represents 6dBm (0dBm on nRF52832, nRF52811, nRF52810, nRF52805) </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a30d719167ee0e6839d6653faa420d8a6a6f9553b4da62426766cba57ac4f56487" name="a30d719167ee0e6839d6653faa420d8a6a6f9553b4da62426766cba57ac4f56487"></a>NRF_PA_MAX&#160;</td><td class="fielddoc"><p>(3) represents 8dBm </p>
+<tr><td class="fieldname"><a id="a30d719167ee0e6839d6653faa420d8a6a6f9553b4da62426766cba57ac4f56487" name="a30d719167ee0e6839d6653faa420d8a6a6f9553b4da62426766cba57ac4f56487"></a>NRF_PA_MAX&#160;</td><td class="fielddoc"><p>(3) represents 8dBm (4dBm on nRF52832, nRF52811, nRF52810, nRF52805) </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a30d719167ee0e6839d6653faa420d8a6ad9d06fe1cd4a7d8172549c56f32db69f" name="a30d719167ee0e6839d6653faa420d8a6ad9d06fe1cd4a7d8172549c56f32db69f"></a>NRF_PA_ERROR&#160;</td><td class="fielddoc"><p>(4) This should not be used and remains for backward compatibility. </p>
+<tr><td class="fieldname"><a id="a30d719167ee0e6839d6653faa420d8a6ad9d06fe1cd4a7d8172549c56f32db69f" name="a30d719167ee0e6839d6653faa420d8a6ad9d06fe1cd4a7d8172549c56f32db69f"></a>NRF_PA_ERROR&#160;</td><td class="fielddoc"><p>(4) Returned by getPALevel() if the TX power was set to something other than the levels above. </p>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00050">50</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00064">64</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -512,8 +530,7 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>How fast data moves through the air. Units are in bits per second (bps). </p><dl class="section see"><dt>See also</dt><dd><ul>
-<li>RF24::setDataRate()</li>
-<li>RF24::getDataRate() </li>
+<li><a class="el" href="classnrf__to__nrf.html#a5d82b0fb8292e7a51e2f69cd13e48a7b">nrf_to_nrf::setDataRate()</a> </li>
 </ul>
 </dd></dl>
 <table class="fieldtable">
@@ -521,11 +538,11 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a6aec9068aadf4f1eada87cf8afbdf285a5492e0f45be9142ddfd733cef426bd20" name="a6aec9068aadf4f1eada87cf8afbdf285a5492e0f45be9142ddfd733cef426bd20"></a>NRF_2MBPS&#160;</td><td class="fielddoc"><p>(1) represents 2 Mbps </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a6aec9068aadf4f1eada87cf8afbdf285adf64314d3a006c1be7fe60845621bc2e" name="a6aec9068aadf4f1eada87cf8afbdf285adf64314d3a006c1be7fe60845621bc2e"></a>NRF_250KBPS&#160;</td><td class="fielddoc"><p>(2) represents 250 kbps </p>
+<tr><td class="fieldname"><a id="a6aec9068aadf4f1eada87cf8afbdf285adf64314d3a006c1be7fe60845621bc2e" name="a6aec9068aadf4f1eada87cf8afbdf285adf64314d3a006c1be7fe60845621bc2e"></a>NRF_250KBPS&#160;</td><td class="fielddoc"><p>(2) represents 250 kbps. Nordic has deprecated this mode, and it might not work reliably on all devices. </p>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00083">83</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00096">96</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -541,9 +558,9 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>The length of a CRC checksum that is used (if any). Cyclical Redundancy Checking (CRC) is commonly used to ensure data integrity. </p><dl class="section see"><dt>See also</dt><dd><ul>
-<li>RF24::setCRCLength()</li>
-<li>RF24::getCRCLength()</li>
-<li>RF24::disableCRC() </li>
+<li><a class="el" href="classnrf__to__nrf.html#ab5e027f98da933686c5d1baf1ba3ae31">nrf_to_nrf::setCRCLength()</a></li>
+<li><a class="el" href="classnrf__to__nrf.html#af7bcd44a7f8d32db31c40d302364180a">nrf_to_nrf::getCRCLength()</a></li>
+<li><a class="el" href="classnrf__to__nrf.html#a84cfdfd802d1cb6afcbb02fa74132061">nrf_to_nrf::disableCRC()</a> </li>
 </ul>
 </dd></dl>
 <table class="fieldtable">
@@ -557,7 +574,7 @@ Enumerations</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00111">111</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00124">124</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>

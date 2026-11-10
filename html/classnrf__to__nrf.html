@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 </div><!--header-->
 <div class="contents">
 
-<p>Driver class for nRF52840 2.4GHz Wireless Transceiver.  
+<p>Driver for the 2.4GHz radio in nRF52x and nRF54x chips, using the RF24 API.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>&gt;</code></p>
@@ -191,11 +191,11 @@ Encryption</h2></td></tr>
 <tr class="memitem:aeede062c4a125f1bca719f4c2a96e76a" id="r_aeede062c4a125f1bca719f4c2a96e76a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aeede062c4a125f1bca719f4c2a96e76a">setIV</a> (uint8_t IV[<a class="el" href="nrf__to__nrf_8h.html#adf3d9827d3b02ae63b08d846b809e1dc">CCM_IV_SIZE</a>])</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Driver class for nRF52840 2.4GHz Wireless Transceiver. </p>
+<div class="textblock"><p>Driver for the 2.4GHz radio in nRF52x and nRF54x chips, using the RF24 API. </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#_a0">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#_a0">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#_a0">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#_a0">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>, <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#_a0">examples/RF24/scanner/scanner.ino</a>, <a class="el" href="examples_2RF24Ethernet_2mqtt_basic_2mqtt_basic_8ino-example.html#_a0">examples/RF24Ethernet/mqtt_basic/mqtt_basic.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_2RF24Mesh_Example_8ino-example.html#_a0">examples/RF24Mesh/RF24Mesh_Example/RF24Mesh_Example.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#_a0">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_MasterEncryption_2RF24Mesh_Example_MasterEncryption_8ino-example.html#_a0">examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rx_2helloworld_rx_8ino-example.html#_a0">examples/RF24Network/helloworld_rx/helloworld_rx.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#_a0">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_tx_2helloworld_tx_8ino-example.html#_a0">examples/RF24Network/helloworld_tx/helloworld_tx.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#_a0">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00128">128</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00141">141</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6e3601bd9cbe9b176c489af224ea9e5b" name="a6e3601bd9cbe9b176c489af224ea9e5b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6e3601bd9cbe9b176c489af224ea9e5b">&#9670;&#160;</a></span>nrf_to_nrf()</h2>
@@ -211,7 +211,7 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Constructor for <a class="el" href="classnrf__to__nrf.html" title="Driver class for nRF52840 2.4GHz Wireless Transceiver.">nrf_to_nrf</a></p>
+<p>Constructor for <a class="el" href="classnrf__to__nrf.html" title="Driver for the 2.4GHz radio in nRF52x and nRF54x chips, using the RF24 API.">nrf_to_nrf</a></p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="#a6e3601bd9cbe9b176c489af224ea9e5b">nrf_to_nrf</a> radio;</div>
 <div class="ttc" id="aclassnrf__to__nrf_html_a6e3601bd9cbe9b176c489af224ea9e5b"><div class="ttname"><a href="#a6e3601bd9cbe9b176c489af224ea9e5b">nrf_to_nrf::nrf_to_nrf</a></div><div class="ttdeci">nrf_to_nrf()</div><div class="ttdef"><b>Definition</b> <a href="nrf__to__nrf_8cpp_source.html#l00153">nrf_to_nrf.cpp:153</a></div></div>
 </div><!-- fragment --> 
@@ -234,8 +234,17 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Call this before operating the radio </p><div class="fragment"><div class="line">radio.begin();</div>
-</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a1">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a1">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a1">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a1">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>, <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a1">examples/RF24/scanner/scanner.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a1">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_MasterEncryption_2RF24Mesh_Example_MasterEncryption_8ino-example.html#a1">examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rx_2helloworld_rx_8ino-example.html#a1">examples/RF24Network/helloworld_rx/helloworld_rx.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a1">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_tx_2helloworld_tx_8ino-example.html#a1">examples/RF24Network/helloworld_tx/helloworld_tx.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a1">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
+<p>Begin operation of the radio</p>
+<p>Call this in setup(), before calling any other methods. It starts the high and low frequency clocks and configures the radio with these defaults: channel 76 (2476 MHz), 1 Mbps, 16-bit CRC, maximum PA level, 5-byte addresses, 32-byte static payloads, auto-ack on all pipes, and 5 retries with a delay of 5. It also enables the RX interrupt with <a class="el" href="#aed7b1524a6fa46523cfc8b7dbf8d7e14">enableRxInterrupt()</a>. </p><div class="fragment"><div class="line"><span class="keywordflow">if</span> (!radio.begin()) {</div>
+<div class="line">  Serial.println(F(<span class="stringliteral">&quot;radio hardware not responding!&quot;</span>));</div>
+<div class="line">  <span class="keywordflow">while</span> (1) {} <span class="comment">// hold program in infinite loop to prevent subsequent errors</span></div>
+<div class="line">}</div>
+</div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd><ul>
+<li><span class="tt">true</span> if the radio was initialized</li>
+<li><span class="tt">false</span> if a clock failed to start </li>
+</ul>
+</dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a1">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a1">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a1">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a1">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>, <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a1">examples/RF24/scanner/scanner.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a1">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_MasterEncryption_2RF24Mesh_Example_MasterEncryption_8ino-example.html#a1">examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rx_2helloworld_rx_8ino-example.html#a1">examples/RF24Network/helloworld_rx/helloworld_rx.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a1">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_tx_2helloworld_tx_8ino-example.html#a1">examples/RF24Network/helloworld_tx/helloworld_tx.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a1">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00194">194</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
@@ -256,7 +265,13 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 radio.available(); </p>
+<p>Check whether there is a payload available to be read </p><div class="fragment"><div class="line"><span class="keywordflow">if</span> (radio.available()) {</div>
+<div class="line">  radio.read(&amp;data, <span class="keyword">sizeof</span>(data));</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>With the RX interrupt enabled (the default), this checks the RX queue filled by the interrupt. In polling mode (<a class="el" href="#a12c3ef73d3661e72154bf7601004b5f4">disableRxInterrupt()</a>), this checks the radio itself, so call it often: only one received payload is held until it is read.</p>
+<p>After <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a> receives an ACK payload, this returns <span class="tt">true</span> for that payload until it is read.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a3521c78a008cfec0d6c87dcd7b7f8774">available(uint8_t*)</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> if there is a payload available, <span class="tt">false</span> if there is none </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a12">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a10">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a13">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a11">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>.</dd>
 </dl>
 
@@ -278,7 +293,21 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 radio.available(); </p>
+<p>Check whether there is a payload available to be read, and which pipe received it</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">pipe_num</td><td>Which pipe received the payload. For an ACK payload received by <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a>, this is pipe 0. <div class="fragment"><div class="line">uint8_t pipeNum;</div>
+<div class="line"><span class="keywordflow">if</span> (radio.available(&amp;pipeNum)) {</div>
+<div class="line">  radio.read(&amp;data, <span class="keyword">sizeof</span>(data));</div>
+<div class="line">  Serial.print(<span class="stringliteral">&quot;Received data on pipe &quot;</span>);</div>
+<div class="line">  Serial.println(pipeNum);</div>
+<div class="line">}</div>
+</div><!-- fragment --></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a08df99a63e6dc2cbe4a8f014b7300ae4">available()</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> if there is a payload available, <span class="tt">false</span> if there is none </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00443">443</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
@@ -302,7 +331,19 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 radio.read(); </p>
+<p>Read the next available payload</p>
+<p>Call <a class="el" href="#a08df99a63e6dc2cbe4a8f014b7300ae4">available()</a> first. Each call removes one payload, however many bytes are read. This is different from RF24, where a payload stays in the RX FIFO until all of it has been read. </p><div class="fragment"><div class="line"><span class="keywordflow">if</span> (radio.available()) {</div>
+<div class="line">  uint8_t length = radio.getDynamicPayloadSize(); <span class="comment">// or getPayloadSize() for static payloads</span></div>
+<div class="line">  radio.read(&amp;data, length);</div>
+<div class="line">}</div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buf</td><td>Pointer to a buffer where the data should be written </td></tr>
+    <tr><td class="paramname">len</td><td>Number of bytes to copy into <code class="param">buf</code>. Use <a class="el" href="#a543bbc33034094b5be199efdb77c2a7a">getDynamicPayloadSize()</a> to get the payload's length. Bytes past the end of the payload are not meaningful.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>If nothing is available, the last payload received is copied again. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a13">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a12">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a14">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a13">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>.</dd>
 </dl>
 
@@ -338,7 +379,23 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 radio.write(); </p>
+<p>Transmit a payload to the address set with <a class="el" href="#ab41aba27b662740ac908d7a30d7009c2">openWritingPipe()</a></p>
+<p>Call <a class="el" href="#ae9fa4209ae57be1ed77ac9d23eeeedfc">stopListening()</a> first. This blocks until an ACK is received or all retries have been used (see <a class="el" href="#ab1cc57d3ba6684489c33c8dff671947c">setRetries()</a>). If the ACK carries an ACK payload, read it with <a class="el" href="#a08df99a63e6dc2cbe4a8f014b7300ae4">available()</a> and <a class="el" href="#ae9457410ab65e1cf3109e45cc3155010">read()</a> afterwards. </p><div class="fragment"><div class="line">radio.stopListening();</div>
+<div class="line">radio.write(&amp;data, <span class="keyword">sizeof</span>(data));</div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buf</td><td>Pointer to the data to be sent </td></tr>
+    <tr><td class="paramname">len</td><td>Number of bytes to be sent. With static payloads, a full <a class="el" href="#af8cdf0351e55cb9784e96f9385ece778">getPayloadSize()</a> packet is always sent, and the bytes after <code class="param">len</code> are not zeroed. With dynamic payloads, <code class="param">len</code> can be up to the size passed to <a class="el" href="#a7eab024220706b66d73f543ee6a094b0">enableDynamicPayloads()</a>. With encryption, 12 more bytes (IV, counter and MIC) are added, and they must fit too. </td></tr>
+    <tr><td class="paramname">multicast</td><td><span class="tt">true</span> sends the payload once without waiting for an ACK. <a class="el" href="#a698353fdaccbf8ddb6ef509148708913">enableDynamicAck()</a> is not needed. The receiver still sends an ACK if auto-ack is enabled on its pipe. </td></tr>
+    <tr><td class="paramname">doEncryption</td><td><span class="tt">false</span> sends this payload unencrypted when encryption is enabled</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li><span class="tt">true</span> if an ACK was received. Also <span class="tt">true</span>, even if the payload was not received, if <code class="param">multicast</code> is <span class="tt">true</span> or auto-ack is disabled on pipe 0.</li>
+<li><span class="tt">false</span> if no ACK was received after all retries </li>
+</ul>
+</dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a11">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a9">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a12">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a10">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>.</dd>
 </dl>
 
@@ -360,16 +417,26 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Start listening on the pipes opened for reading</p>
+<ol type="1">
+<li>Call <a class="el" href="#a070731ead0431745af9ea6fb06aedbac">openReadingPipe()</a> first.</li>
+<li>Call <a class="el" href="#ae9fa4209ae57be1ed77ac9d23eeeedfc">stopListening()</a> before calling <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a>.</li>
+<li>Call <a class="el" href="#a08df99a63e6dc2cbe4a8f014b7300ae4">available()</a> to check for incoming payloads, and <a class="el" href="#ae9457410ab65e1cf3109e45cc3155010">read()</a> to get them.</li>
+</ol>
+<p>Open reading pipe 1 using address <span class="tt">0xCCCECCCECC</span> </p><div class="fragment"><div class="line">uint8_t address[] = {0xCC, 0xCE, 0xCC, 0xCE, 0xCC};</div>
+<div class="line">radio.openReadingPipe(1, address);</div>
+<div class="line">radio.startListening();</div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd><a class="el" href="#ab41aba27b662740ac908d7a30d7009c2">openWritingPipe()</a> uses pipe 0's address for transmitting, so this restores the address last set for reading pipe 0 by <a class="el" href="#a070731ead0431745af9ea6fb06aedbac">openReadingPipe()</a>.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">resetAddresses</td><td>Used internally to reset addresses </td></tr>
+    <tr><td class="paramname">resetAddresses</td><td>Used internally; leave as the default </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a10">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a8">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a8">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a9">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>, and <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a3">examples/RF24/scanner/scanner.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01017">1017</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01021">1021</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -391,17 +458,21 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Stop listening for incoming payloads, and switch to transmit mode</p>
+<p>Do this before calling <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a>. This restores the TX address set by <a class="el" href="#ab41aba27b662740ac908d7a30d7009c2">openWritingPipe()</a>, and payloads already received can still be read. </p><div class="fragment"><div class="line">radio.stopListening();</div>
+<div class="line">radio.write(&amp;data, <span class="keyword">sizeof</span>(data));</div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>Unlike RF24, ACK payloads loaded with <a class="el" href="#a7b9b9b7116aab9d2723f7a317c1ae766">writeAckPayload()</a> are not discarded. Call <a class="el" href="#a2a6f9db066389c7c267f1f059bf7cf91">flush_tx()</a> to discard them.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">setWritingPipe</td><td>Used internally </td></tr>
-    <tr><td class="paramname">resetAddresses</td><td>Used internally to reset addresses </td></tr>
+    <tr><td class="paramname">setWritingPipe</td><td>Used internally; leave as the default </td></tr>
+    <tr><td class="paramname">resetAddresses</td><td>Used internally; leave as the default </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a8">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a7">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a7">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a8">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>, and <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a4">examples/RF24/scanner/scanner.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01066">1066</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01070">1070</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -428,8 +499,17 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Same as <a class="el" href="#ae9fa4209ae57be1ed77ac9d23eeeedfc">stopListening()</a>, but also sets the TX address, like calling <a class="el" href="#ab41aba27b662740ac908d7a30d7009c2">openWritingPipe()</a> afterwards</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">txAddress</td><td>The new TX address </td></tr>
+    <tr><td class="paramname">setWritingPipe</td><td>Used internally; leave as the default </td></tr>
+    <tr><td class="paramname">resetAddresses</td><td>Used internally; leave as the default </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01119">1119</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01123">1123</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -476,7 +556,8 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Disable interrupts on reception of data. Requires constant polling via <a class="el" href="#a08df99a63e6dc2cbe4a8f014b7300ae4">available()</a>; </p>
+<p>Disable the RX interrupt and free the RX queue and the ACK payload queue</p>
+<p>Payloads still in the RX queue are discarded. <a class="el" href="#a08df99a63e6dc2cbe4a8f014b7300ae4">available()</a> then checks the radio itself, so call it often: only one received payload is held until it is read. The newest ACK payload still queued is kept. </p>
 
 <p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00326">326</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
@@ -520,11 +601,31 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 except the 52840 has 8 pipes </p>
+<p>Open a pipe for reading</p>
+<p>Up to 8 pipes (0-7) can be open for reading at once. Open all the required reading pipes, then call <a class="el" href="#a01f4833ad19dbe8498329eb1076da808">startListening()</a>.</p>
+<dl class="section note"><dt>Note</dt><dd>Pipe 0 stores a full address. Pipes 1-7 share every byte except the first, and each call for one of them sets the shared bytes for all of them. Pass the full address for each pipe, with only the first byte different: <div class="fragment"><div class="line">uint8_t addresses[][6] = {<span class="stringliteral">&quot;Prime&quot;</span>, <span class="stringliteral">&quot;2Node&quot;</span>, <span class="stringliteral">&quot;3Node&quot;</span>, <span class="stringliteral">&quot;4Node&quot;</span>};</div>
+<div class="line">radio.openReadingPipe(0, addresses[0]); <span class="comment">// address used is &quot;Prime&quot;</span></div>
+<div class="line">radio.openReadingPipe(1, addresses[1]); <span class="comment">// address used is &quot;2Node&quot;</span></div>
+<div class="line">radio.openReadingPipe(2, addresses[2]); <span class="comment">// address used is &quot;3Node&quot;</span></div>
+<div class="line">radio.openReadingPipe(3, addresses[3]); <span class="comment">// address used is &quot;4Node&quot;</span></div>
+</div><!-- fragment --></dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="#ab41aba27b662740ac908d7a30d7009c2">openWritingPipe()</a> uses pipe 0's address for transmitting. If pipe 0 is opened for reading, its address is restored by every <a class="el" href="#a01f4833ad19dbe8498329eb1076da808">startListening()</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><ul>
+<li><a class="el" href="#ab41aba27b662740ac908d7a30d7009c2">openWritingPipe()</a></li>
+<li><a class="el" href="#a4f28d2a70f8160e4bf439982f0af6066">setAddressWidth()</a></li>
+</ul>
+</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">child</td><td>Which pipe to open, 0-7 </td></tr>
+    <tr><td class="paramname">address</td><td>The address, using the number of bytes set with <a class="el" href="#a4f28d2a70f8160e4bf439982f0af6066">setAddressWidth()</a> </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a7">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a6">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a6">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a6">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01296">1296</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01300">1300</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -542,11 +643,26 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Open a pipe for writing</p>
+<p>Only one writing pipe can be open at a time. This sets the address that <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a> transmits to. Call <a class="el" href="#ae9fa4209ae57be1ed77ac9d23eeeedfc">stopListening()</a> first. </p><div class="fragment"><div class="line">uint8_t addresses[][6] = {<span class="stringliteral">&quot;1Node&quot;</span>, <span class="stringliteral">&quot;2Node&quot;</span>};</div>
+<div class="line">radio.openWritingPipe(addresses[0]);</div>
+</div><!-- fragment --><dl class="section warning"><dt>Warning</dt><dd>This overwrites the address of reading pipe 0, which receives the ACKs. <a class="el" href="#a01f4833ad19dbe8498329eb1076da808">startListening()</a> restores the reading pipe 0 address set with <a class="el" href="#a070731ead0431745af9ea6fb06aedbac">openReadingPipe()</a>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><ul>
+<li><a class="el" href="#a4f28d2a70f8160e4bf439982f0af6066">setAddressWidth()</a></li>
+<li><a class="el" href="#a01f4833ad19dbe8498329eb1076da808">startListening()</a></li>
+<li><a class="el" href="#ae9fa4209ae57be1ed77ac9d23eeeedfc">stopListening()</a></li>
+</ul>
+</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>The address to transmit to, using the number of bytes set with <a class="el" href="#a4f28d2a70f8160e4bf439982f0af6066">setAddressWidth()</a>. Coordinate it with the receiving nodes (the pipe numbers don't need to match). </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a6">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a5">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a5">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a5">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01335">1335</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01339">1339</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -564,11 +680,12 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Check that the radio responds, the same as <a class="el" href="#a65f5edbd8771ad381c0dd6532c38f16b">isValid()</a></p>
+<p>The radio is part of the chip, so unlike RF24 this doesn't check an SPI connection. </p><dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> if the radio is usable </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_2RF24Mesh_Example_8ino-example.html#a1">examples/RF24Mesh/RF24Mesh_Example/RF24Mesh_Example.ino</a>, and <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a5">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01391">1391</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01395">1395</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -595,9 +712,18 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Not currently fully functional, calls the regular <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a>; </p>
+<p>Same as <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a>, so it blocks until an ACK is received or all retries have been used</p>
+<p>Provided for compatibility with RF24, where <a class="el" href="#ac23bd0686bcfafada06a668ba32bcbd7">writeFast()</a> queues up to 3 payloads in the TX FIFO. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buf</td><td>Pointer to the data to be sent </td></tr>
+    <tr><td class="paramname">len</td><td>Number of bytes to be sent </td></tr>
+    <tr><td class="paramname">multicast</td><td><span class="tt">true</span> sends the payload once without waiting for an ACK </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Same as <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01372">1372</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01376">1376</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -629,9 +755,18 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Writes a payload to the radio without waiting for completion.</p>
-<p>This function will not wait for the radio to finish transmitting or for an ACK</p>
-<p>Call <a class="el" href="#a1b2f567dda77209301cbaea4c5a75862">txStandBy()</a> to take the radio out of TX state or call <a class="el" href="#a01f4833ad19dbe8498329eb1076da808">startListening()</a> to go into RX mode </p>
+<p>Start transmitting a payload without waiting for it to finish</p>
+<p>Unlike <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a>, there are no retries and no ACK is received.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buf</td><td>Pointer to the data to be sent </td></tr>
+    <tr><td class="paramname">len</td><td>Number of bytes to be sent </td></tr>
+    <tr><td class="paramname">multicast</td><td>Not used, since no ACK is waited for either way </td></tr>
+    <tr><td class="paramname">doEncryption</td><td><span class="tt">false</span> sends this payload unencrypted when encryption is enabled </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Always <span class="tt">true</span> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l00840">840</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
@@ -663,6 +798,21 @@ Encryption</h2></td></tr>
 <p>Load a payload to send back in the ACK for the next packet received on <code class="param">pipe</code> </p>
 <p>With the RX interrupt enabled (the default), payloads are queued like the NRF24 TX FIFO. Up to the <a class="el" href="#aed7b1524a6fa46523cfc8b7dbf8d7e14">enableRxInterrupt()</a> depth can be queued, so one can be loaded for each packet the RX queue holds. Each packet received takes the oldest payload queued for its pipe and sends it once; a retransmitted packet gets the same payload again. If none is queued for that pipe, a plain ACK is sent. Payloads can be at most <a class="el" href="#af8cdf0351e55cb9784e96f9385ece778">getPayloadSize()</a> bytes, including encryption overhead. Call <a class="el" href="#ab3eac2c417beef4757739e905973aed4">enableAckPayload()</a> first; it allocates the queue.</p>
 <p>In polling mode (<a class="el" href="#a12c3ef73d3661e72154bf7601004b5f4">disableRxInterrupt()</a>), one payload is stored. It is sent with the ACK for the next packet on <code class="param">pipe</code>, re-sent if that packet is retransmitted, and discarded when the next new packet arrives.</p>
+<p>This can be called before and after <a class="el" href="#a01f4833ad19dbe8498329eb1076da808">startListening()</a>.</p>
+<dl class="section note"><dt>Note</dt><dd>Use dynamic payloads (<a class="el" href="#a7eab024220706b66d73f543ee6a094b0">enableDynamicPayloads()</a>) on both nodes. Unlike RF24, <a class="el" href="#ab3eac2c417beef4757739e905973aed4">enableAckPayload()</a> doesn't enable them.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><ul>
+<li><a class="el" href="#ab3eac2c417beef4757739e905973aed4">enableAckPayload()</a></li>
+<li><a class="el" href="#a2a6f9db066389c7c267f1f059bf7cf91">flush_tx()</a></li>
+</ul>
+</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pipe</td><td>Which pipe (0-7) will get this response </td></tr>
+    <tr><td class="paramname">buf</td><td>Pointer to the data to send </td></tr>
+    <tr><td class="paramname">len</td><td>Length of the data to send</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>false if the queue is full, the payload is too large, or with the RX interrupt, if ACK payloads aren't enabled or there wasn't enough memory for the queue </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a9">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>.</dd>
 </dl>
@@ -685,7 +835,16 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24. With the RX interrupt, this also allocates the ACK payload queue used by <a class="el" href="#a7b9b9b7116aab9d2723f7a317c1ae766">writeAckPayload()</a>: depth * (payload size + 2) bytes of RAM, where depth is the <a class="el" href="#aed7b1524a6fa46523cfc8b7dbf8d7e14">enableRxInterrupt()</a> depth. </p>
+<p>Enable custom payloads in the acknowledgement packets</p>
+<p>ACK payloads are a handy way to return data to senders without changing the radio modes on both nodes. Call this on both the transmitting and receiving nodes.</p>
+<p>With the RX interrupt, this also allocates the ACK payload queue used by <a class="el" href="#a7b9b9b7116aab9d2723f7a317c1ae766">writeAckPayload()</a>: depth * (payload size + 2) bytes of RAM, where depth is the <a class="el" href="#aed7b1524a6fa46523cfc8b7dbf8d7e14">enableRxInterrupt()</a> depth.</p>
+<dl class="section note"><dt>Note</dt><dd>Unlike RF24, this doesn't enable dynamic payloads. Call <a class="el" href="#a7eab024220706b66d73f543ee6a094b0">enableDynamicPayloads()</a> on both nodes too. </dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd>ACK payloads need auto-ack, which <a class="el" href="#a7732e9d1424d384c575377c8385c725d">begin()</a> enables on all pipes.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><ul>
+<li><a class="el" href="#a7b9b9b7116aab9d2723f7a317c1ae766">writeAckPayload()</a></li>
+<li><a class="el" href="#ae738c2a5b6859fb32990452ad3650fed">setAutoAck()</a> </li>
+</ul>
+</dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a5">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>.</dd>
 </dl>
 
@@ -707,9 +866,10 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24. This also frees the ACK payload queue. </p>
+<p>Disable custom payloads in the acknowledgement packets</p>
+<p>This also frees the ACK payload queue, discarding any payloads loaded with <a class="el" href="#a7b9b9b7116aab9d2723f7a317c1ae766">writeAckPayload()</a>. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="#ab3eac2c417beef4757739e905973aed4">enableAckPayload()</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01005">1005</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01009">1009</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -727,7 +887,9 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Provided for compatibility with RF24. It isn't needed: the <code class="param">multicast</code> parameter of <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a> works without it. </p>
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01005">1005</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -745,11 +907,15 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Get the length of the next available payload </p><div class="fragment"><div class="line"><span class="keywordflow">if</span> (radio.available()) {</div>
+<div class="line">  uint8_t length = radio.getDynamicPayloadSize();</div>
+<div class="line">  radio.read(&amp;data, length);</div>
+<div class="line">}</div>
+</div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd>The length of the payload that <a class="el" href="#ae9457410ab65e1cf3109e45cc3155010">read()</a> returns next. With static payloads, this is <a class="el" href="#af8cdf0351e55cb9784e96f9385ece778">getPayloadSize()</a>. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a14">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01127">1127</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01131">1131</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -767,9 +933,9 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Check that the radio responds, by writing and reading back the channel register </p><dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> if the radio is usable </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01139">1139</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01143">1143</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -791,17 +957,18 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24, except we can map the channels lower </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Set the RF channel</p>
+<p>The frequency used is 2400 MHz + <code class="param">channel</code>, or 2360 MHz + <code class="param">channel</code> if <code class="param">map</code> is 1. With <code class="param">map</code> set to 0, channels match the nRF24 channels. The default is channel 76 (2476 MHz). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">channel</td><td>Set 0 to 100 for 2400-2500Mhz if map == 0, 2360-2460Mhz if map == 1 </td></tr>
-    <tr><td class="paramname">map</td><td>1 is low range (2360-2460Mhz), 0 is high range (2400-2500Mhz) </td></tr>
+    <tr><td class="paramname">channel</td><td>Which RF channel to communicate on, 0-100 </td></tr>
+    <tr><td class="paramname">map</td><td>0 for 2400-2500 MHz (default), 1 for 2360-2460 MHz </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a5">examples/RF24/scanner/scanner.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rx_2helloworld_rx_8ino-example.html#a2">examples/RF24Network/helloworld_rx/helloworld_rx.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a5">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_tx_2helloworld_tx_8ino-example.html#a2">examples/RF24Network/helloworld_tx/helloworld_tx.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a5">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01153">1153</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01157">1157</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -819,9 +986,9 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Get the RF channel </p><dl class="section return"><dt>Returns</dt><dd>The channel set with <a class="el" href="#a5403835fd82f4b062ffe7095d934b6fe">setChannel()</a>. The <code class="param">map</code> setting is not included. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01157">1157</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01161">1161</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -839,9 +1006,30 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Supported speeds: NRF_250KBPS NRF_1MBPS NRF_2MBPS - NRF54x ONLY: NRF_4MBPS_OBT4 NRF_4MBPS_OBT6 </p>
+<p>Set the transmission data rate. Both nodes must use the same rate.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">speed</td><td>Specify one of the following values (as defined by <a class="el" href="nrf__to__nrf_8h.html#a6aec9068aadf4f1eada87cf8afbdf285" title="nrf_datarate_e">nrf_datarate_e</a>): <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter"><code class="param">speed</code> (enum value)  </th><th class="markdownTableHeadCenter">description  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><a class="el" href="nrf__to__nrf_8h.html#a6aec9068aadf4f1eada87cf8afbdf285a31712bdb0199355f6cfe32e5467e43da" title="NRF_1MBPS">NRF_1MBPS</a> (0)  </td><td class="markdownTableBodyCenter">for 1 Mbps  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><a class="el" href="nrf__to__nrf_8h.html#a6aec9068aadf4f1eada87cf8afbdf285a5492e0f45be9142ddfd733cef426bd20" title="NRF_2MBPS">NRF_2MBPS</a> (1)  </td><td class="markdownTableBodyCenter">for 2 Mbps  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><a class="el" href="nrf__to__nrf_8h.html#a6aec9068aadf4f1eada87cf8afbdf285adf64314d3a006c1be7fe60845621bc2e" title="NRF_250KBPS">NRF_250KBPS</a> (2)  </td><td class="markdownTableBodyCenter">for 250 kbps. Deprecated by Nordic, might not work reliably  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><span class="tt">NRF_4MBPS_OBT4</span> (3)  </td><td class="markdownTableBodyCenter">for 4 Mbps, nRF54L15 only  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><span class="tt">NRF_4MBPS_OBT6</span> (4)  </td><td class="markdownTableBodyCenter">for 4 Mbps, nRF54L15 only  </td></tr>
+</table>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Always <span class="tt">true</span> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01395">1395</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01399">1399</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -863,12 +1051,30 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 except there is no LNA and the PA levels are as follows:</p>
-<p>(0) represents -12dBm (1) represents 2dBm (2) represents 6dBm (3) represents 8dBm </p>
+<p>Set the Power Amplifier (PA) level</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>One of the values defined by <a class="el" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6" title="nrf_pa_dbm_e">nrf_pa_dbm_e</a>. The output power depends on the chip: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter"><code class="param">level</code> (enum value)  </th><th class="markdownTableHeadCenter">nRF52840, nRF52833, nRF52820, nRF54L15  </th><th class="markdownTableHeadCenter">nRF52832, nRF52811, nRF52810, nRF52805  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><a class="el" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6abe9ed3ab507dfb52d15766e62542d2d4" title="NRF_PA_MIN">NRF_PA_MIN</a> (0)  </td><td class="markdownTableBodyCenter">-12 dBm  </td><td class="markdownTableBodyCenter">-12 dBm  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><a class="el" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6abb73fba095816348ffa4f62c7c30a3e2" title="NRF_PA_LOW">NRF_PA_LOW</a> (1)  </td><td class="markdownTableBodyCenter">2 dBm  </td><td class="markdownTableBodyCenter">-4 dBm  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><a class="el" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6a7c64f49749c2b8058ce45c584116b827" title="NRF_PA_HIGH">NRF_PA_HIGH</a> (2)  </td><td class="markdownTableBodyCenter">6 dBm  </td><td class="markdownTableBodyCenter">0 dBm  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><a class="el" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6a6f9553b4da62426766cba57ac4f56487" title="NRF_PA_MAX">NRF_PA_MAX</a> (3)  </td><td class="markdownTableBodyCenter">8 dBm  </td><td class="markdownTableBodyCenter">4 dBm  </td></tr>
+</table>
+</td></tr>
+    <tr><td class="paramname">lnaEnable</td><td>Not used, since there is no LNA </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a2">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a2">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a2">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a2">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_2RF24Mesh_Example_8ino-example.html#a2">examples/RF24Mesh/RF24Mesh_Example/RF24Mesh_Example.ino</a>, and <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a6">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01426">1426</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01430">1430</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -886,9 +1092,9 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Get the Power Amplifier (PA) level </p><dl class="section return"><dt>Returns</dt><dd>One of the values defined by <a class="el" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6" title="nrf_pa_dbm_e">nrf_pa_dbm_e</a>, or <a class="el" href="nrf__to__nrf_8h.html#a30d719167ee0e6839d6653faa420d8a6ad9d06fe1cd4a7d8172549c56f32db69f" title="NRF_PA_ERROR">NRF_PA_ERROR</a> if the TX power was set to something else. See the table in <a class="el" href="#a0ec4ad74f4508034bffe8fa2cb25260c">setPALevel()</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01448">1448</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01452">1452</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -906,11 +1112,24 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Enable or disable the auto-acknowledgement feature for all pipes</p>
+<p>This is enabled by default. Auto-acknowledgement responds to every received payload with an ACK packet. To attach an ACK payload to an ACK packet, use <a class="el" href="#a7b9b9b7116aab9d2723f7a317c1ae766">writeAckPayload()</a>.</p>
+<p>If this is disabled on a transmitting node, <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a> always reports that the payload was received, even if it wasn't. This setting needs to match on the transmitting and receiving nodes.</p>
+<dl class="section see"><dt>See also</dt><dd><ul>
+<li><a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a></li>
+<li><a class="el" href="#a7b9b9b7116aab9d2723f7a317c1ae766">writeAckPayload()</a></li>
+</ul>
+</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enable</td><td>Whether to enable (<span class="tt">true</span>) or disable (<span class="tt">false</span>) auto-acknowledgement for all pipes </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a7">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>, and <a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a2">examples/RF24/scanner/scanner.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01161">1161</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01165">1165</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -932,9 +1151,18 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section note"><dt>Note</dt><dd>If using static payloads, acks cannot be enabled &amp; disabled on separate pipes, either ACKs are enabled or not </dd></dl>
+<p>Enable or disable the auto-acknowledgement feature for a specific pipe</p>
+<p>This is enabled by default for all pipes. Pipe 0 is used for transmitting: if this is disabled on pipe 0 of a transmitting node, <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a> always reports that the payload was received, even if it wasn't. Enable this on any pipe listening to a transmitter that uses auto-ack.</p>
+<dl class="section note"><dt>Note</dt><dd>With static payloads, the packet format depends on whether auto-ack is enabled on pipe 0, so auto-ack can't be enabled on some pipes and disabled on others: either ACKs are enabled or not.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pipe</td><td>Which pipe to configure, 0-7 </td></tr>
+    <tr><td class="paramname">enable</td><td>Whether to enable (<span class="tt">true</span>) or disable (<span class="tt">false</span>) auto-acknowledgement for <code class="param">pipe</code> </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01174">1174</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01178">1178</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -952,6 +1180,8 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Enable dynamically-sized payloads on all pipes</p>
+<p>Payloads are sent at the length passed to <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a>, instead of always using the static payload size.</p>
 <p>Once this function has been called, users need to call disableDynamicPayloads if they want to call it again, else it has no effect. </p><dl class="section note"><dt>Note</dt><dd>If using with RF24Network or RF24Mesh, users can call <span class="tt">radio.begin()</span> then <span class="tt">radio.enableDynamicPayloads(254);</span> before initializing the network. This will enable maximum payload sizes and fragmentation/reassembly won't engage until this length is exceeded. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -962,7 +1192,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2AcknowledgementPayloads_2AcknowledgementPayloads_8ino-example.html#a4">examples/RF24/AcknowledgementPayloads/AcknowledgementPayloads.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a4">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_MasterEncryption_2RF24Mesh_Example_MasterEncryption_8ino-example.html#a4">examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a4">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a4">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01185">1185</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01189">1189</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -980,9 +1210,10 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Disable dynamically-sized payloads on all pipes, and use the static payload size</p>
+<p>Unlike RF24, this doesn't disable ACK payloads. </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01208">1208</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01212">1212</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1000,11 +1231,18 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>NRF52840 will handle up to 255 byte payloads with CRC &amp; DPL disabled, 254 with 16-bit CRC and DPL NRF54L15 will do the same </p>
+<p>Set the static payload size</p>
+<p>Every packet is sent at this size, however many bytes were passed to <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a>. If this is never called, the size is 32 bytes. This also disables dynamic payloads.</p>
+<p>NRF52840 will handle up to 255 byte payloads with CRC &amp; DPL disabled, 254 with 16-bit CRC and DPL NRF54L15 will do the same </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>The number of bytes in each payload </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a4">examples/RF24/GettingStarted/GettingStarted.ino</a>, <a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a4">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a4">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01224">1224</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01228">1228</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1022,11 +1260,11 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Get the payload size </p><dl class="section return"><dt>Returns</dt><dd>The static payload size, or with dynamic payloads, the maximum size passed to <a class="el" href="#a7eab024220706b66d73f543ee6a094b0">enableDynamicPayloads()</a> </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStarted_2GettingStarted_8ino-example.html#a11">examples/RF24/GettingStarted/GettingStarted.ino</a>, and <a class="el" href="examples_2RF24_2GettingStartedMicros_2GettingStartedMicros_8ino-example.html#a12">examples/RF24/GettingStartedMicros/GettingStartedMicros.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01260">1260</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01264">1264</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1045,7 +1283,7 @@ Encryption</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Set the CRCLength (in bits)</p>
-<p>CRC cannot be disabled if auto-ack is enabled </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Both nodes must use the same setting. Disabling CRC is allowed with auto-ack enabled, but then corrupt packets aren't detected, and retransmitted packets aren't recognized as duplicates. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">length</td><td>Specify one of the values (as defined by <a class="el" href="nrf__to__nrf_8h.html#a4bcc66714d8fe8c081ff18c621f1b855" title="nrf_crclength_e">nrf_crclength_e</a>) <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -1064,7 +1302,7 @@ Encryption</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01479">1479</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01483">1483</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1082,9 +1320,9 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Get the CRCLength (in bits) </p><dl class="section return"><dt>Returns</dt><dd>One of the values defined by <a class="el" href="nrf__to__nrf_8h.html#a4bcc66714d8fe8c081ff18c621f1b855" title="nrf_crclength_e">nrf_crclength_e</a>. See the table in <a class="el" href="#ab5e027f98da933686c5d1baf1ba3ae31">setCRCLength()</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01505">1505</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01513">1513</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1102,7 +1340,9 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Disable CRC validation, the same as setCRCLength(NRF_CRC_DISABLED) </p>
+
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01509">1509</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1124,9 +1364,16 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Set the number of retries and the delay between them when transmitting with <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a></p>
+<p>After each attempt, <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a> waits for an ACK for a time that depends on the data rate and payload type, then waits for the delay before retrying. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">retryVar</td><td>How long to wait between retries, in multiples of about 258 us. The default is 5. </td></tr>
+    <tr><td class="paramname">attempts</td><td>How many retries before giving up, so <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a> makes up to <code class="param">attempts</code> + 1 attempts. The default is 5. Use 0 to disable retries. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01267">1267</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01271">1271</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1148,9 +1395,18 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Open a pipe for reading, using a 40-bit address</p>
+<p>Kept for compatibility with older code. See <a class="el" href="#a070731ead0431745af9ea6fb06aedbac">openReadingPipe(uint8_t, const uint8_t*)</a>, which this works like. Pipes 1-7 share every byte except the least significant one, e.g. </p><div class="fragment"><div class="line">radio.openReadingPipe(1, 0xF0F0F0F0AA);</div>
+<div class="line">radio.openReadingPipe(2, 0xF0F0F0F0BB);</div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">child</td><td>Which pipe to open, 0-7 </td></tr>
+    <tr><td class="paramname">address</td><td>The 40-bit address of the pipe to open </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01276">1276</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01280">1280</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1168,9 +1424,16 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Open a pipe for writing, using a 40-bit address</p>
+<p>Kept for compatibility with older code. See <a class="el" href="#ab41aba27b662740ac908d7a30d7009c2">openWritingPipe(const uint8_t*)</a>, which this works like. </p><div class="fragment"><div class="line">radio.openWritingPipe(0xF0F0F0F0F0);</div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>The 40-bit address of the pipe to open </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01286">1286</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01290">1290</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1188,9 +1451,15 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Set the address width from 3 to 5 bytes (24, 32 or 40 bit)</p>
+<p>Both nodes must use the same width. The default is 5 bytes. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a_width</td><td>The address width (in bytes) to use; this can be 3, 4 or 5 </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01642">1642</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01650">1650</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1208,11 +1477,11 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Print a block of debugging information about the radio configuration to Serial </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24Ethernet_2mqtt_basic_2mqtt_basic_8ino-example.html#a1">examples/RF24Ethernet/mqtt_basic/mqtt_basic.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01650">1650</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01658">1658</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1234,7 +1503,7 @@ Encryption</h2></td></tr>
 <p>Enables the Radio &amp; HF Clock</p>
 <p>If encryption is enabled, also enables RNG &amp; CCM peripherals </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01586">1586</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01594">1594</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1256,7 +1525,7 @@ Encryption</h2></td></tr>
 <p>Disables the Radio &amp; HF Clock</p>
 <p>If encryption is enabled, also disables RNG &amp; CCM peripherals </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01619">1619</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01627">1627</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1274,10 +1543,10 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Takes the radio out of TX state.</p>
-<p>Can be called after any type of write to put the radio into a disabled state </p>
+<p>Get the result of the last write</p>
+<p>Provided for compatibility with RF24. <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a> and <a class="el" href="#ac23bd0686bcfafada06a668ba32bcbd7">writeFast()</a> already wait until the transmission is done, so this doesn't wait or change the radio state. </p><dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> if the last <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a> or <a class="el" href="#ac23bd0686bcfafada06a668ba32bcbd7">writeFast()</a> succeeded, or after <a class="el" href="#a9dfe4f382f4b33d8db2fd0733df4dec3">startWrite()</a>; <span class="tt">false</span> if it failed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01358">1358</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01362">1362</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1299,10 +1568,16 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Takes the radio out of TX state</p>
-<p>Can be called after any type of write to put the radio into a disabled state </p>
+<p>Same as <a class="el" href="#a1b2f567dda77209301cbaea4c5a75862">txStandBy()</a> </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeout</td><td>Not used </td></tr>
+    <tr><td class="paramname">startTx</td><td>Not used </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Same as <a class="el" href="#a1b2f567dda77209301cbaea4c5a75862">txStandBy()</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01365">1365</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01369">1369</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1320,16 +1595,21 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Similar to NRF24, but can be modified to look for signals better than specified RSSI value </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Test whether a signal stronger than -<code class="param">RSSI</code> dBm is present on the channel</p>
+<p>Useful to check for interference on the current channel and for channel hopping strategies. Unlike RF24, this samples the signal strength now, instead of reporting the last listening period. The radio must be listening. Always returns <span class="tt">false</span> on the nRF54L15. </p><div class="fragment"><div class="line"><span class="keywordflow">if</span> (radio.testCarrier()) {</div>
+<div class="line">  Serial.println(<span class="stringliteral">&quot;Signal stronger than -65dBm&quot;</span>);</div>
+<div class="line">}</div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">RSSI</td><td>The function will return 1 if a value better than -65dBm by default </td></tr>
+    <tr><td class="paramname">RSSI</td><td>The threshold in -dBm. The default of 65 means -65 dBm. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> if the signal is stronger than -<code class="param">RSSI</code> dBm </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2scanner_2scanner_8ino-example.html#a6">examples/RF24/scanner/scanner.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01523">1523</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01531">1531</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1347,14 +1627,15 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Similar to NRF24, but can be modified to look for signals better than specified RSSI value </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Same as <a class="el" href="#a1b0d3c0393baaec2963e325dca708935">testCarrier()</a> </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">RSSI</td><td>The function will return 1 if a value better than -65dBm by default </td></tr>
+    <tr><td class="paramname">RSSI</td><td>The threshold in -dBm. The default of 65 means -65 dBm, close to the nRF24L01+ RPD threshold of -64 dBm. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> if the signal is stronger than -<code class="param">RSSI</code> dBm </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01541">1541</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01549">1549</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1372,9 +1653,10 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>A new function specific to the NRF52x devices, not available on NRF24 </p><dl class="section return"><dt>Returns</dt><dd>The function will return the RSSI, which is measured continuously and the value filtered using a single-pole IIR filter. This is a negative value: received signal strength = -A dBm </dd></dl>
+<p>A new function specific to the NRF52x devices, not available on NRF24</p>
+<p>The radio must be listening. Always returns 0 on the nRF54L15. </p><dl class="section return"><dt>Returns</dt><dd>The function will return the RSSI, which is measured continuously and the value filtered using a single-pole IIR filter. This is a negative value: received signal strength = -A dBm </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01548">1548</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01556">1556</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1392,9 +1674,10 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Same as NRF24 </p>
+<p>Get the number of retries used by the last <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a></p>
+<p>Allows roughly estimating signal quality. </p><dl class="section return"><dt>Returns</dt><dd>From 0 (acknowledged on the first attempt) to the <code class="param">attempts</code> value passed to <a class="el" href="#ab1cc57d3ba6684489c33c8dff671947c">setRetries()</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01472">1472</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01476">1476</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1412,9 +1695,9 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Does nothing, added for backward compatibility </p>
+<p>Discard all received payloads that haven't been read, including an ACK payload received by <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a> </p><dl class="section return"><dt>Returns</dt><dd>Always 0. RF24 returns the status register, which the nRF52 radio doesn't have. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01564">1564</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01572">1572</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1432,9 +1715,10 @@ Encryption</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Discard any ACK payloads loaded with <a class="el" href="#a7b9b9b7116aab9d2723f7a317c1ae766">writeAckPayload()</a> </p>
+<p>Discard any ACK payloads loaded with <a class="el" href="#a7b9b9b7116aab9d2723f7a317c1ae766">writeAckPayload()</a></p>
+<p>Unlike RF24, <a class="el" href="#ae9fa4209ae57be1ed77ac9d23eeeedfc">stopListening()</a> doesn't call this, and there are no regular payloads to discard, since <a class="el" href="#a4b72553f78465e14ba15c13a392fa7e3">write()</a> sends its payload immediately. </p><dl class="section return"><dt>Returns</dt><dd>Always 0 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01574">1574</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01582">1582</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1479,7 +1763,7 @@ Encryption</h2></td></tr>
 <p>Function to encrypt data</p>
 <p>Called automatically when a write is performed </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01801">1801</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01809">1809</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1504,7 +1788,7 @@ Encryption</h2></td></tr>
 <p>Function to decrypt data</p>
 <p>Called automatically when incoming data is received </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01833">1833</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01841">1841</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1526,7 +1810,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a9">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a2">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_MasterEncryption_2RF24Mesh_Example_MasterEncryption_8ino-example.html#a2">examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a2">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a2">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01872">1872</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01880">1880</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1548,7 +1832,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a10">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01892">1892</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01900">1900</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1568,7 +1852,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Set IV for encryption. This is only used for manual encryption, a random IV is generated using the on-board RNG for encryption during normal operation. </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01900">1900</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8cpp_source.html#l01908">1908</a> of file <a class="el" href="nrf__to__nrf_8cpp_source.html">nrf_to_nrf.cpp</a>.</p>
 
 </div>
 </div>
@@ -1586,7 +1870,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Data buffer for radio data The radio can handle packets up to 255 bytes if CRC &amp; DPL is disabled 254 bytes if using 16-bit CRC &amp; DPL is disabled </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00243">243</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00408">408</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1603,7 +1887,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>Not implemented due to SOC </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00440">440</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00732">732</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1622,7 +1906,7 @@ Encryption</h2></td></tr>
 <p>This is the time period in uS the radio will wait between the last bit of the previous transmission, and the first bit of the next transmission.</p>
 <p>This is configured for compatibility with nRF24L01 radios. Can be set lower if communicating between nRF52x devices. </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00500">500</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00816">816</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1639,7 +1923,7 @@ Encryption</h2></td></tr>
 </div><div class="memdoc">
 <p>The data buffer where encrypted data is placed. See the datasheet p115 for the CCM data structure </p>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00537">537</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00857">857</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
@@ -1661,7 +1945,7 @@ Encryption</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="examples_2RF24_2GettingStartedEncryption_2GettingStartedEncryption_8ino-example.html#a11">examples/RF24/GettingStartedEncryption/GettingStartedEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_ExampleEncryption_2RF24Mesh_ExampleEncryption_8ino-example.html#a3">examples/RF24Mesh/RF24Mesh_ExampleEncryption/RF24Mesh_ExampleEncryption.ino</a>, <a class="el" href="examples_2RF24Mesh_2RF24Mesh_Example_MasterEncryption_2RF24Mesh_Example_MasterEncryption_8ino-example.html#a3">examples/RF24Mesh/RF24Mesh_Example_MasterEncryption/RF24Mesh_Example_MasterEncryption.ino</a>, <a class="el" href="examples_2RF24Network_2helloworld_rxEncryption_2helloworld_rxEncryption_8ino-example.html#a3">examples/RF24Network/helloworld_rxEncryption/helloworld_rxEncryption.ino</a>, and <a class="el" href="examples_2RF24Network_2helloworld_txEncryption_2helloworld_txEncryption_8ino-example.html#a3">examples/RF24Network/helloworld_txEncryption/helloworld_txEncryption.ino</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00570">570</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="nrf__to__nrf_8h_source.html#l00890">890</a> of file <a class="el" href="nrf__to__nrf_8h_source.html">nrf_to_nrf.h</a>.</p>
 
 </div>
 </div>
