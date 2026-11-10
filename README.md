@@ -1,7 +1,7 @@
 [![Build examples](https://github.com/TMRh20/nrf_to_nrf/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/TMRh20/nrf_to_nrf/actions/workflows/build.yml)
 [![Publish to PlatformIO](https://github.com/TMRh20/nrf_to_nrf/actions/workflows/PubToPIO.yml/badge.svg)](https://github.com/TMRh20/nrf_to_nrf/actions/workflows/PubToPIO.yml)
 
- * <img alt="nrf_to_nrf_banner" src="https://github.com/user-attachments/assets/c248691a-8c60-4ed6-bfa6-0d55177e9f93" style="width:100%; max-width:2560px; height:auto;" />
+<img alt="nrf_to_nrf_banner" src="https://github.com/user-attachments/assets/c248691a-8c60-4ed6-bfa6-0d55177e9f93" style="width:100%; max-width:2560px; height:auto;" />
 
 # nrf_to_nrf
 
