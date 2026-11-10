@@ -1449,6 +1449,8 @@ uint8_t nrf_to_nrf::getRSSI()
 uint8_t nrf_to_nrf::flush_rx()
 {
     rxQueueTail = rxQueueHead;
+    payloadAvailable = false;
+    ackPayloadAvailable = false;
     return 0;
 }
 
