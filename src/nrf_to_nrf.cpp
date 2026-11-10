@@ -1002,6 +1002,10 @@ void nrf_to_nrf::enableAckPayload()
 
 /**********************************************************************************************************/
 
+void nrf_to_nrf::enableDynamicAck() { dynamicAckEnabled = true; }
+
+/**********************************************************************************************************/
+
 void nrf_to_nrf::disableAckPayload()
 {
     RadioIrqLock lock(rxQueue != nullptr);
@@ -1499,6 +1503,10 @@ void nrf_to_nrf::setCRCLength(nrf_crclength_e length)
         NRF_RADIO->CRCPOLY = 0x00UL;
     }
 }
+
+/**********************************************************************************************************/
+
+void nrf_to_nrf::disableCRC() { setCRCLength(NRF_CRC_DISABLED); }
 
 /**********************************************************************************************************/
 
